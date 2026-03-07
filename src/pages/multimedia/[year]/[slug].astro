@@ -1,527 +1,4 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import {
-  years,
-  multimediaData,
-  categoryColors,
-  categoryLabels,
-  getAllEntries,
-} from '../../data/multimediaData';
-
-const totalEntries = Object.values(multimediaData).reduce((s, e) => s + e.length, 0);
-const totalFilms   = Object.values(multimediaData).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
-const recentEntries = getAllEntries().slice(0, 5);
-const maxYear = Math.max(...years);
-
-const tabs = [
-  { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: '200+' },
-  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: '14'   },
-  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: '3'    },
-  { key: 'inne',          label: 'Inne publikacje',          icon: '📄', count: '4+'   },
-];
-
-const naszDziennikArticles = [
-  { title: 'Chrześcijaństwo a kultura klasyczna',      date: '15 marca 2024',      excerpt: 'Analiza relacji między dziedzictwem antycznym a myślą chrześcijańską w kontekście współczesnego kryzysu kultury.' },
-  { title: 'Powrót do źródeł: Ateny i Jerozolima',    date: '2 lutego 2024',      excerpt: 'Dlaczego współczesna Europa potrzebuje powrotu do korzeni swojej tożsamości cywilizacyjnej.' },
-  { title: 'Sokrates i Chrystus — dwa świadectwa',    date: '18 listopada 2023',  excerpt: 'Porównanie sokratejskiego poszukiwania prawdy z chrześcijańskim świadectwem o Prawdzie wcielonej.' },
-  { title: 'Tradycja jako żywa pamięć',               date: '5 września 2023',    excerpt: 'Tradycja nie jest martwym balastem przeszłości, lecz żywą pamięcią, która kształtuje tożsamość.' },
-  { title: 'Filozofia chrześcijańska w dobie kryzysu',date: '12 czerwca 2023',    excerpt: 'Rola filozofii tomistycznej w odpowiedzi na wyzwania współczesności.' },
-  { title: 'Platon i dusza nieśmiertelna',            date: '8 marca 2023',       excerpt: 'Platońska nauka o nieśmiertelności duszy jako przygotowanie ewangeliczne w kulturze greckiej.' },
-  { title: 'Rzym — miasto prawa i ładu',              date: '14 stycznia 2023',   excerpt: 'Rzymski geniusz prawa naturalnego jako fundament cywilizacji zachodniej.' },
-  { title: 'Heraklit i Logos — u źródeł słowa',      date: '11 listopada 2022',  excerpt: 'Heraklitejski Logos a chrystologiczne pojęcie Słowa — od filozofii do teologii.' },
-  { title: 'Cnota jako fundament kultury',            date: '3 września 2022',    excerpt: 'Arystotelesowska arete w kontekście chrześcijańskiego ideału świętości.' },
-  { title: 'Piękno jako droga do Boga',              date: '22 maja 2022',       excerpt: 'Platońska kalokagathia a chrześcijańska teologia piękna w liturgii i sztuce.' },
-  { title: 'Europa a jej chrześcijańskie korzenie',  date: '7 marca 2022',       excerpt: 'Tożsamość Europy i spór o jej fundament cywilizacyjny — refleksja filozoficzna.' },
-  { title: 'Jan Paweł II a dziedzictwo greckie',     date: '2 października 2021',excerpt: 'Jak Karol Wojtyła rozumiał rolę filozofii antycznej w kształtowaniu chrześcijańskiego humanizmu.' },
-  { title: 'Scholastyka i powrót do Arystotelesa',   date: '15 maja 2021',       excerpt: 'Recepcja arystotelizmu w myśli średniowiecznej — od al-Farabi do Akwinaty.' },
-  { title: 'Słowo i milczenie — dwa oblicza logos',  date: '8 marca 2021',       excerpt: 'Filozofia języka a teologia słowa — od Heraklita do Jana Ewangelisty.' },
-];
-
-const niedzielaArticles = [
-  { title: 'Roztocze — nowe Ateny kultury',   date: '7 kwietnia 2024',   excerpt: 'Reportaż z projektu Ateny Roztocza — jak w sercu Polski odradza się duch kultury klasycznej.' },
-  { title: 'Kultura jako modlitwa',           date: '12 listopada 2023', excerpt: 'Prawdziwa kultura jest formą adoracji — rozważanie o pięknie jako drodze do Boga.' },
-  { title: 'Spotkanie z Bogiem przez piękno', date: '3 września 2022',   excerpt: 'Estetyka chrześcijańska w tradycji platońskiej — kalokagathia w służbie Ewangelii.' },
-];
-
-const radioMaryjaItems = [
-  { title: 'Dziedzictwo starożytne a chrześcijaństwo', date: 'Marzec 2025',     duration: '35 min', desc: 'Rozmowa o recepcji filozofii greckiej w teologii chrześcijańskiej.' },
-  { title: 'Ewangelia a filozofia grecka',             date: 'Październik 2024', duration: '28 min', desc: 'Jak Ojcowie Kościoła korzystali z narzędzi filozofii helleńskiej.' },
-  { title: 'Ateny Roztocza — 18 lat działalności',    date: 'Czerwiec 2024',    duration: '42 min', desc: 'Podsumowanie dorobku projektu i plany na przyszłość.' },
-  { title: 'Tomizm dziś — czy jest aktualny?',        date: 'Styczeń 2023',     duration: '31 min', desc: 'Aktualność myśli Tomasza z Akwinu dla współczesnej teologii i filozofii.' },
-];
-
-// Pre-obliczone dane kart lat (bez template literals w szablonie)
-const yearCards = years.map((year) => {
-  const entries    = multimediaData[year] ?? [];
-  const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
-  const multiPart  = entries.filter((e) => e.parts.length > 1).length;
-  const cats       = [...new Set(entries.map((e) => e.category))];
-  const isLatest   = year === maxYear;
-  return {
-    year,
-    href: '/multimedia/' + year,
-    entries,
-    totalParts,
-    multiPart,
-    cats,
-    isLatest,
-    bgStyle:     isLatest ? 'linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04))' : '#EDE0C4',
-    borderColor: isLatest ? 'rgba(201,168,76,0.4)' : 'rgba(26,18,9,0.1)',
-    countLabel:  entries.length === 1 ? 'wystąpienie' : entries.length < 5 ? 'wystąpienia' : 'wystąpień',
-  };
-});
-
-// Pre-obliczone dane ostatnich wpisów
-const recentDisplay = recentEntries.map((entry) => ({
-  href:     '/multimedia/' + entry.year + '/' + entry.slug,
-  year:     entry.year,
-  title:    entry.title,
-  dateInfo: entry.parts.length > 1 ? entry.parts.length + ' filmy' : (entry.parts[0]?.duration ?? ''),
-  date:     entry.date,
-}));
-
-// Pre-obliczone dane odznak kategorii dla kart lat
-const yearCardCatBadges = yearCards.map((card) =>
-  card.cats.map((cat) => ({
-    label: categoryLabels[cat],
-    bg:    categoryColors[cat],
-  }))
-);
----
-
-<Layout
-  title="Multimedia i Publikacje"
-  description="22 lata archiwum audiowizualnego, artykuły prasowe i inne publikacje projektu Ateny Roztocza."
->
-<div class="page-transition">
-
-  <!-- ── HERO ────────────────────────────────────────────── -->
-  <div class="page-hero" style="position:relative;">
-    <svg viewBox="0 0 600 200" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.04; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
-      {[10,30,50,70,90].map((x) => (
-        <line x1={x + '%'} y1="0" x2={x + '%'} y2="100%" stroke="#C9A84C" stroke-width="1" />
-      ))}
-    </svg>
-    <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
-      <p class="section-label" style="color:rgba(201,168,76,0.62); margin-bottom:clamp(0.75rem,2vw,1.25rem);">22 lata archiwum · 2006–2026</p>
-      <h1 class="section-title gold-shimmer" style="font-size:clamp(2rem,8vw,5rem); margin-bottom:clamp(1rem,2.5vw,1.5rem);">
-        Multimedia &amp; Publikacje
-      </h1>
-      <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,3vw,1.3rem); color:rgba(232,201,122,0.68); max-width:600px; margin:0 auto; line-height:1.8;">
-        Ponad dwie dekady seminariów, wykładów i rozmów — dostępnych w archiwum audio-wizualnym
-      </p>
-      <div style="display:flex; gap:clamp(1.5rem,5vw,3rem); justify-content:center; margin-top:clamp(1.75rem,4vw,2.5rem); flex-wrap:wrap;">
-        {[
-          [String(totalEntries), 'wystąpień'],
-          [String(totalFilms),   'filmów łącznie'],
-          [String(years.length), 'lata archiwum'],
-          ['5',                  'języki'],
-        ].map(([n, l]) => (
-          <div style="text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,5vw,2.5rem); font-weight:300; color:#E8C97A; line-height:1;">{n}</div>
-            <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.8rem); letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-top:0.3rem;">{l}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- ── TABS ─────────────────────────────────────────────── -->
-  <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.18); position:sticky; top:68px; z-index:100;">
-    <div class="tab-bar" style="max-width:1200px; margin:0 auto; padding:0 clamp(1rem,3vw,1.5rem);">
-      {tabs.map((tab) => (
-        <button
-          class="tab-btn mm-tab-btn"
-          data-tab={tab.key}
-          style="display:flex; align-items:center; gap:0.4rem;"
-        >
-          <span>{tab.icon}</span>
-          <span class="tab-label">{tab.label}</span>
-          <span class="mm-tab-count">{tab.count}</span>
-        </button>
-      ))}
-    </div>
-  </div>
-
-  <!-- ── PANEL: AUDIOWIZUALNE ─────────────────────────────── -->
-  <div id="mm-panel-audiowizualne" class="mm-panel" style="background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:1280px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-
-      <!-- Ostatnio dodane -->
-      <div style="margin-bottom:clamp(2rem,5vw,3.5rem);">
-        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.5rem;">Ostatnio dodane</h2>
-        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent); margin-bottom:clamp(1rem,2.5vw,1.5rem);"></div>
-        <div style="display:flex; flex-direction:column;">
-          {recentDisplay.map((entry) => (
-            <a href={entry.href} style="text-decoration:none;" class="mm-recent-link">
-              <div style="display:flex; align-items:center; gap:clamp(0.75rem,2vw,1.25rem); padding:clamp(0.75rem,2vw,1rem) clamp(0.5rem,1.5vw,0.75rem); border-bottom:1px solid rgba(26,18,9,0.07); transition:background 0.2s,padding-left 0.2s; cursor:pointer;">
-                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.4rem); font-weight:300; color:#C9A84C; min-width:3.5rem; line-height:1;">{entry.year}</div>
-                <div style="flex:1; min-width:0;">
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.95rem,2.5vw,1.15rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.15rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{entry.title}</div>
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:rgba(26,18,9,0.38); letter-spacing:0.1em;">{entry.date} · {entry.dateInfo}</div>
-                </div>
-                <svg width="16" height="16" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"><path d="M3 8h10M9 5l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <!-- Archiwum według roku -->
-      <div style="margin-bottom:clamp(1.25rem,3vw,2rem);">
-        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem;">Archiwum według roku</h2>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.45); margin-bottom:0.75rem;">
-          Kliknij rok, aby zobaczyć chronologiczną listę wszystkich wystąpień
-        </p>
-        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent);"></div>
-      </div>
-
-      <!-- Siatka kart lat -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr)); gap:clamp(0.75rem,2vw,1.25rem);">
-        {yearCards.map((card, ci) => (
-          <a href={card.href} style="text-decoration:none; display:block;">
-            <article
-              class="card-hover"
-              style={'background:' + card.bgStyle + '; border:1px solid ' + card.borderColor + '; padding:clamp(1.1rem,2.5vw,1.5rem); cursor:pointer; position:relative; overflow:hidden;'}
-            >
-              <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.5rem; letter-spacing:-0.01em;">
-                {card.year}
-              </div>
-              <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,2vw,0.9rem); color:rgba(26,18,9,0.55); margin-bottom:0.6rem; line-height:1.5;">
-                {card.entries.length} {card.countLabel}
-                {card.totalParts > card.entries.length && (
-                  <span style="color:rgba(26,18,9,0.35);"> · {card.totalParts} filmów</span>
-                )}
-              </div>
-              <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:0.75rem;">
-                {yearCardCatBadges[ci].map((badge) => (
-                  <span style={'display:inline-block; padding:1px 6px; background:' + badge.bg + '; color:#fff; font-family:Crimson Pro,serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.12em; text-transform:uppercase; opacity:0.75;'}>
-                    {badge.label}
-                  </span>
-                ))}
-              </div>
-              <div style="border-top:1px solid rgba(26,18,9,0.08); padding-top:0.65rem;">
-                <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:#C9A84C; letter-spacing:0.1em; text-transform:uppercase;">Zobacz listę →</span>
-              </div>
-              <div style="position:absolute; bottom:1rem; right:1rem; opacity:0.35;">
-                <svg width="18" height="18" fill="none" stroke="#C9A84C" stroke-width="1.5">
-                  <path d="M3 9h12M11 5l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </article>
-          </a>
-        ))}
-      </div>
-
-      <!-- Info box -->
-      <div style="margin-top:clamp(2rem,5vw,3.5rem); padding:clamp(1rem,2.5vw,1.5rem); background:rgba(26,18,9,0.05); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:flex-start; gap:0.75rem;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3" stroke-linecap="round"/></svg>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.48); margin:0; flex:1; line-height:1.7;">
-          Każdy rok otwiera <strong style="font-style:normal;">chronologiczną listę wystąpień</strong> z tytułami, datami i opisami.
-          Z listy rocznej możesz przejść do pełnej strony każdego wystąpienia — z opisem i filmami YouTube ładowanymi wyłącznie na żądanie.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PANEL: NASZ DZIENNIK ────────────────────────────── -->
-  <div id="mm-panel-nasz-dziennik" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
-          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📰</span>
-          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Naszym Dzienniku</h2>
-        </div>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.5rem;">
-          {naszDziennikArticles.length} publikacji ks. prof. Tadeusza Guza i współpracowników projektu
-        </p>
-        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
-      </div>
-      {naszDziennikArticles.map((art) => (
-        <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
-          <div>
-            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.date} · Nasz Dziennik</p>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.title}</h3>
-            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.excerpt}</p>
-          </div>
-          <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </article>
-      ))}
-    </div>
-  </div>
-
-  <!-- ── PANEL: NIEDZIELA ─────────────────────────────────── -->
-  <div id="mm-panel-niedziela" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
-          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📖</span>
-          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Niedzieli</h2>
-        </div>
-        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
-      </div>
-      {niedzielaArticles.map((art) => (
-        <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
-          <div>
-            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.date} · Niedziela</p>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.title}</h3>
-            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.excerpt}</p>
-          </div>
-          <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </article>
-      ))}
-    </div>
-  </div>
-
-  <!-- ── PANEL: INNE ───────────────────────────────────────── -->
-  <div id="mm-panel-inne" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:960px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
-        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
-          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📄</span>
-          <h2 class="section-title" style="color:#1A1209; margin:0;">Inne publikacje</h2>
-        </div>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
-          Wypowiedzi z Radia Maryja, wywiady prasowe i inne formy obecności medialnej projektu
-        </p>
-        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
-        {radioMaryjaItems.map((item) => (
-          <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; position:relative;">
-            <div style="margin-bottom:clamp(0.75rem,2vw,1rem); color:#C9A84C;">
-              <svg width="30" height="22" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4 12a12 12 0 0 1 24 0" stroke-linecap="round" opacity="0.35"/>
-                <path d="M8 12a8 8 0 0 1 16 0" stroke-linecap="round" opacity="0.6"/>
-                <path d="M12 12a4 4 0 0 1 8 0" stroke-linecap="round"/>
-                <circle cx="16" cy="12" r="1.5" fill="currentColor"/>
-              </svg>
-            </div>
-            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.45rem;">{item.date} · {item.duration}</p>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:clamp(0.5rem,1.5vw,0.75rem);">{item.title}</h3>
-            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 clamp(0.85rem,2vw,1.25rem);">{item.desc}</p>
-            <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C;">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
-              <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">Odsłuchaj</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
-</div>
-</Layout>
-
-<style>
-  .mm-article-row:hover { padding-left: 0.75rem !important; }
-  .mm-recent-link:hover > div { background: rgba(201,168,76,0.06) !important; padding-left: clamp(1rem,2.5vw,1.25rem) !important; }
-
-  .mm-tab-btn { color: rgba(245,237,216,0.42); border-bottom-color: transparent; }
-  .mm-tab-btn.active { color: #E8C97A; border-bottom-color: #C9A84C; }
-  .mm-tab-count { font-family: 'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(201,168,76,0.3); margin-left:0.1rem; }
-  .mm-tab-btn.active .mm-tab-count { color: rgba(201,168,76,0.7); }
-
-  @media (max-width: 480px) { .tab-label { display: none; } }
-</style>
-
-<script>
-  var tabBtns = document.querySelectorAll('.mm-tab-btn');
-  var panels  = document.querySelectorAll('.mm-panel');
-
-  function activateTab(key) {
-    tabBtns.forEach(function(btn) {
-      if (btn.getAttribute('data-tab') === key) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-    panels.forEach(function(panel) {
-      panel.style.display = panel.id === ('mm-panel-' + key) ? 'block' : 'none';
-    });
-  }
-
-  var params   = new URLSearchParams(window.location.search);
-  var tabParam = params.get('tab');
-  var validTabs = ['audiowizualne', 'nasz-dziennik', 'niedziela', 'inne'];
-  activateTab(validTabs.indexOf(tabParam) !== -1 ? tabParam : 'audiowizualne');
-
-  tabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var key = btn.getAttribute('data-tab') || 'audiowizualne';
-      activateTab(key);
-      var url = new URL(window.location.href);
-      url.searchParams.set('tab', key);
-      history.replaceState(null, '', url.toString());
-    });
-  });
-</script>
-
-src/pages/multimedia/[year]/index.astro
-astro---
-import Layout from '../../../layouts/Layout.astro';
-import {
-  years,
-  getEntriesByYear,
-  categoryLabels,
-  categoryColors,
-} from '../../../data/multimediaData';
-
-export function getStaticPaths() {
-  return years.map((rok) => ({ params: { year: String(rok) } }));
-}
-
-const { year } = Astro.params;
-const rok = parseInt(year);
-const materialy = getEntriesByYear(rok);
-
-const rokIdx     = years.indexOf(rok);
-const rokNowszy  = rokIdx > 0               ? years[rokIdx - 1] : null;
-const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
-
-const totalFilms  = materialy.reduce((s, e) => s + e.parts.length, 0);
-const countSuffix = materialy.length === 1 ? 'wystąpienie' : materialy.length < 5 ? 'wystąpienia' : 'wystąpień';
-
-// Pre-oblicz wszystkie dynamiczne wartości — żadnych template literals w szablonie
-const entriesDisplay = materialy.map((entry, i) => {
-  const catColor  = categoryColors[entry.category];
-  const catLabel  = categoryLabels[entry.category];
-  const datePlace = entry.date + (entry.place ? ' · ' + entry.place : '');
-  const firstDesc = entry.description.trim().split('\n')[0].trim();
-  const num       = i < 9 ? '0' + (i + 1) : String(i + 1);
-  const href      = '/multimedia/' + rok + '/' + entry.slug;
-  const catStyle  = 'font-family:Crimson Pro,serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:' + catColor + '; border:1px solid ' + catColor + '55; padding:2px 7px;';
-  return { entry, num, href, catLabel, catStyle, datePlace, firstDesc };
-});
-
-const prevHref = rokStarszy ? '/multimedia/' + rokStarszy : null;
-const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : null;
----
-
-<Layout
-  title={'Materiały ' + rok + ' — Ateny Roztocza'}
-  description={'Archiwum audiowizualne projektu Ateny Roztocza z roku ' + rok + '. ' + materialy.length + ' wystąpień.'}
->
-  <div class="page-transition">
-
-    <!-- Hero -->
-    <div class="page-hero" style="position:relative;">
-      <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
-        <nav style="font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.12em; color:rgba(201,168,76,0.5); margin-bottom:1.5rem;">
-          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">Multimedia</a>
-          <span style="margin:0 0.6rem; color:rgba(201,168,76,0.3);">›</span>
-          <span style="color:rgba(201,168,76,0.9);">{rok}</span>
-        </nav>
-        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1rem;">
-          Archiwum audiowizualne
-        </p>
-        <h1 class="section-title gold-shimmer" style="font-size:clamp(3rem,10vw,6rem); margin-bottom:0.75rem; line-height:1;">
-          {rok}
-        </h1>
-        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.2rem); color:rgba(232,201,122,0.65);">
-          {materialy.length} {countSuffix} · {totalFilms} filmów
-        </p>
-      </div>
-    </div>
-
-    <!-- Lista -->
-    <div style="background:#F5EDD8; min-height:60vh; padding:clamp(2.5rem,5vw,4rem) clamp(1rem,4vw,2rem);">
-      <div style="max-width:1000px; margin:0 auto;">
-
-        {materialy.length === 0 ? (
-          <div style="text-align:center; padding:5rem 0;">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(26,18,9,0.3);">Brak materiałów dla roku {rok}.</p>
-            <a href="/multimedia" style="display:inline-block; margin-top:1.5rem; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:#C9A84C; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4);">
-              ← Powrót do archiwum
-            </a>
-          </div>
-        ) : (
-          <div style="display:flex; flex-direction:column;">
-            {entriesDisplay.map(({ entry, num, href, catLabel, catStyle, datePlace, firstDesc }) => (
-              <a href={href} style="text-decoration:none;" class="entry-row-link">
-                <div class="entry-row" style="display:grid; grid-template-columns:3rem 1fr auto; gap:clamp(1rem,3vw,2rem); padding:clamp(1.25rem,3vw,2rem) 0; border-bottom:1px solid rgba(26,18,9,0.09); align-items:start; transition:padding-left 0.25s ease;">
-                  <!-- Numer -->
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,3.5vw,1.8rem); font-weight:300; color:rgba(201,168,76,0.3); line-height:1; padding-top:0.15rem; text-align:right;">
-                    {num}
-                  </div>
-                  <!-- Treść -->
-                  <div>
-                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.4rem;">
-                      <span style={catStyle}>{catLabel}</span>
-                      {entry.parts.length > 1 && (
-                        <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.12em; text-transform:uppercase; color:rgba(201,168,76,0.7); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:2px 7px;">
-                          {entry.parts.length} części
-                        </span>
-                      )}
-                      <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,1.8vw,0.85rem); color:rgba(26,18,9,0.38); font-style:italic;">
-                        {datePlace}
-                      </span>
-                    </div>
-                    <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,3vw,1.5rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.35rem;">
-                      {entry.title}
-                    </h2>
-                    <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(26,18,9,0.45); font-style:italic; margin:0; line-height:1.5;">
-                      {firstDesc}
-                    </p>
-                  </div>
-                  <!-- Strzałka -->
-                  <div style="padding-top:0.5rem; flex-shrink:0;">
-                    <svg width="18" height="18" fill="none" stroke="rgba(201,168,76,0.45)" stroke-width="1.5">
-                      <path d="M3 9h12M11 5l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
-
-        <!-- Nawigacja rok ←/→ -->
-        <nav style="display:flex; justify-content:space-between; align-items:center; margin-top:clamp(2.5rem,5vw,4rem); padding-top:clamp(1.5rem,3vw,2rem); border-top:1px solid rgba(201,168,76,0.2); flex-wrap:wrap; gap:1rem;">
-          {prevHref ? (
-            <a href={prevHref} class="year-nav-btn">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 7l5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ← {rokStarszy}
-            </a>
-          ) : <span />}
-
-          <a href="/multimedia" class="year-nav-all">Wszystkie lata</a>
-
-          {nextHref ? (
-            <a href={nextHref} class="year-nav-btn">
-              {rokNowszy} →
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3l5 4-5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          ) : <span />}
-        </nav>
-
-      </div>
-    </div>
-
-  </div>
-</Layout>
-
-<style>
-  .bc-link:hover    { color: #C9A84C !important; }
-  .year-nav-all {
-    font-family: 'Crimson Pro', serif; font-size: 0.8rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: rgba(26,18,9,0.45); text-decoration: none;
-    border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 1px; transition: color 0.2s;
-  }
-  .year-nav-all:hover { color: #C9A84C; }
-  .year-nav-btn {
-    font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: rgba(26,18,9,0.55); text-decoration: none;
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    border: 1px solid rgba(201,168,76,0.25); padding: 0.55rem 1.1rem; transition: all 0.25s;
-  }
-  .year-nav-btn:hover { color: #C9A84C; border-color: #C9A84C; background: rgba(201,168,76,0.05); }
-  .entry-row-link:hover .entry-row { padding-left: 0.75rem !important; }
-</style>
-
-src/pages/multimedia/[year]/[slug].astro
-astro---
 import Layout from '../../../layouts/Layout.astro';
 import {
   years,
@@ -545,13 +22,15 @@ const rok      = parseInt(year);
 const entry    = getEntry(rok, slug);
 const listRoku = getEntriesByYear(rok);
 const idx      = listRoku.findIndex((e) => e.slug === slug);
-const poprzedni = idx < listRoku.length - 1 ? listRoku[idx + 1] : null;
-const nastepny  = idx > 0                   ? listRoku[idx - 1] : null;
 
-// Pre-oblicz wszystkie wartości dynamiczne
-const catColor    = entry ? categoryColors[entry.category] : '#C9A84C';
-const catLabel    = entry ? categoryLabels[entry.category] : '';
-const catMetaStyle = 'font-family:Crimson Pro,serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; background:rgba(201,168,76,0.12); color:' + catColor + '; padding:0.25rem 0.75rem; border:1px solid ' + catColor + '55;';
+const hasPrev    = idx < listRoku.length - 1;
+const hasNext    = idx > 0;
+const poprzedni  = hasPrev ? listRoku[idx + 1] : null;
+const nastepny   = hasNext ? listRoku[idx - 1] : null;
+
+const catColor     = entry ? categoryColors[entry.category] : '#C9A84C';
+const catLabel     = entry ? categoryLabels[entry.category] : '';
+const catMetaStyle = 'font-family:Crimson Pro,serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;background:rgba(201,168,76,0.12);color:' + catColor + ';padding:0.25rem 0.75rem;border:1px solid ' + catColor + '55;';
 
 const descParas = entry
   ? entry.description.trim().split('\n').filter((p) => p.trim().length > 0).map((p) => p.trim())
@@ -563,15 +42,16 @@ const sidebarLinks = listRoku
   .map((e) => ({
     href:     '/multimedia/' + rok + '/' + e.slug,
     catLabel: categoryLabels[e.category],
-    catColor: categoryColors[e.category] + '88',
+    catColor: categoryColors[e.category] + '99',
     title:    e.title,
   }));
 
-const prevHref  = poprzedni ? '/multimedia/' + rok + '/' + poprzedni.slug : null;
-const nextHref  = nastepny  ? '/multimedia/' + rok + '/' + nastepny.slug  : null;
 const yearHref  = '/multimedia/' + rok;
+const prevHref  = poprzedni ? '/multimedia/' + rok + '/' + poprzedni.slug : '';
+const nextHref  = nastepny  ? '/multimedia/' + rok + '/' + nastepny.slug  : '';
 
 const parts = entry?.parts ?? [];
+const hasEntry = !!entry;
 ---
 
 <Layout
@@ -579,109 +59,104 @@ const parts = entry?.parts ?? [];
   description={entry ? entry.title + ' · ' + rok + ' · Ateny Roztocza' : ''}
 >
 
-{!entry ? (
-  <div style="background:#F5EDD8; min-height:60vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:5rem 2rem;">
+{!hasEntry && (
+  <div style="background:#F5EDD8;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;">
     <div>
-      <p style="font-family:'Cormorant Garamond',serif; font-size:2rem; color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
-      <a href={yearHref} style="color:#C9A84C; margin-top:1rem; display:inline-block; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4);">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
+      <a href={yearHref} style="color:#C9A84C;margin-top:1rem;display:inline-block;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
         ← Wróć do {rok}
       </a>
     </div>
   </div>
-) : (
+)}
+
+{hasEntry && entry && (
   <div class="page-transition">
 
-    <!-- ── HERO ────────────────────────────────────────────── -->
-    <section style="background:#1A1209; color:#F5EDD8; padding:clamp(4rem,10vw,7rem) clamp(1rem,4vw,2rem) clamp(2rem,5vw,3rem);">
-      <div style="max-width:1100px; margin:0 auto;">
-
-        <!-- Breadcrumb -->
-        <nav style="font-family:'Crimson Pro',serif; font-size:0.82rem; letter-spacing:0.1em; margin-bottom:1.75rem;">
-          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">Multimedia</a>
-          <span style="margin:0 0.6rem; color:rgba(201,168,76,0.25);">›</span>
-          <a href={yearHref} class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">{rok}</a>
-          <span style="margin:0 0.6rem; color:rgba(201,168,76,0.25);">›</span>
+    <!-- HERO -->
+    <section style="background:#1A1209;color:#F5EDD8;padding:clamp(4rem,10vw,7rem) clamp(1rem,4vw,2rem) clamp(2rem,5vw,3rem);">
+      <div style="max-width:1100px;margin:0 auto;">
+        <nav style="font-family:'Crimson Pro',serif;font-size:0.82rem;letter-spacing:0.1em;margin-bottom:1.75rem;">
+          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6);text-decoration:none;">Multimedia</a>
+          <span style="margin:0 0.6rem;color:rgba(201,168,76,0.25);">›</span>
+          <a href={yearHref} class="bc-link" style="color:rgba(201,168,76,0.6);text-decoration:none;">{rok}</a>
+          <span style="margin:0 0.6rem;color:rgba(201,168,76,0.25);">›</span>
           <span style="color:rgba(201,168,76,0.85);">{entry.title}</span>
         </nav>
-
-        <!-- Meta -->
-        <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem;">
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem;">
           <span style={catMetaStyle}>{catLabel}</span>
-          <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">{entry.date}</span>
+          <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">{entry.date}</span>
           {entry.place && (
-            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">📍 {entry.place}</span>
+            <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">📍 {entry.place}</span>
           )}
           {parts.length > 1 && (
-            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">▶ {parts.length} części</span>
+            <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">▶ {parts.length} części</span>
           )}
         </div>
-
-        <!-- Tytuł -->
-        <h1 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,4vw,3.5rem); font-weight:400; line-height:1.2; color:#F5EDD8; margin-bottom:1.25rem;">
+        <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.75rem,4vw,3.5rem);font-weight:400;line-height:1.2;color:#F5EDD8;margin-bottom:1.25rem;">
           {entry.title}
         </h1>
-
-        <!-- Tagi -->
         {entry.tags && entry.tags.length > 0 && (
-          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
             {entry.tags.map((t) => (
-              <span style="font-size:0.8rem; color:rgba(201,168,76,0.6); background:rgba(201,168,76,0.08); padding:0.2rem 0.65rem; border-radius:2px;">#{t}</span>
+              <span style="font-size:0.8rem;color:rgba(201,168,76,0.6);background:rgba(201,168,76,0.08);padding:0.2rem 0.65rem;border-radius:2px;">#{t}</span>
             ))}
           </div>
         )}
       </div>
     </section>
 
-    <!-- ── TREŚĆ ──────────────────────────────────────────── -->
-    <section style="background:#0D0A05; padding:clamp(3rem,6vw,5rem) clamp(1rem,4vw,2rem);">
-      <div class="entry-layout" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; gap:3rem; align-items:start;">
+    <!-- TREŚĆ -->
+    <section style="background:#0D0A05;padding:clamp(3rem,6vw,5rem) clamp(1rem,4vw,2rem);">
+      <div class="entry-layout" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start;">
 
-        <!-- Główna kolumna -->
         <div>
-          <!-- Opis -->
-          <div style="margin-bottom:2.5rem; padding-left:1.5rem; border-left:3px solid #C9A84C;">
+          <div style="margin-bottom:2.5rem;padding-left:1.5rem;border-left:3px solid #C9A84C;">
             {descParas.map((para) => (
-              <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:1.05rem; color:rgba(245,237,216,0.8); line-height:1.8; margin-bottom:0.75rem;">{para}</p>
+              <p style="font-family:'IM Fell English',serif;font-style:italic;font-size:1.05rem;color:rgba(245,237,216,0.8);line-height:1.8;margin-bottom:0.75rem;">{para}</p>
             ))}
           </div>
 
           {parts.length > 1 && (
-            <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#C9A84C; margin-bottom:1.75rem; font-weight:400;">Materiał wideo</h2>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#C9A84C;margin-bottom:1.75rem;font-weight:400;">Materiał wideo</h2>
           )}
 
           {parts.map((part, i) => {
-            const partNum = i < 9 ? '0' + (i + 1) : String(i + 1);
-            const isFirst = i === 0;
+            const partNum  = i < 9 ? '0' + (i + 1) : String(i + 1);
+            const isFirst  = i === 0;
+            const isMulti  = parts.length > 1;
+            const thumbSrc = 'https://img.youtube.com/vi/' + part.id + '/maxresdefault.jpg';
+            const errSrc   = 'https://img.youtube.com/vi/' + part.id + '/mqdefault.jpg';
+            const altText  = isMulti ? entry.title + ' — ' + part.label : entry.title;
             return (
               <div style="margin-bottom:3rem;">
-                {parts.length > 1 && (
-                  <div style="display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(201,168,76,0.15);">
-                    <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:rgba(201,168,76,0.2); line-height:1;">{partNum}</span>
+                {isMulti && (
+                  <div style="display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(201,168,76,0.15);">
+                    <span style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:rgba(201,168,76,0.2);line-height:1;">{partNum}</span>
                     <div>
-                      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#F5EDD8; margin-bottom:0.2rem;">{part.label}</h3>
-                      <span style="font-size:0.8rem; color:rgba(245,237,216,0.4);">⏱ {part.duration}</span>
+                      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#F5EDD8;margin-bottom:0.2rem;">{part.label}</h3>
+                      <span style="font-size:0.8rem;color:rgba(245,237,216,0.4);">⏱ {part.duration}</span>
                     </div>
                   </div>
                 )}
                 {part.description && (
-                  <p style="font-size:0.9rem; color:rgba(245,237,216,0.6); margin-bottom:1rem; font-style:italic; font-family:'Crimson Pro',serif;">{part.description}</p>
+                  <p style="font-size:0.9rem;color:rgba(245,237,216,0.6);margin-bottom:1rem;font-style:italic;font-family:'Crimson Pro',serif;">{part.description}</p>
                 )}
-                <!-- YouTube lazy -->
-                <div class="yt-wrap" data-yt-id={part.id} style="position:relative; aspect-ratio:16/9; background:#000; cursor:pointer; overflow:hidden; border-radius:2px;">
+                <div class="yt-wrap" data-yt-id={part.id} style="position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden;border-radius:2px;">
                   <img
-                    src={'https://img.youtube.com/vi/' + part.id + '/maxresdefault.jpg'}
-                    alt={parts.length > 1 ? entry.title + ' — ' + part.label : entry.title}
+                    src={thumbSrc}
+                    alt={altText}
                     loading={isFirst ? 'eager' : 'lazy'}
                     class="yt-thumb"
-                    style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s, filter 0.3s;"
-                    onerror={'this.src=\'https://img.youtube.com/vi/' + part.id + '/mqdefault.jpg\''}
+                    style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s,filter 0.3s;"
+                    onerror={'this.src=\'' + errSrc + '\''}
                   />
-                  <div class="yt-play" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:50px; background:rgba(255,0,0,0.92); border-radius:14px; display:flex; align-items:center; justify-content:center; pointer-events:none; transition:transform 0.2s, background 0.2s;">
+                  <div class="yt-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:50px;background:rgba(255,0,0,0.92);border-radius:14px;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform 0.2s,background 0.2s;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
                   </div>
-                  <div style="position:absolute; bottom:0; left:0; right:0; padding:1rem; background:linear-gradient(transparent,rgba(0,0,0,0.7)); display:flex; justify-content:space-between; align-items:flex-end; pointer-events:none;">
-                    <span style="font-size:0.8rem; color:rgba(255,255,255,0.8); font-family:'Crimson Pro',serif;">▶ Kliknij aby odtworzyć</span>
-                    <span style="font-size:0.8rem; color:rgba(255,255,255,0.7); font-family:'Courier Prime',monospace;">{part.duration}</span>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;">
+                    <span style="font-size:0.8rem;color:rgba(255,255,255,0.8);font-family:'Crimson Pro',serif;">▶ Kliknij aby odtworzyć</span>
+                    <span style="font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
                   </div>
                 </div>
               </div>
@@ -690,22 +165,22 @@ const parts = entry?.parts ?? [];
         </div>
 
         <!-- Sidebar -->
-        <aside style="position:sticky; top:90px;">
-          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.15); padding:1.5rem;">
-            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#C9A84C; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(201,168,76,0.15);">
+        <aside style="position:sticky;top:90px;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.15);padding:1.5rem;">
+            <h4 style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#C9A84C;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(201,168,76,0.15);">
               Inne z {rok}
             </h4>
-            <ul style="list-style:none; padding:0; margin:0;">
+            <ul style="list-style:none;padding:0;margin:0;">
               {sidebarLinks.map((link) => (
                 <li style="margin-bottom:0.4rem;">
-                  <a href={link.href} class="sidebar-link" style="display:flex; flex-direction:column; gap:0.1rem; text-decoration:none; padding:0.5rem; border-radius:2px; transition:background 0.2s;">
-                    <span style={'font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:' + link.catColor + ';'}>{link.catLabel}</span>
-                    <span style="font-family:'Cormorant Garamond',serif; font-size:0.95rem; color:#F5EDD8; line-height:1.3;">{link.title}</span>
+                  <a href={link.href} class="sidebar-link" style="display:flex;flex-direction:column;gap:0.1rem;text-decoration:none;padding:0.5rem;border-radius:2px;transition:background 0.2s;">
+                    <span style={'font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:' + link.catColor + ';'}>{link.catLabel}</span>
+                    <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:#F5EDD8;line-height:1.3;">{link.title}</span>
                   </a>
                 </li>
               ))}
             </ul>
-            <a href={yearHref} class="sidebar-back" style="display:block; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(201,168,76,0.15); font-size:0.85rem; color:#C9A84C; text-decoration:none; font-family:'Crimson Pro',serif; letter-spacing:0.08em;">
+            <a href={yearHref} class="sidebar-back" style="display:block;margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(201,168,76,0.15);font-size:0.85rem;color:#C9A84C;text-decoration:none;font-family:'Crimson Pro',serif;letter-spacing:0.08em;">
               ← Wszystkie z {rok}
             </a>
           </div>
@@ -714,52 +189,56 @@ const parts = entry?.parts ?? [];
       </div>
     </section>
 
-    <!-- ── NAWIGACJA PREV/NEXT ────────────────────────────── -->
-    <nav style="background:#0D0A05; border-top:1px solid rgba(201,168,76,0.12); padding:clamp(2rem,4vw,3rem) clamp(1rem,4vw,2rem);">
-      <div class="entry-nav" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; gap:2rem; align-items:center;">
-        {prevHref ? (
-          <a href={prevHref} class="nav-link">
-            <span class="nav-dir">← Starsze</span>
-            <span class="nav-title">{poprzedni.title}</span>
-          </a>
-        ) : <span />}
+    <!-- NAWIGACJA PREV / NEXT -->
+    <nav style="background:#0D0A05;border-top:1px solid rgba(201,168,76,0.12);padding:clamp(2rem,4vw,3rem) clamp(1rem,4vw,2rem);">
+      <div class="entry-nav" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center;">
+
+        <div>
+          {poprzedni && (
+            <a href={prevHref} class="nav-link">
+              <span class="nav-dir">← Starsze</span>
+              <span class="nav-title">{poprzedni.title}</span>
+            </a>
+          )}
+        </div>
 
         <a href={yearHref} class="nav-center">↑ {rok}</a>
 
-        {nextHref ? (
-          <a href={nextHref} class="nav-link nav-next">
-            <span class="nav-dir">Nowsze →</span>
-            <span class="nav-title">{nastepny.title}</span>
-          </a>
-        ) : <span />}
+        <div style="text-align:right;">
+          {nastepny && (
+            <a href={nextHref} class="nav-link nav-next">
+              <span class="nav-dir">Nowsze →</span>
+              <span class="nav-title">{nastepny.title}</span>
+            </a>
+          )}
+        </div>
+
       </div>
     </nav>
 
   </div>
 )}
+
 </Layout>
 
 <style>
   .bc-link:hover      { color: #C9A84C !important; }
   .sidebar-link:hover { background: rgba(201,168,76,0.07) !important; }
   .sidebar-back:hover { text-decoration: underline !important; }
-
   .yt-wrap:hover .yt-thumb { transform: scale(1.02); filter: brightness(0.6); }
   .yt-wrap:hover .yt-play  { background: #ff0000 !important; transform: translate(-50%,-50%) scale(1.08) !important; }
-  .yt-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-
-  .nav-link { display:flex; flex-direction:column; gap:0.25rem; text-decoration:none; color:#F5EDD8; padding:1rem; border:1px solid rgba(201,168,76,0.15); transition:all 0.2s; }
-  .nav-link:hover { border-color: #C9A84C; background: rgba(201,168,76,0.05); }
-  .nav-next  { text-align: right; }
-  .nav-dir   { font-size:0.75rem; color:#C9A84C; letter-spacing:0.1em; font-family:'Crimson Pro',serif; }
-  .nav-title { font-family:'Cormorant Garamond',serif; font-size:1rem; color:rgba(245,237,216,0.8); }
-  .nav-center { text-align:center; font-size:0.9rem; color:rgba(201,168,76,0.6); text-decoration:none; padding:0.5rem 1rem; white-space:nowrap; font-family:'Crimson Pro',serif; letter-spacing:0.08em; transition:color 0.2s; }
-  .nav-center:hover { color: #C9A84C; }
-
-  @media (max-width: 900px) {
-    .entry-layout { grid-template-columns: 1fr !important; }
-    .entry-nav    { grid-template-columns: 1fr 1fr !important; }
-    .nav-center   { display: none; }
+  .yt-iframe { position:absolute;inset:0;width:100%;height:100%;border:none; }
+  .nav-link  { display:flex;flex-direction:column;gap:0.25rem;text-decoration:none;color:#F5EDD8;padding:1rem;border:1px solid rgba(201,168,76,0.15);transition:all 0.2s; }
+  .nav-link:hover { border-color:#C9A84C;background:rgba(201,168,76,0.05); }
+  .nav-next  { text-align:right; }
+  .nav-dir   { font-size:0.75rem;color:#C9A84C;letter-spacing:0.1em;font-family:'Crimson Pro',serif; }
+  .nav-title { font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(245,237,216,0.8); }
+  .nav-center { text-align:center;font-size:0.9rem;color:rgba(201,168,76,0.6);text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;font-family:'Crimson Pro',serif;letter-spacing:0.08em;transition:color 0.2s; }
+  .nav-center:hover { color:#C9A84C; }
+  @media (max-width:900px) {
+    .entry-layout { grid-template-columns:1fr !important; }
+    .entry-nav    { grid-template-columns:1fr 1fr !important; }
+    .nav-center   { display:none; }
   }
 </style>
 
@@ -771,7 +250,7 @@ const parts = entry?.parts ?? [];
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
       iframe.className = 'yt-iframe';
-      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allow', 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture');
       iframe.allowFullscreen = true;
       wrap.innerHTML = '';
       wrap.appendChild(iframe);
