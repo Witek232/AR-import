@@ -1,0 +1,239 @@
+---
+// ── ANALIZA ──────────────────────────────────────────────────
+// useState copied      → data-attributes + JS classList
+// useEffect observer   → globalny initReveal() w Layout
+// handleCopy           → navigator.clipboard w <script>
+// ─────────────────────────────────────────────────────────────
+
+const accounts = [
+  {
+    label: 'Przelewy krajowe',
+    currency: 'PLN', currencyName: 'Złoty polski', flag: '🇵🇱',
+    bank: 'Bank PKO BP',
+    iban: 'PL12 3456 7890 1234 5678 9012 3456',
+    ibanRaw: 'PL12345678901234567890123456',
+    bic: 'BPKOPLPW', beneficiary: 'Fundacja Ateny Roztocza',
+    note: 'Przelewy krajowe i SEPA', color: '#C9A84C',
+  },
+  {
+    label: 'Przelewy europejskie',
+    currency: 'EUR', currencyName: 'Euro', flag: '🇪🇺',
+    bank: 'Bank PKO BP',
+    iban: 'PL98 7654 3210 9876 5432 1098 7654',
+    ibanRaw: 'PL98765432109876543210987654',
+    bic: 'BPKOPLPW', beneficiary: 'Fundacja Ateny Roztocza',
+    note: 'Dla darczyńców z krajów strefy euro', color: '#4C7BC9',
+  },
+  {
+    label: 'Przelewy z USA i Kanady',
+    currency: 'USD', currencyName: 'Dolar amerykański', flag: '🇺🇸',
+    bank: 'Bank PKO BP',
+    iban: 'PL76 5432 1098 7654 3210 9876 5432',
+    ibanRaw: 'PL76543210987654321098765432',
+    bic: 'BPKOPLPW', swift: 'PKOPPLPW', beneficiary: 'Fundacja Ateny Roztocza',
+    note: 'Dla darczyńców ze Stanów Zjednoczonych i Kanady', color: '#7A1C2E',
+  },
+];
+---
+
+<section
+  id="wsparcie"
+  style="background:#EDE0C4; padding:clamp(3.5rem,8vw,6rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
+>
+  <!-- Top ornament -->
+  <div style="position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent,#C9A84C 30%,#E8C97A 50%,#C9A84C 70%,transparent);"></div>
+
+  <!-- BG ornament -->
+  <div style="position:absolute; right:-6rem; bottom:-4rem; opacity:0.04; pointer-events:none;">
+    <svg width="400" height="400" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="180" stroke="#1A1209" stroke-width="1" />
+      <circle cx="200" cy="200" r="120" stroke="#1A1209" stroke-width="1" />
+      <circle cx="200" cy="200" r="60"  stroke="#1A1209" stroke-width="1" />
+      <line x1="20" y1="200" x2="380" y2="200" stroke="#1A1209" stroke-width="0.5" />
+      <line x1="200" y1="20" x2="200" y2="380" stroke="#1A1209" stroke-width="0.5" />
+    </svg>
+  </div>
+
+  <div style="max-width:780px; margin:0 auto; position:relative;">
+
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom:clamp(2rem,5vw,3.5rem);">
+      <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.5vw,0.7rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin-bottom:1rem;">
+        Wspomóż projekt
+      </p>
+      <h2 class="reveal section-title" style="font-size:clamp(2rem,5vw,3.5rem); color:#1A1209; line-height:1.1; margin-bottom:1.25rem;">
+        Wesprzyj Ateny Roztocza
+      </h2>
+      <p class="reveal" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.5vw,1.15rem); color:rgba(26,18,9,0.6); max-width:560px; margin:0 auto; line-height:1.75;">
+        Twoje wsparcie pozwala nam kontynuować dzieło budowania mostów
+        między starożytnością a współczesnością chrześcijańską.
+      </p>
+    </div>
+
+    <!-- Account cards -->
+    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+      {accounts.map((acc, i) => (
+        <div
+          class="reveal"
+          style={`background:#F5EDD8; border:1px solid rgba(201,168,76,0.25); border-left:4px solid ${acc.color}; padding:clamp(1.25rem,3vw,1.75rem) clamp(1.25rem,3vw,2rem); position:relative;`}
+        >
+          <!-- Card header -->
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.25rem; flex-wrap:wrap;">
+            <span style="font-size:1.5rem; line-height:1;">{acc.flag}</span>
+            <div style="flex:1;">
+              <div style={`font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.5vw,0.65rem); letter-spacing:0.3em; text-transform:uppercase; color:${acc.color}; margin-bottom:0.2rem;`}>
+                {acc.label}
+              </div>
+              <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,2.5vw,1.3rem); color:#1A1209; font-weight:600;">
+                {acc.bank} — <span style="font-weight:300;">{acc.currencyName}</span>
+              </div>
+            </div>
+            <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,4vw,2.2rem); font-weight:300; color:${acc.color}; opacity:0.35; line-height:1;`}>
+              {acc.currency}
+            </div>
+          </div>
+
+          <div style="width:100%; height:1px; background:rgba(201,168,76,0.15); margin-bottom:1.25rem;"></div>
+
+          <!-- Fields grid -->
+          <div style="display:grid; grid-template-columns:auto 1fr; gap:0.6rem 1.5rem; align-items:center;">
+
+            <!-- IBAN -->
+            <span class="field-label">IBAN</span>
+            <div style="display:flex; align-items:center; gap:0.75rem; min-width:0;">
+              <code class="iban-box" style="font-size:clamp(0.8rem,2vw,0.95rem); color:#1A1209; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.35rem 0.65rem; flex:1; min-width:0; display:block;">
+                {acc.iban}
+              </code>
+              <button
+                class="copy-btn"
+                data-copy={acc.ibanRaw}
+                data-id={`iban-${i}`}
+                title="Kopiuj numer IBAN"
+              >
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" class="icon-copy">
+                  <rect x="2" y="3" width="7" height="8" rx="1" />
+                  <path d="M4 3V2a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H8" />
+                </svg>
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" class="icon-ok" style="display:none;">
+                  <path d="M1 5l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="btn-label">Kopiuj</span>
+              </button>
+            </div>
+
+            <!-- BIC -->
+            <span class="field-label">BIC / SWIFT</span>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <code style="font-family:'Courier Prime','Courier New',monospace; font-size:clamp(0.8rem,2vw,0.95rem); color:#1A1209; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:0.35rem 0.65rem; letter-spacing:0.08em; white-space:nowrap;">
+                {acc.swift ?? acc.bic}
+              </code>
+              <button
+                class="copy-btn"
+                data-copy={acc.swift ?? acc.bic}
+                data-id={`bic-${i}`}
+                title="Kopiuj kod BIC/SWIFT"
+              >
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" class="icon-copy">
+                  <rect x="2" y="3" width="7" height="8" rx="1" />
+                  <path d="M4 3V2a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H8" />
+                </svg>
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" class="icon-ok" style="display:none;">
+                  <path d="M1 5l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="btn-label">Kopiuj</span>
+              </button>
+            </div>
+
+            <!-- Beneficiary -->
+            <span class="field-label">Beneficjent</span>
+            <span style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.5vw,1.15rem); color:#1A1209; font-style:italic;">
+              {acc.beneficiary}
+            </span>
+          </div>
+
+          <!-- Note chip -->
+          <div style={`margin-top:1rem; display:inline-flex; align-items:center; gap:0.4rem; background:${acc.color}12; border:1px solid ${acc.color}30; border-radius:2px; padding:0.25rem 0.6rem;`}>
+            <svg width="10" height="10" fill="none" stroke={acc.color} stroke-width="1.5" style="flex-shrink:0;">
+              <circle cx="5" cy="5" r="4" />
+              <path d="M5 3.5v2.5M5 7.5h.01" stroke-linecap="round" />
+            </svg>
+            <span style={`font-family:'Crimson Pro',serif; font-size:clamp(0.7rem,1.8vw,0.8rem); color:${acc.color}; letter-spacing:0.03em;`}>
+              {acc.note}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <div class="reveal" style="margin-top:2rem; padding:clamp(1rem,3vw,1.5rem); border:1px solid rgba(201,168,76,0.2); background:rgba(245,237,216,0.5); display:flex; align-items:flex-start; gap:1rem;">
+      <svg width="20" height="20" fill="none" stroke="#C9A84C" stroke-width="1.5" style="flex-shrink:0; margin-top:2px;">
+        <circle cx="10" cy="10" r="8" />
+        <path d="M10 7v4M10 13h.01" stroke-linecap="round" />
+      </svg>
+      <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.9rem,2.2vw,0.95rem); line-height:1.7; color:rgba(26,18,9,0.65); font-style:italic; margin:0;">
+        W tytule przelewu prosimy wpisać:
+        <strong style="font-style:normal; color:#1A1209;">„Darowizna — Ateny Roztocza"</strong>.
+        Dziękujemy za każde wsparcie — nawet drobna wpłata pozwala nam
+        kontynuować misję przez kolejne lata.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .field-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.6rem, 1.4vw, 0.65rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(26, 18, 9, 0.4);
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    color: rgba(26, 18, 9, 0.5);
+    padding: 0.35rem 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 36px;
+  }
+  .copy-btn:hover         { background: rgba(201,168,76,0.08); border-color: #C9A84C; color: rgba(26,18,9,0.7); }
+  .copy-btn.copied        { background: rgba(201,168,76,0.15); border-color: #C9A84C; color: #C9A84C; }
+  .copy-btn.copied .icon-copy { display: none; }
+  .copy-btn.copied .icon-ok   { display: inline-block !important; }
+  .copy-btn.copied .btn-label::before { content: 'OK'; }
+  .copy-btn.copied .btn-label { font-size: 0; }
+  .copy-btn.copied .btn-label::before { font-size: 0.65rem; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.classList.add('copied');
+        // pulse animation
+        btn.classList.add('copy-pulse');
+        setTimeout(() => {
+          btn.classList.remove('copied', 'copy-pulse');
+        }, 2500);
+      } catch {
+        // clipboard API unavailable — silent fail
+      }
+    });
+  });
+</script>
