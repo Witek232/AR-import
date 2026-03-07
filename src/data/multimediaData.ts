@@ -1,7 +1,3 @@
-Błąd jest prosty — plik src/data/multimediaData.ts nie istnieje w repozytorium GitHub. Musisz go tam dodać.
-Oto kompletny plik do wgrania na GitHub jako src/data/multimediaData.ts:
-typescript// src/data/multimediaData.ts
-
 export interface YTPart {
   id:           string;
   label:        string;
