@@ -16,13 +16,14 @@ const rok = parseInt(year);
 const materialy = getEntriesByYear(rok);
 
 const rokIdx     = years.indexOf(rok);
-const rokNowszy  = rokIdx > 0               ? years[rokIdx - 1] : null;
-const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
+const hasPrev    = rokIdx > 0;
+const hasNext    = rokIdx < years.length - 1;
+const rokNowszy  = hasPrev ? years[rokIdx - 1] : null;
+const rokStarszy = hasNext ? years[rokIdx + 1] : null;
 
 const totalFilms  = materialy.reduce((s, e) => s + e.parts.length, 0);
 const countSuffix = materialy.length === 1 ? 'wystąpienie' : materialy.length < 5 ? 'wystąpienia' : 'wystąpień';
 
-// Pre-oblicz wszystkie dynamiczne wartości — żadnych template literals w szablonie
 const entriesDisplay = materialy.map((entry, i) => {
   const catColor  = categoryColors[entry.category];
   const catLabel  = categoryLabels[entry.category];
@@ -30,12 +31,14 @@ const entriesDisplay = materialy.map((entry, i) => {
   const firstDesc = entry.description.trim().split('\n')[0].trim();
   const num       = i < 9 ? '0' + (i + 1) : String(i + 1);
   const href      = '/multimedia/' + rok + '/' + entry.slug;
-  const catStyle  = 'font-family:Crimson Pro,serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:' + catColor + '; border:1px solid ' + catColor + '55; padding:2px 7px;';
-  return { entry, num, href, catLabel, catStyle, datePlace, firstDesc };
+  const hasMany   = entry.parts.length > 1;
+  const partsCount = entry.parts.length;
+  const catStyle  = 'font-family:Crimson Pro,serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.18em;text-transform:uppercase;color:' + catColor + ';border:1px solid ' + catColor + '55;padding:2px 7px;';
+  return { entry, num, href, catLabel, catStyle, datePlace, firstDesc, hasMany, partsCount };
 });
 
-const prevHref = rokStarszy ? '/multimedia/' + rokStarszy : null;
-const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : null;
+const prevHref = rokStarszy ? '/multimedia/' + rokStarszy : '';
+const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
 ---
 
 <Layout
@@ -44,68 +47,67 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : null;
 >
   <div class="page-transition">
 
-    <!-- Hero -->
     <div class="page-hero" style="position:relative;">
-      <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
-        <nav style="font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.12em; color:rgba(201,168,76,0.5); margin-bottom:1.5rem;">
-          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">Multimedia</a>
-          <span style="margin:0 0.6rem; color:rgba(201,168,76,0.3);">›</span>
+      <div style="position:relative;z-index:2;max-width:760px;margin:0 auto;">
+        <nav style="font-family:'Crimson Pro',serif;font-size:0.8rem;letter-spacing:0.12em;color:rgba(201,168,76,0.5);margin-bottom:1.5rem;">
+          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6);text-decoration:none;">Multimedia</a>
+          <span style="margin:0 0.6rem;color:rgba(201,168,76,0.3);">›</span>
           <span style="color:rgba(201,168,76,0.9);">{rok}</span>
         </nav>
-        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1rem;">
+        <p style="font-family:'Crimson Pro',serif;font-size:clamp(0.65rem,1.5vw,0.75rem);letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.65);margin-bottom:1rem;">
           Archiwum audiowizualne
         </p>
-        <h1 class="section-title gold-shimmer" style="font-size:clamp(3rem,10vw,6rem); margin-bottom:0.75rem; line-height:1;">
+        <h1 class="section-title gold-shimmer" style="font-size:clamp(3rem,10vw,6rem);margin-bottom:0.75rem;line-height:1;">
           {rok}
         </h1>
-        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.2rem); color:rgba(232,201,122,0.65);">
+        <p style="font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,2.2vw,1.2rem);color:rgba(232,201,122,0.65);">
           {materialy.length} {countSuffix} · {totalFilms} filmów
         </p>
       </div>
     </div>
 
-    <!-- Lista -->
-    <div style="background:#F5EDD8; min-height:60vh; padding:clamp(2.5rem,5vw,4rem) clamp(1rem,4vw,2rem);">
-      <div style="max-width:1000px; margin:0 auto;">
+    <div style="background:#F5EDD8;min-height:60vh;padding:clamp(2.5rem,5vw,4rem) clamp(1rem,4vw,2rem);">
+      <div style="max-width:1000px;margin:0 auto;">
 
-        {materialy.length === 0 ? (
-          <div style="text-align:center; padding:5rem 0;">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(26,18,9,0.3);">Brak materiałów dla roku {rok}.</p>
-            <a href="/multimedia" style="display:inline-block; margin-top:1.5rem; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:#C9A84C; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4);">
+        {materialy.length === 0 && (
+          <div style="text-align:center;padding:5rem 0;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:rgba(26,18,9,0.3);">
+              Brak materiałów dla roku {rok}.
+            </p>
+            <a href="/multimedia" style="display:inline-block;margin-top:1.5rem;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:#C9A84C;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
               ← Powrót do archiwum
             </a>
           </div>
-        ) : (
-          <div style="display:flex; flex-direction:column;">
-            {entriesDisplay.map(({ entry, num, href, catLabel, catStyle, datePlace, firstDesc }) => (
+        )}
+
+        {materialy.length > 0 && (
+          <div style="display:flex;flex-direction:column;">
+            {entriesDisplay.map(({ entry, num, href, catLabel, catStyle, datePlace, firstDesc, hasMany, partsCount }) => (
               <a href={href} style="text-decoration:none;" class="entry-row-link">
-                <div class="entry-row" style="display:grid; grid-template-columns:3rem 1fr auto; gap:clamp(1rem,3vw,2rem); padding:clamp(1.25rem,3vw,2rem) 0; border-bottom:1px solid rgba(26,18,9,0.09); align-items:start; transition:padding-left 0.25s ease;">
-                  <!-- Numer -->
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,3.5vw,1.8rem); font-weight:300; color:rgba(201,168,76,0.3); line-height:1; padding-top:0.15rem; text-align:right;">
+                <div class="entry-row" style="display:grid;grid-template-columns:3rem 1fr auto;gap:clamp(1rem,3vw,2rem);padding:clamp(1.25rem,3vw,2rem) 0;border-bottom:1px solid rgba(26,18,9,0.09);align-items:start;transition:padding-left 0.25s ease;">
+                  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.5vw,1.8rem);font-weight:300;color:rgba(201,168,76,0.3);line-height:1;padding-top:0.15rem;text-align:right;">
                     {num}
                   </div>
-                  <!-- Treść -->
                   <div>
-                    <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.4rem;">
+                    <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.4rem;">
                       <span style={catStyle}>{catLabel}</span>
-                      {entry.parts.length > 1 && (
-                        <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.12em; text-transform:uppercase; color:rgba(201,168,76,0.7); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:2px 7px;">
-                          {entry.parts.length} części
+                      {hasMany && (
+                        <span style="font-family:'Crimson Pro',serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.7);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:2px 7px;">
+                          {partsCount} części
                         </span>
                       )}
-                      <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,1.8vw,0.85rem); color:rgba(26,18,9,0.38); font-style:italic;">
+                      <span style="font-family:'Crimson Pro',serif;font-size:clamp(0.78rem,1.8vw,0.85rem);color:rgba(26,18,9,0.38);font-style:italic;">
                         {datePlace}
                       </span>
                     </div>
-                    <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,3vw,1.5rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.35rem;">
+                    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.05rem,3vw,1.5rem);font-weight:400;color:#1A1209;line-height:1.35;margin-bottom:0.35rem;">
                       {entry.title}
                     </h2>
-                    <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(26,18,9,0.45); font-style:italic; margin:0; line-height:1.5;">
+                    <p style="font-family:'Crimson Pro',serif;font-size:clamp(0.85rem,2vw,0.95rem);color:rgba(26,18,9,0.45);font-style:italic;margin:0;line-height:1.5;">
                       {firstDesc}
                     </p>
                   </div>
-                  <!-- Strzałka -->
-                  <div style="padding-top:0.5rem; flex-shrink:0;">
+                  <div style="padding-top:0.5rem;flex-shrink:0;">
                     <svg width="18" height="18" fill="none" stroke="rgba(201,168,76,0.45)" stroke-width="1.5">
                       <path d="M3 9h12M11 5l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -116,33 +118,27 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : null;
           </div>
         )}
 
-        <!-- Nawigacja rok ←/→ -->
-        <nav style="display:flex; justify-content:space-between; align-items:center; margin-top:clamp(2.5rem,5vw,4rem); padding-top:clamp(1.5rem,3vw,2rem); border-top:1px solid rgba(201,168,76,0.2); flex-wrap:wrap; gap:1rem;">
-          {prevHref ? (
-            <a href={prevHref} class="year-nav-btn">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 7l5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              ← {rokStarszy}
-            </a>
-          ) : <span />}
-
+        <nav style="display:flex;justify-content:space-between;align-items:center;margin-top:clamp(2.5rem,5vw,4rem);padding-top:clamp(1.5rem,3vw,2rem);border-top:1px solid rgba(201,168,76,0.2);flex-wrap:wrap;gap:1rem;">
+          <div>
+            {rokStarszy && (
+              <a href={prevHref} class="year-nav-btn">← {rokStarszy}</a>
+            )}
+          </div>
           <a href="/multimedia" class="year-nav-all">Wszystkie lata</a>
-
-          {nextHref ? (
-            <a href={nextHref} class="year-nav-btn">
-              {rokNowszy} →
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3l5 4-5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          ) : <span />}
+          <div>
+            {rokNowszy && (
+              <a href={nextHref} class="year-nav-btn">{rokNowszy} →</a>
+            )}
+          </div>
         </nav>
 
       </div>
     </div>
-
   </div>
 </Layout>
 
 <style>
-  .bc-link:hover    { color: #C9A84C !important; }
+  .bc-link:hover { color: #C9A84C !important; }
   .year-nav-all {
     font-family: 'Crimson Pro', serif; font-size: 0.8rem; letter-spacing: 0.15em;
     text-transform: uppercase; color: rgba(26,18,9,0.45); text-decoration: none;
