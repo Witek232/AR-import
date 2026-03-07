@@ -1,42 +1,75 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
-  title?: string;
+  title?:       string;
   description?: string;
+  ogImage?:     string;
 }
+
 const {
-  title = 'Ateny Roztocza',
-  description = 'Opis projektu',
+  title       = 'Ateny Roztocza',
+  description = 'Projekt kulturalno-filozoficzno-religijny na Roztoczu. Budujemy mosty między starożytnością chrześcijańską a dniem dzisiejszym.',
+  ogImage     = '/og-image.jpg',
 } = Astro.props;
+
+// ── Język z URL ───────────────────────────────────────────────
+const pathname = Astro.url.pathname;
+let htmlLang = 'pl';
+if      (pathname.startsWith('/en')) htmlLang = 'en';
+else if (pathname.startsWith('/de')) htmlLang = 'de';
+else if (pathname.startsWith('/es')) htmlLang = 'es';
+else if (pathname.startsWith('/it')) htmlLang = 'it';
+
+// ── Canonical URL ─────────────────────────────────────────────
+const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl');
 ---
 <!doctype html>
-<html lang="pl">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <meta name="description"        content={description} />
+    <meta name="theme-color"        content="#1A1209" />
 
-    <!-- Fonty używane w global.css -->
+    <!-- Open Graph -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={canonicalURL} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title} | Ateny Roztocza</title>
+
+    <!-- Preconnect fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&family=Courier+Prime&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
+
   <body>
-    <div style="overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;">
+    <div style="overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column;">
 
-      <slot name="header" />
+      <Header />
 
-      <main style="flex: 1;" class="page-transition">
+      <main style="flex:1;">
         <slot />
       </main>
 
-      <slot name="footer" />
+      <Footer />
 
+      <!-- Back to top -->
       <button
         id="back-to-top"
         aria-label="Wróć na górę"
@@ -49,7 +82,8 @@ const {
     </div>
 
     <script>
-      // ── IntersectionObserver dla .reveal ──────────────────────────
+      // ── IntersectionObserver dla .reveal ─────────────────────
+      // Obsługuje WSZYSTKIE strony — uruchamia się raz po load
       function initReveal() {
         const observer = new IntersectionObserver(
           (entries) => {
@@ -59,17 +93,20 @@ const {
               }
             });
           },
-          { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
         );
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
       }
+      // 100ms delay zachowany 1:1 z App.tsx
       setTimeout(initReveal, 100);
 
-      // ── BackToTop ─────────────────────────────────────────────────
+      // ── Back to top ──────────────────────────────────────────
       const btn = document.getElementById('back-to-top');
+
       window.addEventListener('scroll', () => {
         btn?.classList.toggle('visible', window.scrollY > 400);
-      });
+      }, { passive: true });
+
       btn?.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
