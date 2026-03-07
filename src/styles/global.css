@@ -1,0 +1,729 @@
+@import "tailwindcss";
+
+/* ================================================================
+   ATENY ROZTOCZA — Global Styles
+   "Sacred Antiquity" Design System
+   Zoptymalizowane pod czytelność mobilną
+   ================================================================ */
+
+@layer base {
+  :root {
+    --ink:            #1A1209;
+    --ink-deep:       #0D0A05;
+    --gold:           #C9A84C;
+    --gold-light:     #E8C97A;
+    --gold-pale:      #F0DC9E;
+    --parchment:      #F5EDD8;
+    --parchment-dark: #EDE0C4;
+    --parchment-mid:  #F0E5CC;
+    --crimson:        #7A1C2E;
+    --crimson-light:  #9E2A40;
+    --text-dark:      #2C1F0E;
+    --text-muted:     #6B5B43;
+    --text-light:     #9A8A72;
+
+    /* Spacing scale */
+    --space-xs:  clamp(0.5rem,  1.5vw, 0.75rem);
+    --space-sm:  clamp(0.75rem, 2vw,   1rem);
+    --space-md:  clamp(1rem,    3vw,   1.5rem);
+    --space-lg:  clamp(1.5rem,  4vw,   2.5rem);
+    --space-xl:  clamp(2rem,    6vw,   4rem);
+    --space-2xl: clamp(3rem,    8vw,   6rem);
+
+    /* Section padding */
+    --section-py: clamp(4rem, 10vw, 7rem);
+    --section-px: clamp(1.25rem, 5vw, 3rem);
+    --container:  1280px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* 16px base — then scale with clamp everywhere */
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background-color: var(--parchment);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── MOBILE-FIRST PARAGRAPH BASE ── */
+  p {
+    /* Minimum 17px on mobile, up to 19px on desktop */
+    font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+    line-height: 1.85;
+    margin-bottom: 0;
+  }
+
+  h1, h2, h3, h4, h5 {
+    line-height: 1.15;
+    margin-bottom: 0;
+  }
+
+  a { color: inherit; }
+
+  button { cursor: pointer; }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  * { box-sizing: border-box; }
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--parchment-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+
+/* ================================================================
+   ANIMATIONS
+   ================================================================ */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(201, 168, 76, 0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(201, 168, 76, 0);   }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-in-up  { animation: fade-in-up  0.8s ease forwards; }
+.animate-fade-in     { animation: fade-in      1s   ease forwards; }
+.animate-slide-right { animation: slide-in-right 0.6s ease forwards; }
+
+
+/* ================================================================
+   SCROLL REVEAL
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible  { opacity: 1; transform: translateY(0); }
+.reveal-delay-1  { transition-delay: 0.10s; }
+.reveal-delay-2  { transition-delay: 0.20s; }
+.reveal-delay-3  { transition-delay: 0.30s; }
+.reveal-delay-4  { transition-delay: 0.40s; }
+.reveal-delay-5  { transition-delay: 0.50s; }
+
+
+/* ================================================================
+   TYPOGRAPHY — Mobile-first, legible at all sizes
+   ================================================================ */
+
+/* Display shimmer — titles on dark bg */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    var(--gold-light) 30%,
+    #fff8e7 50%,
+    var(--gold-light) 70%,
+    var(--gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4.5s linear infinite;
+}
+
+/* Section title — elegant, scalable */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  /* Mobile: ≥28px, desktop: up to 52px */
+  font-size: clamp(1.75rem, 6vw, 3.25rem);
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+/* Section label — small caps eyebrow */
+.section-label {
+  font-family: 'Crimson Pro', serif;
+  /* Mobile: ≥12px */
+  font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+/* Pull quote */
+.elegant-quote {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  /* Mobile: ≥18px */
+  font-size: clamp(1.125rem, 3vw, 1.375rem);
+  line-height: 1.9;
+  color: var(--text-dark);
+  border-left: 3px solid var(--gold);
+  padding-left: clamp(1rem, 3vw, 1.5rem);
+  margin: var(--space-lg) 0;
+}
+
+/* Body prose */
+.body-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+  line-height: 1.85;
+  color: var(--text-dark);
+}
+
+/* Lead paragraph — slightly larger */
+.lead-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.125rem, 3vw, 1.3125rem);
+  line-height: 1.85;
+  color: var(--text-dark);
+}
+
+
+/* ================================================================
+   ORNAMENTAL DIVIDERS
+   ================================================================ */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--gold);
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.section-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: var(--space-md) 0 var(--space-lg);
+}
+.section-ornament-line {
+  width: clamp(32px, 8vw, 64px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+.section-ornament-line:last-child {
+  background: linear-gradient(to left, transparent, var(--gold));
+}
+
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+.nav-link {
+  font-family: 'Crimson Pro', serif;
+  /* Minimum 14px on all screens */
+  font-size: clamp(0.875rem, 1.3vw, 0.9375rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  opacity: 0.85;
+  transition: opacity 0.2s, color 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-link:hover { opacity: 1; color: var(--gold-light); }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 10, 5, 0.98);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-top: 2px solid var(--gold);
+  min-width: 250px;
+  z-index: 200;
+  padding: 0.4rem 0;
+  box-shadow: 0 20px 48px rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+}
+.dropdown-parent:hover .dropdown { display: block; }
+
+/* Mobile dropdown item min height = 44px (Apple HIG) */
+.dropdown-btn {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  text-align: left;
+  padding: 0.65rem 1.25rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(0.9rem, 2vw, 0.9375rem);
+  letter-spacing: 0.04em;
+  color: rgba(232, 201, 122, 0.75);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.dropdown-btn:hover {
+  color: #E8C97A;
+  background: rgba(201,168,76,0.08);
+}
+
+
+/* ================================================================
+   CARDS
+   ================================================================ */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 52px rgba(26, 18, 9, 0.14);
+}
+
+.gold-border-hover {
+  position: relative;
+  overflow: hidden;
+}
+.gold-border-hover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.35s ease;
+}
+.gold-border-hover:hover::before { transform: scaleX(1); }
+
+
+/* ================================================================
+   IMAGES
+   ================================================================ */
+.sepia-filter {
+  filter: sepia(22%) contrast(1.06) brightness(0.96);
+  transition: filter 0.45s ease;
+}
+.sepia-filter:hover { filter: sepia(4%) contrast(1.1) brightness(1.03); }
+
+
+/* ================================================================
+   YOUTUBE EMBED — fully responsive
+   ================================================================ */
+.yt-embed-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  background: #0D0A05;
+  border-radius: 0;
+}
+.yt-embed-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* Lazy thumbnail placeholder */
+.yt-thumb-wrapper {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: #0D0A05;
+}
+.yt-thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: sepia(20%) brightness(0.85);
+}
+.yt-thumb-wrapper:hover img {
+  transform: scale(1.04);
+  filter: sepia(5%) brightness(0.95);
+}
+.yt-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13,10,5,0.35);
+  transition: background 0.3s;
+}
+.yt-play-btn:hover { background: rgba(13,10,5,0.15); }
+.yt-play-icon {
+  width: clamp(48px, 10vw, 64px);
+  height: clamp(48px, 10vw, 64px);
+  background: rgba(201,168,76,0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, background 0.3s;
+}
+.yt-thumb-wrapper:hover .yt-play-icon {
+  transform: scale(1.1);
+  background: rgba(201,168,76,1);
+}
+
+
+/* ================================================================
+   FORMS
+   ================================================================ */
+.form-input {
+  font-family: 'Crimson Pro', serif;
+  /* Minimum 16px prevents iOS zoom on focus */
+  font-size: clamp(1rem, 2.2vw, 1.0625rem);
+  background: rgba(245,237,216,0.6);
+  border: 1px solid rgba(26,18,9,0.18);
+  color: var(--text-dark);
+  padding: clamp(0.75rem, 2.5vw, 0.9rem) clamp(0.875rem, 2.5vw, 1.125rem);
+  width: 100%;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  outline: none;
+  border-radius: 0;
+  /* Min touch height */
+  min-height: 48px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.form-input:focus {
+  border-color: var(--gold);
+  background: rgba(245,237,216,0.92);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+}
+.form-input::placeholder {
+  color: var(--text-light);
+  opacity: 0.75;
+}
+
+label {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(0.9375rem, 2vw, 1rem);
+  letter-spacing: 0.04em;
+  color: var(--text-dark);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+
+/* ================================================================
+   TABS
+   ================================================================ */
+.tab-btn {
+  font-family: 'Crimson Pro', serif;
+  /* Mobile minimum 15px */
+  font-size: clamp(0.9375rem, 2vw, 1rem);
+  letter-spacing: 0.03em;
+  padding: clamp(0.75rem, 2.5vw, 0.9rem) clamp(0.875rem, 2.5vw, 1.375rem);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.22s;
+  white-space: nowrap;
+  color: var(--text-muted);
+  min-height: 48px;
+  flex-shrink: 0;
+}
+.tab-btn.active {
+  border-bottom-color: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+}
+.tab-btn:hover:not(.active) {
+  color: var(--text-dark);
+}
+
+/* Scrollable tab bar on mobile */
+.tab-bar {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 1px solid rgba(26,18,9,0.1);
+  gap: 0;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+
+
+/* ================================================================
+   PAGE HERO (subpage headers)
+   ================================================================ */
+.page-hero {
+  background: linear-gradient(160deg, #0D0A05 0%, #1A1209 50%, #2C1A08 100%);
+  padding: clamp(5.5rem, 14vw, 9rem) var(--section-px) clamp(3rem, 7vw, 5rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* ================================================================
+   LAYOUT UTILITIES
+   ================================================================ */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--section-px);
+}
+
+.section-py {
+  padding-top:    var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+
+/* ================================================================
+   MOBILE RESPONSIVE — Breakpoints
+   ================================================================ */
+
+/* ── 960px: switch to hamburger ── */
+@media (max-width: 960px) {
+  .desktop-nav { display: none !important; }
+  .mobile-menu-btn { display: flex !important; }
+}
+
+/* ── 768px ── */
+@media (max-width: 768px) {
+  /* Slightly tighter sections */
+  :root {
+    --section-py: clamp(3rem, 8vw, 5rem);
+    --section-px: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .elegant-quote {
+    font-size: 1.125rem;
+    padding-left: 1rem;
+    border-left-width: 2px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Stack two-column layouts */
+  .two-col-reverse {
+    flex-direction: column-reverse !important;
+  }
+
+  /* Cards in grid go to 1 col */
+  .mobile-single-col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── 520px: small phones ── */
+@media (max-width: 520px) {
+  :root {
+    --section-py: clamp(2.5rem, 8vw, 4rem);
+    --section-px: 1rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .yt-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Year pills wrap better */
+  .year-pills {
+    gap: 0.4rem !important;
+  }
+  .year-pill {
+    padding: 0.4rem 0.65rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  /* Full-width CTA buttons */
+  .mobile-full-btn {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* ── 400px: very small phones (SE, etc.) ── */
+@media (max-width: 400px) {
+  :root {
+    --section-px: 0.875rem;
+  }
+  .section-title {
+    font-size: clamp(1.625rem, 8vw, 2.25rem);
+  }
+}
+
+
+/* ================================================================
+   MISCELLANEOUS COMPONENTS
+   ================================================================ */
+.copy-pulse { animation: pulse-gold 0.65s ease; }
+
+.iban-box {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  letter-spacing: 0.05em;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Back to top ── */
+#back-to-top {
+  position: fixed;
+  bottom: clamp(1.25rem, 3vw, 2rem);
+  right:  clamp(1.25rem, 3vw, 2rem);
+  width:  clamp(42px, 8vw, 50px);
+  height: clamp(42px, 8vw, 50px);
+  background: rgba(26,18,9,0.92);
+  border: 1px solid rgba(201,168,76,0.38);
+  color: #C9A84C;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  backdrop-filter: blur(10px);
+}
+#back-to-top.visible { opacity: 1; pointer-events: auto; }
+#back-to-top:hover {
+  background: rgba(201,168,76,0.14);
+  transform: translateY(-2px);
+}
+
+/* ── Smooth page transitions ── */
+.page-transition {
+  animation: fade-in 0.38s ease forwards;
+}
+
+/* ── Gold horizontal rule ── */
+.gold-hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: var(--space-lg) 0;
+  opacity: 0.5;
+}
+
+/* ── Stat number ── */
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* ── Dark section text defaults ── */
+.on-dark { color: rgba(245,237,216,0.88); }
+.on-dark .section-title { color: var(--gold-light); }
+.on-dark .section-label { color: rgba(201,168,76,0.55); }
+.on-dark p { color: rgba(245,237,216,0.75); }
+
+/* ── Tag / badge ── */
+.tag {
+  display: inline-block;
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+/* ── Mobile touch fix — prevent double-tap zoom on buttons/links ── */
+button, a {
+  touch-action: manipulation;
+}
+
+/* ── Focus visible for accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ── Print ── */
+@media print {
+  #back-to-top, header { display: none !important; }
+  .page-transition { animation: none; }
+}
+
+/* ================================================================
+   ACCESSIBILITY — prefers-reduced-motion
+   Wyłącza wszystkie dekoracyjne animacje dla użytkowników
+   którzy mają tę preferencję włączoną w systemie operacyjnym
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Scroll reveal — pokaż natychmiast */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Gold shimmer — statyczny kolor */
+  .gold-shimmer {
+    animation: none !important;
+    background: var(--gold-light) !important;
+    -webkit-text-fill-color: var(--gold-light) !important;
+  }
+
+  /* Page transition — bez fade */
+  .page-transition {
+    animation: none !important;
+  }
+
+  /* Skeleton shimmer — statyczny */
+  .shimmer {
+    animation: none !important;
+    background: #1A1209 !important;
+  }
+}
