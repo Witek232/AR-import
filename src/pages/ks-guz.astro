@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Dane przeniesione 1:1 z KsGuz.tsx
+const timeline = [
+  { year: '1932',      event: 'Urodziny w Polsce' },
+  { year: '1950s',     event: 'Studia filozoficzno-teologiczne, formacja kapłańska' },
+  { year: '1960s',     event: 'Doktorat z teologii i filozofii, działalność akademicka' },
+  { year: '1970s',     event: 'Profesor teologii dogmatycznej i filozofii chrześcijańskiej' },
+  { year: '1980s',     event: 'Aktywna działalność dydaktyczna i publikacyjna' },
+  { year: '2000s',     event: 'Zaangażowanie w projekt Ateny Roztocza' },
+  { year: '2006',      event: 'Współtwórca i duchowy fundament projektu od jego zarania' },
+  { year: '2006–2026', event: 'Ponad 20 lat wykładów, seminariów i archiwum audiowizualnego' },
+];
+const dzielaSample = [
+  { title: 'Logos i Sacrum. Filozofia helleńska w służbie Ewangelii',     type: 'Monografia',  year: '2008', opis: 'Fundamentalne studium relacji między myślą grecką a Objawieniem chrześcijańskim.' },
+  { title: 'Sokrates, Platon, Chrystus — trzy świadectwa prawdy',          type: 'Artykuł',     year: '2012', opis: 'Porównawcza analiza pojęcia prawdy w filozofii antycznej i teologii chrześcijańskiej.' },
+  { title: 'Arystoteles i cnota w świetle Ewangelii',                       type: 'Wykład',      year: '2015', opis: 'Recepcja etyki arystotelesowskiej w tradycji scholastycznej i jej aktualność.' },
+  { title: 'Konstantyn Wielki — nawrócenie i misja cywilizacyjna',          type: 'Konferencja', year: '2019', opis: 'Studium przełomowego momentu, w którym Ateny i Rzym spotkały się z Jerozolimą.' },
+  { title: 'Piękno jako droga do Boga — teologia estetyczna',               type: 'Seminarium',  year: '2022', opis: 'Rozważania o roli piękna w tradycji platońskiej i chrześcijańskiej mistyce.' },
+  { title: 'Fides et Ratio — wiara i rozum w dialogu',                      type: 'Wykład',      year: '2024', opis: 'Komentarz do encykliki Jana Pawła II w kontekście dziedzictwa starożytnego.' },
+];
+const filary = [
+  { roman:'I',   city:'Jerozolima', theme:'Wiara i Objawienie',  icon:'✝', color:'#7A1C2E', text:'Badanie relacji między Objawieniem biblijnym a myślą filozoficzną. Jak Słowo Boże oświeca rozum i prowadzi ku pełni prawdy, której filozofia poszukuje.' },
+  { roman:'II',  city:'Ateny',      theme:'Rozum i Filozofia',    icon:'Φ', color:'#C9A84C', text:'Gruntowna znajomość Platona, Arystotelesa, stoików i neoplatoników. Filozofia klasyczna jako niezbędne narzędzie chrześcijańskiego rozumienia świata.' },
+  { roman:'III', city:'Rzym',       theme:'Prawo i Tradycja',     icon:'Σ', color:'#4A6741', text:'Studia nad rolą prawa naturalnego, tradycji i instytucji w budowaniu cywilizacji. Rzym jako wzorzec ładu społecznego w służbie godności człowieka.' },
+];
+---
+
+<Layout title="Ks. prof. Tadeusz Guz" description="Filozof, teolog, kapłan — strażnik dialogu między Atenami a Jerozolimą. Duchowy fundament projektu Ateny Roztocza.">
+  <div class="page-transition">
+    <section id="ks-guz" style="background:#F5EDD8; position:relative; overflow:hidden;">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="position:relative;">
+        <svg viewBox="0 0 1440 500" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.07; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
+          {[100,180,260,1180,1260,1340].map((x) => (
+            <g stroke="#C9A84C" stroke-width="1" fill="none">
+              <rect x={x} y={80} width={28} height={340} rx="1" />
+              <rect x={x-7} y={75} width={42} height={14} rx="1" />
+              <rect x={x-7} y={417} width={42} height={12} rx="1" />
+              <rect x={x-11} y={429} width={50} height={10} rx="1" />
+            </g>
+          ))}
+          <ellipse cx="720" cy="80" rx="120" ry="40" stroke="#C9A84C" stroke-width="0.8" fill="none" />
+        </svg>
+        <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
+          <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+            Fundament duchowy projektu
+          </p>
+          <h1 class="reveal section-title gold-shimmer" style="font-size:clamp(2.2rem,6vw,4.5rem); margin-bottom:0.5rem;">
+            Ks. prof. Tadeusz Guz
+          </h1>
+          <div class="ornament reveal" style="max-width:320px; margin:1.5rem auto; color:#C9A84C;">
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="#C9A84C">
+              <path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" />
+            </svg>
+          </div>
+          <p class="reveal" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:rgba(232,201,122,0.8); line-height:1.75;">
+            Filozof, teolog, kapłan — strażnik dialogu między Atenami a Jerozolimą
+          </p>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div style="max-width:1200px; margin:0 auto; padding:5rem 2rem;">
+
+        <!-- Portrait + Bio -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:4rem; align-items:start; margin-bottom:6rem;">
+
+          <!-- Portrait -->
+          <div class="reveal" style="position:relative;">
+            <div style="background:linear-gradient(135deg,#EDE0C4 0%,#D9C89A 100%); border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; max-width:380px;">
+              <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.25;">
+                <rect x="12" y="12" width="276" height="376" fill="none" stroke="#C9A84C" stroke-width="1" />
+                <rect x="20" y="20" width="260" height="360" fill="none" stroke="#C9A84C" stroke-width="0.5" />
+                {[[12,12],[288,12],[12,388],[288,388]].map(([cx,cy]) => (
+                  <circle cx={cx} cy={cy} r="4" fill="#C9A84C" opacity="0.8" />
+                ))}
+                <line x1="150" y1="80" x2="150" y2="320" stroke="#C9A84C" stroke-width="0.5" opacity="0.5" />
+                <line x1="60" y1="200" x2="240" y2="200" stroke="#C9A84C" stroke-width="0.5" opacity="0.5" />
+                <circle cx="150" cy="200" r="30" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.6" />
+                <text x="150" y="208" text-anchor="middle" font-size="28" fill="#C9A84C" opacity="0.5" font-family="serif" font-style="italic">✝</text>
+              </svg>
+              <div style="width:120px; height:120px; border-radius:50%; background:rgba(201,168,76,0.15); border:2px solid rgba(201,168,76,0.3); display:flex; align-items:center; justify-content:center; position:relative; z-index:1;">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(26,18,9,0.75); padding:0.85rem 1rem; backdrop-filter:blur(4px);">
+                <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2vw,1.15rem); color:#E8C97A; margin:0; text-align:center; letter-spacing:0.06em;">
+                  Ks. prof. dr hab. Tadeusz Guz
+                </p>
+                <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.82rem; color:rgba(232,201,122,0.6); margin:0.25rem 0 0; text-align:center;">
+                  Profesor filozofii i teologii
+                </p>
+              </div>
+            </div>
+            <div style="position:absolute; top:2rem; left:-1rem; width:4px; height:calc(100% - 4rem); background:linear-gradient(to bottom,transparent,#C9A84C 20%,#C9A84C 80%,transparent);"></div>
+          </div>
+
+          <!-- Bio text -->
+          <div>
+            <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:2rem; font-size:clamp(1.8rem,4vw,2.8rem);">
+              Duchowy Fundament<br />
+              <span style="color:#C9A84C; font-weight:400;">Aten Roztocza</span>
+            </h2>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Gdzie filozofia milknie, tam zaczyna mówić teologia — i odwrotnie. Zadaniem chrześcijańskiego myśliciela jest słuchać obu."
+            </div>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Ksiądz profesor dr hab. Tadeusz Guz jest jedną z najwybitniejszych polskich postaci łączących filozofię klasyczną z teologią chrześcijańską. Jego myśl wyrasta z najgłębszych źródeł tradycji zachodniej: platońskiego umiłowania mądrości, arystotelesowskiej troski o cnotę i tomistycznej syntezy rozumu z wiarą.
+            </div>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Jako profesor filozofii i teologii dogmatycznej prowadził badania i wykłady w Polsce i za granicą, wpisując się w wielowiekową tradycję chrześcijańskiego humanizmu. Jego prace naukowe obejmują zagadnienia filozofii starożytnej, etyki, filozofii Boga oraz relacji między wiarą a rozumem.
+            </div>
+            <div class="reveal body-text" style="margin-bottom:2rem;">
+              Projekt <strong>Ateny Roztocza</strong> wyrasta wprost z jego wizji intelektualnej: trzy cywilizacyjne filary — Jerozolima, Ateny i Rzym — tworzą fundamenty autentycznej kultury europejskiej, którą należy ocalać, badać i przekazywać kolejnym pokoleniom.
+            </div>
+            <div class="reveal" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; border-top:1px solid rgba(201,168,76,0.25); padding-top:2rem;">
+              {[{num:'20+',label:'lat projektu'},{num:'200+',label:'wykładów i seminariów'},{num:'5',label:'języki publikacji'}].map(s => (
+                <div style="text-align:center;">
+                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.35rem;">{s.num}</div>
+                  <div style="font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(26,18,9,0.45);">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Three pillars -->
+        <div style="margin-bottom:6rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Główne nurty myśli</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Trzy osie intelektualne</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;">
+            {filary.map((f, i) => (
+              <div class="reveal card-hover gold-border-hover" style={`background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:2.5rem 2rem; position:relative; transition-delay:${i*0.1}s;`}>
+                <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,7vw,5rem); font-weight:300; color:${f.color}; opacity:0.18; position:absolute; top:1.25rem; right:1.5rem; line-height:1;`}>{f.roman}</div>
+                <div style={`font-size:2rem; margin-bottom:1rem; color:${f.color};`}>{f.icon}</div>
+                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem; line-height:1.2;">{f.city}</h3>
+                <p style={`font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:${f.color}; margin-bottom:1.25rem;`}>{f.theme}</p>
+                <p class="body-text" style="font-size:0.98rem; margin:0;">{f.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div style="margin-bottom:6rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Chronologia</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Droga życia i myśli</h2>
+          </div>
+          <div style="max-width:700px; margin:0 auto; position:relative;">
+            <div style="position:absolute; left:90px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
+            {timeline.map(item => (
+              <div class="reveal" style="display:flex; gap:2rem; margin-bottom:2rem; position:relative; align-items:flex-start;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); font-weight:600; color:#C9A84C; min-width:70px; text-align:right; padding-top:0.2rem; letter-spacing:0.04em;">{item.year}</div>
+                <div style="position:absolute; left:82px; top:6px; width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1;"></div>
+                <div style="padding-left:1.5rem; padding-top:0.1rem;">
+                  <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Works -->
+        <div style="margin-bottom:5rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Dorobek naukowy</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Wybrane wykłady &amp; publikacje</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem;">
+            {dzielaSample.map(d => (
+              <div class="reveal card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:1.75rem; position:relative;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem;">
+                  <span style="font-family:'Crimson Pro',serif; font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C;">{d.type}</span>
+                  <span style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; color:rgba(26,18,9,0.18);">{d.year}</span>
+                </div>
+                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,2.5vw,1.25rem); font-weight:400; color:#1A1209; line-height:1.4; margin-bottom:0.85rem;">{d.title}</h3>
+                <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.92rem; color:rgba(26,18,9,0.55); line-height:1.6; margin:0;">{d.opis}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Closing quote -->
+        <div class="reveal" style="background:#1A1209; padding:clamp(2.5rem,6vw,4rem); text-align:center; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%); pointer-events:none;"></div>
+          <svg width="40" height="30" viewBox="0 0 40 30" fill="rgba(201,168,76,0.3)" style="margin-bottom:1.5rem;">
+            <path d="M0 30V18C0 8 6 2 18 0l2 4C12 6 9 10 9 16h6v14H0zm22 0V18C22 8 28 2 40 0l2 4C34 6 31 10 31 16h6v14H22z"/>
+          </svg>
+          <blockquote style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.15rem,2.8vw,1.6rem); line-height:1.9; color:rgba(232,201,122,0.85); max-width:700px; margin:0 auto 1.5rem;">
+            Prawdziwa kultura rodzi się tam, gdzie człowiek odważa się zapytać
+            o Boga, o dobro i o piękno — i nie boi się odpowiedzi,
+            jaką daje mu tradycja starożytna i chrześcijańska.
+          </blockquote>
+          <cite style="font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,168,76,0.5);">
+            — Ks. prof. Tadeusz Guz
+          </cite>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</Layout>
