@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const allEvents = [
+  { date: { day: '14', month: 'Cze', year: '2025' }, title: 'Logos i Kosmos — wykład otwarty',        place: 'Zamość, Centrum Kulturalne',           type: 'Wykład',      desc: 'Rozważania nad Prologiem Ewangelii Jana w świetle filozofii helleńskiej. Wstęp wolny.',               status: 'upcoming', lang: 'PL',    hasReport: false },
+  { date: { day: '28', month: 'Cze', year: '2025' }, title: 'Platon i chrześcijaństwo — seminarium',  place: 'Roztocze, Dom Rekolekcyjny',            type: 'Seminarium',  desc: 'Recepcja platońskiej filozofii Dobra, Piękna i Prawdy w tradycji patrystycznej. Zapisy wymagane.', status: 'upcoming', lang: 'PL',    hasReport: false },
+  { date: { day: '19', month: 'Lip', year: '2025' }, title: 'Letnie spotkanie kulturalne',             place: 'Roztocze, plener',                     type: 'Spotkanie',   desc: 'Coroczne letnie spotkanie uczestników projektu. Wykłady, muzyka, przestrzeń dla ducha.',           status: 'upcoming', lang: 'PL/EN', hasReport: false },
+  { date: { day: '15', month: 'Mar', year: '2025' }, title: 'Arystoteles i cnota — etyka klasyczna',  place: 'Lublin, Katolicki Uniwersytet Lubelski', type: 'Konferencja', desc: 'Nikomachejska koncepcja cnoty jako fundament etyki chrześcijańskiej.',                              status: 'past',     lang: 'PL',    hasReport: true  },
+  { date: { day: '8',  month: 'Lut', year: '2025' }, title: 'Fides et Ratio — 25 lat encykliki',      place: 'Rzeszów, Centrum Kongresowe',           type: 'Konferencja', desc: 'Jubileuszowe sympozjum z okazji 25-lecia encykliki Jana Pawła II.',                                 status: 'past',     lang: 'PL/IT', hasReport: true  },
+  { date: { day: '12', month: 'Gru', year: '2024' }, title: 'Adwentowe spotkanie filozoficzne',        place: 'Roztocze, kaplica',                    type: 'Spotkanie',   desc: 'Adwent jako czas oczekiwania w tradycji filozoficznej i duchowej.',                                 status: 'past',     lang: 'PL',    hasReport: false },
+  { date: { day: '5',  month: 'Paź', year: '2024' }, title: 'Sympozjum: Rzym i prawo naturalne',      place: 'Warszawa, Instytut Kultury',            type: 'Sympozjum',   desc: 'Rzymski geniusz prawa i jego recepcja w europejskiej tradycji prawniczej.',                          status: 'past',     lang: 'PL/EN', hasReport: true  },
+  { date: { day: '17', month: 'Sie', year: '2024' }, title: 'Letnia szkoła filozofii klasycznej',      place: 'Roztocze',                             type: 'Warsztaty',   desc: 'Intensywny kurs filozofii klasycznej dla studentów i doktorantów.',                                status: 'past',     lang: 'PL',    hasReport: true  },
+];
+---
+
+<Layout
+  title="Wydarzenia"
+  description="Seminaria, wykłady i konferencje projektu Ateny Roztocza. Spotkania w przestrzeni kultury, filozofii i wiary."
+>
+  <div class="page-transition">
+
+    <!-- Hero -->
+    <div class="page-hero">
+      <div style="position:relative; z-index:2; max-width:700px; margin:0 auto;">
+        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+          Seminaria · Wykłady · Konferencje
+        </p>
+        <h1 class="section-title gold-shimmer" style="font-size:clamp(2.4rem,7vw,4.8rem); margin-bottom:1rem;">
+          Wydarzenia
+        </h1>
+        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7); line-height:1.75;">
+          Spotkania w przestrzeni kultury, filozofii i wiary
+        </p>
+      </div>
+    </div>
+
+    <!-- Sticky filter bar -->
+    <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.15); position:sticky; top:70px; z-index:100;">
+      <div style="max-width:1100px; margin:0 auto; padding:0 1.5rem; display:flex;">
+        {(['all','upcoming','past'] as const).map((key) => {
+          const labels: Record<string,string> = { all:'Wszystkie', upcoming:'Nadchodzące', past:'Archiwum' };
+          return (
+            <button
+              class="tab-btn w-filter-btn"
+              data-filter={key}
+              style={`color:${key === 'all' ? '#E8C97A' : 'rgba(245,237,216,0.45)'}; border-bottom-color:${key === 'all' ? '#C9A84C' : 'transparent'};`}
+            >
+              {labels[key]}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Events list -->
+    <div style="background:#F5EDD8; min-height:60vh;">
+      <div style="max-width:1000px; margin:0 auto; padding:clamp(2.5rem,5vw,4rem) 1.5rem;">
+
+        <!-- Legend -->
+        <div style="display:flex; gap:clamp(0.75rem,2.5vw,1.5rem); flex-wrap:wrap; align-items:center; margin-bottom:clamp(1.5rem,3.5vw,2.5rem); padding:clamp(0.75rem,2vw,1rem) clamp(1rem,2.5vw,1.25rem); background:rgba(26,18,9,0.04); border:1px solid rgba(201,168,76,0.15);">
+          <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); flex-shrink:0;">Oznaczenia:</span>
+          <span style="display:inline-flex; align-items:center; gap:6px;">
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 8px; display:inline-flex; align-items:center; gap:4px;">
+              <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
+              Relacja
+            </span>
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— dostępna relacja z wydarzenia</span>
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:6px;">
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px;">Archiwum</span>
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— brak relacji</span>
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:6px;">
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#C9A84C; border:1px solid rgba(201,168,76,0.35); background:rgba(201,168,76,0.1); padding:2px 8px;">Wkrótce</span>
+            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— wydarzenie nadchodzące</span>
+          </span>
+        </div>
+
+        <!-- Events -->
+        <div id="events-list" style="display:flex; flex-direction:column;">
+          {allEvents.map((event) => (
+            <div
+              class="reveal card-hover w-event-row"
+              data-status={event.status}
+              style="display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.25rem,3vw,2.5rem); padding:clamp(1.5rem,3.5vw,2.5rem) 0; border-bottom:1px solid rgba(26,18,9,0.1); cursor:pointer; transition:padding-left 0.3s ease; align-items:start;"
+            >
+              <!-- Date -->
+              <div style="text-align:center; min-width:clamp(52px,10vw,70px); border-right:1px solid rgba(201,168,76,0.25); padding-right:clamp(1rem,2.5vw,1.75rem);">
+                <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:${event.status === 'upcoming' ? '#C9A84C' : 'rgba(201,168,76,0.45)'}; line-height:1;`}>
+                  {event.date.day}
+                </div>
+                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.62rem,1.4vw,0.72rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin-top:0.2rem;">
+                  {event.date.month}
+                </div>
+                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.4vw,0.78rem); color:rgba(26,18,9,0.3);">
+                  {event.date.year}
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div>
+                <div style="display:flex; gap:0.55rem; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap;">
+                  <span style={`font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.67rem); letter-spacing:0.2em; text-transform:uppercase; color:${event.status === 'upcoming' ? '#C9A84C' : 'rgba(201,168,76,0.55)'}; border:1px solid ${event.status === 'upcoming' ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.2)'}; padding:2px 8px;`}>
+                    {event.type}
+                  </span>
+                  {event.status === 'past' && event.hasReport && (
+                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 9px; display:inline-flex; align-items:center; gap:4px; flex-shrink:0;">
+                      <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
+                      Relacja
+                    </span>
+                  )}
+                  {event.status === 'past' && !event.hasReport && (
+                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px; flex-shrink:0;">
+                      Archiwum
+                    </span>
+                  )}
+                  {event.lang !== 'PL' && (
+                    <span style="font-family:'Crimson Pro',serif; font-size:0.68rem; color:rgba(26,18,9,0.4); letter-spacing:0.1em;">
+                      🌐 {event.lang}
+                    </span>
+                  )}
+                  <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.82rem,1.8vw,0.9rem); color:rgba(26,18,9,0.45); font-style:italic;">
+                    {event.place}
+                  </span>
+                </div>
+                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.65rem); font-weight:400; color:#1A1209; line-height:1.3; margin-bottom:0.5rem;">
+                  {event.title}
+                </h3>
+                <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2vw,1rem); color:rgba(26,18,9,0.5); line-height:1.65; margin:0;">
+                  {event.desc}
+                </p>
+              </div>
+
+              <!-- Right badge -->
+              <div style="align-self:start; margin-top:0.25rem; display:flex; flex-direction:column; gap:0.4rem; align-items:flex-end;">
+                {event.status === 'upcoming' && (
+                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:4px 10px; white-space:nowrap;">
+                    Wkrótce
+                  </div>
+                )}
+                {event.status === 'past' && event.hasReport && (
+                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.85); background:#7A1C2E; padding:4px 10px; white-space:nowrap; display:flex; align-items:center; gap:5px;">
+                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
+                    Relacja dostępna
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .w-event-row:hover { padding-left: 0.75rem !important; }
+</style>
+
+<script>
+  // ── Filter ────────────────────────────────────────────────
+  let activeFilter = 'all';
+
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.w-filter-btn');
+  const eventRows  = document.querySelectorAll<HTMLElement>('.w-event-row');
+
+  function applyFilter(filter: string) {
+    activeFilter = filter;
+
+    // Update button styles
+    filterBtns.forEach((btn) => {
+      const isActive = btn.dataset.filter === filter;
+      btn.style.color            = isActive ? '#E8C97A'                  : 'rgba(245,237,216,0.45)';
+      btn.style.borderBottomColor = isActive ? '#C9A84C'                 : 'transparent';
+    });
+
+    // Show / hide rows + re-trigger reveal
+    eventRows.forEach((row) => {
+      const status = row.dataset.status ?? '';
+      const visible = filter === 'all' || status === filter;
+      row.style.display = visible ? 'grid' : 'none';
+      // Re-arm reveal animation when becoming visible
+      if (visible) {
+        row.classList.remove('visible');
+        requestAnimationFrame(() => {
+          // tiny delay so IntersectionObserver can re-observe
+          setTimeout(() => {
+            if (row.getBoundingClientRect().top < window.innerHeight) {
+              row.classList.add('visible');
+            }
+          }, 60);
+        });
+      }
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter ?? 'all'));
+  });
+</script>
