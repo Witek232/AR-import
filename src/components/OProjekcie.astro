@@ -1,0 +1,119 @@
+---
+// ── ANALIZA ──────────────────────────────────────────────────
+// useRef + useEffect IntersectionObserver → globalny initReveal()
+// Komponent w 100% statyczny — zero JS potrzebnego lokalnie
+// ─────────────────────────────────────────────────────────────
+
+const stats = [
+  { value: '22',   suffix: '',  label: 'lata działalności'    },
+  { value: '200',  suffix: '+', label: 'spotkań i wykładów'   },
+  { value: '4',    suffix: '',  label: 'języki publikacji'     },
+  { value: '2006', suffix: '',  label: 'rok założenia'         },
+];
+---
+
+<section
+  id="o-projekcie"
+  style="background:#F5EDD8; padding:6rem 2rem; position:relative; overflow:hidden;"
+>
+  <!-- Decorative BG -->
+  <div style="position:absolute; right:-5rem; top:50%; transform:translateY(-50%); opacity:0.04; pointer-events:none;">
+    <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
+      <circle cx="250" cy="250" r="240" stroke="#1A1209" stroke-width="1" />
+      <circle cx="250" cy="250" r="200" stroke="#1A1209" stroke-width="1" />
+      <circle cx="250" cy="250" r="160" stroke="#1A1209" stroke-width="1" />
+      <polygon points="250,30 470,195 385,440 115,440 30,195" stroke="#1A1209" stroke-width="1" fill="none" />
+      <polygon points="250,80 420,205 360,400 140,400 80,205" stroke="#C9A84C" stroke-width="0.5" fill="none" />
+    </svg>
+  </div>
+
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="responsive-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+
+      <!-- Left column -->
+      <div>
+        <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.7); margin-bottom:1rem;">
+          Jak powstają Ateny Roztocza
+        </p>
+        <h2 class="reveal section-title" style="font-size:clamp(2.2rem,4.5vw,3.5rem); color:#1A1209; line-height:1.15; margin-bottom:1.5rem;">
+          Projekt zrodzony<br />z miłości do tradycji
+        </h2>
+        <div class="ornament reveal" style="max-width:200px; margin-bottom:2rem;">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C">
+            <path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" />
+          </svg>
+        </div>
+        <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:1.15rem; line-height:1.85; color:#4A3A28; margin-bottom:1.5rem;">
+          Ateny Roztocza to projekt kulturalno-filozoficzno-religijny, który przez ponad dwie dekady buduje na Roztoczu przestrzeń spotkania z dziedzictwem cywilizacji europejskiej w jej trzech fundamentach: biblijnym, greckim i rzymskim.
+        </p>
+        <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:1.15rem; line-height:1.85; color:#4A3A28; margin-bottom:2rem;">
+          Seminaria, wykłady, spotkania autorskie, wystawy — wszystko to tworzy wyjątkowe archiwum myśli chrześcijańskiej, dostępne dziś w pięciu językach: polskim, angielskim, niemieckim, włoskim i hiszpańskim.
+        </p>
+        <blockquote class="reveal elegant-quote" style="border-color:#C9A84C; margin-left:0;">
+          „Ateny Roztocza to miejsce, gdzie filozofia spotyka się z liturgią, a tradycja z teraźniejszością."
+        </blockquote>
+        
+          href="/o-projekcie"
+          class="reveal"
+          style="display:inline-block; margin-top:1.5rem; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:#1A1209; text-decoration:none; border-bottom:1px solid #C9A84C; padding-bottom:2px; transition:color 0.2s;"
+        >
+          Czytaj więcej →
+        </a>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <!-- Temple SVG illustration -->
+        <div class="reveal" style="margin-bottom:3rem;">
+          <svg viewBox="0 0 400 300" style="width:100%; max-width:420px; display:block;" fill="none">
+            <rect x="50" y="220" width="300" height="12" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+            <rect x="40" y="232" width="320" height="10" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+            <rect x="30" y="242" width="340" height="8"  fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+            {[70,120,170,220,270,320].map((x) => (
+              <g>
+                <rect x={x} y={70} width={20} height={150} rx="2" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+                <rect x={x-5} y={65} width={30} height={8} rx="1" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+                <rect x={x-2} y={57} width={24} height={8} rx="1" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+                {[3,7,11,15].map((off) => (
+                  <line x1={x+off} y1={73} x2={x+off} y2={218} stroke="#C9A84C" stroke-width="0.3" opacity="0.5" />
+                ))}
+                <rect x={x-3} y={220} width={26} height={5} rx="1" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.5" />
+              </g>
+            ))}
+            <polygon points="25,55 200,10 375,55" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.8" />
+            <polygon points="45,55 200,18 355,55" fill="none" stroke="#C9A84C" stroke-width="0.4" />
+            <rect x="40" y="55" width="320" height="15" fill="#EDE0C4" stroke="#C9A84C" stroke-width="0.6" />
+            {Array.from({length:16},(_,i) => (
+              <rect x={44+i*19} y={57} width={8} height={11} fill="none" stroke="#C9A84C" stroke-width="0.4" opacity="0.6" />
+            ))}
+            <circle cx="200" cy="35" r="12" stroke="#C9A84C" stroke-width="0.6" fill="none" opacity="0.7" />
+            <circle cx="200" cy="35" r="6" fill="#C9A84C" opacity="0.3" />
+            <ellipse cx="200" cy="258" rx="160" ry="6" fill="rgba(26,18,9,0.08)" />
+            <path d="M0 260 Q50 240 100 255 Q150 270 200 255 Q250 240 300 258 Q350 270 400 255" stroke="#C9A84C" stroke-width="0.4" fill="none" opacity="0.3" />
+          </svg>
+        </div>
+
+        <!-- Stats grid -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+          {stats.map((stat, i) => (
+            <div class={`reveal reveal-delay-${i+1}`} style="border-left:2px solid rgba(201,168,76,0.4); padding-left:1.25rem;">
+              <div style="font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:#1A1209; line-height:1; margin-bottom:0.25rem;">
+                {stat.value}<span style="font-size:1.5rem; color:#C9A84C;">{stat.suffix}</span>
+              </div>
+              <div style="font-family:'Crimson Pro',serif; font-size:0.85rem; color:#7A6A52; letter-spacing:0.03em;">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .responsive-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  }
+</style>
