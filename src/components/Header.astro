@@ -1,10 +1,4 @@
-Widzę dwa problemy w Header.astro:
-
-Linie 67-76: style={{ ... }} — to składnia React, nie Astro. Astro wymaga style="..." jako string.
-Skrypt: TypeScript — ! non-null assertions, <HTMLElement>, <SVGElement> — esbuild na Cloudflare tego nie obsługuje.
-
-Zastąp cały plik:
-astro---
+---
 const pathname = Astro.url.pathname;
 
 let currentLang = 'PL';
