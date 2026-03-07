@@ -1,39 +1,37 @@
 ---
-// Plik dostarczony z projektu — drobne poprawki Astro-native
 import Layout from '../../../layouts/Layout.astro';
-import { getLataArchiwum, getMaterialyRoku, getMaterial } from '../../../lib/sanity';
+import {
+  years,
+  multimediaData,
+  getEntriesByYear,
+  getEntry,
+  categoryLabels,
+  categoryColors,
+} from '../../../data/multimediaData';
 
-export async function getStaticPaths() {
-  const lata = await getLataArchiwum();
-  if (!lata || lata.length === 0) return [];
-  const paths = [];
-  for (const rok of lata) {
-    const materialy = await getMaterialyRoku(rok);
-    if (!materialy || materialy.length === 0) continue;
-    for (const m of materialy) {
-      if (m.slug?.current) {
-        paths.push({ params: { year: String(rok), slug: m.slug.current } });
-      }
-    }
-  }
-  return paths;
+export function getStaticPaths() {
+  return years.flatMap((rok) =>
+    (multimediaData[rok] ?? []).map((entry) => ({
+      params: { year: String(rok), slug: entry.slug },
+    }))
+  );
 }
 
 const { year, slug } = Astro.params;
-const rok = parseInt(year);
-const material = await getMaterial(rok, slug);
-const wszystkieRoku = await getMaterialyRoku(rok);
-const idx        = wszystkieRoku.findIndex((m: any) => m.slug?.current === slug);
-const poprzedni  = idx < wszystkieRoku.length - 1 ? wszystkieRoku[idx + 1] : null;
-const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : null;
+const rok      = parseInt(year);
+const entry    = getEntry(rok, slug);
+const listRoku = getEntriesByYear(rok);
+const idx      = listRoku.findIndex((e) => e.slug === slug);
+const poprzedni = idx < listRoku.length - 1 ? listRoku[idx + 1] : null;
+const nastepny  = idx > 0                   ? listRoku[idx - 1] : null;
 ---
 
 <Layout
-  title={material?.tytul ?? 'Materiał audiowizualny'}
-  description={material ? `${material.tytul} · ${rok} · Ateny Roztocza` : ''}
+  title={entry?.title ?? 'Materiał audiowizualny'}
+  description={entry ? `${entry.title} · ${rok} · Ateny Roztocza` : ''}
 >
 
-{!material ? (
+{!entry ? (
   <div style="background:#F5EDD8; min-height:60vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:5rem 2rem;">
     <div>
       <p style="font-family:'Cormorant Garamond',serif; font-size:2rem; color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
@@ -45,48 +43,42 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
 ) : (
   <div class="page-transition">
 
-    <!-- ── HERO ──────────────────────────────────────────── -->
+    <!-- ── HERO ────────────────────────────────────────────── -->
     <section style="background:#1A1209; color:#F5EDD8; padding:clamp(4rem,10vw,7rem) clamp(1rem,4vw,2rem) clamp(2rem,5vw,3rem);">
       <div style="max-width:1100px; margin:0 auto;">
 
         <!-- Breadcrumb -->
-        <nav style="font-family:'Crimson Pro',serif; font-size:0.82rem; letter-spacing:0.1em; color:rgba(201,168,76,0.5); margin-bottom:1.75rem;">
-          <a href="/multimedia" style="color:rgba(201,168,76,0.6); text-decoration:none;" class="bc-link">Multimedia</a>
+        <nav style="font-family:'Crimson Pro',serif; font-size:0.82rem; letter-spacing:0.1em; margin-bottom:1.75rem;">
+          <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">Multimedia</a>
           <span style="margin:0 0.6rem; color:rgba(201,168,76,0.25);">›</span>
-          <a href={`/multimedia/${rok}`} style="color:rgba(201,168,76,0.6); text-decoration:none;" class="bc-link">{rok}</a>
+          <a href={`/multimedia/${rok}`} class="bc-link" style="color:rgba(201,168,76,0.6); text-decoration:none;">{rok}</a>
           <span style="margin:0 0.6rem; color:rgba(201,168,76,0.25);">›</span>
-          <span style="color:rgba(201,168,76,0.9); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{material.tytul}</span>
+          <span style="color:rgba(201,168,76,0.85);">{entry.title}</span>
         </nav>
 
-        <!-- Meta row -->
+        <!-- Meta -->
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem;">
-          {material.kategoria && (
-            <span style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; background:rgba(201,168,76,0.15); color:#C9A84C; padding:0.25rem 0.75rem; border:1px solid rgba(201,168,76,0.3);">
-              {material.kategoria}
-            </span>
+          <span style={`font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; background:rgba(201,168,76,0.12); color:${categoryColors[entry.category]}; padding:0.25rem 0.75rem; border:1px solid ${categoryColors[entry.category]}55;`}>
+            {categoryLabels[entry.category]}
+          </span>
+          <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">{entry.date}</span>
+          {entry.place && (
+            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">📍 {entry.place}</span>
           )}
-          {material.data && (
-            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">
-              {new Date(material.data).toLocaleDateString('pl-PL', { day: '2-digit', month: 'long', year: 'numeric' })}
-            </span>
-          )}
-          {material.miejsce && (
-            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">📍 {material.miejsce}</span>
-          )}
-          {material.czesci?.length > 1 && (
-            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">▶ {material.czesci.length} części</span>
+          {entry.parts.length > 1 && (
+            <span style="font-size:0.85rem; color:rgba(245,237,216,0.5);">▶ {entry.parts.length} części</span>
           )}
         </div>
 
-        <!-- Title -->
+        <!-- Tytuł -->
         <h1 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,4vw,3.5rem); font-weight:400; line-height:1.2; color:#F5EDD8; margin-bottom:1.25rem;">
-          {material.tytul}
+          {entry.title}
         </h1>
 
-        <!-- Tags -->
-        {material.tagi?.length > 0 && (
+        <!-- Tagi -->
+        {entry.tags && entry.tags.length > 0 && (
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-            {material.tagi.map((t: string) => (
+            {entry.tags.map((t) => (
               <span style="font-size:0.8rem; color:rgba(201,168,76,0.6); background:rgba(201,168,76,0.08); padding:0.2rem 0.65rem; border-radius:2px;">
                 #{t}
               </span>
@@ -96,111 +88,97 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
       </div>
     </section>
 
-    <!-- ── MAIN CONTENT ──────────────────────────────────── -->
+    <!-- ── TREŚĆ ──────────────────────────────────────────── -->
     <section style="background:#0D0A05; padding:clamp(3rem,6vw,5rem) clamp(1rem,4vw,2rem);">
-      <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; gap:3rem; align-items:start;" class="entry-layout">
+      <div class="entry-layout" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; gap:3rem; align-items:start;">
 
-        <!-- Main column -->
+        <!-- Główna kolumna -->
         <div>
           <!-- Opis -->
-          {material.opis?.length > 0 && (
-            <div style="margin-bottom:2.5rem; padding-left:1.5rem; border-left:3px solid #C9A84C;">
-              {material.opis.map((block: any) => {
-                const text = block._type === 'block'
-                  ? block.children?.map((c: any) => c.text).join('')
-                  : null;
-                return text ? (
-                  <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:1.05rem; color:rgba(245,237,216,0.8); line-height:1.8; margin-bottom:1rem;">
-                    {text}
-                  </p>
-                ) : null;
-              })}
-            </div>
-          )}
-
-          <!-- Films -->
-          <div>
-            {material.czesci?.length > 1 && (
-              <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#C9A84C; margin-bottom:1.75rem; font-weight:400;">
-                Materiał wideo
-              </h2>
-            )}
-
-            {material.czesci?.map((czesc: any, i: number) => (
-              <div style="margin-bottom:3rem;">
-                {material.czesci.length > 1 && (
-                  <div style="display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(201,168,76,0.15);">
-                    <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:rgba(201,168,76,0.2); line-height:1;">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#F5EDD8; margin-bottom:0.2rem;">
-                        {czesc.label ?? `Część ${i + 1}`}
-                      </h3>
-                      {czesc.czas && (
-                        <span style="font-size:0.8rem; color:rgba(245,237,216,0.4);">⏱ {czesc.czas}</span>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {czesc.opisCzesci && (
-                  <p style="font-size:0.9rem; color:rgba(245,237,216,0.6); margin-bottom:1rem; font-style:italic; font-family:'Crimson Pro',serif;">
-                    {czesc.opisCzesci}
-                  </p>
-                )}
-
-                <!-- YouTube lazy thumbnail -->
-                <div
-                  class="yt-wrap"
-                  data-yt-id={czesc.youtubeId}
-                  style="position:relative; aspect-ratio:16/9; background:#000; cursor:pointer; overflow:hidden; border-radius:2px;"
-                >
-                  <img
-                    class="yt-thumb"
-                    src={`https://img.youtube.com/vi/${czesc.youtubeId}/maxresdefault.jpg`}
-                    alt={czesc.label ?? material.tytul}
-                    loading={i === 0 ? 'eager' : 'lazy'}
-                    style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s, filter 0.3s;"
-                    onerror={`this.src='https://img.youtube.com/vi/${czesc.youtubeId}/mqdefault.jpg'`}
-                  />
-                  <!-- Play button -->
-                  <div class="yt-play" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:50px; background:rgba(255,0,0,0.92); border-radius:14px; display:flex; align-items:center; justify-content:center; pointer-events:none; transition:transform 0.2s, background 0.2s;">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
-                  </div>
-                  <!-- Overlay -->
-                  <div style="position:absolute; bottom:0; left:0; right:0; padding:1rem; background:linear-gradient(transparent,rgba(0,0,0,0.7)); display:flex; justify-content:space-between; align-items:flex-end; pointer-events:none;">
-                    <span style="font-size:0.8rem; color:rgba(255,255,255,0.8); font-family:'Crimson Pro',serif;">▶ Kliknij aby odtworzyć</span>
-                    {czesc.czas && <span style="font-size:0.8rem; color:rgba(255,255,255,0.7); font-family:'Courier Prime',monospace;">{czesc.czas}</span>}
-                  </div>
-                </div>
-              </div>
+          <div style="margin-bottom:2.5rem; padding-left:1.5rem; border-left:3px solid #C9A84C;">
+            {entry.description.trim().split('\n').filter(Boolean).map((para) => (
+              <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:1.05rem; color:rgba(245,237,216,0.8); line-height:1.8; margin-bottom:0.75rem;">
+                {para.trim()}
+              </p>
             ))}
           </div>
+
+          <!-- Nagłówek sekcji filmów (tylko gdy więcej niż 1 część) -->
+          {entry.parts.length > 1 && (
+            <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#C9A84C; margin-bottom:1.75rem; font-weight:400;">
+              Materiał wideo
+            </h2>
+          )}
+
+          <!-- Filmy -->
+          {entry.parts.map((part, i) => (
+            <div style="margin-bottom:3rem;">
+              {entry.parts.length > 1 && (
+                <div style="display:flex; gap:1rem; align-items:flex-start; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(201,168,76,0.15);">
+                  <span style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:rgba(201,168,76,0.2); line-height:1;">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#F5EDD8; margin-bottom:0.2rem;">{part.label}</h3>
+                    <span style="font-size:0.8rem; color:rgba(245,237,216,0.4);">⏱ {part.duration}</span>
+                  </div>
+                </div>
+              )}
+
+              {part.description && (
+                <p style="font-size:0.9rem; color:rgba(245,237,216,0.6); margin-bottom:1rem; font-style:italic; font-family:'Crimson Pro',serif;">
+                  {part.description}
+                </p>
+              )}
+
+              <!-- YouTube: miniatura → klik → odtwarzacz -->
+              <div
+                class="yt-wrap"
+                data-yt-id={part.id}
+                style="position:relative; aspect-ratio:16/9; background:#000; cursor:pointer; overflow:hidden; border-radius:2px;"
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${part.id}/maxresdefault.jpg`}
+                  alt={`${entry.title}${entry.parts.length > 1 ? ` — ${part.label}` : ''}`}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  class="yt-thumb"
+                  style="width:100%; height:100%; object-fit:cover; transition:transform 0.3s, filter 0.3s;"
+                  onerror={`this.src='https://img.youtube.com/vi/${part.id}/mqdefault.jpg'`}
+                />
+                <div class="yt-play" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:72px; height:50px; background:rgba(255,0,0,0.92); border-radius:14px; display:flex; align-items:center; justify-content:center; pointer-events:none; transition:transform 0.2s, background 0.2s;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
+                </div>
+                <div style="position:absolute; bottom:0; left:0; right:0; padding:1rem; background:linear-gradient(transparent,rgba(0,0,0,0.7)); display:flex; justify-content:space-between; align-items:flex-end; pointer-events:none;">
+                  <span style="font-size:0.8rem; color:rgba(255,255,255,0.8); font-family:'Crimson Pro',serif;">▶ Kliknij aby odtworzyć</span>
+                  <span style="font-size:0.8rem; color:rgba(255,255,255,0.7); font-family:'Courier Prime',monospace;">{part.duration}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <!-- Sidebar -->
+        <!-- Sidebar: inne z tego roku -->
         <aside style="position:sticky; top:90px;">
           <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.15); padding:1.5rem;">
             <h4 style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#C9A84C; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(201,168,76,0.15);">
               Inne z {rok}
             </h4>
             <ul style="list-style:none; padding:0; margin:0;">
-              {wszystkieRoku
-                .filter((m: any) => m.slug?.current !== slug)
+              {listRoku
+                .filter((e) => e.slug !== slug)
                 .slice(0, 8)
-                .map((m: any) => (
+                .map((e) => (
                   <li style="margin-bottom:0.4rem;">
                     
-                      href={`/multimedia/${rok}/${m.slug?.current}`}
-                      style="display:flex; flex-direction:column; gap:0.1rem; text-decoration:none; padding:0.5rem; border-radius:2px; transition:background 0.2s;"
+                      href={`/multimedia/${rok}/${e.slug}`}
                       class="sidebar-link"
+                      style="display:flex; flex-direction:column; gap:0.1rem; text-decoration:none; padding:0.5rem; border-radius:2px; transition:background 0.2s;"
                     >
-                      <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:rgba(201,168,76,0.5);">
-                        {m.kategoria ?? '—'}
+                      <span style={`font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:${categoryColors[e.category]}88;`}>
+                        {categoryLabels[e.category]}
                       </span>
                       <span style="font-family:'Cormorant Garamond',serif; font-size:0.95rem; color:#F5EDD8; line-height:1.3;">
-                        {m.tytul}
+                        {e.title}
                       </span>
                     </a>
                   </li>
@@ -209,8 +187,8 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
             </ul>
             
               href={`/multimedia/${rok}`}
-              style="display:block; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(201,168,76,0.15); font-size:0.85rem; color:#C9A84C; text-decoration:none; font-family:'Crimson Pro',serif; letter-spacing:0.08em;"
               class="sidebar-back"
+              style="display:block; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(201,168,76,0.15); font-size:0.85rem; color:#C9A84C; text-decoration:none; font-family:'Crimson Pro',serif; letter-spacing:0.08em;"
             >
               ← Wszystkie z {rok}
             </a>
@@ -220,24 +198,24 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
       </div>
     </section>
 
-    <!-- ── PREV / NEXT ───────────────────────────────────── -->
+    <!-- ── NAWIGACJA POPRZEDNI / NASTĘPNY ─────────────────── -->
     <nav style="background:#0D0A05; border-top:1px solid rgba(201,168,76,0.12); padding:clamp(2rem,4vw,3rem) clamp(1rem,4vw,2rem);">
-      <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; gap:2rem; align-items:center;" class="entry-nav">
+      <div class="entry-nav" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; gap:2rem; align-items:center;">
         {poprzedni ? (
-          <a href={`/multimedia/${rok}/${poprzedni.slug?.current}`} class="nav-link nav-prev">
+          <a href={`/multimedia/${rok}/${poprzedni.slug}`} class="nav-link">
             <span class="nav-dir">← Starsze</span>
-            <span class="nav-title">{poprzedni.tytul}</span>
+            <span class="nav-title">{poprzedni.title}</span>
           </a>
-        ) : <span></span>}
+        ) : <span />}
 
         <a href={`/multimedia/${rok}`} class="nav-center">↑ {rok}</a>
 
         {nastepny ? (
-          <a href={`/multimedia/${rok}/${nastepny.slug?.current}`} class="nav-link nav-next">
+          <a href={`/multimedia/${rok}/${nastepny.slug}`} class="nav-link nav-next">
             <span class="nav-dir">Nowsze →</span>
-            <span class="nav-title">{nastepny.tytul}</span>
+            <span class="nav-title">{nastepny.title}</span>
           </a>
-        ) : <span></span>}
+        ) : <span />}
       </div>
     </nav>
 
@@ -247,32 +225,30 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
 </Layout>
 
 <style>
-  .bc-link:hover   { color: #C9A84C !important; }
+  .bc-link:hover      { color: #C9A84C !important; }
   .sidebar-link:hover { background: rgba(201,168,76,0.07) !important; }
   .sidebar-back:hover { text-decoration: underline !important; }
 
   .yt-wrap:hover .yt-thumb { transform: scale(1.02); filter: brightness(0.6); }
-  .yt-wrap:hover .yt-play  { background: #ff0000 !important; transform: translate(-50%,-50%) scale(1.08) !important; }
-
+  .yt-wrap:hover .yt-play  {
+    background: #ff0000 !important;
+    transform: translate(-50%,-50%) scale(1.08) !important;
+  }
   .yt-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 
   .nav-link {
     display: flex; flex-direction: column; gap: 0.25rem;
     text-decoration: none; color: #F5EDD8;
-    padding: 1rem;
-    border: 1px solid rgba(201,168,76,0.15);
-    transition: all 0.2s;
+    padding: 1rem; border: 1px solid rgba(201,168,76,0.15); transition: all 0.2s;
   }
   .nav-link:hover { border-color: #C9A84C; background: rgba(201,168,76,0.05); }
-  .nav-next  { text-align: right; }
-  .nav-dir   { font-size: 0.75rem; color: #C9A84C; letter-spacing: 0.1em; font-family: 'Crimson Pro', serif; }
-  .nav-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: rgba(245,237,216,0.8); }
+  .nav-next       { text-align: right; }
+  .nav-dir        { font-size: 0.75rem; color: #C9A84C; letter-spacing: 0.1em; font-family: 'Crimson Pro', serif; }
+  .nav-title      { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: rgba(245,237,216,0.8); }
   .nav-center {
-    text-align: center; font-size: 0.9rem;
-    color: rgba(201,168,76,0.6); text-decoration: none;
-    padding: 0.5rem 1rem; white-space: nowrap;
-    font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;
-    transition: color 0.2s;
+    text-align: center; font-size: 0.9rem; color: rgba(201,168,76,0.6);
+    text-decoration: none; padding: 0.5rem 1rem; white-space: nowrap;
+    font-family: 'Crimson Pro', serif; letter-spacing: 0.08em; transition: color 0.2s;
   }
   .nav-center:hover { color: #C9A84C; }
 
@@ -284,15 +260,14 @@ const nastepny   = idx > 0                         ? wszystkieRoku[idx - 1] : nu
 </style>
 
 <script>
-  // ── YouTube lazy load ─────────────────────────────────────
   document.querySelectorAll<HTMLElement>('.yt-wrap').forEach((wrap) => {
     wrap.addEventListener('click', () => {
       const id = wrap.dataset.ytId;
       if (!id) return;
       const iframe = document.createElement('iframe');
-      iframe.src         = `https://www.youtube.com/embed/${id}?autoplay=1`;
-      iframe.className   = 'yt-iframe';
-      iframe.allow       = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+      iframe.className = 'yt-iframe';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
       wrap.innerHTML = '';
       wrap.appendChild(iframe);
