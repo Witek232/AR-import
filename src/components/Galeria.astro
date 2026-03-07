@@ -1,0 +1,532 @@
+---
+// ── ANALIZA ──────────────────────────────────────────────────
+// Komponent INTERAKTYWNY:
+//   useState activeAlbum   → data-attribute + JS filter
+//   useState lightboxIndex → JS state w <script>
+//   useCallback goPrev/goNext → funkcje JS
+//   useEffect keyboard     → addEventListener keydown
+//   useEffect focus trap   → element.focus() + body overflow
+// Strategia: pełny vanilla JS, zero React
+// ─────────────────────────────────────────────────────────────
+
+const albums = [
+  { id: 1, title: 'Spotkania i Wykłady',        subtitle: 'Album I — Fotografie z seminariów', year: '2019–2024', count: 48 },
+  { id: 2, title: 'Roztocze — Krajobraz & Sacrum', subtitle: 'Album II — Miejsca projektu',    year: '2006–2024', count: 72 },
+];
+
+const galleryItems = [
+  { id: 1,  caption: 'Wykład inauguracyjny — Sokrates i Chrystus',          album: 1, aspect: 'landscape' },
+  { id: 2,  caption: 'Roztocze o wschodzie słońca',                          album: 2, aspect: 'portrait'  },
+  { id: 3,  caption: 'Panel dyskusyjny — Platon w tradycji chrześcijańskiej', album: 1, aspect: 'landscape' },
+  { id: 4,  caption: 'Sanktuarium — zewnętrzne',                             album: 2, aspect: 'square'    },
+  { id: 5,  caption: 'Spotkanie autorskie — 2023',                           album: 1, aspect: 'portrait'  },
+  { id: 6,  caption: 'Krajobraz Roztocza — jesień',                          album: 2, aspect: 'landscape' },
+  { id: 7,  caption: 'Seminarium filozoficzne',                              album: 1, aspect: 'square'    },
+  { id: 8,  caption: 'Kaplica — wnętrze',                                   album: 2, aspect: 'portrait'  },
+  { id: 9,  caption: 'Konferencja — sala główna',                            album: 1, aspect: 'landscape' },
+  { id: 10, caption: 'Łąki Roztocza — lato',                                album: 2, aspect: 'square'    },
+];
+
+const placeholderColors = [
+  '#2C1A08','#3A2410','#1E1409','#2A1C0C',
+  '#35200E','#251808','#2E1B0A','#221508',
+  '#301E0B','#281A09',
+];
+
+const totalCount = albums.reduce((a, b) => a + b.count, 0);
+---
+
+<section
+  id="galeria"
+  style="background:#1A1209; padding:clamp(3.5rem,7vw,6rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
+>
+  <!-- BG decoration -->
+  <div style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 20% 50%,rgba(201,168,76,0.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(122,28,46,0.04) 0%,transparent 50%);"></div>
+
+  <div style="max-width:1200px; margin:0 auto; position:relative;">
+
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom:clamp(2rem,4vw,3rem);">
+      <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.72rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.85rem;">
+        Archiwum fotograficzne
+      </p>
+      <h2 class="reveal section-title" style="font-size:clamp(2rem,4.5vw,3.5rem); color:#E8C97A; line-height:1.1;">
+        Galeria
+      </h2>
+    </div>
+
+    <!-- Album filters -->
+    <div class="reveal" style="display:flex; gap:clamp(0.5rem,2vw,1.25rem); margin-bottom:clamp(1.5rem,3.5vw,2.5rem); flex-wrap:wrap; justify-content:center;">
+      <button
+        class="album-filter-btn active"
+        data-filter="all"
+        aria-pressed="true"
+      >
+        Wszystkie albumy
+      </button>
+      {albums.map((album) => (
+        <button
+          class="album-filter-btn"
+          data-filter={String(album.id)}
+          aria-pressed="false"
+        >
+          <span style="display:block;">{album.title}</span>
+          <span style="display:block; font-size:0.68rem; opacity:0.6; font-style:italic;">
+            {album.year} · {album.count} zdjęć
+          </span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid -->
+    <div class="gallery-grid" id="gallery-grid">
+      {galleryItems.map((item, i) => (
+        <div
+          class={`reveal gallery-cell${item.aspect === 'landscape' ? ' span-col-2' : ''}${item.aspect === 'portrait' ? ' span-row-2' : ''}`}
+          data-album={String(item.album)}
+          data-index={String(i)}
+          data-caption={item.caption}
+          data-aspect={item.aspect}
+          style={`background:${placeholderColors[i % placeholderColors.length]};`}
+          role="button"
+          tabindex="0"
+          aria-label={`Otwórz: ${item.caption}`}
+        >
+          <!-- Pattern bg -->
+          <div class="gallery-pattern"></div>
+
+          <!-- Center ornament -->
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+            <svg
+              width={item.aspect === 'square' ? 52 : 70}
+              height={item.aspect === 'square' ? 52 : 70}
+              viewBox="0 0 60 60"
+              fill="none"
+              opacity="0.13"
+            >
+              <circle cx="30" cy="30" r="25" stroke="#C9A84C" stroke-width="0.6" />
+              <path d="M15 30h30M30 15v30" stroke="#C9A84C" stroke-width="0.6" />
+              <circle cx="30" cy="30" r="6" stroke="#C9A84C" stroke-width="0.6" />
+              <path d="M22 22l16 16M38 22L22 38" stroke="#C9A84C" stroke-width="0.3" opacity="0.5" />
+            </svg>
+          </div>
+
+          <!-- Hover overlay -->
+          <div class="gallery-overlay"></div>
+
+          <!-- Caption -->
+          <div class="gallery-caption">
+            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.8rem,1.8vw,0.9rem); color:rgba(232,201,122,0.92); line-height:1.4;">
+              {item.caption}
+            </p>
+          </div>
+
+          <!-- Index badge -->
+          <div class="gallery-index">
+            {String(i + 1).padStart(2, '0')}
+          </div>
+
+          <!-- Zoom icon -->
+          <div class="gallery-zoom">
+            <svg width="20" height="20" fill="none" stroke="#E8C97A" stroke-width="1.5">
+              <path d="M3 3h5M3 3v5M15 3h-5M15 3v5M3 15h5M3 15v-5M15 15h-5M15 15v-5" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Count -->
+    <div class="reveal" style="text-align:center; margin-top:clamp(1.5rem,3vw,2.5rem);">
+      <p id="gallery-count" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(201,168,76,0.38);">
+        {galleryItems.length} fotografii widocznych · {totalCount} w pełnym archiwum
+      </p>
+    </div>
+
+  </div><!-- /container -->
+
+  <!-- ══════════════════════════════════════════
+       LIGHTBOX
+  ══════════════════════════════════════════ -->
+  <div
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Podgląd zdjęcia"
+    aria-hidden="true"
+    tabindex="-1"
+    style="display:none; position:fixed; inset:0; background:rgba(8,5,2,0.97); z-index:3000; flex-direction:column; align-items:center; justify-content:center; outline:none;"
+  >
+    <!-- Top bar -->
+    <div style="position:absolute; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:clamp(0.75rem,2vw,1.25rem) clamp(1rem,3vw,2rem); background:linear-gradient(to bottom,rgba(0,0,0,0.6),transparent); z-index:10;">
+      <span id="lb-counter" style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.9rem,2vw,1.1rem); color:rgba(201,168,76,0.65); letter-spacing:0.12em;"></span>
+      <span id="lb-album-name" style="font-family:'Crimson Pro',serif; font-size:clamp(0.7rem,1.5vw,0.8rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(232,201,122,0.45);"></span>
+      <button id="lb-close" aria-label="Zamknij (Esc)" class="lb-close-btn" style="background:none; border:1px solid rgba(201,168,76,0.3); color:#C9A84C; width:clamp(38px,5vw,46px); height:clamp(38px,5vw,46px); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; flex-shrink:0;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 4l10 10M14 4L4 14" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Nav + Image -->
+    <div style="display:flex; align-items:center; justify-content:center; gap:clamp(0.75rem,2vw,1.5rem); width:100%; padding:clamp(4rem,8vw,5rem) clamp(0.5rem,2vw,1rem); max-width:1100px;">
+
+      <button id="lb-prev" aria-label="Poprzednie zdjęcie (←)" class="lb-nav-btn">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="lb-nav-label">Poprzednie</span>
+      </button>
+
+      <!-- Image frame -->
+      <div style="flex:1; max-width:780px; display:flex; flex-direction:column; align-items:center; gap:clamp(0.75rem,2vw,1.25rem);">
+        <div id="lb-image" style="width:100%; max-height:60vh; border:1px solid rgba(201,168,76,0.18); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+          <!-- Pattern -->
+          <div style="position:absolute; inset:0; background-image:repeating-linear-gradient(45deg,rgba(201,168,76,0.025) 0px,rgba(201,168,76,0.025) 1px,transparent 1px,transparent 12px),repeating-linear-gradient(-45deg,rgba(201,168,76,0.025) 0px,rgba(201,168,76,0.025) 1px,transparent 1px,transparent 12px);"></div>
+          <svg width="90" height="90" viewBox="0 0 60 60" fill="none" opacity="0.13">
+            <circle cx="30" cy="30" r="25" stroke="#C9A84C" stroke-width="0.6" />
+            <path d="M15 30h30M30 15v30" stroke="#C9A84C" stroke-width="0.6" />
+            <circle cx="30" cy="30" r="6" stroke="#C9A84C" stroke-width="0.6" />
+          </svg>
+          <div style="position:absolute; inset:0; background:linear-gradient(135deg,rgba(201,168,76,0.04),transparent 50%,rgba(122,28,46,0.03));"></div>
+        </div>
+        <p id="lb-caption" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(0.95rem,2.2vw,1.15rem); color:rgba(232,201,122,0.75); text-align:center; line-height:1.55; max-width:560px; padding:0 0.5rem;"></p>
+      </div>
+
+      <button id="lb-next" aria-label="Następne zdjęcie (→)" class="lb-nav-btn">
+        <span class="lb-nav-label">Następne</span>
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div id="lb-thumbs" style="position:absolute; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:6px; padding:clamp(0.75rem,2vw,1.25rem); background:linear-gradient(to top,rgba(0,0,0,0.7),transparent); overflow-x:auto; scrollbar-width:none;"></div>
+
+    <!-- Keyboard hint -->
+    <div class="lb-keyboard-hint" style="position:absolute; bottom:clamp(4rem,8vw,5.5rem); left:50%; transform:translateX(-50%); display:flex; gap:0.75rem; align-items:center; pointer-events:none;">
+      {[['←','Poprzednie'],['→','Następne'],['Esc','Zamknij']].map(([key, label]) => (
+        <span style="display:flex; align-items:center; gap:4px; font-family:'Crimson Pro',serif; font-size:0.7rem; color:rgba(201,168,76,0.3); letter-spacing:0.05em;">
+          <kbd style="background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:2px 6px; font-size:0.65rem; color:rgba(201,168,76,0.45);">{key}</kbd>
+          {label}
+        </span>
+      ))}
+    </div>
+  </div><!-- /lightbox -->
+
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     STYLES
+     ════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Grid ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 185px;
+    gap: 0.65rem;
+  }
+  .gallery-cell {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 1px;
+    outline: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .gallery-cell:focus-visible { box-shadow: 0 0 0 2px #C9A84C; }
+  .gallery-cell.span-col-2    { grid-column: span 2; }
+  .gallery-cell.span-row-2    { grid-row:    span 2; }
+  .gallery-cell:hover         { transform: scale(1.01); }
+
+  .gallery-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg,  rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(-45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 10px);
+  }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,18,9,0.88) 0%, rgba(26,18,9,0.15) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gallery-cell:hover .gallery-overlay,
+  .gallery-cell:focus-visible .gallery-overlay { opacity: 1; }
+
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: clamp(0.6rem, 1.5vw, 1rem);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .gallery-cell:hover .gallery-caption,
+  .gallery-cell:focus-visible .gallery-caption { transform: translateY(0); }
+
+  .gallery-index {
+    position: absolute; top: 0.6rem; left: 0.75rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.7rem, 1.5vw, 0.78rem);
+    color: rgba(201,168,76,0.4);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery-cell:hover .gallery-index,
+  .gallery-cell:focus-visible .gallery-index { opacity: 1; }
+
+  .gallery-zoom {
+    position: absolute; top: 0.6rem; right: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery-cell:hover .gallery-zoom,
+  .gallery-cell:focus-visible .gallery-zoom { opacity: 1; }
+
+  /* ── Filter buttons ── */
+  .album-filter-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.82rem, 2vw, 0.88rem);
+    letter-spacing: 0.08em;
+    padding: clamp(0.5rem, 1.5vw, 0.65rem) clamp(1rem, 3vw, 1.5rem);
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.22);
+    color: rgba(232,201,122,0.48);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    min-height: 44px;
+  }
+  .album-filter-btn:hover,
+  .album-filter-btn.active {
+    background: rgba(201,168,76,0.1);
+    border-color: #C9A84C;
+    color: #E8C97A;
+  }
+
+  /* ── Lightbox nav ── */
+  .lb-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.22);
+    color: #C9A84C;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(0.6rem, 1.5vw, 0.85rem);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: clamp(44px, 6vw, 58px);
+    min-height: clamp(80px, 12vw, 110px);
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .lb-nav-btn:hover:not(:disabled) {
+    background: rgba(201,168,76,0.15);
+    border-color: #C9A84C;
+    transform: scale(1.05);
+  }
+  .lb-nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .lb-nav-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.58rem, 1.2vw, 0.68rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .lb-close-btn:hover {
+    background: rgba(201,168,76,0.12);
+    border-color: #E8C97A;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .gallery-grid          { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: 160px; }
+    .lb-keyboard-hint      { display: none; }
+    .lb-nav-label          { display: none; }
+    .lb-nav-btn            { min-height: 56px; min-width: 44px; }
+  }
+  @media (max-width: 480px) {
+    .gallery-grid                          { grid-template-columns: 1fr !important; grid-auto-rows: 200px; }
+    .gallery-grid .span-col-2,
+    .gallery-grid .span-row-2              { grid-column: span 1 !important; grid-row: span 1 !important; }
+  }
+  @media (max-width: 640px) {
+    .gallery-grid { gap: 0.45rem; }
+  }
+</style>
+
+<!-- ════════════════════════════════════════════════════════
+     SCRIPT — filtrowanie + lightbox
+     ════════════════════════════════════════════════════════ -->
+<script>
+  // ── Dane zdjęć (serwer → klient przez data-attributes) ──────
+  const allCells   = [...document.querySelectorAll<HTMLElement>('.gallery-cell')];
+  const countEl    = document.getElementById('gallery-count')!;
+
+  const albumNames: Record<string, string> = {
+    '1': 'Spotkania i Wykłady',
+    '2': 'Roztocze — Krajobraz & Sacrum',
+  };
+  const placeholderColors = [
+    '#2C1A08','#3A2410','#1E1409','#2A1C0C',
+    '#35200E','#251808','#2E1B0A','#221508','#301E0B','#281A09',
+  ];
+  const totalCount = 120; // 48 + 72
+
+  // ── State ────────────────────────────────────────────────────
+  let activeAlbum: string | null = null;
+  let lightboxIndex: number      = -1;
+
+  // ── Helpers ─────────────────────────────────────────────────
+  function getVisible(): HTMLElement[] {
+    return allCells.filter(el => el.style.display !== 'none');
+  }
+
+  // ── Filter ──────────────────────────────────────────────────
+  function applyFilter(albumId: string | null) {
+    activeAlbum = albumId;
+
+    allCells.forEach(el => {
+      const match = !albumId || el.dataset.album === albumId;
+      el.style.display = match ? '' : 'none';
+    });
+
+    // Update filter buttons
+    document.querySelectorAll<HTMLButtonElement>('.album-filter-btn').forEach(btn => {
+      const isActive = btn.dataset.filter === (albumId ?? 'all');
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    // Update count
+    const visible = getVisible().length;
+    countEl.textContent = `${visible} fotografii widocznych · ${totalCount} w pełnym archiwum`;
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.album-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter!;
+      applyFilter(f === 'all' ? null : f);
+    });
+  });
+
+  // ── Lightbox ─────────────────────────────────────────────────
+  const lightbox  = document.getElementById('lightbox')!    as HTMLElement;
+  const lbImage   = document.getElementById('lb-image')!    as HTMLElement;
+  const lbCaption = document.getElementById('lb-caption')!  as HTMLElement;
+  const lbCounter = document.getElementById('lb-counter')!  as HTMLElement;
+  const lbAlbum   = document.getElementById('lb-album-name')! as HTMLElement;
+  const lbThumbs  = document.getElementById('lb-thumbs')!   as HTMLElement;
+  const lbClose   = document.getElementById('lb-close')!    as HTMLButtonElement;
+  const lbPrev    = document.getElementById('lb-prev')!     as HTMLButtonElement;
+  const lbNext    = document.getElementById('lb-next')!     as HTMLButtonElement;
+
+  function renderLightbox() {
+    const visible = getVisible();
+    if (lightboxIndex < 0 || lightboxIndex >= visible.length) return;
+
+    const cell     = visible[lightboxIndex];
+    const caption  = cell.dataset.caption ?? '';
+    const aspect   = cell.dataset.aspect  ?? 'square';
+    const album    = cell.dataset.album   ?? '1';
+    const colorIdx = parseInt(cell.dataset.index ?? '0');
+
+    // Image aspect ratio
+    const ar = aspect === 'portrait' ? '3/4' : aspect === 'landscape' ? '16/9' : '1/1';
+    lbImage.style.aspectRatio   = ar;
+    lbImage.style.background    = placeholderColors[colorIdx % placeholderColors.length];
+
+    // Text
+    lbCaption.textContent = caption;
+    lbCounter.textContent = `${String(lightboxIndex + 1).padStart(2,'0')} / ${String(visible.length).padStart(2,'0')}`;
+    lbAlbum.textContent   = albumNames[album] ?? '';
+
+    // Buttons
+    lbPrev.disabled = visible.length <= 1;
+    lbNext.disabled = visible.length <= 1;
+
+    // Thumbnails
+    lbThumbs.innerHTML = '';
+    visible.forEach((item, i) => {
+      const idx = parseInt(item.dataset.index ?? '0');
+      const btn = document.createElement('button');
+      btn.style.cssText = `
+        width:clamp(36px,5vw,48px); height:clamp(36px,5vw,48px);
+        background:${placeholderColors[idx % placeholderColors.length]};
+        border:2px solid ${i === lightboxIndex ? '#C9A84C' : 'rgba(201,168,76,0.15)'};
+        cursor:pointer; flex-shrink:0; transition:border-color 0.2s,transform 0.2s;
+        transform:${i === lightboxIndex ? 'scale(1.12)' : 'scale(1)'};
+        opacity:${i === lightboxIndex ? 1 : 0.55};
+        display:flex; align-items:center; justify-content:center;
+      `;
+      btn.setAttribute('aria-label', `Przejdź do: ${item.dataset.caption}`);
+      btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 60 60" fill="none" opacity="0.13"><circle cx="30" cy="30" r="25" stroke="#C9A84C" stroke-width="0.6"/><path d="M15 30h30M30 15v30" stroke="#C9A84C" stroke-width="0.6"/></svg>`;
+      btn.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(i); });
+      lbThumbs.appendChild(btn);
+    });
+  }
+
+  function openLightbox(index: number) {
+    lightboxIndex                  = index;
+    lightbox.style.display         = 'flex';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow   = 'hidden';
+    renderLightbox();
+    setTimeout(() => lightbox.focus(), 30);
+  }
+
+  function closeLightbox() {
+    lightbox.style.display         = 'none';
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow   = '';
+    lightboxIndex                  = -1;
+  }
+
+  function goPrev() {
+    const len = getVisible().length;
+    lightboxIndex = (lightboxIndex - 1 + len) % len;
+    renderLightbox();
+  }
+
+  function goNext() {
+    const len = getVisible().length;
+    lightboxIndex = (lightboxIndex + 1) % len;
+    renderLightbox();
+  }
+
+  // ── Otwieranie z gridu ───────────────────────────────────────
+  allCells.forEach(cell => {
+    const open = () => {
+      const visible = getVisible();
+      const i       = visible.indexOf(cell);
+      if (i >= 0) openLightbox(i);
+    };
+    cell.addEventListener('click', open);
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
+  // ── Lightbox controls ────────────────────────────────────────
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', (e) => { e.stopPropagation(); goPrev(); });
+  lbNext.addEventListener('click', (e) => { e.stopPropagation(); goNext(); });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // ── Keyboard ─────────────────────────────────────────────────
+  window.addEventListener('keydown', (e) => {
+    if (lightboxIndex < 0) return;
+    if (e.key === 'ArrowLeft')  goPrev();
+    if (e.key === 'ArrowRight') goNext();
+    if (e.key === 'Escape')     closeLightbox();
+  });
+</script>
