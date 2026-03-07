@@ -1,0 +1,265 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Wsparcie from '../components/Wsparcie.astro';
+
+const contactInfo = [
+  {
+    label: 'E-mail',
+    value: 'kontakt@atenyroztocza.pl',
+    iconPath: 'M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z',
+  },
+  {
+    label: 'Siedziba projektu',
+    value: 'Roztocze, Polska',
+    iconPath: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z M12 9 a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+  },
+  {
+    label: 'Strona internetowa',
+    value: 'atenyroztocza.pl',
+    iconPath: 'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z',
+  },
+];
+
+const languages = [
+  { flag: '🇵🇱', lang: 'Polski'   },
+  { flag: '🇬🇧', lang: 'English'  },
+  { flag: '🇩🇪', lang: 'Deutsch'  },
+  { flag: '🇮🇹', lang: 'Italiano' },
+  { flag: '🇪🇸', lang: 'Español'  },
+];
+---
+
+<Layout
+  title="Kontakt"
+  description="Skontaktuj się z projektem Ateny Roztocza. Korespondencja w języku polskim, angielskim, niemieckim, włoskim i hiszpańskim."
+>
+  <div class="page-transition">
+
+    <!-- ── Hero ──────────────────────────────────────────────── -->
+    <div class="page-hero">
+      <div style="position:relative; z-index:2; max-width:700px; margin:0 auto;">
+        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+          Napisz do nas
+        </p>
+        <h1 class="section-title gold-shimmer" style="font-size:clamp(2.4rem,7vw,4.8rem); margin-bottom:1rem;">
+          Kontakt
+        </h1>
+        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7);">
+          Zapraszamy do współpracy i korespondencji w pięciu językach
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Main content ──────────────────────────────────────── -->
+    <div style="background:#F5EDD8; padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,2rem);">
+      <div style="max-width:1100px; margin:0 auto;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(2.5rem,5vw,5rem); margin-bottom:4rem;">
+
+          <!-- ── Contact info ─────────────────────────────────── -->
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:300; color:#1A1209; margin-bottom:2rem;">
+              Dane kontaktowe
+            </h2>
+
+            {contactInfo.map((item) => (
+              <div style="display:flex; gap:1.1rem; align-items:flex-start; margin-bottom:1.75rem;">
+                <div style="width:42px; height:42px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <svg width="22" height="22" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                    <path d={item.iconPath} stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div>
+                  <p style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin:0 0 0.2rem;">
+                    {item.label}
+                  </p>
+                  <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.2vw,1.2rem); color:#1A1209; margin:0;">
+                    {item.value}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+            <!-- Languages -->
+            <div style="margin-top:2.5rem; padding:1.5rem; background:#EDE0C4; border:1px solid rgba(201,168,76,0.2);">
+              <p style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin-bottom:1rem;">
+                Korespondencja w językach:
+              </p>
+              <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                {languages.map(({ flag, lang }) => (
+                  <div style="display:flex; align-items:center; gap:0.4rem;">
+                    <span style="font-size:1.25rem;">{flag}</span>
+                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.88rem,2vw,0.98rem); color:rgba(26,18,9,0.65);">
+                      {lang}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Contact form ──────────────────────────────────── -->
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:300; color:#1A1209; margin-bottom:2rem;">
+              Wyślij wiadomość
+            </h2>
+
+            <!-- Confirmation (ukryte domyślnie) -->
+            <div
+              id="form-success"
+              style="display:none; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:2rem; text-align:center;"
+              aria-live="polite"
+            >
+              <div style="font-size:2rem; margin-bottom:1rem;">✓</div>
+              <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.2rem); color:#C9A84C; margin:0;">
+                Dziękujemy za wiadomość. Odpiszemy wkrótce.
+              </p>
+            </div>
+
+            <!-- Form -->
+            <form
+              id="contact-form"
+              novalidate
+              style="display:flex; flex-direction:column; gap:1.1rem;"
+            >
+              <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.1rem;">
+                <div>
+                  <label class="contact-label" for="name">Imię i nazwisko</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    class="form-input"
+                    placeholder="Jan Kowalski"
+                    autocomplete="name"
+                  />
+                </div>
+                <div>
+                  <label class="contact-label" for="email">E-mail</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    class="form-input"
+                    placeholder="jan@example.com"
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="contact-label" for="subject">Temat</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  required
+                  class="form-input"
+                  placeholder="W jakim celu piszesz?"
+                />
+              </div>
+
+              <div>
+                <label class="contact-label" for="message">Wiadomość</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  class="form-input"
+                  rows="6"
+                  placeholder="Treść wiadomości..."
+                  style="resize:vertical; min-height:140px;"
+                ></textarea>
+              </div>
+
+              <button type="submit" id="submit-btn" class="contact-submit">
+                Wyślij wiadomość →
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Wsparcie ───────────────────────────────────────────── -->
+    <Wsparcie />
+
+  </div>
+</Layout>
+
+<style>
+  /* Overriding global label style for contact page */
+  .contact-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(26, 18, 9, 0.45);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-submit {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1A1209;
+    background: linear-gradient(135deg, #C9A84C, #E8C97A);
+    border: none;
+    padding: clamp(0.85rem, 2vw, 1rem) 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
+  }
+  .contact-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+  }
+  .contact-submit:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  const form       = document.getElementById('contact-form')   as HTMLFormElement;
+  const success    = document.getElementById('form-success')   as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // ── Walidacja HTML5 ───────────────────────────────────────
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    btn.disabled     = true;
+    btn.textContent  = 'Wysyłanie…';
+
+    // ── Tu podłącz własne API / Netlify Forms / Formspree ────
+    // Przykład z Formspree:
+    // const data = new FormData(form);
+    // await fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body:data });
+
+    // Symulacja — zastąp prawdziwym fetch
+    await new Promise((r) => setTimeout(r, 800));
+
+    // ── Pokaż potwierdzenie ───────────────────────────────────
+    form.style.display    = 'none';
+    success.style.display = 'block';
+    form.reset();
+
+    // Schowaj po 4s i przywróć formularz
+    setTimeout(() => {
+      success.style.display = 'none';
+      form.style.display    = 'flex';
+      btn.disabled          = false;
+      btn.textContent       = 'Wyślij wiadomość →';
+    }, 4000);
+  });
+</script>
