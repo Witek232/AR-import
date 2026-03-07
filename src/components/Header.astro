@@ -4,13 +4,13 @@ const pathname = Astro.url.pathname;
 let currentLang = 'PL';
 let basePath = pathname;
 
-if      (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
+if (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/de')) { currentLang = 'DE'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
 
 const langs = [
-  { code: 'PL', label: 'PL', prefix: ''    },
+  { code: 'PL', label: 'PL', prefix: '' },
   { code: 'EN', label: 'EN', prefix: '/en' },
   { code: 'DE', label: 'DE', prefix: '/de' },
   { code: 'ES', label: 'ES', prefix: '/es' },
@@ -28,23 +28,23 @@ const navItems = [
     href: '/o-projekcie',
     children: [
       { label: 'Jak powstają Ateny Roztocza', href: '/o-projekcie' },
-      { label: 'Trzy filary',                 href: '/#filary'     },
-      { label: 'Ks. prof. Tadeusz Guz',       href: '/ks-guz'      },
+      { label: 'Trzy filary', href: '/#filary' },
+      { label: 'Ks. prof. Tadeusz Guz', href: '/ks-guz' },
     ],
   },
   {
     label: 'Multimedia',
     href: '/multimedia',
     children: [
-      { label: 'Materiały audiowizualne',  href: '/multimedia'                   },
+      { label: 'Materiały audiowizualne', href: '/multimedia' },
       { label: 'Artykuły — Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
-      { label: 'Artykuły — Niedziela',     href: '/multimedia?tab=niedziela'     },
-      { label: 'Inne publikacje',          href: '/multimedia?tab=inne'          },
+      { label: 'Artykuły — Niedziela', href: '/multimedia?tab=niedziela' },
+      { label: 'Inne publikacje', href: '/multimedia?tab=inne' },
     ],
   },
   { label: 'Wydarzenia', href: '/wydarzenia' },
-  { label: 'Galeria',    href: '/galeria'    },
-  { label: 'Kontakt',    href: '/kontakt'    },
+  { label: 'Galeria', href: '/galeria' },
+  { label: 'Kontakt', href: '/kontakt' },
 ];
 
 function isActive(href: string): boolean {
@@ -53,7 +53,6 @@ function isActive(href: string): boolean {
   return pathname.startsWith(clean);
 }
 
-// Pre-obliczone style dla nav-linków (bez template literals w szablonie)
 const navLinkStyles = navItems.map((item) => {
   const base = 'padding:0.45rem 0.7rem; display:flex; align-items:center; gap:4px;';
   return isActive(item.href) ? base + 'color:#E8C97A;' : base;
@@ -73,370 +72,148 @@ const mobileBtnStyles = navItems.map((item) => {
 ---
 
 <header
-  id="site-header"
-  style="position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent); backdrop-filter:none; border-bottom:none; transition:all 0.4s ease;"
+id="site-header"
+style="position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent); transition:all 0.4s ease;"
 >
-  <div
-    id="header-inner"
-    style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem; transition:padding 0.4s ease;"
-  >
 
-    <!-- Logo -->
-    
-      href="/"
-      aria-label="Ateny Roztocza — strona główna"
-      style="text-decoration:none; display:flex; flex-direction:column; gap:2px; flex-shrink:0;"
-    >
-      <span id="logo-title" style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); font-weight:300; color:#E8C97A; letter-spacing:0.08em; transition:font-size 0.4s ease; line-height:1;">
-        Ateny Roztocza
-      </span>
-      <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.55rem,1.2vw,0.65rem); color:rgba(232,201,122,0.5); letter-spacing:0.2em; text-transform:uppercase;">
-        Jerozolima · Ateny · Rzym
-      </span>
-    </a>
-
-    <!-- Desktop Nav -->
-    <nav style="display:flex; align-items:center;" class="desktop-nav">
-      {navItems.map((item, i) =>
-        item.children ? (
-          <div class="dropdown-parent" style="position:relative; padding:0.5rem 0;">
-            
-              href={item.href}
-              class="nav-link"
-              style={navLinkStyles[i]}
-            >
-              {item.label}
-              <svg width="9" height="6" viewBox="0 0 9 6" fill="none" style="opacity:0.5; flex-shrink:0;">
-                <path d="M1 1l3.5 4 3.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-            </a>
-            <div class="dropdown">
-              {item.children.map((child) => (
-                <a href={child.href} class="dropdown-btn">{child.label}</a>
-              ))}
-            </div>
-          </div>
-        ) : (
-          
-            href={item.href}
-            class="nav-link"
-            style={navSimpleStyles[i]}
-          >
-            {item.label}
-          </a>
-        )
-      )}
-    </nav>
-
-    <!-- Language switcher + Hamburger -->
-    <div style="display:flex; align-items:center; gap:0.15rem; flex-shrink:0;">
-      {langs.map((lang) => (
-        
-          href={getLangUrl(lang.prefix)}
-          aria-label={'Jezyk: ' + lang.label}
-          class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}
-        >
-          {lang.label}
-        </a>
-      ))}
-
-      <button
-        id="hamburger"
-        aria-label="Otwórz menu"
-        aria-expanded="false"
-        aria-controls="mobile-drawer"
-        class="mobile-menu-btn"
-        style="display:none; background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.4rem; min-width:44px; min-height:44px; align-items:center; justify-content:center; flex-shrink:0;"
-      >
-        <svg id="hamburger-icon-closed" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
-          <line x1="3" y1="6.5"  x2="21" y2="6.5"  stroke-linecap="round" />
-          <line x1="3" y1="11.5" x2="21" y2="11.5" stroke-linecap="round" />
-          <line x1="3" y1="16.5" x2="21" y2="16.5" stroke-linecap="round" />
-        </svg>
-        <svg id="hamburger-icon-open" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none;">
-          <path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" />
-        </svg>
-      </button>
-    </div>
-
-  </div>
-</header>
-
-<!-- Overlay -->
 <div
-  id="mobile-overlay"
-  aria-hidden="true"
-  style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px);"
-></div>
-
-<!-- Mobile Drawer -->
-<div
-  id="mobile-drawer"
-  aria-hidden="true"
-  style="position:fixed; top:0; right:0; bottom:0; width:min(320px,88vw); z-index:1001; background:rgba(10,7,3,0.99); border-left:1px solid rgba(201,168,76,0.18); transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y:auto; display:flex; flex-direction:column;"
+id="header-inner"
+style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem;"
 >
-  <div style="padding:1.25rem 1.25rem 1rem; border-bottom:1px solid rgba(201,168,76,0.12); display:flex; align-items:center; justify-content:space-between;">
-    <div>
-      <div style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:#E8C97A; font-weight:300; letter-spacing:0.06em;">Ateny Roztocza</div>
-      <div style="font-family:'Crimson Pro',serif; font-size:0.6rem; color:rgba(232,201,122,0.45); letter-spacing:0.18em; text-transform:uppercase; margin-top:2px;">Jerozolima · Ateny · Rzym</div>
-    </div>
-    <button
-      id="drawer-close"
-      aria-label="Zamknij menu"
-      style="background:none; border:1px solid rgba(201,168,76,0.25); color:#C9A84C; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;"
-    >
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M4 4l10 10M14 4L4 14" stroke-linecap="round" />
-      </svg>
-    </button>
-  </div>
 
-  <nav style="padding:0.5rem 0; flex:1;">
-    {navItems.map((item, i) => (
-      <div class="mobile-nav-item">
-        <div style="display:flex; align-items:center; border-bottom:1px solid rgba(201,168,76,0.07);">
-          
-            href={item.children ? undefined : item.href}
-            class="mobile-nav-btn"
-            data-has-children={item.children ? 'true' : 'false'}
-            data-key={item.label}
-            style={mobileBtnStyles[i]}
-          >
-            {item.label}
-          </a>
-          {item.children && (
-            <button
-              class="mobile-expand-btn"
-              data-key={item.label}
-              aria-label="Rozwin"
-              style="background:none; border:none; cursor:pointer; color:#C9A84C; padding:0.95rem 1.25rem; min-height:52px; display:flex; align-items:center;"
-            >
-              <svg class="expand-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" style="transition:transform 0.25s ease;">
-                <path d="M3 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          )}
-        </div>
-        {item.children && (
-          <div
-            class="mobile-submenu"
-            data-key={item.label}
-            style="max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:rgba(201,168,76,0.03);"
-          >
-            {item.children.map((child) => (
-              
-                href={child.href}
-                style="display:flex; align-items:center; gap:0.5rem; width:100%; padding:0.8rem 1.25rem 0.8rem 2rem; font-family:'Crimson Pro',serif; font-size:0.9375rem; color:rgba(232,201,122,0.65); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.06); min-height:48px;"
-              >
-                <span style="color:rgba(201,168,76,0.4); font-size:0.7rem;">›</span>
-                {child.label}
-              </a>
-            ))}
-          </div>
-        )}
-      </div>
-    ))}
-  </nav>
+<a
+href="/"
+aria-label="Ateny Roztocza — strona główna"
+style="text-decoration:none; display:flex; flex-direction:column; gap:2px;"
+>
+<span style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); color:#E8C97A;">
+Ateny Roztocza
+</span>
+<span style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em;">
+Jerozolima · Ateny · Rzym
+</span>
+</a>
 
-  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
-    <span style="font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); margin-right:0.25rem;">Jezyk</span>
-    {langs.map((lang) => (
-      
-        href={getLangUrl(lang.prefix)}
-        class={currentLang === lang.code ? 'mobile-lang-btn mobile-lang-active' : 'mobile-lang-btn'}
-      >
-        {lang.label}
-      </a>
-    ))}
-  </div>
+<nav class="desktop-nav" style="display:flex; align-items:center;">
+
+{navItems.map((item, i) => (
+
+item.children ? (
+
+<div class="dropdown-parent" style="position:relative; padding:0.5rem 0;">
+
+<a
+href={item.href}
+class="nav-link"
+style={navLinkStyles[i]}
+>
+
+{item.label}
+
+<svg width="9" height="6">
+<path d="M1 1l3.5 4 3.5-4" stroke="currentColor"/>
+</svg>
+
+</a>
+
+<div class="dropdown">
+
+{item.children.map((child) => (
+
+<a href={child.href} class="dropdown-btn">
+
+{child.label}
+
+</a>
+
+))}
+
 </div>
 
+</div>
+
+) : (
+
+<a
+href={item.href}
+class="nav-link"
+style={navSimpleStyles[i]}
+>
+
+{item.label}
+
+</a>
+
+)
+
+))}
+
+</nav>
+
+<div style="display:flex; align-items:center; gap:0.15rem;">
+
+{langs.map((lang) => (
+
+<a
+href={getLangUrl(lang.prefix)}
+class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}
+>
+
+{lang.label}
+
+</a>
+
+))}
+
+</div>
+
+</div>
+
+</header>
+
 <style>
-  .lang-btn {
-    font-family: 'Crimson Pro', serif;
-    font-size: clamp(0.65rem, 1.2vw, 0.78rem);
-    letter-spacing: 0.06em;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: rgba(232, 201, 122, 0.35);
-    font-weight: 400;
-    padding: 4px 5px;
-    transition: color 0.2s;
-    min-height: 36px;
-    min-width: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-  }
-  .lang-btn:hover { color: #E8C97A; }
-  .lang-active    { color: #E8C97A !important; font-weight: 600; }
 
-  .mobile-lang-btn {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.06em;
-    background: none;
-    border: 1px solid rgba(201, 168, 76, 0.15);
-    cursor: pointer;
-    color: rgba(232, 201, 122, 0.4);
-    padding: 6px 10px;
-    min-height: 40px;
-    min-width: 44px;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .mobile-lang-btn:hover  { color: #E8C97A; border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.15); }
-  .mobile-lang-active     { color: #E8C97A !important; border-color: rgba(201,168,76,0.5) !important; background: rgba(201,168,76,0.15) !important; font-weight: 600; }
+.lang-btn{
+font-family:'Crimson Pro',serif;
+font-size:0.75rem;
+color:rgba(232,201,122,0.35);
+padding:4px 5px;
+text-decoration:none;
+}
 
-  #site-header.scrolled {
-    background: rgba(13, 10, 5, 0.97) !important;
-    backdrop-filter: blur(14px) !important;
-    border-bottom: 1px solid rgba(201,168,76,0.16) !important;
-  }
-  #site-header.scrolled #header-inner { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
-  #site-header.scrolled #logo-title   { font-size: clamp(1.1rem, 3vw, 1.4rem) !important; }
+.lang-btn:hover{
+color:#E8C97A;
+}
 
-  .dropdown-btn {
-    display: block;
-    text-decoration: none;
-    width: 100%;
-    min-height: 44px;
-    text-align: left;
-    padding: 0.65rem 1.25rem;
-    font-family: 'Crimson Pro', serif;
-    font-size: clamp(0.9rem, 2vw, 0.9375rem);
-    letter-spacing: 0.04em;
-    color: rgba(232, 201, 122, 0.75);
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.2s, background 0.2s;
-  }
-  .dropdown-btn:hover { color: #E8C97A; background: rgba(201,168,76,0.08); }
+.lang-active{
+color:#E8C97A;
+font-weight:600;
+}
+
+.dropdown{
+position:absolute;
+top:100%;
+left:0;
+background:rgba(10,7,3,0.98);
+border:1px solid rgba(201,168,76,0.15);
+display:none;
+}
+
+.dropdown-parent:hover .dropdown{
+display:block;
+}
+
+.dropdown-btn{
+display:block;
+padding:0.6rem 1rem;
+color:rgba(232,201,122,0.7);
+text-decoration:none;
+font-family:'Crimson Pro',serif;
+}
+
+.dropdown-btn:hover{
+color:#E8C97A;
+background:rgba(201,168,76,0.08);
+}
+
 </style>
-
-<script>
-  var header      = document.getElementById('site-header');
-  var hamburger   = document.getElementById('hamburger');
-  var drawer      = document.getElementById('mobile-drawer');
-  var overlay     = document.getElementById('mobile-overlay');
-  var drawerClose = document.getElementById('drawer-close');
-  var iconClosed  = document.getElementById('hamburger-icon-closed');
-  var iconOpen    = document.getElementById('hamburger-icon-open');
-  var isHome      = window.location.pathname === '/';
-
-  function updateHeader() {
-    var scrolled = window.scrollY > 60;
-    if (scrolled || !isHome) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }
-  updateHeader();
-  window.addEventListener('scroll', updateHeader);
-
-  function openDrawer() {
-    drawer.style.transform   = 'translateX(0)';
-    overlay.style.display    = 'block';
-    drawer.setAttribute('aria-hidden', 'false');
-    hamburger.setAttribute('aria-expanded', 'true');
-    iconClosed.style.display = 'none';
-    iconOpen.style.display   = 'block';
-    document.body.style.overflow = 'hidden';
-    hamburger.setAttribute('aria-label', 'Zamknij menu');
-  }
-
-  function closeDrawer() {
-    drawer.style.transform   = 'translateX(100%)';
-    overlay.style.display    = 'none';
-    drawer.setAttribute('aria-hidden', 'true');
-    hamburger.setAttribute('aria-expanded', 'false');
-    iconClosed.style.display = 'block';
-    iconOpen.style.display   = 'none';
-    document.body.style.overflow = '';
-    hamburger.setAttribute('aria-label', 'Otworz menu');
-    var submenus = document.querySelectorAll('.mobile-submenu');
-    for (var i = 0; i < submenus.length; i++) {
-      submenus[i].style.maxHeight = '0';
-    }
-    var chevrons = document.querySelectorAll('.expand-chevron');
-    for (var i = 0; i < chevrons.length; i++) {
-      chevrons[i].style.transform = 'rotate(0deg)';
-    }
-  }
-
-  hamburger.addEventListener('click', function() {
-    if (drawer.style.transform === 'translateX(0)') {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
-  });
-  drawerClose.addEventListener('click', closeDrawer);
-  overlay.addEventListener('click', closeDrawer);
-
-  var expandBtns = document.querySelectorAll('.mobile-expand-btn');
-  for (var i = 0; i < expandBtns.length; i++) {
-    expandBtns[i].addEventListener('click', function() {
-      var key     = this.getAttribute('data-key');
-      var submenu = document.querySelector('.mobile-submenu[data-key="' + key + '"]');
-      var chevron = this.querySelector('.expand-chevron');
-      var isOpen  = submenu.style.maxHeight !== '0px' && submenu.style.maxHeight !== '';
-      var allSubs = document.querySelectorAll('.mobile-submenu');
-      var allCh   = document.querySelectorAll('.expand-chevron');
-      for (var j = 0; j < allSubs.length; j++) { allSubs[j].style.maxHeight = '0'; }
-      for (var j = 0; j < allCh.length; j++)   { allCh[j].style.transform = 'rotate(0deg)'; }
-      if (!isOpen) {
-        submenu.style.maxHeight = '400px';
-        chevron.style.transform = 'rotate(180deg)';
-      }
-    });
-  }
-
-  var navBtns = document.querySelectorAll('.mobile-nav-btn');
-  for (var i = 0; i < navBtns.length; i++) {
-    if (navBtns[i].getAttribute('data-has-children') === 'true') {
-      navBtns[i].addEventListener('click', function(e) {
-        e.preventDefault();
-        var key     = this.getAttribute('data-key');
-        var submenu = document.querySelector('.mobile-submenu[data-key="' + key + '"]');
-        var chevron = document.querySelector('.mobile-expand-btn[data-key="' + key + '"] .expand-chevron');
-        var isOpen  = submenu.style.maxHeight !== '0px' && submenu.style.maxHeight !== '';
-        var allSubs = document.querySelectorAll('.mobile-submenu');
-        var allCh   = document.querySelectorAll('.expand-chevron');
-        for (var j = 0; j < allSubs.length; j++) { allSubs[j].style.maxHeight = '0'; }
-        for (var j = 0; j < allCh.length; j++)   { allCh[j].style.transform = 'rotate(0deg)'; }
-        if (!isOpen) {
-          submenu.style.maxHeight = '400px';
-          chevron.style.transform = 'rotate(180deg)';
-        }
-      });
-    }
-  }
-
-  var hashLinks = document.querySelectorAll('a[href*="#"]');
-  for (var i = 0; i < hashLinks.length; i++) {
-    hashLinks[i].addEventListener('click', function(e) {
-      var href = this.getAttribute('href') || '';
-      if (href.indexOf('#') === -1) return;
-      var parts = href.split('#');
-      var path  = parts[0];
-      var hash  = parts[1];
-      var isCurrent = path === '' || path === '/' || path === window.location.pathname;
-      if (isCurrent) {
-        e.preventDefault();
-        closeDrawer();
-        var target = document.getElementById(hash);
-        if (target) {
-          setTimeout(function() { target.scrollIntoView(); }, 50);
-        }
-      }
-    });
-  }
-</script>
