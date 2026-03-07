@@ -1,0 +1,13 @@
+---
+// GaleriaPage.tsx → Galeria.astro (komponent) już zawiera hero + albumy + lightbox
+// Ta strona jest wyłącznie wrapperem Layout
+import Layout from '../layouts/Layout.astro';
+import Galeria from '../components/Galeria.astro';
+---
+
+<Layout
+  title="Galeria"
+  description="Archiwum fotograficzne projektu Ateny Roztocza — ludzie, miejsca, chwile z ponad 20 lat działalności."
+>
+  <Galeria />
+</Layout>
