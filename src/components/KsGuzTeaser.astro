@@ -1,0 +1,106 @@
+---
+// ── ANALIZA ──────────────────────────────────────────────────
+// useNavigate → <a href="/ks-guz">
+// onMouseEnter/Leave → CSS :hover
+// Komponent statyczny
+// ─────────────────────────────────────────────────────────────
+---
+
+<section
+  id="ks-guz-teaser"
+  style="background:#1A1209; padding:clamp(3.5rem,9vw,7rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
+>
+  <!-- Glow -->
+  <div style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 25% 50%,rgba(201,168,76,0.055) 0%,transparent 65%);"></div>
+
+  <div style="max-width:1100px; margin:0 auto; position:relative;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(2.5rem,6vw,5rem); align-items:center;">
+
+      <!-- Text column -->
+      <div>
+        <p class="reveal section-label" style="color:rgba(201,168,76,0.52); margin-bottom:clamp(0.75rem,2vw,1.25rem);">
+          Fundament duchowy projektu
+        </p>
+        <h2 class="reveal section-title" style="color:#E8C97A; margin-bottom:clamp(1.25rem,3vw,1.75rem); font-size:clamp(2rem,6vw,3.25rem);">
+          Ks. prof.<br />Tadeusz Guz
+        </h2>
+        <blockquote class="reveal" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.0625rem,2.8vw,1.3rem); line-height:1.88; color:rgba(232,201,122,0.68); border-left:2px solid rgba(201,168,76,0.38); padding-left:clamp(0.875rem,2.5vw,1.25rem); margin:0 0 clamp(1.5rem,3vw,2rem);">
+          „Prawdziwa kultura rodzi się tam, gdzie człowiek odważa się zapytać
+          o Boga, o dobro i o piękno."
+        </blockquote>
+        <p class="reveal body-text" style="color:rgba(245,237,216,0.6); margin-bottom:clamp(1.75rem,4vw,2.5rem); font-size:clamp(1.0625rem,2.5vw,1.125rem);">
+          Filozof, teolog i kapłan — twórca intelektualnej wizji projektu Ateny&nbsp;Roztocza.
+          Ponad 20 lat wykładów łączących dziedzictwo Aten, Jerozolimy i Rzymu.
+        </p>
+        <a href="/ks-guz" class="reveal ks-guz-cta">
+          Poznaj Księdza Profesora →
+        </a>
+      </div>
+
+      <!-- Decorative panel -->
+      <div class="reveal" style="display:flex; justify-content:center;">
+        <div style="width:min(300px,100%); aspect-ratio:3/4; background:linear-gradient(135deg,rgba(201,168,76,0.055) 0%,rgba(201,168,76,0.018) 100%); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+          <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.13;">
+            <rect x="14" y="14" width="272" height="372" fill="none" stroke="#C9A84C" stroke-width="1" />
+            <rect x="24" y="24" width="252" height="352" fill="none" stroke="#C9A84C" stroke-width="0.5" />
+            {[[14,14],[286,14],[14,386],[286,386]].map(([cx,cy]) => (
+              <g>
+                <circle cx={cx} cy={cy} r="5" fill="none" stroke="#C9A84C" stroke-width="1" />
+                <circle cx={cx} cy={cy} r="2" fill="#C9A84C" />
+              </g>
+            ))}
+            <line x1="150" y1="60" x2="150" y2="340" stroke="#C9A84C" stroke-width="0.5" />
+            <line x1="60"  y1="200" x2="240" y2="200" stroke="#C9A84C" stroke-width="0.5" />
+            <circle cx="150" cy="200" r="52" fill="none" stroke="#C9A84C" stroke-width="0.8" />
+            <circle cx="150" cy="200" r="32" fill="none" stroke="#C9A84C" stroke-width="0.4" />
+          </svg>
+
+          <div style="text-align:center; position:relative; z-index:1; padding:clamp(1.25rem,4vw,2rem);">
+            <div style="width:clamp(70px,18vw,90px); height:clamp(70px,18vw,90px); border-radius:50%; background:rgba(201,168,76,0.09); border:1.5px solid rgba(201,168,76,0.28); display:flex; align-items:center; justify-content:center; margin:0 auto clamp(1rem,3vw,1.5rem);">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.875rem,2.5vw,1.1rem); color:rgba(232,201,122,0.65); margin-bottom:0.35rem; letter-spacing:0.04em;">
+              Ks. prof. dr hab.
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:300; color:#E8C97A; letter-spacing:0.05em; margin-bottom:clamp(1rem,2.5vw,1.35rem); line-height:1.2;">
+              Tadeusz Guz
+            </div>
+            {[['✝','Jerozolima'],['Φ','Ateny'],['Σ','Rzym']].map(([sym,city]) => (
+              <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.75rem,1.8vw,0.85rem); letter-spacing:0.16em; text-transform:uppercase; color:rgba(201,168,76,0.42); margin-bottom:0.3rem;">
+                {sym} {city}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .ks-guz-cta {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.9rem, 2vw, 0.9375rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1A1209;
+    background: linear-gradient(135deg, #C9A84C, #E8C97A);
+    padding: clamp(0.8rem, 2.5vw, 0.95rem) clamp(1.75rem, 4vw, 2.5rem);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .ks-guz-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(201, 168, 76, 0.35);
+  }
+</style>
