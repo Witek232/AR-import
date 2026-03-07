@@ -5,7 +5,6 @@ import {
   getEntriesByYear,
   categoryLabels,
   categoryColors,
-  type MultimediaEntry,
 } from '../../../data/multimediaData';
 
 export function getStaticPaths() {
@@ -14,17 +13,34 @@ export function getStaticPaths() {
 
 const { year } = Astro.params;
 const rok = parseInt(year);
-const materialy: MultimediaEntry[] = getEntriesByYear(rok);
+const materialy = getEntriesByYear(rok);
 
-// years jest posortowane malejąco (2026, 2025, ..., 2006)
 const rokIdx     = years.indexOf(rok);
 const rokNowszy  = rokIdx > 0               ? years[rokIdx - 1] : null;
 const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
+
+const totalFilms  = materialy.reduce((s, e) => s + e.parts.length, 0);
+const countSuffix = materialy.length === 1 ? 'wystąpienie' : materialy.length < 5 ? 'wystąpienia' : 'wystąpień';
+
+// Pre-oblicz wszystkie dynamiczne wartości — żadnych template literals w szablonie
+const entriesDisplay = materialy.map((entry, i) => {
+  const catColor  = categoryColors[entry.category];
+  const catLabel  = categoryLabels[entry.category];
+  const datePlace = entry.date + (entry.place ? ' · ' + entry.place : '');
+  const firstDesc = entry.description.trim().split('\n')[0].trim();
+  const num       = i < 9 ? '0' + (i + 1) : String(i + 1);
+  const href      = '/multimedia/' + rok + '/' + entry.slug;
+  const catStyle  = 'font-family:Crimson Pro,serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:' + catColor + '; border:1px solid ' + catColor + '55; padding:2px 7px;';
+  return { entry, num, href, catLabel, catStyle, datePlace, firstDesc };
+});
+
+const prevHref = rokStarszy ? '/multimedia/' + rokStarszy : null;
+const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : null;
 ---
 
 <Layout
-  title={`Materiały ${rok} — Ateny Roztocza`}
-  description={`Archiwum audiowizualne projektu Ateny Roztocza z roku ${rok}. ${materialy.length} wystąpień.`}
+  title={'Materiały ' + rok + ' — Ateny Roztocza'}
+  description={'Archiwum audiowizualne projektu Ateny Roztocza z roku ' + rok + '. ' + materialy.length + ' wystąpień.'}
 >
   <div class="page-transition">
 
@@ -43,68 +59,51 @@ const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
           {rok}
         </h1>
         <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.2rem); color:rgba(232,201,122,0.65);">
-          {materialy.length}
-          {materialy.length === 1 ? 'wystąpienie' : materialy.length < 5 ? 'wystąpienia' : 'wystąpień'}
-          · {materialy.reduce((s, e) => s + e.parts.length, 0)} filmów
+          {materialy.length} {countSuffix} · {totalFilms} filmów
         </p>
       </div>
     </div>
 
-    <!-- Lista materiałów -->
+    <!-- Lista -->
     <div style="background:#F5EDD8; min-height:60vh; padding:clamp(2.5rem,5vw,4rem) clamp(1rem,4vw,2rem);">
       <div style="max-width:1000px; margin:0 auto;">
 
         {materialy.length === 0 ? (
           <div style="text-align:center; padding:5rem 0;">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(26,18,9,0.3);">
-              Brak materiałów dla roku {rok}.
-            </p>
+            <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(26,18,9,0.3);">Brak materiałów dla roku {rok}.</p>
             <a href="/multimedia" style="display:inline-block; margin-top:1.5rem; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:#C9A84C; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4);">
               ← Powrót do archiwum
             </a>
           </div>
         ) : (
           <div style="display:flex; flex-direction:column;">
-            {materialy.map((entry, i) => (
-              
-                href={`/multimedia/${rok}/${entry.slug}`}
-                style="text-decoration:none;"
-                class="entry-row-link"
-              >
-                <div
-                  class="entry-row"
-                  style="display:grid; grid-template-columns:3rem 1fr auto; gap:clamp(1rem,3vw,2rem); padding:clamp(1.25rem,3vw,2rem) 0; border-bottom:1px solid rgba(26,18,9,0.09); align-items:start; transition:padding-left 0.25s ease;"
-                >
-                  <!-- Numer porządkowy -->
+            {entriesDisplay.map(({ entry, num, href, catLabel, catStyle, datePlace, firstDesc }) => (
+              <a href={href} style="text-decoration:none;" class="entry-row-link">
+                <div class="entry-row" style="display:grid; grid-template-columns:3rem 1fr auto; gap:clamp(1rem,3vw,2rem); padding:clamp(1.25rem,3vw,2rem) 0; border-bottom:1px solid rgba(26,18,9,0.09); align-items:start; transition:padding-left 0.25s ease;">
+                  <!-- Numer -->
                   <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,3.5vw,1.8rem); font-weight:300; color:rgba(201,168,76,0.3); line-height:1; padding-top:0.15rem; text-align:right;">
-                    {String(i + 1).padStart(2, '0')}
+                    {num}
                   </div>
-
                   <!-- Treść -->
                   <div>
                     <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.4rem;">
-                      <span style={`font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:${categoryColors[entry.category]}; border:1px solid ${categoryColors[entry.category]}55; padding:2px 7px;`}>
-                        {categoryLabels[entry.category]}
-                      </span>
+                      <span style={catStyle}>{catLabel}</span>
                       {entry.parts.length > 1 && (
                         <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.12em; text-transform:uppercase; color:rgba(201,168,76,0.7); background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:2px 7px;">
                           {entry.parts.length} części
                         </span>
                       )}
                       <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,1.8vw,0.85rem); color:rgba(26,18,9,0.38); font-style:italic;">
-                        {entry.date}{entry.place ? ` · ${entry.place}` : ''}
+                        {datePlace}
                       </span>
                     </div>
-
                     <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,3vw,1.5rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.35rem;">
                       {entry.title}
                     </h2>
-
-                    <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(26,18,9,0.45); font-style:italic; margin:0; line-height:1.5; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">
-                      {entry.description.trim().split('\n')[0].trim()}
+                    <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(26,18,9,0.45); font-style:italic; margin:0; line-height:1.5;">
+                      {firstDesc}
                     </p>
                   </div>
-
                   <!-- Strzałka -->
                   <div style="padding-top:0.5rem; flex-shrink:0;">
                     <svg width="18" height="18" fill="none" stroke="rgba(201,168,76,0.45)" stroke-width="1.5">
@@ -117,10 +116,10 @@ const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
           </div>
         )}
 
-        <!-- Nawigacja między latami -->
+        <!-- Nawigacja rok ←/→ -->
         <nav style="display:flex; justify-content:space-between; align-items:center; margin-top:clamp(2.5rem,5vw,4rem); padding-top:clamp(1.5rem,3vw,2rem); border-top:1px solid rgba(201,168,76,0.2); flex-wrap:wrap; gap:1rem;">
-          {rokStarszy ? (
-            <a href={`/multimedia/${rokStarszy}`} class="year-nav-btn">
+          {prevHref ? (
+            <a href={prevHref} class="year-nav-btn">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 7l5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
               ← {rokStarszy}
             </a>
@@ -128,8 +127,8 @@ const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
 
           <a href="/multimedia" class="year-nav-all">Wszystkie lata</a>
 
-          {rokNowszy ? (
-            <a href={`/multimedia/${rokNowszy}`} class="year-nav-btn">
+          {nextHref ? (
+            <a href={nextHref} class="year-nav-btn">
               {rokNowszy} →
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3l5 4-5 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -143,32 +142,18 @@ const rokStarszy = rokIdx < years.length - 1 ? years[rokIdx + 1] : null;
 </Layout>
 
 <style>
-  .bc-link:hover  { color: #C9A84C !important; }
+  .bc-link:hover    { color: #C9A84C !important; }
   .year-nav-all {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(26, 18, 9, 0.45);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-    padding-bottom: 1px;
-    transition: color 0.2s;
+    font-family: 'Crimson Pro', serif; font-size: 0.8rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(26,18,9,0.45); text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 1px; transition: color 0.2s;
   }
   .year-nav-all:hover { color: #C9A84C; }
   .year-nav-btn {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(26, 18, 9, 0.55);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    padding: 0.55rem 1.1rem;
-    transition: all 0.25s;
+    font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(26,18,9,0.55); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    border: 1px solid rgba(201,168,76,0.25); padding: 0.55rem 1.1rem; transition: all 0.25s;
   }
   .year-nav-btn:hover { color: #C9A84C; border-color: #C9A84C; background: rgba(201,168,76,0.05); }
   .entry-row-link:hover .entry-row { padding-left: 0.75rem !important; }
