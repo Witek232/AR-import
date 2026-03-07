@@ -1,0 +1,166 @@
+---
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { label: 'Strona główna', href: '/'           },
+  { label: 'O projekcie',   href: '/o-projekcie' },
+  { label: 'Trzy filary',   href: '/#filary'     },
+  { label: 'Wydarzenia',    href: '/wydarzenia'  },
+  { label: 'Galeria',       href: '/galeria'     },
+  { label: 'Kontakt',       href: '/kontakt'     },
+];
+
+const multimediaLinks = [
+  { label: 'Materiały audio-wiz.',     href: '/multimedia'                   },
+  { label: 'Artykuły — Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
+  { label: 'Artykuły — Niedziela',     href: '/multimedia?tab=niedziela'     },
+  { label: 'Radio Maryja',             href: '/multimedia'                   },
+  { label: 'Archiwum 2006–2026',       href: '/multimedia'                   },
+];
+
+const supportLinks = [
+  { label: 'Wesprzyj projekt',    href: '/#wsparcie' },
+  { label: 'Numery kont',         href: '/#wsparcie' },
+  { label: 'Polityka prywatności', href: '#'         },
+  { label: 'Pliki cookies',       href: '#'          },
+];
+
+const langFlags = [
+  { flag: '🇵🇱', code: 'PL', href: '/'    },
+  { flag: '🇬🇧', code: 'EN', href: '/en'  },
+  { flag: '🇩🇪', code: 'DE', href: '/de'  },
+  { flag: '🇮🇹', code: 'IT', href: '/it'  },
+  { flag: '🇪🇸', code: 'ES', href: '/es'  },
+];
+---
+
+<footer style="background:#0D0A05; border-top:1px solid rgba(201,168,76,0.15); padding:4rem 2rem 2rem;">
+  <div style="max-width:1200px; margin:0 auto;">
+
+    <!-- Top gold line -->
+    <div style="height:1px; background:linear-gradient(90deg, transparent, rgba(201,168,76,0.4) 30%, rgba(232,201,122,0.6) 50%, rgba(201,168,76,0.4) 70%, transparent); margin-bottom:3.5rem;"></div>
+
+    <!-- Main grid -->
+    <div class="footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem;">
+
+      <!-- Brand column -->
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:#E8C97A; margin-bottom:0.35rem; letter-spacing:0.06em;">
+          Ateny Roztocza
+        </div>
+        <div style="font-family:'Crimson Pro',serif; font-size:0.65rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-bottom:1.5rem;">
+          Jerozolima · Ateny · Rzym
+        </div>
+        <p style="font-family:'Crimson Pro',serif; font-size:0.95rem; line-height:1.75; color:rgba(245,237,216,0.45); max-width:280px; margin-bottom:1.75rem;">
+          Projekt kulturalno-filozoficzno-religijny na Roztoczu. Budujemy mosty między starożytnością chrześcijańską a dniem dzisiejszym.
+        </p>
+        <!-- Language flags -->
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          {langFlags.map(({ flag, code, href }) => (
+            <a href={href} class="footer-lang-flag">
+              {flag} {code}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <div class="footer-col-title">Nawigacja</div>
+        {navLinks.map(({ label, href }) => (
+          <a href={href} class="footer-link">{label}</a>
+        ))}
+      </div>
+
+      <!-- Multimedia -->
+      <div>
+        <div class="footer-col-title">Multimedia</div>
+        {multimediaLinks.map(({ label, href }) => (
+          <a href={href} class="footer-link">{label}</a>
+        ))}
+      </div>
+
+      <!-- Support & Legal -->
+      <div>
+        <div class="footer-col-title">Wsparcie &amp; Prawne</div>
+        {supportLinks.map(({ label, href }) => (
+          <a href={href} class="footer-link">{label}</a>
+        ))}
+
+        <!-- Support CTA -->
+        <a href="/#wsparcie" class="footer-cta">
+          Wesprzyj →
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="border-top:1px solid rgba(201,168,76,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <p style="font-family:'Crimson Pro',serif; font-size:0.8rem; color:rgba(245,237,216,0.25); letter-spacing:0.05em; margin:0;">
+        © {year} Ateny Roztocza — atenyroztocza.pl · Wszelkie prawa zastrzeżone
+      </p>
+      <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:0.85rem; color:rgba(201,168,76,0.3); letter-spacing:0.04em; margin:0;">
+        „Fides quaerens intellectum"
+      </p>
+      <p style="font-family:'Crimson Pro',serif; font-size:0.75rem; color:rgba(245,237,216,0.15); letter-spacing:0.05em; margin:0;">
+        Sanity · Astro · Cloudflare Pages
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer-col-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.5);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-link {
+    display: block;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: rgba(245, 237, 216, 0.45);
+    text-decoration: none;
+    margin-bottom: 0.6rem;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: rgba(232, 201, 122, 0.8); }
+
+  .footer-lang-flag {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    color: rgba(201, 168, 76, 0.4);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-lang-flag:hover { color: #C9A84C; }
+
+  .footer-cta {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1A1209;
+    background: linear-gradient(135deg, #C9A84C, #E8C97A);
+    padding: 0.6rem 1.25rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-cta:hover { opacity: 0.85; }
+
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 560px) {
+    .footer-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
