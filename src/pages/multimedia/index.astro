@@ -1,0 +1,354 @@
+---
+// ── ANALIZA ──────────────────────────────────────────────────
+// useState activeTab   → data-tab + JS show/hide
+// useEffect URLparams  → window.location.search w <script>
+// Link → <a href>
+// YearCard onMouseEnter/Leave → CSS :hover
+// RecentEntries → inlined w szablonie
+// multimediaData → import w frontmatter (normalny moduł JS)
+// ─────────────────────────────────────────────────────────────
+import Layout from '../../layouts/Layout.astro';
+import {
+  years,
+  multimediaData,
+  categoryColors,
+  categoryLabels,
+  getAllEntries,
+} from '../../data/multimediaData';
+
+const totalEntries = Object.values(multimediaData).reduce((s, e) => s + e.length, 0);
+const totalFilms   = Object.values(multimediaData).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
+const recentEntries = getAllEntries().slice(0, 5);
+const maxYear = Math.max(...years);
+
+const tabs = [
+  { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: '200+' },
+  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: '14'   },
+  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: '3'    },
+  { key: 'inne',          label: 'Inne publikacje',          icon: '📄', count: '4+'   },
+];
+
+const naszDziennikArticles = [
+  { title: 'Chrześcijaństwo a kultura klasyczna',    date: '15 marca 2024',    excerpt: 'Analiza relacji między dziedzictwem antycznym a myślą chrześcijańską w kontekście współczesnego kryzysu kultury.' },
+  { title: 'Powrót do źródeł: Ateny i Jerozolima',  date: '2 lutego 2024',    excerpt: 'Dlaczego współczesna Europa potrzebuje powrotu do korzeni swojej tożsamości cywilizacyjnej.' },
+  { title: 'Sokrates i Chrystus — dwa świadectwa',  date: '18 listopada 2023', excerpt: 'Porównanie sokratejskiego poszukiwania prawdy z chrześcijańskim świadectwem o Prawdzie wcielonej.' },
+  { title: 'Tradycja jako żywa pamięć',             date: '5 września 2023',  excerpt: 'Tradycja nie jest martwym balastem przeszłości, lecz żywą pamięcią, która kształtuje tożsamość.' },
+  { title: 'Filozofia chrześcijańska w dobie kryzysu', date: '12 czerwca 2023', excerpt: 'Rola filozofii tomistycznej w odpowiedzi na wyzwania współczesności.' },
+  { title: 'Platon i dusza nieśmiertelna',          date: '8 marca 2023',     excerpt: 'Platońska nauka o nieśmiertelności duszy jako przygotowanie ewangeliczne w kulturze greckiej.' },
+  { title: 'Rzym — miasto prawa i ładu',            date: '14 stycznia 2023', excerpt: 'Rzymski geniusz prawa naturalnego jako fundament cywilizacji zachodniej.' },
+  { title: 'Heraklit i Logos — u źródeł słowa',    date: '11 listopada 2022', excerpt: 'Heraklitejski Logos a chrystologiczne pojęcie Słowa — od filozofii do teologii.' },
+  { title: 'Cnota jako fundament kultury',          date: '3 września 2022',  excerpt: 'Arystotelesowska arete w kontekście chrześcijańskiego ideału świętości.' },
+  { title: 'Piękno jako droga do Boga',            date: '22 maja 2022',     excerpt: 'Platońska kalokagathia a chrześcijańska teologia piękna w liturgii i sztuce.' },
+  { title: 'Europa a jej chrześcijańskie korzenie', date: '7 marca 2022',     excerpt: 'Tożsamość Europy i spór o jej fundament cywilizacyjny — refleksja filozoficzna.' },
+  { title: 'Jan Paweł II a dziedzictwo greckie',   date: '2 października 2021', excerpt: 'Jak Karol Wojtyła rozumiał rolę filozofii antycznej w kształtowaniu chrześcijańskiego humanizmu.' },
+  { title: 'Scholastyka i powrót do Arystotelesa', date: '15 maja 2021',     excerpt: 'Recepcja arystotelizmu w myśli średniowiecznej — od al-Farabi do Akwinaty.' },
+  { title: 'Słowo i milczenie — dwa oblicza logos', date: '8 marca 2021',    excerpt: 'Filozofia języka a teologia słowa — od Heraklita do Jana Ewangelisty.' },
+];
+
+const niedzielaArticles = [
+  { title: 'Roztocze — nowe Ateny kultury',    date: '7 kwietnia 2024',   excerpt: 'Reportaż z projektu Ateny Roztocza — jak w sercu Polski odradza się duch kultury klasycznej.' },
+  { title: 'Kultura jako modlitwa',            date: '12 listopada 2023', excerpt: 'Prawdziwa kultura jest formą adoracji — rozważanie o pięknie jako drodze do Boga.' },
+  { title: 'Spotkanie z Bogiem przez piękno', date: '3 września 2022',   excerpt: 'Estetyka chrześcijańska w tradycji platońskiej — kalokagathia w służbie Ewangelii.' },
+];
+
+const radioMaryjaItems = [
+  { title: 'Dziedzictwo starożytne a chrześcijaństwo', date: 'Marzec 2025',     duration: '35 min', desc: 'Rozmowa o recepcji filozofii greckiej w teologii chrześcijańskiej.' },
+  { title: 'Ewangelia a filozofia grecka',             date: 'Październik 2024', duration: '28 min', desc: 'Jak Ojcowie Kościoła korzystali z narzędzi filozofii helleńskiej.' },
+  { title: 'Ateny Roztocza — 18 lat działalności',    date: 'Czerwiec 2024',    duration: '42 min', desc: 'Podsumowanie dorobku projektu i plany na przyszłość.' },
+  { title: 'Tomizm dziś — czy jest aktualny?',        date: 'Styczeń 2023',     duration: '31 min', desc: 'Aktualność myśli Tomasza z Akwinu dla współczesnej teologii i filozofii.' },
+];
+---
+
+<Layout
+  title="Multimedia & Publikacje"
+  description="22 lata archiwum audiowizualnego, artykuły prasowe i inne publikacje projektu Ateny Roztocza."
+>
+<div class="page-transition">
+
+  <!-- ── PAGE HERO ────────────────────────────────────────── -->
+  <div class="page-hero" style="position:relative;">
+    <svg viewBox="0 0 600 200" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.04; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
+      {[0.1,0.3,0.5,0.7,0.9].map((x) => (
+        <line x1={`${x*100}%`} y1="0" x2={`${x*100}%`} y2="100%" stroke="#C9A84C" stroke-width="1" />
+      ))}
+    </svg>
+    <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
+      <p class="section-label" style="color:rgba(201,168,76,0.62); margin-bottom:clamp(0.75rem,2vw,1.25rem);">22 lata archiwum · 2006–2026</p>
+      <h1 class="section-title gold-shimmer" style="font-size:clamp(2rem,8vw,5rem); margin-bottom:clamp(1rem,2.5vw,1.5rem);">
+        Multimedia &amp; Publikacje
+      </h1>
+      <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,3vw,1.3rem); color:rgba(232,201,122,0.68); max-width:600px; margin:0 auto; line-height:1.8;">
+        Ponad dwie dekady seminariów, wykładów i rozmów — dostępnych w archiwum audio-wizualnym
+      </p>
+      <div style="display:flex; gap:clamp(1.5rem,5vw,3rem); justify-content:center; margin-top:clamp(1.75rem,4vw,2.5rem); flex-wrap:wrap;">
+        {[
+          [String(totalEntries), 'wystąpień'],
+          [String(totalFilms),   'filmów łącznie'],
+          [String(years.length), 'lata archiwum'],
+          ['5',                  'języki'],
+        ].map(([n,l]) => (
+          <div style="text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,5vw,2.5rem); font-weight:300; color:#E8C97A; line-height:1;">{n}</div>
+            <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.8rem); letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-top:0.3rem;">{l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STICKY TABS ───────────────────────────────────────── -->
+  <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.18); position:sticky; top:68px; z-index:100;">
+    <div class="tab-bar" style="max-width:1200px; margin:0 auto; padding:0 clamp(1rem,3vw,1.5rem);">
+      {tabs.map((tab) => (
+        <button
+          class="tab-btn mm-tab-btn"
+          data-tab={tab.key}
+          style={`color:${tab.key === 'audiowizualne' ? '#E8C97A' : 'rgba(245,237,216,0.42)'}; border-bottom-color:${tab.key === 'audiowizualne' ? '#C9A84C' : 'transparent'}; display:flex; align-items:center; gap:0.4rem;`}
+        >
+          <span>{tab.icon}</span>
+          <span class="tab-label">{tab.label}</span>
+          <span style={`font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:${tab.key === 'audiowizualne' ? 'rgba(201,168,76,0.7)' : 'rgba(201,168,76,0.3)'}; margin-left:0.1rem;`}>{tab.count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- ================================================================
+       TAB PANELS — wszystkie renderowane w HTML, JS przełącza display
+       ============================================================== -->
+
+  <!-- ── TAB: AUDIOWIZUALNE ───────────────────────────────── -->
+  <div id="mm-panel-audiowizualne" class="mm-panel" style="background:#F5EDD8; min-height:60vh;">
+    <div style="max-width:1280px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+
+      <!-- Ostatnio dodane -->
+      <div style="margin-bottom:clamp(2rem,5vw,3.5rem);">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.5rem;">Ostatnio dodane</h2>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent); margin-bottom:clamp(1rem,2.5vw,1.5rem);"></div>
+        <div style="display:flex; flex-direction:column;">
+          {recentEntries.map((entry) => (
+            <a href={`/multimedia/${entry.year}/${entry.slug}`} style="text-decoration:none;" class="mm-recent-row">
+              <div style="display:flex; align-items:center; gap:clamp(0.75rem,2vw,1.25rem); padding:clamp(0.75rem,2vw,1rem) clamp(0.5rem,1.5vw,0.75rem); border-bottom:1px solid rgba(26,18,9,0.07); transition:background 0.2s,padding-left 0.2s; cursor:pointer;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.4rem); font-weight:300; color:#C9A84C; min-width:3.5rem; line-height:1;">{entry.year}</div>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.95rem,2.5vw,1.15rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.15rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{entry.title}</div>
+                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:rgba(26,18,9,0.38); letter-spacing:0.1em;">
+                    {entry.date} · {entry.parts.length > 1 ? `${entry.parts.length} filmy` : entry.parts[0]?.duration}
+                  </div>
+                </div>
+                <svg width="16" height="16" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"><path d="M3 8h10M9 5l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Archiwum według roku -->
+      <div style="margin-bottom:clamp(1.25rem,3vw,2rem);">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem;">Archiwum według roku</h2>
+        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.45); margin-bottom:0.75rem;">
+          Kliknij rok, aby zobaczyć chronologiczną listę wszystkich wystąpień
+        </p>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent);"></div>
+      </div>
+
+      <!-- Siatka kart lat -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr)); gap:clamp(0.75rem,2vw,1.25rem);">
+        {years.map((year) => {
+          const entries   = multimediaData[year] ?? [];
+          const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
+          const multiPart  = entries.filter((e) => e.parts.length > 1).length;
+          const cats       = [...new Set(entries.map((e) => e.category))];
+          const isLatest   = year === maxYear;
+          return (
+            <a href={`/multimedia/${year}`} style="text-decoration:none; display:block;">
+              <article
+                class={`card-hover mm-year-card${isLatest ? ' mm-year-latest' : ''}`}
+                style={`background:${isLatest ? 'linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04))' : '#EDE0C4'}; border:1px solid ${isLatest ? 'rgba(201,168,76,0.4)' : 'rgba(26,18,9,0.1)'}; padding:clamp(1.1rem,2.5vw,1.5rem); cursor:pointer; position:relative; overflow:hidden;`}
+              >
+                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.5rem; letter-spacing:-0.01em;">
+                  {year}
+                </div>
+                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,2vw,0.9rem); color:rgba(26,18,9,0.55); margin-bottom:0.6rem; line-height:1.5;">
+                  {entries.length} {entries.length === 1 ? 'wystąpienie' : entries.length < 5 ? 'wystąpienia' : 'wystąpień'}
+                  {totalParts > entries.length && <span style="color:rgba(26,18,9,0.35);"> · {totalParts} filmów</span>}
+                </div>
+                <div style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:0.75rem;">
+                  {cats.map((cat) => (
+                    <span style={`display:inline-block; padding:1px 6px; background:${categoryColors[cat]}; color:#fff; font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.12em; text-transform:uppercase; opacity:0.75;`}>
+                      {categoryLabels[cat]}
+                    </span>
+                  ))}
+                </div>
+                <div style="border-top:1px solid rgba(26,18,9,0.08); padding-top:0.65rem; display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:#C9A84C; letter-spacing:0.1em; text-transform:uppercase;">Zobacz listę →</span>
+                </div>
+                <div style="position:absolute; bottom:1rem; right:1rem; opacity:0.35;">
+                  <svg width="18" height="18" fill="none" stroke="#C9A84C" stroke-width="1.5">
+                    <path d="M3 9h12M11 5l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </article>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Info box -->
+      <div style="margin-top:clamp(2rem,5vw,3.5rem); padding:clamp(1rem,2.5vw,1.5rem); background:rgba(26,18,9,0.05); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:flex-start; gap:0.75rem;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" style="flex-shrink:0; margin-top:2px;">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3" stroke-linecap="round"/>
+        </svg>
+        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.48); margin:0; flex:1; line-height:1.7;">
+          Każdy rok otwiera <strong style="font-style:normal;">chronologiczną listę wystąpień</strong> z tytułami, datami i opisami.
+          Z listy rocznej możesz przejść do pełnej strony każdego wystąpienia — z opisem i filmami YouTube ładowanymi wyłącznie na żądanie.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: NASZ DZIENNIK ────────────────────────────────── -->
+  <div id="mm-panel-nasz-dziennik" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📰</span>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Naszym Dzienniku</h2>
+        </div>
+        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.5rem;">
+          {naszDziennikArticles.length} publikacji ks. prof. Tadeusza Guza i współpracowników projektu
+        </p>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+      </div>
+      {naszDziennikArticles.map((art) => (
+        <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+          <div>
+            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">
+              {art.date} · Nasz Dziennik
+            </p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.title}</h3>
+            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.excerpt}</p>
+          </div>
+          <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;">
+            <path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── TAB: NIEDZIELA ───────────────────────────────────── -->
+  <div id="mm-panel-niedziela" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📖</span>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Niedzieli</h2>
+        </div>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+      </div>
+      {niedzielaArticles.map((art) => (
+        <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+          <div>
+            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">
+              {art.date} · Niedziela
+            </p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.title}</h3>
+            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.excerpt}</p>
+          </div>
+          <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;">
+            <path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── TAB: INNE ─────────────────────────────────────────── -->
+  <div id="mm-panel-inne" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
+    <div style="max-width:960px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📄</span>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Inne publikacje</h2>
+        </div>
+        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
+          Wypowiedzi z Radia Maryja, wywiady prasowe i inne formy obecności medialnej projektu
+        </p>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
+        {radioMaryjaItems.map((item) => (
+          <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; position:relative;">
+            <div style="margin-bottom:clamp(0.75rem,2vw,1rem); color:#C9A84C;">
+              <svg width="30" height="22" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 12a12 12 0 0 1 24 0" stroke-linecap="round" opacity="0.35"/>
+                <path d="M8 12a8 8 0 0 1 16 0" stroke-linecap="round" opacity="0.6"/>
+                <path d="M12 12a4 4 0 0 1 8 0" stroke-linecap="round"/>
+                <circle cx="16" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+            </div>
+            <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.45rem;">
+              {item.date} · {item.duration}
+            </p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:clamp(0.5rem,1.5vw,0.75rem);">
+              {item.title}
+            </h3>
+            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 clamp(0.85rem,2vw,1.25rem);">
+              {item.desc}
+            </p>
+            <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C;">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
+              <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">Odsłuchaj</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</div>
+</Layout>
+
+<style>
+  .mm-article-row:hover { padding-left: 0.75rem !important; }
+  .mm-recent-row:hover > div { background: rgba(201,168,76,0.06) !important; padding-left: clamp(1rem,2.5vw,1.25rem) !important; }
+  @media (max-width: 480px) { .tab-label { display: none; } }
+</style>
+
+<script>
+  // ── Tab switching ─────────────────────────────────────────
+  const tabBtns  = document.querySelectorAll<HTMLButtonElement>('.mm-tab-btn');
+  const panels   = document.querySelectorAll<HTMLElement>('.mm-panel');
+
+  function activateTab(key: string) {
+    tabBtns.forEach((btn) => {
+      const isActive = btn.dataset.tab === key;
+      btn.style.color             = isActive ? '#E8C97A'                  : 'rgba(245,237,216,0.42)';
+      btn.style.borderBottomColor = isActive ? '#C9A84C'                  : 'transparent';
+      // count badge colour
+      const countEl = btn.querySelector<HTMLElement>('span:last-child');
+      if (countEl) countEl.style.color = isActive ? 'rgba(201,168,76,0.7)' : 'rgba(201,168,76,0.3)';
+    });
+    panels.forEach((panel) => {
+      panel.style.display = panel.id === `mm-panel-${key}` ? 'block' : 'none';
+    });
+  }
+
+  // ── URL param on load ─────────────────────────────────────
+  const params  = new URLSearchParams(window.location.search);
+  const tabParam = params.get('tab');
+  const validTabs = ['audiowizualne', 'nasz-dziennik', 'niedziela', 'inne'];
+  activateTab(validTabs.includes(tabParam ?? '') ? tabParam! : 'audiowizualne');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.tab ?? 'audiowizualne';
+      activateTab(key);
+      // Update URL without reload
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', key);
+      history.replaceState(null, '', url);
+    });
+  });
+</script>
