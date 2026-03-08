@@ -123,7 +123,7 @@ const mobileBtnStyles = navItems.map((item) => {
         id="hamburger"
         aria-label="Otworz menu"
         aria-expanded="false"
-        style="display:none; background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.5rem; width:44px; height:44px; align-items:center; justify-content:center; flex-shrink:0;"
+        style="background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.5rem; width:44px; height:44px; align-items:center; justify-content:center; flex-shrink:0;"
       >
         <svg id="icon-closed" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
           <line x1="3" y1="6.5"  x2="21" y2="6.5"  stroke-linecap="round"/>
@@ -209,4 +209,85 @@ const mobileBtnStyles = navItems.map((item) => {
     letter-spacing: 0.06em;
     color: rgba(232,201,122,0.72);
     text-decoration: none;
-    transition: color
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-link:hover { color: #E8C97A; }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: rgba(10,7,3,0.98);
+    border: 1px solid rgba(201,168,76,0.15);
+    display: none;
+    z-index: 200;
+  }
+  .dropdown-parent:hover .dropdown { display: block; }
+
+  .dropdown-btn {
+    display: block;
+    padding: 0.65rem 1.25rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9375rem;
+    color: rgba(232,201,122,0.72);
+    text-decoration: none;
+    min-height: 44px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .dropdown-btn:hover { color: #E8C97A; background: rgba(201,168,76,0.08); }
+
+  .lang-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    color: rgba(232,201,122,0.35);
+    padding: 4px 5px;
+    text-decoration: none;
+    transition: color 0.2s;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .lang-btn:hover { color: #E8C97A; }
+  .lang-active    { color: #E8C97A !important; font-weight: 600; }
+
+  .ml-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    color: rgba(232,201,122,0.4);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 6px 10px;
+    min-height: 40px;
+    min-width: 44px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .ml-btn:hover { color: #E8C97A; border-color: rgba(201,168,76,0.5); }
+  .ml-active    { color: #E8C97A !important; border-color: rgba(201,168,76,0.5) !important; font-weight: 600; }
+
+  #site-header.scrolled {
+    background: rgba(13,10,5,0.97) !important;
+    border-bottom: 1px solid rgba(201,168,76,0.16) !important;
+  }
+  #site-header.scrolled #header-inner {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  #site-header.scrolled #logo-title {
+    font-size: clamp(1.1rem,3vw,1.4rem) !important;
+  }
+
+  /* Desktop: nav widoczna, hamburger ukryty */
+  .desktop-nav { display: flex; }
+  #hamburger   { display: none; }
+
+  /* Mobile: odwrotnie */
+  @media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    #hamburger   { display: inline-flex; }
+  }
+</style>
