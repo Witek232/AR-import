@@ -217,19 +217,3 @@ background:rgba(201,168,76,0.08);
 }
 
 </style>
-
-
-
----
-function stripLang(p:string){
-  return p.replace(/^\/(en|de|es|it)/,'') || '/'
-}
-
-function isActive(href:string){
-  const current = stripLang(Astro.url.pathname)
-  const clean = href.split('?')[0].split('#')[0]
-
-  if(clean === '/') return current === '/'
-  return current.startsWith(clean)
-}
----
