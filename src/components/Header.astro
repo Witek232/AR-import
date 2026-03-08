@@ -2,89 +2,247 @@
 ---
 const pathname = Astro.url.pathname;
 
-/* LANG */
+/* ─────────────────────────
+   Language detection
+───────────────────────── */
 
-const languages=['pl','en','de','es','it'];
+const langPrefixes = ['en','de','es','it'];
 
-let currentLang='pl';
+let currentLang = 'pl';
+let basePath = pathname;
 
-for(const l of languages){
-if(pathname.startsWith('/'+l)) currentLang=l
+for (const l of langPrefixes) {
+  if (pathname.startsWith('/' + l)) {
+    currentLang = l;
+    basePath = pathname.slice(l.length + 1) || '/';
+  }
 }
 
-/* TRANSLATIONS */
-
-const t={
-pl:{
-about:"O projekcie",
-multimedia:"Multimedia",
-events:"Wydarzenia",
-gallery:"Galeria",
-contact:"Kontakt",
-pillars:"Trzy filary"
-},
-en:{
-about:"About",
-multimedia:"Media",
-events:"Events",
-gallery:"Gallery",
-contact:"Contact",
-pillars:"Three pillars"
-},
-de:{
-about:"Über das Projekt",
-multimedia:"Medien",
-events:"Veranstaltungen",
-gallery:"Galerie",
-contact:"Kontakt",
-pillars:"Drei Säulen"
-},
-es:{
-about:"Sobre el proyecto",
-multimedia:"Multimedia",
-events:"Eventos",
-gallery:"Galería",
-contact:"Contacto",
-pillars:"Tres pilares"
-},
-it:{
-about:"Sul progetto",
-multimedia:"Media",
-events:"Eventi",
-gallery:"Galleria",
-contact:"Contatto",
-pillars:"Tre pilastri"
-}
+function getLangUrl(prefix){
+  const path = basePath === '/' ? '' : basePath;
+  return (prefix + path) || '/';
 }
 
-/* NAV */
+/* ─────────────────────────
+   Navigation
+───────────────────────── */
 
-const nav=[
-{key:'about',href:'/o-projekcie'},
-{key:'multimedia',href:'/multimedia'},
-{key:'events',href:'/wydarzenia'},
-{key:'gallery',href:'/galeria'},
-{key:'contact',href:'/kontakt'}
+const navItems = [
+{
+label:'O projekcie',
+href:'/o-projekcie',
+children:[
+{label:'Jak powstaja Ateny Roztocza',href:'/o-projekcie'},
+{label:'Trzy filary',href:'/#filary'},
+{label:'Ks. prof. Tadeusz Guz',href:'/ks-guz'}
 ]
+},
+{
+label:'Multimedia',
+href:'/multimedia',
+children:[
+{label:'Materialy audiowizualne',href:'/multimedia'},
+{label:'Artykuly - Nasz Dziennik',href:'/multimedia?tab=nasz-dziennik'},
+{label:'Artykuly - Niedziela',href:'/multimedia?tab=niedziela'},
+{label:'Inne publikacje',href:'/multimedia?tab=inne'}
+]
+},
+{label:'Wydarzenia',href:'/wydarzenia'},
+{label:'Galeria',href:'/galeria'},
+{label:'Kontakt',href:'/kontakt'}
+];
 
-function label(k){
-return t[currentLang][k] || k
+/* ─────────────────────────
+   Active link
+───────────────────────── */
+
+function stripLang(path){
+  return path.replace(/^\/(en|de|es|it)/,'') || '/';
 }
+
+function isActive(href){
+  const current = stripLang(pathname);
+  const clean = href.split('?')[0].split('#')[0];
+
+  if(clean === '/') return current === '/';
+
+  return current.startsWith(clean);
+}
+
+/* ─────────────────────────
+   Languages
+───────────────────────── */
+
+const langs = [
+{code:'pl',label:'PL',prefix:''},
+{code:'en',label:'EN',prefix:'/en'},
+{code:'de',label:'DE',prefix:'/de'},
+{code:'es',label:'ES',prefix:'/es'},
+{code:'it',label:'IT',prefix:'/it'}
+];
 ---
 
-<header>
+<!-- SEO -->
 
-<nav>
+{langs.map(l => (
+<link rel="alternate" hreflang={l.code} href={getLangUrl(l.prefix)} />
+))}
 
-{nav.map(i=>(
+<link rel="alternate" hreflang="x-default" href="/" />
 
-<a href={i.href}>
-{label(i.key)}
+<header id="site-header">
+
+<div class="header-inner">
+
+<a href="/" class="logo">
+<span class="logo-title">Ateny Roztocza</span>
+<span class="logo-sub">Jerozolima · Ateny · Rzym</span>
+</a>
+
+<nav class="desktop-nav">
+
+{navItems.map(item => (
+
+item.children ?
+
+<div class="nav-group">
+
+<a href={item.href} class={`nav-link ${isActive(item.href) ? 'active':''}`}>
+{item.label}
+</a>
+
+<div class="dropdown">
+
+{item.children.map(child => (
+
+<a href={child.href} class="dropdown-link">
+{child.label}
+</a>
+
+))}
+
+</div>
+
+</div>
+
+:
+
+<a href={item.href} class={`nav-link ${isActive(item.href)?'active':''}`}>
+{item.label}
 </a>
 
 ))}
 
 </nav>
 
+<div class="header-right">
+
+<div class="lang-switch">
+
+{langs.map(l => (
+
+<a
+href={getLangUrl(l.prefix)}
+class={`lang ${currentLang===l.code?'active':''}`}
+>
+{l.label}
+</a>
+
+))}
+
+</div>
+
+<button id="hamburger" aria-label="Menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
+
+</div>
+
+</div>
+
 </header>
+
+<div id="overlay"></div>
+
+<nav id="mobile-menu">
+
+{navItems.map(item => (
+
+<div class="mobile-item">
+
+<a
+href={item.children ? '#' : item.href}
+class="mobile-link"
+data-has={item.children ? '1':'0'}
+>
+{item.label}
+</a>
+
+{item.children && (
+
+<div class="mobile-sub">
+
+{item.children.map(child => (
+
+<a href={child.href}>
+{child.label}
+</a>
+
+))}
+
+</div>
+
+)}
+
+</div>
+
+))}
+
+<div class="mobile-langs">
+
+{langs.map(l => (
+
+<a href={getLangUrl(l.prefix)}>
+{l.label}
+</a>
+
+))}
+
+</div>
+
+</nav>
+
+<style>
+/* styl pozostaje taki jak wcześniej */
+</style>
+
+<script>
+
+const burger=document.getElementById("hamburger")
+const menu=document.getElementById("mobile-menu")
+const overlay=document.getElementById("overlay")
+
+burger.onclick=()=>{
+menu.classList.toggle("open")
+overlay.style.display=menu.classList.contains("open")?"block":"none"
+}
+
+overlay.onclick=()=>{
+menu.classList.remove("open")
+overlay.style.display="none"
+}
+
+document.querySelectorAll(".mobile-link").forEach(link=>{
+if(link.dataset.has==="1"){
+link.onclick=(e)=>{
+e.preventDefault()
+const sub=link.nextElementSibling
+sub.style.display=sub.style.display==="block"?"none":"block"
+}
+}
+})
+
+</script>
 ```
