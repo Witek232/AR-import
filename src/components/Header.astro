@@ -1,122 +1,129 @@
-```astro
 ---
 const pathname = Astro.url.pathname;
 
-/* ─────────────────────────
-   Language detection
-───────────────────────── */
-
-const langPrefixes = ['en','de','es','it'];
-
-let currentLang = 'pl';
+let currentLang = 'PL';
 let basePath = pathname;
 
-for (const l of langPrefixes) {
-  if (pathname.startsWith('/' + l)) {
-    currentLang = l;
-    basePath = pathname.slice(l.length + 1) || '/';
-  }
-}
+if (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
+else if (pathname.startsWith('/de')) { currentLang = 'DE'; basePath = pathname.slice(3) || '/'; }
+else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.slice(3) || '/'; }
+else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
 
-function getLangUrl(prefix){
+const langs = [
+  { code: 'PL', label: 'PL', prefix: '' },
+  { code: 'EN', label: 'EN', prefix: '/en' },
+  { code: 'DE', label: 'DE', prefix: '/de' },
+  { code: 'ES', label: 'ES', prefix: '/es' },
+  { code: 'IT', label: 'IT', prefix: '/it' },
+];
+
+function getLangUrl(prefix: string): string {
   const path = basePath === '/' ? '' : basePath;
   return (prefix + path) || '/';
 }
 
-/* ─────────────────────────
-   Navigation
-───────────────────────── */
-
 const navItems = [
-{
-label:'O projekcie',
-href:'/o-projekcie',
-children:[
-{label:'Jak powstaja Ateny Roztocza',href:'/o-projekcie'},
-{label:'Trzy filary',href:'/#filary'},
-{label:'Ks. prof. Tadeusz Guz',href:'/ks-guz'}
-]
-},
-{
-label:'Multimedia',
-href:'/multimedia',
-children:[
-{label:'Materialy audiowizualne',href:'/multimedia'},
-{label:'Artykuly - Nasz Dziennik',href:'/multimedia?tab=nasz-dziennik'},
-{label:'Artykuly - Niedziela',href:'/multimedia?tab=niedziela'},
-{label:'Inne publikacje',href:'/multimedia?tab=inne'}
-]
-},
-{label:'Wydarzenia',href:'/wydarzenia'},
-{label:'Galeria',href:'/galeria'},
-{label:'Kontakt',href:'/kontakt'}
+  {
+    label: 'O projekcie',
+    href: '/o-projekcie',
+    children: [
+      { label: 'Jak powstają Ateny Roztocza', href: '/o-projekcie' },
+      { label: 'Trzy filary', href: '/#filary' },
+      { label: 'Ks. prof. Tadeusz Guz', href: '/ks-guz' },
+    ],
+  },
+  {
+    label: 'Multimedia',
+    href: '/multimedia',
+    children: [
+      { label: 'Materiały audiowizualne', href: '/multimedia' },
+      { label: 'Artykuły — Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
+      { label: 'Artykuły — Niedziela', href: '/multimedia?tab=niedziela' },
+      { label: 'Inne publikacje', href: '/multimedia?tab=inne' },
+    ],
+  },
+  { label: 'Wydarzenia', href: '/wydarzenia' },
+  { label: 'Galeria', href: '/galeria' },
+  { label: 'Kontakt', href: '/kontakt' },
 ];
 
-/* ─────────────────────────
-   Active link
-───────────────────────── */
-
-function stripLang(path){
-  return path.replace(/^\/(en|de|es|it)/,'') || '/';
-}
-
-function isActive(href){
-  const current = stripLang(pathname);
+function isActive(href: string): boolean {
   const clean = href.split('?')[0].split('#')[0];
-
-  if(clean === '/') return current === '/';
-
-  return current.startsWith(clean);
+  if (clean === '/' || clean === '') return pathname === '/';
+  return pathname.startsWith(clean);
 }
 
-/* ─────────────────────────
-   Languages
-───────────────────────── */
+const navLinkStyles = navItems.map((item) => {
+  const base = 'padding:0.45rem 0.7rem; display:flex; align-items:center; gap:4px;';
+  return isActive(item.href) ? base + 'color:#E8C97A;' : base;
+});
 
-const langs = [
-{code:'pl',label:'PL',prefix:''},
-{code:'en',label:'EN',prefix:'/en'},
-{code:'de',label:'DE',prefix:'/de'},
-{code:'es',label:'ES',prefix:'/es'},
-{code:'it',label:'IT',prefix:'/it'}
-];
+const navSimpleStyles = navItems.map((item) => {
+  const base = 'padding:0.45rem 0.7rem; display:block;';
+  return isActive(item.href)
+    ? base + 'color:#E8C97A; border-bottom:1px solid rgba(201,168,76,0.45);'
+    : base + 'border-bottom:none;';
+});
+
+const mobileBtnStyles = navItems.map((item) => {
+  const base = 'flex:1; text-align:left; padding:0.95rem 1.25rem; font-family:Crimson Pro,serif; font-size:1rem; letter-spacing:0.07em; text-transform:uppercase; background:none; border:none; cursor:pointer; min-height:52px; display:flex; align-items:center; text-decoration:none;';
+  return isActive(item.href) ? base + 'color:#E8C97A;' : base + 'color:rgba(245,237,216,0.82);';
+});
 ---
 
-<!-- SEO -->
+<header
+id="site-header"
+style="position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent); transition:all 0.4s ease;"
+>
 
-{langs.map(l => (
-<link rel="alternate" hreflang={l.code} href={getLangUrl(l.prefix)} />
-))}
+<div
+id="header-inner"
+style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem;"
+>
 
-<link rel="alternate" hreflang="x-default" href="/" />
-
-<header id="site-header">
-
-<div class="header-inner">
-
-<a href="/" class="logo">
-<span class="logo-title">Ateny Roztocza</span>
-<span class="logo-sub">Jerozolima · Ateny · Rzym</span>
+<a
+href="/"
+aria-label="Ateny Roztocza — strona główna"
+style="text-decoration:none; display:flex; flex-direction:column; gap:2px;"
+>
+<span style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); color:#E8C97A;">
+Ateny Roztocza
+</span>
+<span style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em;">
+Jerozolima · Ateny · Rzym
+</span>
 </a>
 
-<nav class="desktop-nav">
+<nav class="desktop-nav" style="display:flex; align-items:center;">
 
-{navItems.map(item => (
+{navItems.map((item, i) => (
 
-item.children ?
+item.children ? (
 
-<div class="nav-group">
+<div class="dropdown-parent" style="position:relative; padding:0.5rem 0;">
 
-<a href={item.href} class={`nav-link ${isActive(item.href) ? 'active':''}`}>
+<a
+href={item.href}
+class="nav-link"
+style={navLinkStyles[i]}
+>
+
 {item.label}
+
+<svg width="9" height="6">
+<path d="M1 1l3.5 4 3.5-4" stroke="currentColor"/>
+</svg>
+
 </a>
 
 <div class="dropdown">
 
-{item.children.map(child => (
+{item.children.map((child) => (
 
-<a href={child.href} class="dropdown-link">
+<a href={child.href} class="dropdown-btn">
+
 {child.label}
+
 </a>
 
 ))}
@@ -125,38 +132,38 @@ item.children ?
 
 </div>
 
-:
+) : (
 
-<a href={item.href} class={`nav-link ${isActive(item.href)?'active':''}`}>
+<a
+href={item.href}
+class="nav-link"
+style={navSimpleStyles[i]}
+>
+
 {item.label}
+
 </a>
+
+)
 
 ))}
 
 </nav>
 
-<div class="header-right">
+<div style="display:flex; align-items:center; gap:0.15rem;">
 
-<div class="lang-switch">
-
-{langs.map(l => (
+{langs.map((lang) => (
 
 <a
-href={getLangUrl(l.prefix)}
-class={`lang ${currentLang===l.code?'active':''}`}
+href={getLangUrl(lang.prefix)}
+class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}
 >
-{l.label}
+
+{lang.label}
+
 </a>
 
 ))}
-
-</div>
-
-<button id="hamburger" aria-label="Menu">
-<span></span>
-<span></span>
-<span></span>
-</button>
 
 </div>
 
@@ -164,85 +171,65 @@ class={`lang ${currentLang===l.code?'active':''}`}
 
 </header>
 
-<div id="overlay"></div>
-
-<nav id="mobile-menu">
-
-{navItems.map(item => (
-
-<div class="mobile-item">
-
-<a
-href={item.children ? '#' : item.href}
-class="mobile-link"
-data-has={item.children ? '1':'0'}
->
-{item.label}
-</a>
-
-{item.children && (
-
-<div class="mobile-sub">
-
-{item.children.map(child => (
-
-<a href={child.href}>
-{child.label}
-</a>
-
-))}
-
-</div>
-
-)}
-
-</div>
-
-))}
-
-<div class="mobile-langs">
-
-{langs.map(l => (
-
-<a href={getLangUrl(l.prefix)}>
-{l.label}
-</a>
-
-))}
-
-</div>
-
-</nav>
-
 <style>
-/* styl pozostaje taki jak wcześniej */
+
+.lang-btn{
+font-family:'Crimson Pro',serif;
+font-size:0.75rem;
+color:rgba(232,201,122,0.35);
+padding:4px 5px;
+text-decoration:none;
+}
+
+.lang-btn:hover{
+color:#E8C97A;
+}
+
+.lang-active{
+color:#E8C97A;
+font-weight:600;
+}
+
+.dropdown{
+position:absolute;
+top:100%;
+left:0;
+background:rgba(10,7,3,0.98);
+border:1px solid rgba(201,168,76,0.15);
+display:none;
+}
+
+.dropdown-parent:hover .dropdown{
+display:block;
+}
+
+.dropdown-btn{
+display:block;
+padding:0.6rem 1rem;
+color:rgba(232,201,122,0.7);
+text-decoration:none;
+font-family:'Crimson Pro',serif;
+}
+
+.dropdown-btn:hover{
+color:#E8C97A;
+background:rgba(201,168,76,0.08);
+}
+
 </style>
 
-<script>
 
-const burger=document.getElementById("hamburger")
-const menu=document.getElementById("mobile-menu")
-const overlay=document.getElementById("overlay")
 
-burger.onclick=()=>{
-menu.classList.toggle("open")
-overlay.style.display=menu.classList.contains("open")?"block":"none"
+---
+function stripLang(p:string){
+  return p.replace(/^\/(en|de|es|it)/,'') || '/'
 }
 
-overlay.onclick=()=>{
-menu.classList.remove("open")
-overlay.style.display="none"
-}
+function isActive(href:string){
+  const current = stripLang(Astro.url.pathname)
+  const clean = href.split('?')[0].split('#')[0]
 
-document.querySelectorAll(".mobile-link").forEach(link=>{
-if(link.dataset.has==="1"){
-link.onclick=(e)=>{
-e.preventDefault()
-const sub=link.nextElementSibling
-sub.style.display=sub.style.display==="block"?"none":"block"
+  if(clean === '/') return current === '/'
+  return current.startsWith(clean)
 }
-}
-})
-
-</script>
-```
+---
