@@ -2,133 +2,411 @@
 ---
 const pathname = Astro.url.pathname;
 
-/* ─────────────────────────────────────
-   Language detection
-───────────────────────────────────── */
+/* ───────── LANG DETECTION ───────── */
 
-let currentLang = 'PL';
+const langPrefixes = ['en','de','es','it'];
+
+let currentLang = 'pl';
 let basePath = pathname;
 
-if (pathname.startsWith('/en')) {
-  currentLang = 'EN';
-  basePath = pathname.slice(3) || '/';
-}
-else if (pathname.startsWith('/de')) {
-  currentLang = 'DE';
-  basePath = pathname.slice(3) || '/';
-}
-else if (pathname.startsWith('/es')) {
-  currentLang = 'ES';
-  basePath = pathname.slice(3) || '/';
-}
-else if (pathname.startsWith('/it')) {
-  currentLang = 'IT';
-  basePath = pathname.slice(3) || '/';
+for (const l of langPrefixes) {
+  if (pathname.startsWith('/' + l)) {
+    currentLang = l;
+    basePath = pathname.slice(l.length + 1) || '/';
+  }
 }
 
-const langs = [
-  { code: 'PL', label: 'PL', prefix: '' },
-  { code: 'EN', label: 'EN', prefix: '/en' },
-  { code: 'DE', label: 'DE', prefix: '/de' },
-  { code: 'ES', label: 'ES', prefix: '/es' },
-  { code: 'IT', label: 'IT', prefix: '/it' }
-];
-
-function getLangUrl(prefix: string): string {
+function getLangUrl(prefix:string){
   const path = basePath === '/' ? '' : basePath;
   return (prefix + path) || '/';
 }
 
-/* ─────────────────────────────────────
-   Navigation
-───────────────────────────────────── */
+/* ───────── LANGS ───────── */
 
-const navItems = [
-  {
-    label: 'O projekcie',
-    href: '/o-projekcie',
-    children: [
-      { label: 'Jak powstaja Ateny Roztocza', href: '/o-projekcie' },
-      { label: 'Trzy filary', href: '/#filary' },
-      { label: 'Ks. prof. Tadeusz Guz', href: '/ks-guz' }
-    ]
-  },
-  {
-    label: 'Multimedia',
-    href: '/multimedia',
-    children: [
-      { label: 'Materialy audiowizualne', href: '/multimedia' },
-      { label: 'Artykuly - Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
-      { label: 'Artykuly - Niedziela', href: '/multimedia?tab=niedziela' },
-      { label: 'Inne publikacje', href: '/multimedia?tab=inne' }
-    ]
-  },
-  { label: 'Wydarzenia', href: '/wydarzenia' },
-  { label: 'Galeria', href: '/galeria' },
-  { label: 'Kontakt', href: '/kontakt' }
+const langs = [
+{code:'pl',label:'PL',prefix:''},
+{code:'en',label:'EN',prefix:'/en'},
+{code:'de',label:'DE',prefix:'/de'},
+{code:'es',label:'ES',prefix:'/es'},
+{code:'it',label:'IT',prefix:'/it'}
 ];
 
-/* ─────────────────────────────────────
-   Active link logic (with language prefix)
-───────────────────────────────────── */
+/* ───────── NAV ───────── */
 
-function cleanPath(path: string) {
-  return path.replace(/^\/(en|de|es|it)/, '');
+const navItems = [
+{
+label:'O projekcie',
+href:'/o-projekcie',
+children:[
+{label:'Jak powstaja Ateny Roztocza',href:'/o-projekcie'},
+{label:'Trzy filary',href:'/ #filary'},
+{label:'Ks. prof. Tadeusz Guz',href:'/ks-guz'}
+]
+},
+{
+label:'Multimedia',
+href:'/multimedia',
+children:[
+{label:'Materialy audiowizualne',href:'/multimedia'},
+{label:'Artykuly - Nasz Dziennik',href:'/multimedia?tab=nasz-dziennik'},
+{label:'Artykuly - Niedziela',href:'/multimedia?tab=niedziela'},
+{label:'Inne publikacje',href:'/multimedia?tab=inne'}
+]
+},
+{label:'Wydarzenia',href:'/wydarzenia'},
+{label:'Galeria',href:'/galeria'},
+{label:'Kontakt',href:'/kontakt'}
+];
+
+/* ───────── ACTIVE LINK ───────── */
+
+function stripLang(p:string){
+return p.replace(/^\/(en|de|es|it)/,'') || '/';
 }
 
-function isActive(href: string): boolean {
-  const cleanHref = href.split('?')[0].split('#')[0];
-  const current = cleanPath(pathname);
-
-  if (cleanHref === '/' || cleanHref === '') return current === '/';
-
-  return current.startsWith(cleanHref);
+function isActive(href:string){
+const current = stripLang(pathname);
+const clean = href.split('?')[0].split('#')[0];
+if(clean==='/') return current==='/';
+return current.startsWith(clean);
 }
-
-/* ─────────────────────────────────────
-   Styles
-───────────────────────────────────── */
-
-const navLinkStyles = navItems.map((item) => {
-  const base =
-    'padding:0.45rem 0.7rem; display:flex; align-items:center; gap:4px;';
-  return isActive(item.href) ? base + 'color:#E8C97A;' : base;
-});
-
-const navSimpleStyles = navItems.map((item) => {
-  const base =
-    'padding:0.45rem 0.7rem; display:block;';
-  return isActive(item.href)
-    ? base + 'color:#E8C97A; border-bottom:1px solid rgba(201,168,76,0.45);'
-    : base + 'border-bottom:none;';
-});
-
-const mobileBtnStyles = navItems.map((item) => {
-  const base =
-    'flex:1; text-align:left; padding:0.95rem 1.25rem; font-family:Crimson Pro,serif; font-size:1rem; letter-spacing:0.07em; text-transform:uppercase; background:none; border:none; cursor:pointer; min-height:52px; display:flex; align-items:center; text-decoration:none;';
-  return isActive(item.href)
-    ? base + 'color:#E8C97A;'
-    : base + 'color:rgba(245,237,216,0.82);';
-});
 ---
 
-<!-- ─────────────────────────────────────
-     SEO: hreflang
-───────────────────────────────────── -->
+<!-- SEO hreflang -->
 
-<link rel="alternate" hreflang="pl" href={getLangUrl('')} />
-<link rel="alternate" hreflang="en" href={getLangUrl('/en')} />
-<link rel="alternate" hreflang="de" href={getLangUrl('/de')} />
-<link rel="alternate" hreflang="es" href={getLangUrl('/es')} />
-<link rel="alternate" hreflang="it" href={getLangUrl('/it')} />
-<link rel="alternate" hreflang="x-default" href={getLangUrl('')} />
+{langs.map(l => (
+<link rel="alternate" hreflang={l.code} href={getLangUrl(l.prefix)} />
+))}
 
-<header
-id="site-header"
-style="position:fixed;top:0;left:0;right:0;z-index:1000;background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent);transition:all 0.4s ease;"
+<link rel="alternate" hreflang="x-default" href="/" />
+
+<header id="site-header">
+
+<div class="header-inner">
+
+<a href="/" class="logo">
+<span class="logo-title">Ateny Roztocza</span>
+<span class="logo-sub">Jerozolima · Ateny · Rzym</span>
+</a>
+
+<nav class="desktop-nav">
+
+{navItems.map(item => (
+
+item.children ?
+
+<div class="nav-group">
+
+<a href={item.href} class={`nav-link ${isActive(item.href) ? 'active':''}`}>
+{item.label}
+</a>
+
+<div class="dropdown">
+
+{item.children.map(child => (
+
+<a href={child.href} class="dropdown-link">
+{child.label}
+</a>
+
+))}
+
+</div>
+
+</div>
+
+:
+
+<a href={item.href} class={`nav-link ${isActive(item.href)?'active':''}`}>
+{item.label}
+</a>
+
+))}
+
+</nav>
+
+<div class="header-right">
+
+<div class="lang-switch">
+
+{langs.map(l => (
+
+<a
+href={getLangUrl(l.prefix)}
+class={`lang ${currentLang===l.code?'active':''}`}
 >
+{l.label}
+</a>
 
-<div
-id="header-inner"
-style="max-width:1280px;margin:0 auto;padding:0.85rem clamp(1rem,3vw,2rem);display:flex;align-items:center;
+))}
+
+</div>
+
+<button id="hamburger" aria-label="Menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+<div id="overlay"></div>
+
+<nav id="mobile-menu">
+
+{navItems.map(item => (
+
+<div class="mobile-item">
+
+<a
+href={item.children ? '#' : item.href}
+class="mobile-link"
+data-has={item.children ? '1':'0'}
+>
+{item.label}
+</a>
+
+{item.children && (
+
+<div class="mobile-sub">
+
+{item.children.map(child => (
+
+<a href={child.href}>
+{child.label}
+</a>
+
+))}
+
+</div>
+
+)}
+
+</div>
+
+))}
+
+<div class="mobile-langs">
+
+{langs.map(l => (
+
+<a href={getLangUrl(l.prefix)}>
+{l.label}
+</a>
+
+))}
+
+</div>
+
+</nav>
+
+<style>
+
+#site-header{
+position:fixed;
+top:0;
+left:0;
+right:0;
+z-index:1000;
+background:rgba(13,10,5,0.9);
+border-bottom:1px solid rgba(201,168,76,.15);
+}
+
+.header-inner{
+max-width:1200px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:1rem 1.5rem;
+}
+
+.logo-title{
+font-family:"Cormorant Garamond",serif;
+font-size:1.5rem;
+color:#E8C97A;
+}
+
+.logo-sub{
+font-size:.6rem;
+letter-spacing:.2em;
+color:rgba(232,201,122,.6);
+}
+
+.desktop-nav{
+display:flex;
+gap:1.4rem;
+}
+
+.nav-link{
+font-family:"Crimson Pro",serif;
+color:rgba(232,201,122,.75);
+text-decoration:none;
+}
+
+.nav-link.active{
+color:#E8C97A;
+}
+
+.nav-group{
+position:relative;
+}
+
+.dropdown{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+background:#0a0703;
+border:1px solid rgba(201,168,76,.15);
+}
+
+.nav-group:hover .dropdown{
+display:block;
+}
+
+.dropdown-link{
+display:block;
+padding:.6rem 1rem;
+color:rgba(232,201,122,.7);
+text-decoration:none;
+}
+
+.dropdown-link:hover{
+background:rgba(201,168,76,.08);
+color:#E8C97A;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:1rem;
+}
+
+.lang-switch a{
+font-size:.75rem;
+color:rgba(232,201,122,.4);
+text-decoration:none;
+margin-right:4px;
+}
+
+.lang-switch a.active{
+color:#E8C97A;
+font-weight:600;
+}
+
+#hamburger{
+display:none;
+flex-direction:column;
+gap:4px;
+background:none;
+border:none;
+cursor:pointer;
+}
+
+#hamburger span{
+width:22px;
+height:2px;
+background:#E8C97A;
+display:block;
+}
+
+#mobile-menu{
+position:fixed;
+top:0;
+right:-100%;
+width:300px;
+height:100%;
+background:#0a0703;
+transition:.35s;
+padding-top:80px;
+}
+
+#mobile-menu.open{
+right:0;
+}
+
+#overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+}
+
+.mobile-item{
+border-bottom:1px solid rgba(201,168,76,.1);
+}
+
+.mobile-link{
+display:block;
+padding:1rem 1.4rem;
+color:#E8C97A;
+text-decoration:none;
+}
+
+.mobile-sub{
+display:none;
+padding-left:1rem;
+}
+
+.mobile-sub a{
+display:block;
+padding:.7rem 1.2rem;
+color:rgba(232,201,122,.7);
+text-decoration:none;
+}
+
+.mobile-langs{
+padding:1rem;
+}
+
+.mobile-langs a{
+margin-right:.5rem;
+}
+
+@media(max-width:768px){
+
+.desktop-nav{
+display:none;
+}
+
+#hamburger{
+display:flex;
+}
+
+}
+
+</style>
+
+<script>
+
+const burger=document.getElementById("hamburger")
+const menu=document.getElementById("mobile-menu")
+const overlay=document.getElementById("overlay")
+
+burger.onclick=()=>{
+menu.classList.toggle("open")
+overlay.style.display=menu.classList.contains("open")?"block":"none"
+}
+
+overlay.onclick=()=>{
+menu.classList.remove("open")
+overlay.style.display="none"
+}
+
+document.querySelectorAll(".mobile-link").forEach(link=>{
+if(link.dataset.has==="1"){
+link.onclick=(e)=>{
+e.preventDefault()
+const sub=link.nextElementSibling
+sub.style.display=sub.style.display==="block"?"none":"block"
+}
+}
+})
+
+</script>
 ```
