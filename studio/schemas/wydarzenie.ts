@@ -4,22 +4,28 @@ export default defineType({
   name: 'wydarzenie',
   title: 'Wydarzenie',
   type: 'document',
+  groups: [
+    {name: 'tresc',    title: 'Treść'},
+    {name: 'tlumaczenia', title: 'Tłumaczenia'},
+    {name: 'seo',      title: 'SEO'},
+  ],
   fields: [
-    defineField({name: 'tytul',    title: 'Tytuł (PL)',  type: 'string'}),
-    defineField({name: 'tytulEN',  title: 'Tytuł (EN)',  type: 'string'}),
-    defineField({name: 'tytulDE',  title: 'Tytuł (DE)',  type: 'string'}),
     defineField({
-      name: 'slug',
-      title: 'Slug (URL)',
-      type: 'slug',
-      options: {source: 'tytul'},
+      name: 'tytul', title: 'Tytuł', type: 'string',
+      group: 'tresc',
+      validation: R => R.required(),
     }),
-    defineField({name: 'data',    title: 'Data',   type: 'date'}),
-    defineField({name: 'miejsce', title: 'Miejsce', type: 'string'}),
     defineField({
-      name: 'typ',
-      title: 'Typ',
-      type: 'string',
+      name: 'slug', title: 'Slug (URL)', type: 'slug',
+      options: {source: 'tytul'},
+      group: 'tresc',
+      validation: R => R.required(),
+    }),
+    defineField({name: 'data',    title: 'Data',    type: 'date',   group: 'tresc'}),
+    defineField({name: 'miejsce', title: 'Miejsce', type: 'string', group: 'tresc'}),
+    defineField({
+      name: 'typ', title: 'Typ', type: 'string',
+      group: 'tresc',
       options: {
         list: [
           {title: 'Wykład',      value: 'wyklad'},
@@ -33,9 +39,8 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
+      name: 'status', title: 'Status', type: 'string',
+      group: 'tresc',
       options: {
         list: [
           {title: 'Nadchodzące', value: 'upcoming'},
@@ -45,50 +50,43 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'jezyki',
-      title: 'Języki',
-      type: 'array',
+      name: 'jezyki', title: 'Języki', type: 'array',
+      group: 'tresc',
       of: [{type: 'string'}],
-      options: {
-        list: ['PL', 'EN', 'DE', 'IT', 'ES'],
-        layout: 'tags',
-      },
+      options: {list: ['PL','EN','DE','ES','IT'], layout: 'tags'},
     }),
     defineField({
-      name: 'opis',
-      title: 'Opis (PL)',
-      type: 'array',
+      name: 'opis', title: 'Opis (PL)', type: 'array',
+      group: 'tresc',
       of: [{type: 'block'}],
     }),
+    defineField({name: 'hasReport',   title: 'Dostępna relacja', type: 'boolean', group: 'tresc'}),
+    defineField({name: 'linkRelacji', title: 'Link do relacji',  type: 'url',     group: 'tresc'}),
     defineField({
-      name: 'opisEN',
-      title: 'Opis (EN)',
-      type: 'array',
-      of: [{type: 'block'}],
-    }),
-    defineField({
-      name: 'hasReport',
-      title: 'Dostępna relacja',
-      type: 'boolean',
-    }),
-    defineField({
-      name: 'linkRelacji',
-      title: 'Link do relacji',
-      type: 'url',
-    }),
-    defineField({
-      name: 'zdjecie',
-      title: 'Zdjęcie',
-      type: 'image',
+      name: 'zdjecie', title: 'Zdjęcie', type: 'image',
+      group: 'tresc',
       options: {hotspot: true},
     }),
+
+    // Tłumaczenia
+    defineField({name: 'tytulEN', title: 'Tytuł (EN)', type: 'string',             group: 'tlumaczenia'}),
+    defineField({name: 'opisEN',  title: 'Opis (EN)',  type: 'array', of: [{type: 'block'}], group: 'tlumaczenia'}),
+    defineField({name: 'tytulDE', title: 'Tytuł (DE)', type: 'string',             group: 'tlumaczenia'}),
+    defineField({name: 'opisDE',  title: 'Opis (DE)',  type: 'array', of: [{type: 'block'}], group: 'tlumaczenia'}),
+    defineField({name: 'tytulES', title: 'Tytuł (ES)', type: 'string',             group: 'tlumaczenia'}),
+    defineField({name: 'opisES',  title: 'Opis (ES)',  type: 'array', of: [{type: 'block'}], group: 'tlumaczenia'}),
+    defineField({name: 'tytulIT', title: 'Tytuł (IT)', type: 'string',             group: 'tlumaczenia'}),
+    defineField({name: 'opisIT',  title: 'Opis (IT)',  type: 'array', of: [{type: 'block'}], group: 'tlumaczenia'}),
+
+    // SEO
     defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'object',
+      name: 'seo', title: 'SEO', type: 'object',
+      group: 'seo',
       fields: [
-        defineField({name: 'metaTytul',  title: 'Meta tytuł',  type: 'string'}),
-        defineField({name: 'metaOpis',   title: 'Meta opis',   type: 'text', rows: 2}),
+        defineField({name: 'metaTytul', title: 'Meta tytuł (PL)', type: 'string'}),
+        defineField({name: 'metaOpis',  title: 'Meta opis (PL)',  type: 'text', rows: 2}),
+        defineField({name: 'metaTytulEN', title: 'Meta tytuł (EN)', type: 'string'}),
+        defineField({name: 'metaOpisEN',  title: 'Meta opis (EN)',  type: 'text', rows: 2}),
       ],
     }),
   ],
