@@ -4,7 +4,7 @@ const pathname = Astro.url.pathname;
 let currentLang = 'PL';
 let basePath = pathname;
 
-if (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
+if      (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/de')) { currentLang = 'DE'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.slice(3) || '/'; }
 else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
@@ -27,24 +27,24 @@ const navItems = [
     label: 'O projekcie',
     href: '/o-projekcie',
     children: [
-      { label: 'Jak powstają Ateny Roztocza', href: '/o-projekcie' },
-      { label: 'Trzy filary', href: '/#filary' },
-      { label: 'Ks. prof. Tadeusz Guz', href: '/ks-guz' },
+      { label: 'Jak powstaja Ateny Roztocza', href: '/o-projekcie' },
+      { label: 'Trzy filary',                 href: '/#filary'     },
+      { label: 'Ks. prof. Tadeusz Guz',       href: '/ks-guz'      },
     ],
   },
   {
     label: 'Multimedia',
     href: '/multimedia',
     children: [
-      { label: 'Materiały audiowizualne', href: '/multimedia' },
-      { label: 'Artykuły — Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
-      { label: 'Artykuły — Niedziela', href: '/multimedia?tab=niedziela' },
-      { label: 'Inne publikacje', href: '/multimedia?tab=inne' },
+      { label: 'Materialy audiowizualne',  href: '/multimedia'                   },
+      { label: 'Artykuly - Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
+      { label: 'Artykuly - Niedziela',     href: '/multimedia?tab=niedziela'     },
+      { label: 'Inne publikacje',          href: '/multimedia?tab=inne'          },
     ],
   },
   { label: 'Wydarzenia', href: '/wydarzenia' },
-  { label: 'Galeria', href: '/galeria' },
-  { label: 'Kontakt', href: '/kontakt' },
+  { label: 'Galeria',    href: '/galeria'    },
+  { label: 'Kontakt',    href: '/kontakt'    },
 ];
 
 function isActive(href: string): boolean {
@@ -72,148 +72,346 @@ const mobileBtnStyles = navItems.map((item) => {
 ---
 
 <header
-id="site-header"
-style="position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent); transition:all 0.4s ease;"
+  id="site-header"
+  style="position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(to bottom,rgba(13,10,5,0.88),transparent); transition:all 0.4s ease;"
 >
+  <div
+    id="header-inner"
+    style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem; transition:padding 0.4s ease;"
+  >
 
-<div
-id="header-inner"
-style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem;"
->
+    <!-- Logo -->
+    <a href="/" style="text-decoration:none; display:flex; flex-direction:column; gap:2px; flex-shrink:0;">
+      <span id="logo-title" style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); font-weight:300; color:#E8C97A; letter-spacing:0.08em; transition:font-size 0.4s ease; line-height:1;">
+        Ateny Roztocza
+      </span>
+      <span style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em; text-transform:uppercase;">
+        Jerozolima · Ateny · Rzym
+      </span>
+    </a>
 
-<a
-href="/"
-aria-label="Ateny Roztocza — strona główna"
-style="text-decoration:none; display:flex; flex-direction:column; gap:2px;"
->
-<span style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); color:#E8C97A;">
-Ateny Roztocza
-</span>
-<span style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em;">
-Jerozolima · Ateny · Rzym
-</span>
-</a>
+    <!-- Desktop Nav -->
+    <nav class="desktop-nav" style="display:flex; align-items:center;">
+      {navItems.map((item, i) =>
+        item.children ? (
+          <div class="dropdown-parent" style="position:relative; padding:0.5rem 0;">
+            <a href={item.href} class="nav-link" style={navLinkStyles[i]}>
+              {item.label}
+              <svg width="9" height="6" viewBox="0 0 9 6" fill="none" style="opacity:0.5; flex-shrink:0; margin-left:2px;">
+                <path d="M1 1l3.5 4 3.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <div class="dropdown">
+              {item.children.map((child) => (
+                <a href={child.href} class="dropdown-btn">{child.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class="nav-link" style={navSimpleStyles[i]}>
+            {item.label}
+          </a>
+        )
+      )}
+    </nav>
 
-<nav class="desktop-nav" style="display:flex; align-items:center;">
+    <!-- Prawa strona: języki + hamburger -->
+    <div style="display:flex; align-items:center; gap:0.15rem; flex-shrink:0;">
+      {langs.map((lang) => (
+        
+          href={getLangUrl(lang.prefix)}
+          class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}
+        >
+          {lang.label}
+        </a>
+      ))}
 
-{navItems.map((item, i) => (
+      <!-- Hamburger — widoczny tylko mobile via CSS -->
+      <button
+        id="hamburger"
+        aria-label="Otworz menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        style="display:none; background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.5rem; width:44px; height:44px; align-items:center; justify-content:center; flex-shrink:0;"
+      >
+        <svg id="icon-closed" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
+          <line x1="3" y1="6.5"  x2="21" y2="6.5"  stroke-linecap="round"/>
+          <line x1="3" y1="11.5" x2="21" y2="11.5" stroke-linecap="round"/>
+          <line x1="3" y1="16.5" x2="21" y2="16.5" stroke-linecap="round"/>
+        </svg>
+        <svg id="icon-open" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none;">
+          <path d="M5 5l14 14M19 5L5 19" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
 
-item.children ? (
-
-<div class="dropdown-parent" style="position:relative; padding:0.5rem 0;">
-
-<a
-href={item.href}
-class="nav-link"
-style={navLinkStyles[i]}
->
-
-{item.label}
-
-<svg width="9" height="6">
-<path d="M1 1l3.5 4 3.5-4" stroke="currentColor"/>
-</svg>
-
-</a>
-
-<div class="dropdown">
-
-{item.children.map((child) => (
-
-<a href={child.href} class="dropdown-btn">
-
-{child.label}
-
-</a>
-
-))}
-
-</div>
-
-</div>
-
-) : (
-
-<a
-href={item.href}
-class="nav-link"
-style={navSimpleStyles[i]}
->
-
-{item.label}
-
-</a>
-
-)
-
-))}
-
-</nav>
-
-<div style="display:flex; align-items:center; gap:0.15rem;">
-
-{langs.map((lang) => (
-
-<a
-href={getLangUrl(lang.prefix)}
-class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}
->
-
-{lang.label}
-
-</a>
-
-))}
-
-</div>
-
-</div>
-
+  </div>
 </header>
 
+<!-- Overlay -->
+<div id="mobile-overlay" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.55);"></div>
+
+<!-- Mobile Drawer -->
+<div
+  id="mobile-drawer"
+  style="position:fixed; top:0; right:0; bottom:0; width:min(320px,88vw); z-index:1001; background:rgba(10,7,3,0.99); border-left:1px solid rgba(201,168,76,0.18); transform:translateX(100%); transition:transform 0.35s ease; overflow-y:auto; display:flex; flex-direction:column;"
+>
+  <!-- Drawer nagłówek -->
+  <div style="padding:1.25rem; border-bottom:1px solid rgba(201,168,76,0.12); display:flex; align-items:center; justify-content:space-between;">
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:#E8C97A; font-weight:300;">Ateny Roztocza</div>
+      <div style="font-family:'Crimson Pro',serif; font-size:0.6rem; color:rgba(232,201,122,0.45); letter-spacing:0.18em; text-transform:uppercase; margin-top:2px;">Jerozolima · Ateny · Rzym</div>
+    </div>
+    <button id="drawer-close" style="background:none; border:1px solid rgba(201,168,76,0.25); color:#C9A84C; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M4 4l10 10M14 4L4 14" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Linki mobile -->
+  <nav style="padding:0.5rem 0; flex:1;">
+    {navItems.map((item, i) => (
+      <div class="m-item">
+        <div style="display:flex; align-items:center; border-bottom:1px solid rgba(201,168,76,0.07);">
+          
+            href={item.children ? undefined : item.href}
+            class="m-link"
+            data-has-ch={item.children ? 'yes' : 'no'}
+            data-key={item.label}
+            style={mobileBtnStyles[i]}
+          >
+            {item.label}
+          </a>
+          {item.children && (
+            <button
+              class="m-expand"
+              data-key={item.label}
+              style="background:none; border:none; cursor:pointer; color:#C9A84C; padding:0.95rem 1.25rem; min-height:52px; display:flex; align-items:center;"
+            >
+              <svg class="m-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" style="transition:transform 0.25s ease;">
+                <path d="M3 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          )}
+        </div>
+        {item.children && (
+          <div class="m-sub" data-key={item.label} style="max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:rgba(201,168,76,0.03);">
+            {item.children.map((child) => (
+              <a href={child.href} style="display:flex; align-items:center; gap:0.5rem; padding:0.8rem 1.25rem 0.8rem 2rem; font-family:'Crimson Pro',serif; font-size:0.95rem; color:rgba(232,201,122,0.65); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.06); min-height:48px;">
+                <span style="color:rgba(201,168,76,0.4);">›</span>
+                {child.label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    ))}
+  </nav>
+
+  <!-- Języki w drawerze -->
+  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center;">
+    <span style="font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); margin-right:0.25rem;">Jezyk</span>
+    {langs.map((lang) => (
+      
+        href={getLangUrl(lang.prefix)}
+        class={currentLang === lang.code ? 'ml-btn ml-active' : 'ml-btn'}
+      >
+        {lang.label}
+      </a>
+    ))}
+  </div>
+</div>
+
 <style>
+  /* Nav links */
+  .nav-link {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    letter-spacing: 0.06em;
+    color: rgba(232,201,122,0.72);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-link:hover { color: #E8C97A; }
 
-.lang-btn{
-font-family:'Crimson Pro',serif;
-font-size:0.75rem;
-color:rgba(232,201,122,0.35);
-padding:4px 5px;
-text-decoration:none;
-}
+  /* Dropdown */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: rgba(10,7,3,0.98);
+    border: 1px solid rgba(201,168,76,0.15);
+    display: none;
+    z-index: 200;
+  }
+  .dropdown-parent:hover .dropdown { display: block; }
+  .dropdown-btn {
+    display: block;
+    padding: 0.65rem 1.25rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9375rem;
+    color: rgba(232,201,122,0.72);
+    text-decoration: none;
+    min-height: 44px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .dropdown-btn:hover { color: #E8C97A; background: rgba(201,168,76,0.08); }
 
-.lang-btn:hover{
-color:#E8C97A;
-}
+  /* Lang */
+  .lang-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    color: rgba(232,201,122,0.35);
+    padding: 4px 5px;
+    text-decoration: none;
+    transition: color 0.2s;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .lang-btn:hover { color: #E8C97A; }
+  .lang-active    { color: #E8C97A !important; font-weight: 600; }
 
-.lang-active{
-color:#E8C97A;
-font-weight:600;
-}
+  /* Mobile lang */
+  .ml-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    color: rgba(232,201,122,0.4);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 6px 10px;
+    min-height: 40px;
+    min-width: 44px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .ml-btn:hover { color: #E8C97A; border-color: rgba(201,168,76,0.5); }
+  .ml-active    { color: #E8C97A !important; border-color: rgba(201,168,76,0.5) !important; font-weight: 600; }
 
-.dropdown{
-position:absolute;
-top:100%;
-left:0;
-background:rgba(10,7,3,0.98);
-border:1px solid rgba(201,168,76,0.15);
-display:none;
-}
+  /* Scroll effect */
+  #site-header.scrolled {
+    background: rgba(13,10,5,0.97) !important;
+    border-bottom: 1px solid rgba(201,168,76,0.16) !important;
+  }
+  #site-header.scrolled #header-inner {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  #site-header.scrolled #logo-title {
+    font-size: clamp(1.1rem,3vw,1.4rem) !important;
+  }
 
-.dropdown-parent:hover .dropdown{
-display:block;
-}
-
-.dropdown-btn{
-display:block;
-padding:0.6rem 1rem;
-color:rgba(232,201,122,0.7);
-text-decoration:none;
-font-family:'Crimson Pro',serif;
-}
-
-.dropdown-btn:hover{
-color:#E8C97A;
-background:rgba(201,168,76,0.08);
-}
-
+  /* Hamburger — tylko mobile */
+  @media (max-width: 768px) {
+    .desktop-nav { display: none !important; }
+    #hamburger   { display: inline-flex !important; }
+  }
 </style>
+
+<script>
+  var hdr      = document.getElementById('site-header');
+  var hdrInner = document.getElementById('header-inner');
+  var burger   = document.getElementById('hamburger');
+  var drawer   = document.getElementById('mobile-drawer');
+  var overlay  = document.getElementById('mobile-overlay');
+  var btnClose = document.getElementById('drawer-close');
+  var iClosed  = document.getElementById('icon-closed');
+  var iOpen    = document.getElementById('icon-open');
+  var isHome   = window.location.pathname === '/';
+
+  // ── Scroll effect ──────────────────────────────────────────
+  function onScroll() {
+    if (window.scrollY > 60 || !isHome) {
+      hdr.classList.add('scrolled');
+    } else {
+      hdr.classList.remove('scrolled');
+    }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+
+  // ── Drawer open/close ──────────────────────────────────────
+  function openDrawer() {
+    drawer.style.transform = 'translateX(0)';
+    overlay.style.display  = 'block';
+    burger.setAttribute('aria-expanded', 'true');
+    iClosed.style.display  = 'none';
+    iOpen.style.display    = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.style.transform = 'translateX(100%)';
+    overlay.style.display  = 'none';
+    burger.setAttribute('aria-expanded', 'false');
+    iClosed.style.display  = 'block';
+    iOpen.style.display    = 'none';
+    document.body.style.overflow = '';
+    var subs = document.querySelectorAll('.m-sub');
+    var chs  = document.querySelectorAll('.m-chevron');
+    for (var i = 0; i < subs.length; i++) { subs[i].style.maxHeight = '0'; }
+    for (var i = 0; i < chs.length; i++)  { chs[i].style.transform  = 'rotate(0deg)'; }
+  }
+
+  burger.addEventListener('click', function() {
+    if (drawer.style.transform === 'translateX(0)') { closeDrawer(); } else { openDrawer(); }
+  });
+  btnClose.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  // ── Accordion ──────────────────────────────────────────────
+  function toggleSub(key) {
+    var sub    = document.querySelector('.m-sub[data-key="' + key + '"]');
+    var chevron = document.querySelector('.m-expand[data-key="' + key + '"] .m-chevron');
+    var isOpen = sub.style.maxHeight !== '0px' && sub.style.maxHeight !== '';
+    var allSubs = document.querySelectorAll('.m-sub');
+    var allChs  = document.querySelectorAll('.m-chevron');
+    for (var i = 0; i < allSubs.length; i++) { allSubs[i].style.maxHeight = '0'; }
+    for (var i = 0; i < allChs.length; i++)  { allChs[i].style.transform  = 'rotate(0deg)'; }
+    if (!isOpen) {
+      sub.style.maxHeight    = '400px';
+      chevron.style.transform = 'rotate(180deg)';
+    }
+  }
+
+  var expandBtns = document.querySelectorAll('.m-expand');
+  for (var i = 0; i < expandBtns.length; i++) {
+    expandBtns[i].addEventListener('click', function() {
+      toggleSub(this.getAttribute('data-key'));
+    });
+  }
+
+  var mLinks = document.querySelectorAll('.m-link');
+  for (var i = 0; i < mLinks.length; i++) {
+    if (mLinks[i].getAttribute('data-has-ch') === 'yes') {
+      mLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleSub(this.getAttribute('data-key'));
+      });
+    }
+  }
+
+  // ── Hash links ─────────────────────────────────────────────
+  var hashLinks = document.querySelectorAll('a[href*="#"]');
+  for (var i = 0; i < hashLinks.length; i++) {
+    hashLinks[i].addEventListener('click', function(e) {
+      var href  = this.getAttribute('href') || '';
+      if (href.indexOf('#') === -1) return;
+      var parts = href.split('#');
+      var path  = parts[0];
+      var hash  = parts[1];
+      var ok    = path === '' || path === '/' || path === window.location.pathname;
+      if (ok) {
+        e.preventDefault();
+        closeDrawer();
+        var t = document.getElementById(hash);
+        if (t) { setTimeout(function() { t.scrollIntoView(); }, 50); }
+      }
+    });
+  }
+</script>
