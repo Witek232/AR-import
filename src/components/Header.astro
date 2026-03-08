@@ -161,7 +161,7 @@ const mobileBtnStyles = navItems.map((item) => {
     {navItems.map((item, i) => (
       <div class="m-item">
         <div style="display:flex; align-items:center; border-bottom:1px solid rgba(201,168,76,0.07);">
-          
+          <a
             href={item.children ? undefined : item.href}
             class="m-link"
             data-has-ch={item.children ? 'yes' : 'no'}
@@ -291,3 +291,112 @@ const mobileBtnStyles = navItems.map((item) => {
     #hamburger   { display: inline-flex; }
   }
 </style>
+
+<script>
+  var hdr      = document.getElementById('site-header');
+  var burger   = document.getElementById('hamburger');
+  var drawer   = document.getElementById('mobile-drawer');
+  var overlay  = document.getElementById('mobile-overlay');
+  var btnClose = document.getElementById('drawer-close');
+  var iClosed  = document.getElementById('icon-closed');
+  var iOpen    = document.getElementById('icon-open');
+  var isHome   = window.location.pathname === '/';
+
+  function onScroll() {
+    if (window.scrollY > 60 || !isHome) {
+      hdr.classList.add('scrolled');
+    } else {
+      hdr.classList.remove('scrolled');
+    }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+
+  function openDrawer() {
+    drawer.style.transform = 'translateX(0)';
+    overlay.style.display  = 'block';
+    burger.setAttribute('aria-expanded', 'true');
+    iClosed.style.display  = 'none';
+    iOpen.style.display    = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.style.transform = 'translateX(100%)';
+    overlay.style.display  = 'none';
+    burger.setAttribute('aria-expanded', 'false');
+    iClosed.style.display  = 'block';
+    iOpen.style.display    = 'none';
+    document.body.style.overflow = '';
+    collapseAll();
+  }
+
+  function collapseAll() {
+    var s = document.querySelectorAll('.m-sub');
+    var c = document.querySelectorAll('.m-chevron');
+    for (var i = 0; i < s.length; i++) {
+      s[i].style.maxHeight = '0';
+      s[i].removeAttribute('data-open');
+    }
+    for (var i = 0; i < c.length; i++) {
+      c[i].style.transform = 'rotate(0deg)';
+    }
+  }
+
+  function toggleSub(key) {
+    var sub = document.querySelector('.m-sub[data-key="' + key + '"]');
+    var ch  = document.querySelector('.m-expand[data-key="' + key + '"] .m-chevron');
+    if (!sub) return;
+    var isOpen = sub.getAttribute('data-open') === '1';
+    collapseAll();
+    if (!isOpen) {
+      sub.style.maxHeight = '400px';
+      sub.setAttribute('data-open', '1');
+      if (ch) { ch.style.transform = 'rotate(180deg)'; }
+    }
+  }
+
+  burger.addEventListener('click', function() {
+    if (drawer.style.transform === 'translateX(0)') {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+  btnClose.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  var expBtns = document.querySelectorAll('.m-expand');
+  for (var i = 0; i < expBtns.length; i++) {
+    expBtns[i].addEventListener('click', function() {
+      toggleSub(this.getAttribute('data-key'));
+    });
+  }
+
+  var mLinks = document.querySelectorAll('.m-link');
+  for (var i = 0; i < mLinks.length; i++) {
+    if (mLinks[i].getAttribute('data-has-ch') === 'yes') {
+      mLinks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleSub(this.getAttribute('data-key'));
+      });
+    }
+  }
+
+  var hLinks = document.querySelectorAll('a[href*="#"]');
+  for (var i = 0; i < hLinks.length; i++) {
+    hLinks[i].addEventListener('click', function(e) {
+      var href = this.getAttribute('href') || '';
+      if (href.indexOf('#') === -1) return;
+      var parts = href.split('#');
+      var path  = parts[0];
+      var hash  = parts[1];
+      if (path === '' || path === '/' || path === window.location.pathname) {
+        e.preventDefault();
+        closeDrawer();
+        var t = document.getElementById(hash);
+        if (t) { setTimeout(function() { t.scrollIntoView(); }, 50); }
+      }
+    });
+  }
+</script>
