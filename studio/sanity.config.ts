@@ -7,7 +7,7 @@ import {structure} from './structure'
 export default defineConfig({
   name: 'ateny-roztocza',
   title: 'Ateny Roztocza — CMS',
-  projectId: 'TWOJ_PROJECT_ID',
+  projectId: 'w2r65fb5',
   dataset: 'production',
   plugins: [
     structureTool({structure}),
