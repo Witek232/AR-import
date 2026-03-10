@@ -24,8 +24,4 @@
     "tsx": "^4.19.0",
     "typescript": "^5.0.0"
   }
-  {
-  "scripts": {
-    "build": "npm --prefix studio run build && astro build"
-  }
 }
