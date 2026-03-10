@@ -5,8 +5,8 @@ import {schemaTypes} from './schemas'
 import {structure} from './structure'
 
 export default defineConfig({
-  name: 'ateny-roztocza',
-  title: 'Ateny Roztocza — CMS',
+  name: 'AR-import',
+  title: 'AR-import — CMS',
   projectId: 'w2r65fb5',
   dataset: 'production',
   plugins: [
