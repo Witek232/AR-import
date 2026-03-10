@@ -5,8 +5,8 @@ import {schemaTypes} from './schemas'
 import {structure} from './structure'
 
 export default defineConfig({
-  name: 'AR-import',
-  title: 'AR-import — CMS',
+  name: 'default',
+  title: 'Studio',
   projectId: 'w2r65fb5',
   dataset: 'production',
   plugins: [
