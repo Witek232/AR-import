@@ -121,6 +121,7 @@ const mobileBtnStyles = navItems.map((item) => {
       ))}
       <button
         id="hamburger"
+        class="hamburger-btn"
         aria-label="Otwórz menu"
         aria-expanded="false"
         style="background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.5rem; width:44px; height:44px; align-items:center; justify-content:center; flex-shrink:0;"
@@ -139,10 +140,11 @@ const mobileBtnStyles = navItems.map((item) => {
   </div>
 </header>
 
-<div id="mobile-overlay" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.55);"></div>
+<div id="mobile-overlay" class="mobile-overlay" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px);"></div>
 
 <div
   id="mobile-drawer"
+  class="mobile-drawer"
   style="position:fixed; top:0; right:0; bottom:0; width:min(320px,88vw); z-index:1001; background:rgba(10,7,3,0.99); border-left:1px solid rgba(201,168,76,0.18); transform:translateX(100%); transition:transform 0.35s ease; overflow-y:auto; display:flex; flex-direction:column;"
 >
   <div style="padding:1.25rem; border-bottom:1px solid rgba(201,168,76,0.12); display:flex; align-items:center; justify-content:space-between;">
@@ -206,19 +208,19 @@ const mobileBtnStyles = navItems.map((item) => {
   /* ===== GŁÓWNE STYLE NAVIGACJI ===== */
   .nav-link {
     font-family: 'Crimson Pro', serif;
-    font-size: clamp(0.95rem, 2vw, 1.05rem);  /* Zwiększony rozmiar */
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
     letter-spacing: 0.06em;
-    color: rgba(232, 201, 122, 0.92);          /* Zwiększona nieprzezroczystość */
+    color: rgba(232, 201, 122, 0.92);
     text-decoration: none;
     transition: color 0.2s;
     white-space: nowrap;
-    text-shadow: 0 0 5px rgba(0,0,0,0.3);      /* Cień dla lepszej czytelności */
+    text-shadow: 0 0 5px rgba(0,0,0,0.3);
     font-weight: 400;
     position: relative;
   }
   
   .nav-link:hover { 
-    color: #FFE6A6;                            /* Jaśniejszy kolor przy najechaniu */
+    color: #FFE6A6;
   }
 
   /* ===== DROPDOWN MENU ===== */
@@ -229,7 +231,7 @@ const mobileBtnStyles = navItems.map((item) => {
     min-width: 240px;
     background: rgba(10, 7, 3, 0.98);
     border: 1px solid rgba(201, 168, 76, 0.2);
-    border-top: 2px solid #E8C97A;              /* Wyraźny złoty pasek na górze */
+    border-top: 2px solid #E8C97A;
     display: none;
     z-index: 200;
     backdrop-filter: blur(10px);
@@ -278,46 +280,66 @@ const mobileBtnStyles = navItems.map((item) => {
     padding-left: 1.75rem;
   }
 
-  /* ===== STAN AKTYWNY ===== */
-  .nav-link.active, 
-  [style*="color:#E8C97A"] {
-    color: #E8C97A !important;
-    font-weight: 500;
-  }
-
-  /* ===== PRZYCISKI JĘZYKOWE ===== */
+  /* ===== PRZYCISKI JĘZYKOWE - DESKTOP ===== */
   .lang-btn {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.78rem;
-    color: rgba(232, 201, 122, 0.45);
-    padding: 4px 5px;
-    text-decoration: none;
-    transition: color 0.2s;
-    min-height: 36px;
-    display: inline-flex;
-    align-items: center;
-    letter-spacing: 0.06em;
-  }
-  .lang-btn:hover { color: #E8C97A; }
-  .lang-active    { color: #E8C97A !important; font-weight: 600; }
-
-  /* ===== PRZYCISKI JĘZYKOWE W MOBILNYM ===== */
-  .ml-btn {
     font-family: 'Crimson Pro', serif;
     font-size: 0.9rem;
     color: rgba(232, 201, 122, 0.5);
-    border: 1px solid rgba(201, 168, 76, 0.15);
-    padding: 6px 10px;
+    padding: 6px 8px;
+    text-decoration: none;
+    transition: all 0.2s;
     min-height: 40px;
-    min-width: 44px;
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.06em;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-weight: 400;
+  }
+  .lang-btn:hover { 
+    color: #FFE6A6;
+    background: rgba(201, 168, 76, 0.1);
+    border-color: rgba(201, 168, 76, 0.3);
+  }
+  .lang-active { 
+    color: #FFE6A6 !important; 
+    font-weight: 600;
+    background: rgba(201, 168, 76, 0.15);
+    border-color: rgba(201, 168, 76, 0.4);
+    text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
+  }
+
+  /* ===== PRZYCISKI JĘZYKOWE - MOBILNE ===== */
+  .ml-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: rgba(232, 201, 122, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 8px 12px;
+    min-height: 44px;
+    min-width: 48px;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    border-radius: 4px;
+    font-weight: 400;
   }
-  .ml-btn:hover { color: #E8C97A; border-color: rgba(201, 168, 76, 0.5); }
-  .ml-active    { color: #E8C97A !important; border-color: rgba(201, 168, 76, 0.5) !important; font-weight: 600; }
+  .ml-btn:hover { 
+    color: #FFE6A6; 
+    border-color: rgba(201, 168, 76, 0.6);
+    background: rgba(201, 168, 76, 0.1);
+  }
+  .ml-active { 
+    color: #FFE6A6 !important; 
+    border-color: rgba(232, 201, 122, 0.6) !important;
+    background: rgba(201, 168, 76, 0.15);
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
+  }
 
   /* ===== HEADER SCROLL ===== */
   #site-header.scrolled {
@@ -332,10 +354,35 @@ const mobileBtnStyles = navItems.map((item) => {
     font-size: clamp(1.1rem, 3vw, 1.4rem) !important;
   }
 
-  /* ===== MEDIA QUERIES ===== */
+  /* ===== MEDIA QUERIES - UKRYWANIE MOBILNEGO MENU NA DESKTOPIE ===== */
+  @media (min-width: 769px) {
+    .mobile-drawer,
+    .mobile-overlay,
+    .hamburger-btn {
+      display: none !important;
+    }
+    .desktop-nav {
+      display: flex !important;
+    }
+  }
+
   @media (max-width: 768px) {
-    .desktop-nav { display: none; }
-    #hamburger   { display: inline-flex; }
+    .desktop-nav {
+      display: none !important;
+    }
+    .hamburger-btn {
+      display: inline-flex !important;
+    }
+    .mobile-drawer {
+      display: flex !important;
+    }
+  }
+
+  /* ===== STAN AKTYWNY ===== */
+  .nav-link.active, 
+  [style*="color:#E8C97A"] {
+    color: #E8C97A !important;
+    font-weight: 500;
   }
 </style>
 
