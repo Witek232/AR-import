@@ -22,13 +22,10 @@ function getLangUrl(prefix: string): string {
   return (prefix + path) || '/';
 }
 
-// Dodajemy tę funkcję dla selecta w mobilnym menu
 function getMobileLangUrl(prefix: string): string {
-  // Dla strony głównej w różnych językach
   if (basePath === '/' || basePath === '') {
     return prefix || '/';
   }
-  // Dla podstron - zachowujemy ścieżkę bez prefiksu językowego
   return prefix + basePath;
 }
 
@@ -202,32 +199,41 @@ const mobileBtnStyles = navItems.map((item) => {
         )}
       </div>
     ))}
-  </nav>
 
-  <!-- Poprawiony select dla zmiany języka -->
-  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1);">
-    <label for="mobile-lang-select" style="display:block; font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.75rem;">
-      Wybierz język
-    </label>
-    <select 
-      id="mobile-lang-select"
-      class="mobile-lang-select"
-      aria-label="Zmiana języka"
-      data-basepath={basePath}
-    >
-      {langs.map((lang) => {
-        const langUrl = getMobileLangUrl(lang.prefix);
-        return (
-          <option 
-            value={langUrl}
-            selected={currentLang === lang.code}
-          >
-            {lang.label}
-          </option>
-        );
-      })}
-    </select>
-  </div>
+    {/* === POPRAWIONY DROPDOWN JĘZYKOWY DLA MOBILE === */}
+    <div class="m-item">
+      <div style="border-bottom:1px solid rgba(201,168,76,0.07);">
+        <button 
+          id="mobile-lang-toggle"
+          class="m-link"
+          data-has-ch="yes"
+          data-key="lang-selector"
+          style="flex:1; text-align:left; padding:0.95rem 1.25rem; font-family:Crimson Pro,serif; font-size:1rem; letter-spacing:0.07em; text-transform:uppercase; background:none; border:none; cursor:pointer; min-height:52px; display:flex; align-items:center; justify-content:space-between; color:rgba(245,237,216,0.82);"
+        >
+          <span>Język: <strong style="color:#E8C97A;">{langs.find(l => l.code === currentLang)?.label}</strong></span>
+          <svg class="m-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" style="transition:transform 0.25s ease;">
+            <path d="M3 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="m-sub" data-key="lang-selector" style="max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:rgba(201,168,76,0.03);">
+        {langs.map((lang) => {
+          const langUrl = getMobileLangUrl(lang.prefix);
+          return (
+            <a 
+              href={langUrl} 
+              style="display:flex; align-items:center; gap:0.5rem; padding:0.8rem 1.25rem 0.8rem 2rem; font-family:'Crimson Pro',serif; font-size:0.95rem; color:rgba(232,201,122,0.65); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.06); min-height:48px;"
+              data-lang-code={lang.code}
+            >
+              <span style="color:rgba(201,168,76,0.4); width:20px;">{lang.code}</span>
+              {lang.label}
+              {currentLang === lang.code && <span style="margin-left:auto; color:#E8C97A;">✓</span>}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </nav>
 </div>
 
 <style is:global>
@@ -337,44 +343,6 @@ const mobileBtnStyles = navItems.map((item) => {
     text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
   }
 
-  /* ===== SELECT JĘZYKOWY - MOBILNY ===== */
-  .mobile-lang-select {
-    width: 100%;
-    padding: 0.85rem 2.5rem 0.85rem 1rem;
-    font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    color: #E8C97A;
-    border-radius: 4px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23E8C97A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 16px;
-    transition: all 0.2s;
-  }
-  
-  .mobile-lang-select:hover {
-    border-color: rgba(201, 168, 76, 0.5);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .mobile-lang-select:focus {
-    outline: none;
-    border-color: #E8C97A;
-    box-shadow: 0 0 0 2px rgba(232, 201, 122, 0.2);
-  }
-  
-  .mobile-lang-select option {
-    background: rgba(10, 7, 3, 0.99);
-    color: #E8C97A;
-    padding: 10px;
-  }
-
   /* ===== HEADER SCROLL ===== */
   #site-header.scrolled {
     background: rgba(13, 10, 5, 0.97) !important;
@@ -429,7 +397,7 @@ const mobileBtnStyles = navItems.map((item) => {
     var btnClose = document.getElementById('drawer-close');
     var iClosed  = document.getElementById('icon-closed');
     var iOpen    = document.getElementById('icon-open');
-    var langSelect = document.getElementById('mobile-lang-select');
+    var langToggle = document.getElementById('mobile-lang-toggle');
     var isHome   = window.location.pathname === '/';
 
     function onScroll() {
@@ -478,7 +446,7 @@ const mobileBtnStyles = navItems.map((item) => {
 
     function toggleSub(key) {
       var sub = document.querySelector('.m-sub[data-key="' + key + '"]');
-      var ch  = document.querySelector('.m-expand[data-key="' + key + '"] .m-chevron');
+      var ch  = document.querySelector('.m-expand[data-key="' + key + '"] .m-chevron, .m-link[data-key="' + key + '"] .m-chevron');
       if (!sub) return;
       
       var isOpen = sub.getAttribute('data-open') === '1';
@@ -511,13 +479,19 @@ const mobileBtnStyles = navItems.map((item) => {
       overlay.addEventListener('click', closeDrawer);
     }
 
-    // Poprawiona obsługa zmiany języka w select
-    if (langSelect) {
-      langSelect.addEventListener('change', function(e) {
-        const selectedUrl = this.value;
-        if (selectedUrl) {
-          window.location.href = selectedUrl;
-        }
+    // Obsługa dropdowna językowego w mobile
+    if (langToggle) {
+      langToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleSub('lang-selector');
+      });
+    }
+
+    // Obsługa kliknięcia w link językowy - zamknij drawer po zmianie
+    var langLinks = document.querySelectorAll('.m-sub[data-key="lang-selector"] a');
+    for (var i = 0; i < langLinks.length; i++) {
+      langLinks[i].addEventListener('click', function() {
+        setTimeout(closeDrawer, 150);
       });
     }
 
@@ -534,8 +508,11 @@ const mobileBtnStyles = navItems.map((item) => {
       for (var i = 0; i < mLinks.length; i++) {
         if (mLinks[i].getAttribute('data-has-ch') === 'yes') {
           mLinks[i].addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleSub(this.getAttribute('data-key'));
+            // Nie blokuj domyślnego zachowania dla linków językowych
+            if (this.getAttribute('data-key') !== 'lang-selector') {
+              e.preventDefault();
+              toggleSub(this.getAttribute('data-key'));
+            }
           });
         }
       }
