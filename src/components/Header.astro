@@ -10,23 +10,16 @@ else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.s
 else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
 
 const langs = [
-  { code: 'PL', label: 'Polski', prefix: '' },
-  { code: 'EN', label: 'English', prefix: '/en' },
-  { code: 'DE', label: 'Deutsch', prefix: '/de' },
-  { code: 'ES', label: 'Español', prefix: '/es' },
-  { code: 'IT', label: 'Italiano', prefix: '/it' },
+  { code: 'PL', label: 'PL', prefix: '' },
+  { code: 'EN', label: 'EN', prefix: '/en' },
+  { code: 'DE', label: 'DE', prefix: '/de' },
+  { code: 'ES', label: 'ES', prefix: '/es' },
+  { code: 'IT', label: 'IT', prefix: '/it' },
 ];
 
 function getLangUrl(prefix: string): string {
   const path = basePath === '/' ? '' : basePath;
   return (prefix + path) || '/';
-}
-
-function getMobileLangUrl(prefix: string): string {
-  if (basePath === '/' || basePath === '') {
-    return prefix || '/';
-  }
-  return prefix + basePath;
 }
 
 const navItems = [
@@ -123,7 +116,7 @@ const mobileBtnStyles = navItems.map((item) => {
     <div style="display:flex; align-items:center; gap:0.15rem; flex-shrink:0;">
       {langs.map((lang) => (
         <a href={getLangUrl(lang.prefix)} class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}>
-          {lang.code}
+          {lang.label}
         </a>
       ))}
       <button
@@ -199,43 +192,18 @@ const mobileBtnStyles = navItems.map((item) => {
         )}
       </div>
     ))}
-
-    {/* === DROPDOWN JĘZYKOWY DLA MOBILE - POPRAWIONY === */}
-    <div class="m-item">
-      <div style="border-bottom:1px solid rgba(201,168,76,0.07);">
-        <button 
-          id="mobile-lang-toggle"
-          class="m-link"
-          data-has-ch="yes"
-          data-key="lang-selector"
-          style="flex:1; text-align:left; padding:0.95rem 1.25rem; font-family:Crimson Pro,serif; font-size:1rem; letter-spacing:0.07em; text-transform:uppercase; background:none; border:none; cursor:pointer; min-height:52px; display:flex; align-items:center; justify-content:space-between; color:rgba(245,237,216,0.82);"
-        >
-          <span>Język: <strong style="color:#E8C97A;">{langs.find(l => l.code === currentLang)?.label}</strong></span>
-          <svg class="m-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" style="transition:transform 0.25s ease;">
-            <path d="M3 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      <div class="m-sub" data-key="lang-selector" id="lang-submenu" style="max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:rgba(201,168,76,0.03);">
-        {langs.map((lang) => {
-          const langUrl = getMobileLangUrl(lang.prefix);
-          return (
-            <a 
-              href={langUrl} 
-              class="lang-option"
-              style="display:flex; align-items:center; gap:0.5rem; padding:0.8rem 1.25rem 0.8rem 2rem; font-family:'Crimson Pro',serif; font-size:0.95rem; color:rgba(232,201,122,0.65); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.06); min-height:48px;"
-              data-lang-code={lang.code}
-            >
-              <span style="color:rgba(201,168,76,0.4); width:20px;">{lang.code}</span>
-              {lang.label}
-              {currentLang === lang.code && <span style="margin-left:auto; color:#E8C97A; font-weight:600;">✓</span>}
-            </a>
-          );
-        })}
-      </div>
-    </div>
   </nav>
-</div>
+
+  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; align-items:center; gap:0.75rem;">
+    <span style="font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); white-space:nowrap;">Język</span>
+    <select id="lang-select" style="flex:1; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.25); color:#E8C97A; font-family:'Crimson Pro',serif; font-size:1rem; padding:0.6rem 0.75rem; border-radius:4px; cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22none%22 stroke=%22%23C9A84C%22 stroke-width=%221.8%22><path d=%22M3 6l5 5 5-5%22 stroke-linecap=%22round%22/></svg>'); background-repeat:no-repeat; background-position:right 0.75rem center;">
+      {langs.map((lang) => (
+        <option value={getLangUrl(lang.prefix)} selected={currentLang === lang.code} style="background:#0A0703; color:#E8C97A;">
+          {lang.label === 'PL' ? '🇵🇱 Polski' : lang.label === 'EN' ? '🇬🇧 English' : lang.label === 'DE' ? '🇩🇪 Deutsch' : lang.label === 'ES' ? '🇪🇸 Español' : '🇮🇹 Italiano'}
+        </option>
+      ))}
+    </select>
+  </div>
 
 <style is:global>
   /* ===== GŁÓWNE STYLE NAVIGACJI ===== */
@@ -251,7 +219,10 @@ const mobileBtnStyles = navItems.map((item) => {
     font-weight: 400;
     position: relative;
   }
-  .nav-link:hover { color: #FFE6A6; }
+  
+  .nav-link:hover { 
+    color: #FFE6A6;
+  }
 
   /* ===== DROPDOWN MENU ===== */
   .dropdown {
@@ -268,15 +239,21 @@ const mobileBtnStyles = navItems.map((item) => {
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     border-radius: 0 0 4px 4px;
   }
-  .dropdown-parent { position: relative; }
+  
+  .dropdown-parent {
+    position: relative;
+  }
+  
   .dropdown-parent:hover .dropdown {
     display: block;
     animation: fadeIn 0.2s ease;
   }
+  
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  
   .dropdown-btn {
     display: block;
     width: 100%;
@@ -293,7 +270,11 @@ const mobileBtnStyles = navItems.map((item) => {
     border-bottom: 1px solid rgba(201, 168, 76, 0.1);
     min-height: 44px;
   }
-  .dropdown-btn:last-child { border-bottom: none; }
+  
+  .dropdown-btn:last-child {
+    border-bottom: none;
+  }
+  
   .dropdown-btn:hover {
     color: #FFE6A6;
     background: rgba(201, 168, 76, 0.15);
@@ -331,6 +312,36 @@ const mobileBtnStyles = navItems.map((item) => {
     text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
   }
 
+  /* ===== PRZYCISKI JĘZYKOWE - MOBILNE ===== */
+  .ml-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: rgba(232, 201, 122, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 8px 12px;
+    min-height: 44px;
+    min-width: 48px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+  .ml-btn:hover { 
+    color: #FFE6A6; 
+    border-color: rgba(201, 168, 76, 0.6);
+    background: rgba(201, 168, 76, 0.1);
+  }
+  .ml-active { 
+    color: #FFE6A6 !important; 
+    border-color: rgba(232, 201, 122, 0.6) !important;
+    background: rgba(201, 168, 76, 0.15);
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
+  }
+
   /* ===== HEADER SCROLL ===== */
   #site-header.scrolled {
     background: rgba(13, 10, 5, 0.97) !important;
@@ -344,19 +355,28 @@ const mobileBtnStyles = navItems.map((item) => {
     font-size: clamp(1.1rem, 3vw, 1.4rem) !important;
   }
 
-  /* ===== MEDIA QUERIES ===== */
+  /* ===== MEDIA QUERIES - UKRYWANIE MOBILNEGO MENU NA DESKTOPIE ===== */
   @media (min-width: 769px) {
     .mobile-drawer,
     .mobile-overlay,
     .hamburger-btn {
       display: none !important;
     }
-    .desktop-nav { display: flex !important; }
+    .desktop-nav {
+      display: flex !important;
+    }
   }
+
   @media (max-width: 768px) {
-    .desktop-nav { display: none !important; }
-    .hamburger-btn { display: inline-flex !important; }
-    .mobile-drawer { display: flex !important; }
+    .desktop-nav {
+      display: none !important;
+    }
+    .hamburger-btn {
+      display: inline-flex !important;
+    }
+    .mobile-drawer {
+      display: flex !important;
+    }
   }
 
   /* ===== STAN AKTYWNY ===== */
@@ -367,193 +387,155 @@ const mobileBtnStyles = navItems.map((item) => {
   }
 </style>
 
-<!-- Skrypt z atrybutem is:raw, aby Cloudflare/Astro nie modyfikowały kodu -->
-<script is:raw>
-  (function() {
-    'use strict';
-    
-    // Funkcja inicjalizująca - uruchamiana gdy DOM jest gotowy
-    function initMobileMenuScript() {
-      var hdr      = document.getElementById('site-header');
-      var burger   = document.getElementById('hamburger');
-      var drawer   = document.getElementById('mobile-drawer');
-      var overlay  = document.getElementById('mobile-overlay');
-      var btnClose = document.getElementById('drawer-close');
-      var iClosed  = document.getElementById('icon-closed');
-      var iOpen    = document.getElementById('icon-open');
-      var langToggle = document.getElementById('mobile-lang-toggle');
-      var langSubmenu = document.getElementById('lang-submenu');
-      var isHome   = window.location.pathname === '/';
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var hdr      = document.getElementById('site-header');
+    var burger   = document.getElementById('hamburger');
+    var drawer   = document.getElementById('mobile-drawer');
+    var overlay  = document.getElementById('mobile-overlay');
+    var btnClose = document.getElementById('drawer-close');
+    var iClosed  = document.getElementById('icon-closed');
+    var iOpen    = document.getElementById('icon-open');
+    var isHome   = window.location.pathname === '/';
 
-      // ===== SCROLL HEADER =====
-      function onScroll() {
-        if (!hdr) return;
-        if (window.scrollY > 60 || !isHome) {
-          hdr.classList.add('scrolled');
+    function onScroll() {
+      if (window.scrollY > 60 || !isHome) {
+        hdr.classList.add('scrolled');
+      } else {
+        hdr.classList.remove('scrolled');
+      }
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll);
+
+    function openDrawer() {
+      drawer.style.transform = 'translateX(0)';
+      overlay.style.display  = 'block';
+      burger.setAttribute('aria-expanded', 'true');
+      iClosed.style.display  = 'none';
+      iOpen.style.display    = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer.style.transform = 'translateX(100%)';
+      overlay.style.display  = 'none';
+      burger.setAttribute('aria-expanded', 'false');
+      iClosed.style.display  = 'block';
+      iOpen.style.display    = 'none';
+      document.body.style.overflow = '';
+      collapseAll();
+    }
+
+    function collapseAll() {
+      var subs = document.querySelectorAll('.m-sub');
+      var chevrons = document.querySelectorAll('.m-chevron');
+      
+      for (var i = 0; i < subs.length; i++) {
+        subs[i].style.maxHeight = '0';
+        subs[i].removeAttribute('data-open');
+      }
+      for (var i = 0; i < chevrons.length; i++) {
+        if (chevrons[i]) {
+          chevrons[i].style.transform = 'rotate(0deg)';
+        }
+      }
+    }
+
+    function toggleSub(key) {
+      var sub = document.querySelector('.m-sub[data-key="' + key + '"]');
+      var ch  = document.querySelector('.m-expand[data-key="' + key + '"] .m-chevron');
+      if (!sub) return;
+      
+      var isOpen = sub.getAttribute('data-open') === '1';
+      collapseAll();
+      
+      if (!isOpen) {
+        sub.style.maxHeight = sub.scrollHeight + 'px';
+        sub.setAttribute('data-open', '1');
+        if (ch) { 
+          ch.style.transform = 'rotate(180deg)'; 
+        }
+      }
+    }
+
+    if (burger) {
+      burger.addEventListener('click', function() {
+        if (drawer.style.transform === 'translateX(0px)') {
+          closeDrawer();
         } else {
-          hdr.classList.remove('scrolled');
+          openDrawer();
         }
-      }
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-
-      // ===== FUNKCJE DRAWER =====
-      function openDrawer() {
-        if (!drawer || !overlay || !burger) return;
-        drawer.style.transform = 'translateX(0)';
-        overlay.style.display  = 'block';
-        burger.setAttribute('aria-expanded', 'true');
-        if (iClosed) iClosed.style.display = 'none';
-        if (iOpen) iOpen.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeDrawer() {
-        if (!drawer || !overlay || !burger) return;
-        drawer.style.transform = 'translateX(100%)';
-        overlay.style.display  = 'none';
-        burger.setAttribute('aria-expanded', 'false');
-        if (iClosed) iClosed.style.display = 'block';
-        if (iOpen) iOpen.style.display = 'none';
-        document.body.style.overflow = '';
-        collapseAll();
-      }
-
-      function collapseAll() {
-        var subs = document.querySelectorAll('.m-sub');
-        var chevrons = document.querySelectorAll('.m-chevron');
-        for (var i = 0; i < subs.length; i++) {
-          subs[i].style.maxHeight = '0';
-          subs[i].removeAttribute('data-open');
-        }
-        for (var i = 0; i < chevrons.length; i++) {
-          if (chevrons[i]) chevrons[i].style.transform = 'rotate(0deg)';
-        }
-      }
-
-      function toggleSub(key) {
-        var sub = document.querySelector('.m-sub[data-key="' + key + '"]');
-        var ch = document.querySelector('[data-key="' + key + '"] .m-chevron');
-        if (!sub) return;
-        
-        var isOpen = sub.getAttribute('data-open') === '1';
-        collapseAll();
-        
-        if (!isOpen) {
-          sub.style.maxHeight = sub.scrollHeight + 'px';
-          sub.setAttribute('data-open', '1');
-          if (ch) ch.style.transform = 'rotate(180deg)';
-        }
-      }
-
-      // ===== EVENT LISTENERS =====
-      if (burger) {
-        burger.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if (drawer.style.transform === 'translateX(0px)') {
-            closeDrawer();
-          } else {
-            openDrawer();
-          }
-        });
-      }
-
-      if (btnClose) btnClose.addEventListener('click', closeDrawer);
-      if (overlay) overlay.addEventListener('click', closeDrawer);
-
-      // ===== DROPDOWN JĘZYKOWY =====
-      if (langToggle) {
-        langToggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          toggleSub('lang-selector');
-        });
-      }
-
-      // Zamknij drawer po wybraniu języka
-      var langLinks = document.querySelectorAll('#lang-submenu a.lang-option');
-      for (var i = 0; i < langLinks.length; i++) {
-        langLinks[i].addEventListener('click', function() {
-          setTimeout(closeDrawer, 100);
-        });
-      }
-
-      // ===== OBSŁUGA ROZWIJANYCH PUNKTÓW MENU =====
-      function setupExpandButtons() {
-        var expBtns = document.querySelectorAll('.m-expand');
-        for (var i = 0; i < expBtns.length; i++) {
-          // Usuń stare eventy przez klonowanie
-          var newBtn = expBtns[i].cloneNode(true);
-          expBtns[i].parentNode.replaceChild(newBtn, expBtns[i]);
-          newBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleSub(this.getAttribute('data-key'));
-          });
-        }
-
-        var mLinks = document.querySelectorAll('.m-link[data-has-ch="yes"]');
-        for (var i = 0; i < mLinks.length; i++) {
-          var key = mLinks[i].getAttribute('data-key');
-          // Pomijamy selector językowy - on ma własną obsługę
-          if (key === 'lang-selector') continue;
-          
-          var newLink = mLinks[i].cloneNode(true);
-          mLinks[i].parentNode.replaceChild(newLink, mLinks[i]);
-          newLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleSub(this.getAttribute('data-key'));
-          });
-        }
-      }
-
-      // Inicjalizacja + observer dla dynamicznych zmian
-      setupExpandButtons();
-      
-      // Prosty observer bez nadmiarowych wywołań
-      var initTimeout = null;
-      var observer = new MutationObserver(function() {
-        if (initTimeout) clearTimeout(initTimeout);
-        initTimeout = setTimeout(setupExpandButtons, 150);
       });
-      
-      if (drawer) {
-        observer.observe(drawer, { childList: true, subtree: true });
-      }
+    }
 
-      // ===== LINKI Z KOTWICAMI =====
-      var hLinks = document.querySelectorAll('a[href*="#"]');
-      for (var i = 0; i < hLinks.length; i++) {
-        hLinks[i].addEventListener('click', function(e) {
-          var href = this.getAttribute('href') || '';
-          if (href.indexOf('#') === -1) return;
-          var parts = href.split('#');
-          var path = parts[0];
-          var hash = parts[1];
-          if (path === '' || path === '/' || path === window.location.pathname) {
-            e.preventDefault();
-            closeDrawer();
-            var target = document.getElementById(hash);
-            if (target) {
-              setTimeout(function() {
-                target.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            }
-          }
+    if (btnClose) {
+      btnClose.addEventListener('click', closeDrawer);
+    }
+
+    if (overlay) {
+      overlay.addEventListener('click', closeDrawer);
+    }
+
+    function initMobileMenu() {
+      var expBtns = document.querySelectorAll('.m-expand');
+      for (var i = 0; i < expBtns.length; i++) {
+        expBtns[i].addEventListener('click', function(e) {
+          e.stopPropagation();
+          toggleSub(this.getAttribute('data-key'));
         });
       }
+
+      var mLinks = document.querySelectorAll('.m-link');
+      for (var i = 0; i < mLinks.length; i++) {
+        if (mLinks[i].getAttribute('data-has-ch') === 'yes') {
+          mLinks[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleSub(this.getAttribute('data-key'));
+          });
+        }
+      }
     }
 
-    // Uruchomienie - najpierw DOMContentLoaded, potem fallback
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initMobileMenuScript);
-    } else {
-      // DOM już gotowy (np. przy nawigacji w SPA)
-      initMobileMenuScript();
+    initMobileMenu();
+    var langSel = document.getElementById('lang-select');
+    if (langSel) {
+      langSel.addEventListener('change', function() {
+        window.location.href = this.value;
+      });
     }
-    
-    // Dodatkowe zabezpieczenie dla Cloudflare Rocket Loader
-    window.addEventListener('load', function() {
-      setTimeout(initMobileMenuScript, 50);
+
+    var observer = new MutationObserver(function(mutations) {
+      initMobileMenu();
     });
-  })();
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    var hLinks = document.querySelectorAll('a[href*="#"]');
+    for (var i = 0; i < hLinks.length; i++) {
+      hLinks[i].addEventListener('click', function(e) {
+        var href = this.getAttribute('href') || '';
+        if (href.indexOf('#') === -1) return;
+        
+        var parts = href.split('#');
+        var path  = parts[0];
+        var hash  = parts[1];
+        
+        if (path === '' || path === '/' || path === window.location.pathname) {
+          e.preventDefault();
+          closeDrawer();
+          
+          var target = document.getElementById(hash);
+          if (target) { 
+            setTimeout(function() { 
+              target.scrollIntoView({ behavior: 'smooth' }); 
+            }, 100); 
+          }
+        }
+      });
+    }
+  });
 </script>
