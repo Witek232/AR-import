@@ -10,11 +10,11 @@ else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.s
 else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
 
 const langs = [
-  { code: 'PL', label: 'PL', prefix: '' },
-  { code: 'EN', label: 'EN', prefix: '/en' },
-  { code: 'DE', label: 'DE', prefix: '/de' },
-  { code: 'ES', label: 'ES', prefix: '/es' },
-  { code: 'IT', label: 'IT', prefix: '/it' },
+  { code: 'PL', label: 'Polski', prefix: '' },
+  { code: 'EN', label: 'English', prefix: '/en' },
+  { code: 'DE', label: 'Deutsch', prefix: '/de' },
+  { code: 'ES', label: 'Español', prefix: '/es' },
+  { code: 'IT', label: 'Italiano', prefix: '/it' },
 ];
 
 function getLangUrl(prefix: string): string {
@@ -116,7 +116,7 @@ const mobileBtnStyles = navItems.map((item) => {
     <div style="display:flex; align-items:center; gap:0.15rem; flex-shrink:0;">
       {langs.map((lang) => (
         <a href={getLangUrl(lang.prefix)} class={currentLang === lang.code ? 'lang-btn lang-active' : 'lang-btn'}>
-          {lang.label}
+          {lang.code}
         </a>
       ))}
       <button
@@ -194,13 +194,27 @@ const mobileBtnStyles = navItems.map((item) => {
     ))}
   </nav>
 
-  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center;">
-    <span style="font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); margin-right:0.25rem;">Język</span>
-    {langs.map((lang) => (
-      <a href={getLangUrl(lang.prefix)} class={currentLang === lang.code ? 'ml-btn ml-active' : 'ml-btn'}>
-        {lang.label}
-      </a>
-    ))}
+  <!-- Zmiana języka w mobilnym - rozwijane select -->
+  <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1);">
+    <label for="mobile-lang-select" style="display:block; font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.75rem;">
+      Wybierz język
+    </label>
+    <select 
+      id="mobile-lang-select"
+      class="mobile-lang-select"
+      aria-label="Zmiana języka"
+      style="width:100%; padding:0.85rem 1rem; font-family:'Crimson Pro',serif; font-size:1rem; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.25); color:rgba(232,201,122,0.9); border-radius:4px; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23E8C97A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; background-size:16px;"
+    >
+      {langs.map((lang) => (
+        <option 
+          value={lang.prefix} 
+          selected={currentLang === lang.code}
+          style="background:rgba(10,7,3,0.99); color:rgba(232,201,122,0.9);"
+        >
+          {lang.label}
+        </option>
+      ))}
+    </select>
   </div>
 </div>
 
@@ -311,34 +325,36 @@ const mobileBtnStyles = navItems.map((item) => {
     text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
   }
 
-  /* ===== PRZYCISKI JĘZYKOWE - MOBILNE ===== */
-  .ml-btn {
+  /* ===== SELECT JĘZYKOWY - MOBILNY ===== */
+  .mobile-lang-select {
+    width: 100%;
+    padding: 0.85rem 1rem;
     font-family: 'Crimson Pro', serif;
     font-size: 1rem;
-    color: rgba(232, 201, 122, 0.6);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    padding: 8px 12px;
-    min-height: 44px;
-    min-width: 48px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    color: rgba(232, 201, 122, 0.9);
     border-radius: 4px;
-    font-weight: 400;
+    cursor: pointer;
+    appearance: none;
+    transition: all 0.2s;
   }
-  .ml-btn:hover { 
-    color: #FFE6A6; 
-    border-color: rgba(201, 168, 76, 0.6);
-    background: rgba(201, 168, 76, 0.1);
+  
+  .mobile-lang-select:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(0, 0, 0, 0.4);
   }
-  .ml-active { 
-    color: #FFE6A6 !important; 
-    border-color: rgba(232, 201, 122, 0.6) !important;
-    background: rgba(201, 168, 76, 0.15);
-    font-weight: 600;
-    text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
+  
+  .mobile-lang-select:focus {
+    outline: none;
+    border-color: #E8C97A;
+    box-shadow: 0 0 0 2px rgba(232, 201, 122, 0.2);
+  }
+  
+  .mobile-lang-select option {
+    background: rgba(10, 7, 3, 0.99);
+    color: rgba(232, 201, 122, 0.9);
+    padding: 10px;
   }
 
   /* ===== HEADER SCROLL ===== */
@@ -354,7 +370,7 @@ const mobileBtnStyles = navItems.map((item) => {
     font-size: clamp(1.1rem, 3vw, 1.4rem) !important;
   }
 
-  /* ===== MEDIA QUERIES - UKRYWANIE MOBILNEGO MENU NA DESKTOPIE ===== */
+  /* ===== MEDIA QUERIES ===== */
   @media (min-width: 769px) {
     .mobile-drawer,
     .mobile-overlay,
@@ -395,6 +411,7 @@ const mobileBtnStyles = navItems.map((item) => {
     var btnClose = document.getElementById('drawer-close');
     var iClosed  = document.getElementById('icon-closed');
     var iOpen    = document.getElementById('icon-open');
+    var langSelect = document.getElementById('mobile-lang-select');
     var isHome   = window.location.pathname === '/';
 
     function onScroll() {
@@ -474,6 +491,13 @@ const mobileBtnStyles = navItems.map((item) => {
 
     if (overlay) {
       overlay.addEventListener('click', closeDrawer);
+    }
+
+    // Obsługa zmiany języka w select
+    if (langSelect) {
+      langSelect.addEventListener('change', function() {
+        window.location.href = this.value + (basePath === '/' ? '' : basePath);
+      });
     }
 
     function initMobileMenu() {
