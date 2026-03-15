@@ -22,6 +22,16 @@ function getLangUrl(prefix: string): string {
   return (prefix + path) || '/';
 }
 
+// Dodajemy tę funkcję dla selecta w mobilnym menu
+function getMobileLangUrl(prefix: string): string {
+  // Dla strony głównej w różnych językach
+  if (basePath === '/' || basePath === '') {
+    return prefix || '/';
+  }
+  // Dla podstron - zachowujemy ścieżkę bez prefiksu językowego
+  return prefix + basePath;
+}
+
 const navItems = [
   {
     label: 'O projekcie',
@@ -194,7 +204,7 @@ const mobileBtnStyles = navItems.map((item) => {
     ))}
   </nav>
 
-  <!-- Zmiana języka w mobilnym - rozwijane select -->
+  <!-- Poprawiony select dla zmiany języka -->
   <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1);">
     <label for="mobile-lang-select" style="display:block; font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.75rem;">
       Wybierz język
@@ -203,17 +213,19 @@ const mobileBtnStyles = navItems.map((item) => {
       id="mobile-lang-select"
       class="mobile-lang-select"
       aria-label="Zmiana języka"
-      style="width:100%; padding:0.85rem 1rem; font-family:'Crimson Pro',serif; font-size:1rem; background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.25); color:rgba(232,201,122,0.9); border-radius:4px; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23E8C97A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; background-size:16px;"
+      data-basepath={basePath}
     >
-      {langs.map((lang) => (
-        <option 
-          value={lang.prefix} 
-          selected={currentLang === lang.code}
-          style="background:rgba(10,7,3,0.99); color:rgba(232,201,122,0.9);"
-        >
-          {lang.label}
-        </option>
-      ))}
+      {langs.map((lang) => {
+        const langUrl = getMobileLangUrl(lang.prefix);
+        return (
+          <option 
+            value={langUrl}
+            selected={currentLang === lang.code}
+          >
+            {lang.label}
+          </option>
+        );
+      })}
     </select>
   </div>
 </div>
@@ -328,21 +340,27 @@ const mobileBtnStyles = navItems.map((item) => {
   /* ===== SELECT JĘZYKOWY - MOBILNY ===== */
   .mobile-lang-select {
     width: 100%;
-    padding: 0.85rem 1rem;
+    padding: 0.85rem 2.5rem 0.85rem 1rem;
     font-family: 'Crimson Pro', serif;
     font-size: 1rem;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(201, 168, 76, 0.25);
-    color: rgba(232, 201, 122, 0.9);
+    color: #E8C97A;
     border-radius: 4px;
     cursor: pointer;
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23E8C97A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
     transition: all 0.2s;
   }
   
   .mobile-lang-select:hover {
     border-color: rgba(201, 168, 76, 0.5);
-    background: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
   }
   
   .mobile-lang-select:focus {
@@ -353,7 +371,7 @@ const mobileBtnStyles = navItems.map((item) => {
   
   .mobile-lang-select option {
     background: rgba(10, 7, 3, 0.99);
-    color: rgba(232, 201, 122, 0.9);
+    color: #E8C97A;
     padding: 10px;
   }
 
@@ -493,10 +511,13 @@ const mobileBtnStyles = navItems.map((item) => {
       overlay.addEventListener('click', closeDrawer);
     }
 
-    // Obsługa zmiany języka w select
+    // Poprawiona obsługa zmiany języka w select
     if (langSelect) {
-      langSelect.addEventListener('change', function() {
-        window.location.href = this.value + (basePath === '/' ? '' : basePath);
+      langSelect.addEventListener('change', function(e) {
+        const selectedUrl = this.value;
+        if (selectedUrl) {
+          window.location.href = selectedUrl;
+        }
       });
     }
 
