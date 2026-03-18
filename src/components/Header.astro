@@ -84,7 +84,7 @@ const mobileBtnStyles = navItems.map((item) => {
       <span id="logo-title" style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); font-weight:300; color:#E8C97A; letter-spacing:0.08em; transition:font-size 0.4s ease; line-height:1;">
         Ateny Roztocza
       </span>
-      <span style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em; text-transform:uppercase;">
+      <span id="logo-sub" style="font-family:'Crimson Pro',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em; text-transform:uppercase;">
         Jerozolima · Ateny · Rzym
       </span>
     </a>
@@ -194,6 +194,7 @@ const mobileBtnStyles = navItems.map((item) => {
     ))}
   </nav>
 
+  <!-- Selektor języka w mobilnym – rozwijana lista -->
   <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; align-items:center; gap:0.75rem;">
     <span style="font-family:'Crimson Pro',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); white-space:nowrap;">Język</span>
     <select id="lang-select" style="flex:1; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.25); color:#E8C97A; font-family:'Crimson Pro',serif; font-size:1rem; padding:0.6rem 0.75rem; border-radius:4px; cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22none%22 stroke=%22%23C9A84C%22 stroke-width=%221.8%22><path d=%22M3 6l5 5 5-5%22 stroke-linecap=%22round%22/></svg>'); background-repeat:no-repeat; background-position:right 0.75rem center;">
@@ -204,6 +205,7 @@ const mobileBtnStyles = navItems.map((item) => {
       ))}
     </select>
   </div>
+</div> <!-- koniec mobile-drawer -->
 
 <style is:global>
   /* ===== GŁÓWNE STYLE NAVIGACJI ===== */
@@ -312,36 +314,6 @@ const mobileBtnStyles = navItems.map((item) => {
     text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
   }
 
-  /* ===== PRZYCISKI JĘZYKOWE - MOBILNE ===== */
-  .ml-btn {
-    font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    color: rgba(232, 201, 122, 0.6);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    padding: 8px 12px;
-    min-height: 44px;
-    min-width: 48px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    border-radius: 4px;
-    font-weight: 400;
-  }
-  .ml-btn:hover { 
-    color: #FFE6A6; 
-    border-color: rgba(201, 168, 76, 0.6);
-    background: rgba(201, 168, 76, 0.1);
-  }
-  .ml-active { 
-    color: #FFE6A6 !important; 
-    border-color: rgba(232, 201, 122, 0.6) !important;
-    background: rgba(201, 168, 76, 0.15);
-    font-weight: 600;
-    text-shadow: 0 0 8px rgba(232, 201, 122, 0.3);
-  }
-
   /* ===== HEADER SCROLL ===== */
   #site-header.scrolled {
     background: rgba(13, 10, 5, 0.97) !important;
@@ -355,7 +327,7 @@ const mobileBtnStyles = navItems.map((item) => {
     font-size: clamp(1.1rem, 3vw, 1.4rem) !important;
   }
 
-  /* ===== MEDIA QUERIES - UKRYWANIE MOBILNEGO MENU NA DESKTOPIE ===== */
+  /* ===== MEDIA QUERIES ===== */
   @media (min-width: 769px) {
     .mobile-drawer,
     .mobile-overlay,
@@ -379,11 +351,31 @@ const mobileBtnStyles = navItems.map((item) => {
     }
   }
 
+  /* ===== DOSTOSOWANIE DO BARDZO MAŁYCH EKRANÓW ===== */
+  @media (max-width: 480px) {
+    #logo-title {
+      font-size: 1.1rem !important;
+    }
+    #logo-sub {
+      display: none; /* ukrywamy drugą linię, by zaoszczędzić miejsce */
+    }
+    .lang-btn {
+      min-width: 32px; /* zmniejszamy przyciski językowe na desktopie (ale na mobile są ukryte) */
+      padding: 4px;
+      font-size: 0.8rem;
+    }
+  }
+
   /* ===== STAN AKTYWNY ===== */
   .nav-link.active, 
   [style*="color:#E8C97A"] {
     color: #E8C97A !important;
     font-weight: 500;
+  }
+
+  /* ===== USUWAMY EWENTUALNE POZOSTAŁOŚCI STARYCH PRZYCISKÓW ===== */
+  .ml-btn, .ml-active {
+    display: none !important;
   }
 </style>
 
@@ -498,13 +490,15 @@ const mobileBtnStyles = navItems.map((item) => {
     }
 
     initMobileMenu();
+
+    // Obsługa selecta językowego
     var langSel = document.getElementById('lang-select');
-if (langSel) {
-  langSel.addEventListener('change', function() {
-    closeDrawer();                 // ← zamknij menu mobilne
-    window.location.href = this.value;
-  });
-}
+    if (langSel) {
+      langSel.addEventListener('change', function() {
+        closeDrawer(); // zamykamy menu po zmianie języka
+        window.location.href = this.value;
+      });
+    }
 
     var observer = new MutationObserver(function(mutations) {
       initMobileMenu();
