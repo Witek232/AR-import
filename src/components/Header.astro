@@ -499,11 +499,12 @@ const mobileBtnStyles = navItems.map((item) => {
 
     initMobileMenu();
     var langSel = document.getElementById('lang-select');
-    if (langSel) {
-      langSel.addEventListener('change', function() {
-        window.location.href = this.value;
-      });
-    }
+if (langSel) {
+  langSel.addEventListener('change', function() {
+    closeDrawer();                 // ← zamknij menu mobilne
+    window.location.href = this.value;
+  });
+}
 
     var observer = new MutationObserver(function(mutations) {
       initMobileMenu();
