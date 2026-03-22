@@ -237,7 +237,7 @@
     const tryPlay = () => { video.play().catch(() => { video.style.display = 'none'; }); };
 
     video.addEventListener('canplay', () => {
-      video.style.opacity = '0.22';
+      video.style.opacity = '0.5';
     }, { once: true });
 
     video.addEventListener('error', () => {
