@@ -23,10 +23,10 @@ const entry    = getEntry(rok, slug);
 const listRoku = getEntriesByYear(rok);
 const idx      = listRoku.findIndex((e) => e.slug === slug);
 
-const hasOlder  = idx < listRoku.length - 1;
-const hasNewer  = idx > 0;
-const starsze   = hasOlder ? listRoku[idx + 1] : null;  // wyższy indeks = starsze
-const nowsze    = hasNewer ? listRoku[idx - 1] : null;  // niższy indeks = nowsze
+const hasOlder  = idx > 0;
+const hasNewer  = idx < listRoku.length - 1;
+const starsze   = hasOlder ? listRoku[idx - 1] : null;  // niższy indeks = starsze
+const nowsze    = hasNewer ? listRoku[idx + 1] : null;  // wyższy indeks = nowsze
 
 const catColor     = entry ? categoryColors[entry.category] : '#C9A84C';
 const catLabel     = entry ? categoryLabels[entry.category] : '';
