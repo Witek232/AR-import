@@ -194,24 +194,24 @@ const hasEntry = !!entry;
       <div class="entry-nav" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center;">
 
         <div>
-          {poprzedni && (
-            <a href={prevHref} class="nav-link">
-              <span class="nav-dir">← Starsze</span>
-              <span class="nav-title">{poprzedni.title}</span>
-            </a>
-          )}
-        </div>
+  {nastepny && (
+    <a href={nextHref} class="nav-link">
+      <span class="nav-dir">← Nowsze</span>
+      <span class="nav-title">{nastepny.title}</span>
+    </a>
+  )}
+</div>
 
-        <a href={yearHref} class="nav-center">↑ {rok}</a>
+<a href={yearHref} class="nav-center">↑ {rok}</a>
 
-        <div style="text-align:right;">
-          {nastepny && (
-            <a href={nextHref} class="nav-link nav-next">
-              <span class="nav-dir">Nowsze →</span>
-              <span class="nav-title">{nastepny.title}</span>
-            </a>
-          )}
-        </div>
+<div style="text-align:right;">
+  {poprzedni && (
+    <a href={prevHref} class="nav-link nav-next">
+      <span class="nav-dir">Starsze →</span>
+      <span class="nav-title">{poprzedni.title}</span>
+    </a>
+  )}
+</div>
 
       </div>
     </nav>
