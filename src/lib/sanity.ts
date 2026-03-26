@@ -2,7 +2,7 @@ import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
 export const client = createClient({
-  projectId: import.meta.env.w2r65fb5,
+  projectId: import.meta.env.8bab26y8,
   dataset:   import.meta.env.SANITY_DATASET || 'production',
   useCdn:    true,
   apiVersion: '2024-01-01',
