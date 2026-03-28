@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getWydarzenia } from '../lib/sanity';
 
 // Pobierz wydarzenia z Sanity
 const wydarzenia = await getWydarzenia();
@@ -25,88 +26,12 @@ const allEvents = wydarzenia.map((w: any) => {
   };
 });
 
-const allEvents = [
-  {
-    date: { day: '14', month: 'Cze', year: '2025' },
-    title: 'Logos i Kosmos — wykład otwarty',
-    place: 'Zamość, Centrum Kulturalne',
-    type: 'Wykład',
-    desc: 'Rozważania nad Prologiem Ewangelii Jana w świetle filozofii helleńskiej. Wstęp wolny.',
-    status: 'upcoming',
-    lang: 'PL',
-    hasReport: false,
-  },
-  {
-    date: { day: '28', month: 'Cze', year: '2025' },
-    title: 'Platon i chrześcijaństwo — seminarium',
-    place: 'Roztocze, Dom Rekolekcyjny',
-    type: 'Seminarium',
-    desc: 'Recepcja platońskiej filozofii Dobra, Piękna i Prawdy w tradycji patrystycznej. Zapisy wymagane.',
-    status: 'upcoming',
-    lang: 'PL',
-    hasReport: false,
-  },
-  {
-    date: { day: '19', month: 'Lip', year: '2025' },
-    title: 'Letnie spotkanie kulturalne',
-    place: 'Roztocze, plener',
-    type: 'Spotkanie',
-    desc: 'Coroczne letnie spotkanie uczestników projektu. Wykłady, muzyka, przestrzeń dla ducha.',
-    status: 'upcoming',
-    lang: 'PL/EN',
-    hasReport: false,
-  },
-  {
-    date: { day: '15', month: 'Mar', year: '2025' },
-    title: 'Arystoteles i cnota — etyka klasyczna',
-    place: 'Lublin, Katolicki Uniwersytet Lubelski',
-    type: 'Konferencja',
-    desc: 'Nikomachejska koncepcja cnoty jako fundament etyki chrześcijańskiej.',
-    status: 'past',
-    lang: 'PL',
-    hasReport: true,
-  },
-  {
-    date: { day: '8', month: 'Lut', year: '2025' },
-    title: 'Fides et Ratio — 25 lat encykliki',
-    place: 'Rzeszów, Centrum Kongresowe',
-    type: 'Konferencja',
-    desc: 'Jubileuszowe sympozjum z okazji 25-lecia encykliki Jana Pawła II.',
-    status: 'past',
-    lang: 'PL/IT',
-    hasReport: true,
-  },
-  {
-    date: { day: '12', month: 'Gru', year: '2024' },
-    title: 'Adwentowe spotkanie filozoficzne',
-    place: 'Roztocze, kaplica',
-    type: 'Spotkanie',
-    desc: 'Adwent jako czas oczekiwania w tradycji filozoficznej i duchowej.',
-    status: 'past',
-    lang: 'PL',
-    hasReport: false,
-  },
-  {
-    date: { day: '5', month: 'Paź', year: '2024' },
-    title: 'Sympozjum: Rzym i prawo naturalne',
-    place: 'Warszawa, Instytut Kultury',
-    type: 'Sympozjum',
-    desc: 'Rzymski geniusz prawa i jego recepcja w europejskiej tradycji prawniczej.',
-    status: 'past',
-    lang: 'PL/EN',
-    hasReport: true,
-  },
-  {
-    date: { day: '17', month: 'Sie', year: '2024' },
-    title: 'Letnia szkoła filozofii klasycznej',
-    place: 'Roztocze',
-    type: 'Warsztaty',
-    desc: 'Intensywny kurs filozofii klasycznej dla studentów i doktorantów.',
-    status: 'past',
-    lang: 'PL',
-    hasReport: true,
-  },
+const filterButtons = [
+  { key: 'all',      label: 'Wszystkie'   },
+  { key: 'upcoming', label: 'Nadchodzące' },
+  { key: 'past',     label: 'Archiwum'    },
 ];
+---
 
 const filterButtons = [
   { key: 'all',      label: 'Wszystkie'   },
