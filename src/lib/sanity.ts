@@ -3,17 +3,8 @@ import imageUrlBuilder from '@sanity/image-url'
 
 export const client = createClient({
   projectId: '8bab26y8',
-  dataset:   import.meta.env.SANITY_DATASET || 'production',
-  useCdn:    true,
-  apiVersion: '2024-01-01',
-})
-
-// Klient do zapisu (używany tylko przez skrypt importu)
-export const writeClient = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset:   process.env.SANITY_DATASET || 'production',
-  token:     process.env.SANITY_TOKEN,
-  useCdn:    false,
+  dataset: 'production',
+  useCdn: true,
   apiVersion: '2024-01-01',
 })
 
