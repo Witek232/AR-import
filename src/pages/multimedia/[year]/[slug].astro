@@ -1,26 +1,29 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import {
-  years,
-  multimediaData,
   getEntriesByYear,
   getEntry,
+  getYears,
   categoryLabels,
   categoryColors,
-} from '../../../data/multimediaData';
+} from '../../../data/multimediaHelpers';
 
-export function getStaticPaths() {
-  return years.flatMap((rok) =>
-    (multimediaData[rok] ?? []).map((entry) => ({
-      params: { year: String(rok), slug: entry.slug },
-    }))
-  );
+export async function getStaticPaths() {
+  const years = await getYears();
+  const paths = [];
+  for (const year of years) {
+    const entries = await getEntriesByYear(year);
+    for (const entry of entries) {
+      paths.push({ params: { year: String(year), slug: entry.slug } });
+    }
+  }
+  return paths;
 }
 
 const { year, slug } = Astro.params;
 const rok      = parseInt(year);
-const entry    = getEntry(rok, slug);
-const listRoku = getEntriesByYear(rok);
+const entry    = await getEntry(rok, slug);
+const listRoku = await getEntriesByYear(rok);
 const idx      = listRoku.findIndex((e) => e.slug === slug);
 
 const hasPrev    = idx < listRoku.length - 1;
