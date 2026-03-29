@@ -1,44 +1,45 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import {
-  years,
   getEntriesByYear,
+  getYears,
   categoryLabels,
   categoryColors,
-} from '../../../data/multimediaData';
+} from '../../../data/multimediaHelpers';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const years = await getYears();
   return years.map((rok) => ({ params: { year: String(rok) } }));
 }
 
 const { year } = Astro.params;
 const rok = parseInt(year);
-const materialy = getEntriesByYear(rok);
+const materialy = await getEntriesByYear(rok);
+const yearsList = await getYears();
+const rokIdx = yearsList.indexOf(rok);
+const hasPrev = rokIdx > 0;
+const hasNext = rokIdx < yearsList.length - 1;
+const rokNowszy = hasPrev ? yearsList[rokIdx - 1] : null;
+const rokStarszy = hasNext ? yearsList[rokIdx + 1] : null;
 
-const rokIdx     = years.indexOf(rok);
-const hasPrev    = rokIdx > 0;
-const hasNext    = rokIdx < years.length - 1;
-const rokNowszy  = hasPrev ? years[rokIdx - 1] : null;
-const rokStarszy = hasNext ? years[rokIdx + 1] : null;
-
-const totalFilms  = materialy.reduce((s, e) => s + e.parts.length, 0);
+const totalFilms = materialy.reduce((s, e) => s + e.parts.length, 0);
 const countSuffix = materialy.length === 1 ? 'wystąpienie' : materialy.length < 5 ? 'wystąpienia' : 'wystąpień';
 
 const entriesDisplay = materialy.map((entry, i) => {
-  const catColor  = categoryColors[entry.category];
-  const catLabel  = categoryLabels[entry.category];
+  const catColor = categoryColors[entry.category];
+  const catLabel = categoryLabels[entry.category];
   const datePlace = entry.date + (entry.place ? ' · ' + entry.place : '');
   const firstDesc = entry.description.trim().split('\n')[0].trim();
-  const num       = i < 9 ? '0' + (i + 1) : String(i + 1);
-  const href      = '/multimedia/' + rok + '/' + entry.slug;
-  const hasMany   = entry.parts.length > 1;
+  const num = i < 9 ? '0' + (i + 1) : String(i + 1);
+  const href = '/multimedia/' + rok + '/' + entry.slug;
+  const hasMany = entry.parts.length > 1;
   const partsCount = entry.parts.length;
-  const catStyle  = 'font-family:Crimson Pro,serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.18em;text-transform:uppercase;color:' + catColor + ';border:1px solid ' + catColor + '55;padding:2px 7px;';
+  const catStyle = 'font-family:Crimson Pro,serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.18em;text-transform:uppercase;color:' + catColor + ';border:1px solid ' + catColor + '55;padding:2px 7px;';
   return { entry, num, href, catLabel, catStyle, datePlace, firstDesc, hasMany, partsCount };
 });
 
 const prevHref = rokStarszy ? '/multimedia/' + rokStarszy : '';
-const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
+const nextHref = rokNowszy ? '/multimedia/' + rokNowszy : '';
 ---
 
 <Layout
