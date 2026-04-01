@@ -1,0 +1,16 @@
+# Klucz API NVIDIA NIM (darmowy)
+NVIDIA_NIM_API_KEY="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"
+
+# Modele – wybrane dla optymalnej wydajności
+MODEL_OPUS="nvidia_nim/moonshotai/kimi-k2.5"
+MODEL_SONNET="nvidia_nim/z-ai/glm4.7"
+MODEL_HAIKU="nvidia_nim/stepfun-ai/step-3.5-flash"
+MODEL="nvidia_nim/moonshotai/kimi-k2.5"
+
+# Włącz tryb myślenia (ważne przy złożonych zadaniach)
+NIM_ENABLE_THINKING=true
+
+# Podstawowe ustawienia (nie musisz zmieniać)
+ANTHROPIC_AUTH_TOKEN="freecc"
+PROVIDER_RATE_LIMIT=40
+PROVIDER_RATE_WINDOW=60
