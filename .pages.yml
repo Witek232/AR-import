@@ -1,6 +1,6 @@
 collections:
-  - name: Blog
-    path: src/content/blog
+  - name: Page
+    path: src/content
     format: md
     fields:
       - name: title
