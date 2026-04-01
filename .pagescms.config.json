@@ -1,0 +1,50 @@
+{
+  "collections": [
+    {
+      "name": "Page",
+      "path": "src/content",
+      "format": "md",
+      "fields": [
+        {
+          "name": "title",
+          "label": "Tytuł",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "label": "Krótki opis",
+          "type": "string"
+        },
+        {
+          "name": "pubDate",
+          "label": "Data publikacji",
+          "type": "date",
+          "required": true
+        },
+        {
+          "name": "author",
+          "label": "Autor",
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "label": "Tagi",
+          "type": "list",
+          "subtype": "string"
+        },
+        {
+          "name": "image",
+          "label": "Główne zdjęcie",
+          "type": "image"
+        },
+        {
+          "name": "body",
+          "label": "Treść",
+          "type": "rich-text",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
