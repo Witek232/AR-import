@@ -1,14 +1,14 @@
 ---
 slug: platon-i-chrzescijanstwo-2025
-title: "Platon i chrześcijaństwo — seminarium"
-titleEN: "Plato and Christianity — seminar"
+title: "Platon i chrzeĹcijaĹstwo â seminarium"
+titleEN: "Plato and Christianity â seminar"
 date: 2025-06-28
 dateSortable: "2025-06-28"
 place: "Roztocze, Dom Rekolekcyjny"
 type: seminarium
 status: past
 languages: [PL, DE]
-description: "Recepcja platońskiej filozofii Dobra, Piękna i Prawdy w tradycji patrystycznej. Seminarium z udziałem gości zagranicznych."
+description: "Recepcja platoĹskiej filozofii Dobra, PiÄkna i Prawdy w tradycji patrystycznej. Seminarium z udziaĹem goĹci zagranicznych."
 hasReport: true
 reportUrl: "https://atenyroztocza.pl/relacje/platon-2025"
 year: 2025
@@ -16,19 +16,19 @@ year: 2025
 
 ## O seminarium
 
-Dwudniowe seminarium poświęcone recepcji filozofii Platona w tradycji Ojców Kościoła — od Justyna Filozofa po Augustyna z Hippony.
+Dwudniowe seminarium poĹwiÄcone recepcji filozofii Platona w tradycji OjcĂłw KoĹcioĹa â od Justyna Filozofa po Augustyna z Hippony.
 
 Tematyka obejmuje:
 
-- Platońska triada Dobro–Piękno–Prawda w teologii chrześcijańskiej
-- Dialog *Timajos* a chrześcijańska nauka o stworzeniu
-- Nieśmiertelność duszy: Fedon a eschatologia chrześcijańska
-- Neoplatonizm i chrześcijańska mistyka
+- PlatoĹska triada DobroâPiÄknoâPrawda w teologii chrzeĹcijaĹskiej
+- Dialog *Timajos* a chrzeĹcijaĹska nauka o stworzeniu
+- NieĹmiertelnoĹÄ duszy: Fedon a eschatologia chrzeĹcijaĹska
+- Neoplatonizm i chrzeĹcijaĹska mistyka
 
 ## Uczestnicy
 
-Seminarium zgromadziło 28 uczestników z Polski i Niemiec, w tym profesorów filozofii, teologów i studentów wydziałów humanistycznych.
+Seminarium zgromadziĹo 28 uczestnikĂłw z Polski i Niemiec, w tym profesorĂłw filozofii, teologĂłw i studentĂłw wydziaĹĂłw humanistycznych.
 
-## Materiały
+## MateriaĹy
 
-Nagrania wykładów dostępne są w archiwum audiowizualnym projektu.
+Nagrania wykĹadĂłw dostÄpne sÄ w archiwum audiowizualnym projektu.
