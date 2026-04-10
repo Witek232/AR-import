@@ -2,77 +2,66 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 // ── Stałe ────────────────────────────────────────────────────
-export const typeLabels: Record<string, string> = {
+export const categoryLabels: Record<string, string> = {
   wyklad:      'Wykład',
   seminarium:  'Seminarium',
   konferencja: 'Konferencja',
-  sympozjum:   'Sympozjum',
-  warsztaty:   'Warsztaty',
-  spotkanie:   'Spotkanie',
+  inne:        'Inne',
 };
 
-export const typeColors: Record<string, string> = {
+export const categoryColors: Record<string, string> = {
   wyklad:      '#C9A84C',
   seminarium:  '#7A5C2E',
   konferencja: '#8B3A3A',
-  sympozjum:   '#4A5A8B',
-  warsztaty:   '#4A6741',
-  spotkanie:   '#6A4A7A',
+  inne:        '#4A6741',
 };
 
 // ── Typ pomocniczy ───────────────────────────────────────────
-type WydarzenieEntry = CollectionEntry<'wydarzenia'>['data'] & {
-  body: string;
-};
+type MultimediaEntryData = CollectionEntry<'multimedia'>['data'];
 
-function toLegacyFormat(entry: CollectionEntry<'wydarzenia'>): WydarzenieEntry {
+function toLegacyFormat(entry: CollectionEntry<'multimedia'>): MultimediaEntryData & { slug: string } {
   return {
     ...entry.data,
-    body: entry.body ?? '',
+    slug: entry.data.slug,
   };
 }
 
 // ── Pobieranie danych ─────────────────────────────────────────
 
-/** Wszystkie wydarzenia posortowane malejąco po dacie */
-export async function getAllWydarzenia(): Promise<WydarzenieEntry[]> {
-  const entries = await getCollection('wydarzenia');
+/** Wszystkie wpisy (cache Astro) */
+export async function getAllEntries() {
+  const entries = await getCollection('multimedia');
   return entries
     .map(toLegacyFormat)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-/** Nadchodzące wydarzenia */
-export async function getWydarzeniaUpcoming(): Promise<WydarzenieEntry[]> {
-  const all = await getAllWydarzenia();
-  return all.filter(e => e.status === 'upcoming');
+/** Wpisy dla konkretnego roku */
+export async function getEntriesByYear(year: number) {
+  const all = await getAllEntries();
+  return all.filter(entry => entry.year === year);
 }
 
-/** Archiwalne wydarzenia */
-export async function getWydarzeniaPast(): Promise<WydarzenieEntry[]> {
-  const all = await getAllWydarzenia();
-  return all.filter(e => e.status === 'past');
+/** Pojedynczy wpis */
+export async function getEntry(year: number, slug: string) {
+  const entries = await getEntriesByYear(year);
+  return entries.find(entry => entry.slug === slug) ?? null;
 }
 
-/** Pojedyncze wydarzenie po slug */
-export async function getWydarzenieBySlug(slug: string): Promise<WydarzenieEntry | null> {
-  const all = await getAllWydarzenia();
-  return all.find(e => e.slug === slug) ?? null;
+/** Posortowane lata (malejąco) */
+export async function getYears(): Promise<number[]> {
+  const all = await getAllEntries();
+  const yearsSet = new Set(all.map(entry => entry.year));
+  return Array.from(yearsSet).sort((a, b) => b - a);
 }
 
-/** Lista unikalnych lat (malejąco) */
-export async function getWydarzeniaYears(): Promise<number[]> {
-  const all = await getAllWydarzenia();
-  const years = new Set(all.map(e => e.year));
-  return Array.from(years).sort((a, b) => b - a);
-}
-
-/** Poprzednie i następne wydarzenie (do nawigacji na stronie detalu) */
-export async function getSiblings(slug: string) {
-  const all = await getAllWydarzenia();
-  const idx = all.findIndex(e => e.slug === slug);
-  return {
-    prev: idx > 0             ? all[idx - 1] : null,
-    next: idx < all.length - 1 ? all[idx + 1] : null,
-  };
+/** Wpisy pogrupowane według roku — wygodne dla multimedia/index */
+export async function getEntriesGroupedByYear(): Promise<Record<number, ReturnType<typeof toLegacyFormat>[]>> {
+  const all = await getAllEntries();
+  const grouped: Record<number, typeof all> = {};
+  for (const entry of all) {
+    if (!grouped[entry.year]) grouped[entry.year] = [];
+    grouped[entry.year].push(entry);
+  }
+  return grouped;
 }
