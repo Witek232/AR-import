@@ -1,15 +1,16 @@
 ---
 slug: logos-i-kosmos-2025
-title: "Logos i Kosmos — wykład otwarty"
-titleEN: "Logos and Cosmos — open lecture"
+title: "Logos i Kosmos - wykład"
+titleEN: "Logos and Cosmos - lecture"
 date: 2025-06-14
-dateSortable: 2025-06-14
-place: "Zamość, Centrum Kulturalne"
+dateSortable: "2025-06-14"
+place: "Online"
 type: wyklad
-status: upcoming
+status: past
 languages: [PL]
-description: "Rozważania nad Prologiem Ewangelii Jana w świetle filozofii helleńskiej. Wykład prowadzi ks. prof. Tadeusz Guz."
-hasReport: false
+description: "Starożytna koncepcja Logosu i jej wpływ na rozumienie kosmosu w tradycji filozoficznej."
+hasReport: true
+reportUrl: "https://atenyroztocza.pl/relacje/logos-2025"
 year: 2025
 ---
 
