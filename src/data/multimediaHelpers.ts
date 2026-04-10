@@ -1,53 +1,78 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
-// Stałe – bez zmian
-export const categoryLabels: Record<string, string> = {
+// ── Stałe ────────────────────────────────────────────────────
+export const typeLabels: Record<string, string> = {
   wyklad:      'Wykład',
   seminarium:  'Seminarium',
   konferencja: 'Konferencja',
-  inne:        'Inne',
+  sympozjum:   'Sympozjum',
+  warsztaty:   'Warsztaty',
+  spotkanie:   'Spotkanie',
 };
 
-export const categoryColors: Record<string, string> = {
+export const typeColors: Record<string, string> = {
   wyklad:      '#C9A84C',
   seminarium:  '#7A5C2E',
   konferencja: '#8B3A3A',
-  inne:        '#4A6741',
+  sympozjum:   '#4A5A8B',
+  warsztaty:   '#4A6741',
+  spotkanie:   '#6A4A7A',
 };
 
-// Typ danych wejściowych z kolekcji
-type MultimediaEntryData = CollectionEntry<'multimedia'>['data'];
+// ── Typ pomocniczy ───────────────────────────────────────────
+type WydarzenieEntry = CollectionEntry<'wydarzenia'>['data'] & {
+  body: string;
+};
 
-// Funkcja pomocnicza: konwertuje wpis kolekcji na format identyczny jak stary MultimediaEntry
-function toLegacyFormat(entry: CollectionEntry<'multimedia'>): MultimediaEntryData & { slug: string } {
+function toLegacyFormat(entry: CollectionEntry<'wydarzenia'>): WydarzenieEntry {
   return {
     ...entry.data,
-    slug: entry.data.slug,
+    body: entry.body ?? '',
   };
 }
 
-// Pobierz wszystkie wpisy (z cache – Astro sam zarządza)
-export async function getAllEntries() {
-  const entries = await getCollection('multimedia');
-  return entries.map(toLegacyFormat);
+// ── Pobieranie danych ─────────────────────────────────────────
+
+/** Wszystkie wydarzenia posortowane malejąco po dacie */
+export async function getAllWydarzenia(): Promise<WydarzenieEntry[]> {
+  const entries = await getCollection('wydarzenia');
+  return entries
+    .map(toLegacyFormat)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-// Pobierz wpisy dla konkretnego roku
-export async function getEntriesByYear(year: number) {
-  const all = await getAllEntries();
-  return all.filter(entry => entry.year === year);
+/** Nadchodzące wydarzenia */
+export async function getWydarzeniaUpcoming(): Promise<WydarzenieEntry[]> {
+  const all = await getAllWydarzenia();
+  return all.filter(e => e.status === 'upcoming');
 }
 
-// Pobierz pojedynczy wpis
-export async function getEntry(year: number, slug: string) {
-  const entries = await getEntriesByYear(year);
-  return entries.find(entry => entry.slug === slug) ?? null;
+/** Archiwalne wydarzenia */
+export async function getWydarzeniaPast(): Promise<WydarzenieEntry[]> {
+  const all = await getAllWydarzenia();
+  return all.filter(e => e.status === 'past');
 }
 
-// Pobierz posortowane lata (malejąco)
-export async function getYears() {
-  const all = await getAllEntries();
-  const yearsSet = new Set(all.map(entry => entry.year));
-  return Array.from(yearsSet).sort((a, b) => b - a);
+/** Pojedyncze wydarzenie po slug */
+export async function getWydarzenieBySlug(slug: string): Promise<WydarzenieEntry | null> {
+  const all = await getAllWydarzenia();
+  return all.find(e => e.slug === slug) ?? null;
+}
+
+/** Lista unikalnych lat (malejąco) */
+export async function getWydarzeniaYears(): Promise<number[]> {
+  const all = await getAllWydarzenia();
+  const years = new Set(all.map(e => e.year));
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+/** Poprzednie i następne wydarzenie (do nawigacji na stronie detalu) */
+export async function getSiblings(slug: string) {
+  const all = await getAllWydarzenia();
+  const idx = all.findIndex(e => e.slug === slug);
+  return {
+    prev: idx > 0             ? all[idx - 1] : null,
+    next: idx < all.length - 1 ? all[idx + 1] : null,
+  };
 }
