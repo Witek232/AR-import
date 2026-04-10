@@ -3,7 +3,7 @@ slug: platon-i-chrzescijanstwo-2025
 title: "Platon i chrześcijaństwo — seminarium"
 titleEN: "Plato and Christianity — seminar"
 date: 2025-06-28
-dateSortable: 2025-06-28
+dateSortable: "2025-06-28"
 place: "Roztocze, Dom Rekolekcyjny"
 type: seminarium
 status: past
