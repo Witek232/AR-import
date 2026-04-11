@@ -11,7 +11,6 @@ const partSchema = z.object({
 const multimediaCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:         z.string(),
     title:        z.string(),
     date:         z.coerce.date(),
     dateSortable: z.string().optional(),
@@ -23,12 +22,11 @@ const multimediaCollection = defineCollection({
     year:         z.number(),
   }),
 });
-
 // ── Wydarzenia ───────────────────────────────────────────────
 const wydarzenieCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:         z.string(),
+    // slug:         z.string(),,
     title:        z.string(),
     titleEN:      z.string().optional(),
     titleDE:      z.string().optional(),
