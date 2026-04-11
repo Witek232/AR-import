@@ -1,4 +1,3 @@
-cat > .gitattributes << 'EOF'
 * text=auto
 *.md text working-tree-encoding=UTF-8
 *.mdx text working-tree-encoding=UTF-8
@@ -10,4 +9,3 @@ cat > .gitattributes << 'EOF'
 *.jpg binary
 *.webp binary
 *.pdf binary
-EOF

@@ -1,7 +1,3 @@
 [submodule "free-claude-code"]
 	path = free-claude-code
 	url = https://github.com/Witek232/free-claude-code.git
-cat > .gitmodules << 'EOF'
-[submodule "free-claude-code"]
-	path = free-claude-code
-	url = https://github.com/Witek232/free-claude-code.git
