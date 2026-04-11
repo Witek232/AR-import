@@ -26,7 +26,7 @@ const multimediaCollection = defineCollection({
 const wydarzenieCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    // slug:         z.string(),,
+    slug: z.string().optional(),
     title:        z.string(),
     titleEN:      z.string().optional(),
     titleDE:      z.string().optional(),
