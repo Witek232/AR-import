@@ -11,7 +11,3 @@ cat > .gitattributes << 'EOF'
 *.webp binary
 *.pdf binary
 EOF
-
-git add .gitattributes
-git commit --amend --no-edit
-git push --force-with-lease
