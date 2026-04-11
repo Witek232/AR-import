@@ -1,18 +1,17 @@
-# Auto-detect text files, normalize line endings
+cat > .gitattributes << 'EOF'
 * text=auto
-
-# Markdown files - force UTF-8
 *.md text working-tree-encoding=UTF-8
 *.mdx text working-tree-encoding=UTF-8
-
-# Source code
 *.js text eol=lf
 *.ts text eol=lf
 *.astro text eol=lf
 *.json text eol=lf
-
-# Binary files
 *.png binary
 *.jpg binary
 *.webp binary
 *.pdf binary
+EOF
+
+git add .gitattributes
+git commit --amend --no-edit
+git push --force-with-lease
