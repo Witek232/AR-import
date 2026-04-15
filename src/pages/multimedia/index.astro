@@ -1,23 +1,79 @@
-astro---
+---
+// src/pages/multimedia/index.astro
 import Layout from '../../layouts/Layout.astro';
 import {
-  years,
-  multimediaData,
+  getAllEntries,
+  getYears,
   categoryColors,
   categoryLabels,
-  getAllEntries,
-} from '../../data/multimediaData';
+} from '../../data/multimediaHelpers';
 
-const totalEntries = Object.values(multimediaData).reduce((s, e) => s + e.length, 0);
-const totalFilms   = Object.values(multimediaData).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
-const recentEntries = getAllEntries().slice(0, 5);
-const maxYear = Math.max(...years);
+// ── Pobierz dane z Content Collections ───────────────────────
+const allEntries  = await getAllEntries();
+const years       = await getYears();
 
+const totalEntries = allEntries.length;
+const totalFilms   = allEntries.reduce((s, e) => s + e.parts.length, 0);
+const recentEntries = allEntries.slice(0, 5);
+const maxYear      = years[0] ?? new Date().getFullYear();
+
+// Grupuj wpisy według roku
+const entriesByYear = new Map<number, typeof allEntries>();
+for (const entry of allEntries) {
+  if (!entriesByYear.has(entry.year)) entriesByYear.set(entry.year, []);
+  entriesByYear.get(entry.year)!.push(entry);
+}
+
+// Pre-obliczone dane kart lat
+const yearCards = years.map((year) => {
+  const entries    = entriesByYear.get(year) ?? [];
+  const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
+  const cats       = [...new Set(entries.map((e) => e.category))];
+  const isLatest   = year === maxYear;
+  return {
+    year,
+    href:        '/multimedia/' + year,
+    entries,
+    totalParts,
+    cats,
+    isLatest,
+    bgStyle:     isLatest
+                   ? 'linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04))'
+                   : '#EDE0C4',
+    borderColor: isLatest ? 'rgba(201,168,76,0.4)' : 'rgba(26,18,9,0.1)',
+    countLabel:  entries.length === 1 ? 'wystąpienie'
+               : entries.length < 5  ? 'wystąpienia'
+               : 'wystąpień',
+  };
+});
+
+// Pre-obliczone odznaki kategorii
+const yearCardCatBadges = yearCards.map((card) =>
+  card.cats.map((cat) => ({
+    label: categoryLabels[cat] ?? cat,
+    bg:    categoryColors[cat] ?? '#888',
+  }))
+);
+
+// Pre-obliczone dane ostatnich wpisów
+const recentDisplay = recentEntries.map((entry) => ({
+  href:     '/multimedia/' + entry.year + '/' + entry.slug,
+  year:     entry.year,
+  title:    entry.title,
+  dateInfo: entry.parts.length > 1
+              ? entry.parts.length + ' filmy'
+              : (entry.parts[0]?.duration ?? ''),
+  date:     typeof entry.date === 'string'
+              ? entry.date
+              : (entry.date as Date).toLocaleDateString('pl-PL'),
+}));
+
+// ── Artykuły prasowe (dane statyczne) ─────────────────────────
 const tabs = [
-  { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: '200+' },
-  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: '14'   },
-  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: '3'    },
-  { key: 'inne',          label: 'Inne publikacje',          icon: '📄', count: '4+'   },
+  { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: String(totalEntries) },
+  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: '14'                 },
+  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: '3'                  },
+  { key: 'inne',          label: 'Inne publikacje',          icon: '📄', count: '4+'                 },
 ];
 
 const naszDziennikArticles = [
@@ -44,49 +100,11 @@ const niedzielaArticles = [
 ];
 
 const radioMaryjaItems = [
-  { title: 'Dziedzictwo starożytne a chrześcijaństwo', date: 'Marzec 2025',     duration: '35 min', desc: 'Rozmowa o recepcji filozofii greckiej w teologii chrześcijańskiej.' },
+  { title: 'Dziedzictwo starożytne a chrześcijaństwo', date: 'Marzec 2025',      duration: '35 min', desc: 'Rozmowa o recepcji filozofii greckiej w teologii chrześcijańskiej.' },
   { title: 'Ewangelia a filozofia grecka',             date: 'Październik 2024', duration: '28 min', desc: 'Jak Ojcowie Kościoła korzystali z narzędzi filozofii helleńskiej.' },
   { title: 'Ateny Roztocza — 18 lat działalności',    date: 'Czerwiec 2024',    duration: '42 min', desc: 'Podsumowanie dorobku projektu i plany na przyszłość.' },
   { title: 'Tomizm dziś — czy jest aktualny?',        date: 'Styczeń 2023',     duration: '31 min', desc: 'Aktualność myśli Tomasza z Akwinu dla współczesnej teologii i filozofii.' },
 ];
-
-// Pre-obliczone dane kart lat (bez template literals w szablonie)
-const yearCards = years.map((year) => {
-  const entries    = multimediaData[year] ?? [];
-  const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
-  const multiPart  = entries.filter((e) => e.parts.length > 1).length;
-  const cats       = [...new Set(entries.map((e) => e.category))];
-  const isLatest   = year === maxYear;
-  return {
-    year,
-    href: '/multimedia/' + year,
-    entries,
-    totalParts,
-    multiPart,
-    cats,
-    isLatest,
-    bgStyle:     isLatest ? 'linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04))' : '#EDE0C4',
-    borderColor: isLatest ? 'rgba(201,168,76,0.4)' : 'rgba(26,18,9,0.1)',
-    countLabel:  entries.length === 1 ? 'wystąpienie' : entries.length < 5 ? 'wystąpienia' : 'wystąpień',
-  };
-});
-
-// Pre-obliczone dane ostatnich wpisów
-const recentDisplay = recentEntries.map((entry) => ({
-  href:     '/multimedia/' + entry.year + '/' + entry.slug,
-  year:     entry.year,
-  title:    entry.title,
-  dateInfo: entry.parts.length > 1 ? entry.parts.length + ' filmy' : (entry.parts[0]?.duration ?? ''),
-  date:     entry.date,
-}));
-
-// Pre-obliczone dane odznak kategorii dla kart lat
-const yearCardCatBadges = yearCards.map((card) =>
-  card.cats.map((cat) => ({
-    label: categoryLabels[cat],
-    bg:    categoryColors[cat],
-  }))
-);
 ---
 
 <Layout
@@ -95,7 +113,7 @@ const yearCardCatBadges = yearCards.map((card) =>
 >
 <div class="page-transition">
 
-  <!-- ── HERO ────────────────────────────────────────────── -->
+  <!-- ── HERO ──────────────────────────────────────────────── -->
   <div class="page-hero" style="position:relative;">
     <svg viewBox="0 0 600 200" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.04; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
       {[10,30,50,70,90].map((x) => (
@@ -103,7 +121,9 @@ const yearCardCatBadges = yearCards.map((card) =>
       ))}
     </svg>
     <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
-      <p class="section-label" style="color:rgba(201,168,76,0.62); margin-bottom:clamp(0.75rem,2vw,1.25rem);">22 lata archiwum · 2006–2026</p>
+      <p class="section-label" style="color:rgba(201,168,76,0.62); margin-bottom:clamp(0.75rem,2vw,1.25rem);">
+        {years.length} lat archiwum · {years[years.length - 1]}–{years[0]}
+      </p>
       <h1 class="section-title gold-shimmer" style="font-size:clamp(2rem,8vw,5rem); margin-bottom:clamp(1rem,2.5vw,1.5rem);">
         Multimedia &amp; Publikacje
       </h1>
@@ -126,15 +146,11 @@ const yearCardCatBadges = yearCards.map((card) =>
     </div>
   </div>
 
-  <!-- ── TABS ─────────────────────────────────────────────── -->
+  <!-- ── TABS ──────────────────────────────────────────────── -->
   <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.18); position:sticky; top:68px; z-index:100;">
     <div class="tab-bar" style="max-width:1200px; margin:0 auto; padding:0 clamp(1rem,3vw,1.5rem);">
       {tabs.map((tab) => (
-        <button
-          class="tab-btn mm-tab-btn"
-          data-tab={tab.key}
-          style="display:flex; align-items:center; gap:0.4rem;"
-        >
+        <button class="tab-btn mm-tab-btn" data-tab={tab.key} style="display:flex; align-items:center; gap:0.4rem;">
           <span>{tab.icon}</span>
           <span class="tab-label">{tab.label}</span>
           <span class="mm-tab-count">{tab.count}</span>
@@ -143,7 +159,7 @@ const yearCardCatBadges = yearCards.map((card) =>
     </div>
   </div>
 
-  <!-- ── PANEL: AUDIOWIZUALNE ─────────────────────────────── -->
+  <!-- ── PANEL: AUDIOWIZUALNE ──────────────────────────────── -->
   <div id="mm-panel-audiowizualne" class="mm-panel" style="background:#F5EDD8; min-height:60vh;">
     <div style="max-width:1280px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
 
@@ -224,7 +240,7 @@ const yearCardCatBadges = yearCards.map((card) =>
     </div>
   </div>
 
-  <!-- ── PANEL: NASZ DZIENNIK ────────────────────────────── -->
+  <!-- ── PANEL: NASZ DZIENNIK ──────────────────────────────── -->
   <div id="mm-panel-nasz-dziennik" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
     <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
       <div style="margin-bottom:clamp(2rem,5vw,3rem);">
@@ -250,7 +266,7 @@ const yearCardCatBadges = yearCards.map((card) =>
     </div>
   </div>
 
-  <!-- ── PANEL: NIEDZIELA ─────────────────────────────────── -->
+  <!-- ── PANEL: NIEDZIELA ──────────────────────────────────── -->
   <div id="mm-panel-niedziela" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
     <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
       <div style="margin-bottom:clamp(2rem,5vw,3rem);">
@@ -331,19 +347,15 @@ const yearCardCatBadges = yearCards.map((card) =>
 
   function activateTab(key) {
     tabBtns.forEach(function(btn) {
-      if (btn.getAttribute('data-tab') === key) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === key);
     });
     panels.forEach(function(panel) {
-      panel.style.display = panel.id === ('mm-panel-' + key) ? 'block' : 'none';
+      (panel as HTMLElement).style.display = panel.id === ('mm-panel-' + key) ? 'block' : 'none';
     });
   }
 
-  var params   = new URLSearchParams(window.location.search);
-  var tabParam = params.get('tab');
+  var params    = new URLSearchParams(window.location.search);
+  var tabParam  = params.get('tab');
   var validTabs = ['audiowizualne', 'nasz-dziennik', 'niedziela', 'inne'];
   activateTab(validTabs.indexOf(tabParam) !== -1 ? tabParam : 'audiowizualne');
 
