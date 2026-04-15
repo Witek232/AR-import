@@ -1,128 +1,50 @@
----
-// src/pages/wydarzenia/[slug].astro
-import Layout from '../../layouts/Layout.astro';
-import {
-  getAllWydarzenia,
-  getWydarzenie,
-  typeLabels,
-  typeColors,
-  formatEventDate,
-} from '../../data/wydarzeniaHelpers';
+// src/content/config.ts
+import { defineCollection, z } from 'astro:content';
 
-export async function getStaticPaths() {
-  const all = await getAllWydarzenia();
-  return all.map((event) => ({ params: { slug: event.slug } }));
-}
+// ── Multimedia ────────────────────────────────────────────────
+const partSchema = z.object({
+  id:          z.string(),
+  label:       z.string(),
+  duration:    z.string(),
+  description: z.string().optional(),
+});
 
-const { slug } = Astro.params;
-const event = await getWydarzenie(slug);
+const multimediaCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    // slug opcjonalny — Astro 5 używa entry.id zamiast slug w frontmatterze
+    slug:         z.string().optional(),
+    title:        z.string(),
+    date:         z.coerce.date(),
+    dateSortable: z.string().optional(),
+    place:        z.string().optional(),
+    category:     z.enum(['wyklad', 'seminarium', 'konferencja', 'inne']),
+    tags:         z.array(z.string()).optional(),
+    description:  z.string(),
+    parts:        z.array(partSchema),
+    year:         z.number(),
+  }),
+});
 
-if (!event) {
-  return Astro.redirect('/404');
-}
+// ── Wydarzenia ────────────────────────────────────────────────
+const wydarzeniaCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    // slug opcjonalny — fallback na entry.id (nazwę pliku)
+    slug:        z.string().optional(),
+    title:       z.string(),
+    date:        z.coerce.date(),
+    place:       z.string(),
+    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie']),
+    status:      z.enum(['upcoming', 'past']),
+    languages:   z.array(z.string()).optional().default(['PL']),
+    hasReport:   z.boolean().optional().default(false),
+    reportUrl:   z.string().optional(),
+    description: z.string().optional(),
+  }),
+});
 
-const d         = formatEventDate(event.date);
-const type      = typeLabels[event.type] ?? event.type;
-const typeColor = typeColors[event.type] ?? '#C9A84C';
-const langLabel = (event.languages ?? ['PL']).join(' / ');
----
-
-<Layout
-  title={event.title}
-  description={event.description ?? event.title + ' · Ateny Roztocza'}
->
-  <div class="page-transition">
-
-    <!-- Hero -->
-    <div class="page-hero">
-      <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
-        <nav style="font-family:'Crimson Pro',serif; font-size:0.82rem; letter-spacing:0.1em; margin-bottom:1.5rem;">
-          <a href="/wydarzenia" style="color:rgba(201,168,76,0.6); text-decoration:none; transition:color 0.2s;">
-            ← Wszystkie wydarzenia
-          </a>
-        </nav>
-        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem; justify-content:center;">
-          <span style={`font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:${typeColor}; border:1px solid ${typeColor}88; padding:3px 10px;`}>
-            {type}
-          </span>
-          {event.status === 'upcoming' && (
-            <span style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); padding:3px 10px;">
-              Wkrótce
-            </span>
-          )}
-          {event.status === 'past' && event.hasReport && (
-            <span style="font-family:'Crimson Pro',serif; font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:3px 10px;">
-              Relacja dostępna
-            </span>
-          )}
-        </div>
-        <h1 class="section-title gold-shimmer" style="font-size:clamp(1.8rem,5vw,3.5rem); margin-bottom:1.25rem; line-height:1.15;">
-          {event.title}
-        </h1>
-        <div style="display:flex; gap:clamp(1rem,3vw,2rem); justify-content:center; flex-wrap:wrap; margin-top:1.5rem;">
-          <div style="text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:#E8C97A; line-height:1;">
-              {d.day}
-            </div>
-            <div style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,168,76,0.55); margin-top:0.2rem;">
-              {d.month} {d.year}
-            </div>
-          </div>
-          <div style="width:1px; background:rgba(201,168,76,0.2); flex-shrink:0;"></div>
-          <div style="display:flex; flex-direction:column; justify-content:center; gap:0.3rem;">
-            <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.9rem,2vw,1rem); color:rgba(232,201,122,0.75);">
-              📍 {event.place}
-            </div>
-            <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,1.8vw,0.9rem); color:rgba(201,168,76,0.5);">
-              🌐 {langLabel}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Content -->
-    <div style="background:#F5EDD8; min-height:40vh; padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,2rem);">
-      <div style="max-width:760px; margin:0 auto;">
-
-        {event.description && (
-          <div style="border-left:3px solid #C9A84C; padding-left:clamp(1rem,3vw,1.5rem); margin-bottom:clamp(2rem,5vw,3rem);">
-            <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.05rem,2.8vw,1.25rem); line-height:1.85; color:#2C1F0E; margin:0;">
-              {event.description}
-            </p>
-          </div>
-        )}
-
-        {event.status === 'past' && event.hasReport && event.reportUrl && (
-          <div style="margin-bottom:2.5rem; padding:1.5rem; background:#EDE0C4; border:1px solid rgba(201,168,76,0.25); display:flex; align-items:center; gap:1rem;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" style="flex-shrink:0;">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M10 8l6 4-6 4V8z" fill="#C9A84C" stroke="none"/>
-            </svg>
-            <div>
-              <p style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin:0 0 0.35rem;">
-                Relacja wideo
-              </p>
-              <a
-                href={event.reportUrl}
-                style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.5vw,1.25rem); color:#C9A84C; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4); padding-bottom:1px; transition:color 0.2s;"
-              >
-                Obejrzyj nagranie z wydarzenia →
-              </a>
-            </div>
-          </div>
-        )}
-
-        <div style="padding-top:2rem; border-top:1px solid rgba(201,168,76,0.2);">
-          <a
-            href="/wydarzenia"
-            style="font-family:'Crimson Pro',serif; font-size:clamp(0.85rem,2vw,0.9rem); letter-spacing:0.12em; text-transform:uppercase; color:rgba(26,18,9,0.5); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.3); padding-bottom:1px; transition:color 0.2s;"
-          >
-            ← Powrót do listy wydarzeń
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</Layout>
+export const collections = {
+  multimedia: multimediaCollection,
+  wydarzenia: wydarzeniaCollection,
+};
