@@ -2,7 +2,7 @@
 slug: logos-i-poczatek-2026
 title: "Logos i Początek — filozofia stworzenia"
 date: 2026-03-15
-dateSortable: 2026-03-15
+dateSortable: "2026-03-15"
 place: Roztocze
 category: wyklad
 tags: [logos, stworzenie, filozofia]
