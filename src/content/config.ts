@@ -1,4 +1,3 @@
-// src/content/config.ts
 import { defineCollection, z } from 'astro:content';
 
 // ── Multimedia ────────────────────────────────────────────────
@@ -12,7 +11,7 @@ const partSchema = z.object({
 const multimediaCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:         z.string(),
+    // slug usunięty — Astro generuje go automatycznie z nazwy pliku
     title:        z.string(),
     date:         z.coerce.date(),
     dateSortable: z.string().optional(),
@@ -29,7 +28,7 @@ const multimediaCollection = defineCollection({
 const wydarzeniaCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    slug:        z.string(),
+    // slug usunięty — Astro generuje go automatycznie z nazwy pliku
     title:       z.string(),
     date:        z.coerce.date(),
     place:       z.string(),
