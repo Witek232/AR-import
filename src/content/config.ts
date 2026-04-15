@@ -1,6 +1,7 @@
+// src/content/config.ts
 import { defineCollection, z } from 'astro:content';
 
-// ── Multimedia audiowizualne ──────────────────────────────────
+// ── Multimedia ────────────────────────────────────────────────
 const partSchema = z.object({
   id:          z.string(),
   label:       z.string(),
@@ -11,6 +12,7 @@ const partSchema = z.object({
 const multimediaCollection = defineCollection({
   type: 'content',
   schema: z.object({
+    slug:         z.string(),
     title:        z.string(),
     date:         z.coerce.date(),
     dateSortable: z.string().optional(),
@@ -22,28 +24,25 @@ const multimediaCollection = defineCollection({
     year:         z.number(),
   }),
 });
-// ── Wydarzenia ───────────────────────────────────────────────
-const wydarzenieCollection = defineCollection({
+
+// ── Wydarzenia ────────────────────────────────────────────────
+const wydarzeniaCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    slug: z.string().optional(),
-    title:        z.string(),
-    titleEN:      z.string().optional(),
-    titleDE:      z.string().optional(),
-    date:         z.coerce.date(),
-    dateSortable: z.string().optional(),
-    place:        z.string().optional(),
-    type:         z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie']),
-    status:       z.enum(['upcoming', 'past']),
-    languages:    z.array(z.string()).optional(),
-    description:  z.string().optional(),
-    hasReport:    z.boolean().optional().default(false),
-    reportUrl:    z.string().optional(),
-    year:         z.number(),
+    slug:        z.string(),
+    title:       z.string(),
+    date:        z.coerce.date(),
+    place:       z.string(),
+    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie']),
+    status:      z.enum(['upcoming', 'past']),
+    languages:   z.array(z.string()).optional().default(['PL']),
+    hasReport:   z.boolean().optional().default(false),
+    reportUrl:   z.string().optional(),
+    description: z.string().optional(),
   }),
 });
 
 export const collections = {
   multimedia: multimediaCollection,
-  wydarzenia: wydarzenieCollection,
+  wydarzenia: wydarzeniaCollection,
 };
