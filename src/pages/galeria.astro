@@ -1,41 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getWydarzenia } from '../lib/sanity';
 
-// Pobierz wydarzenia z Sanity
-const wydarzenia = await getWydarzenia();
-
-// Przekształć dane z Sanity na format używany w szablonie
-const allEvents = wydarzenia.map((w: any) => {
-  const date = w.data ? new Date(w.data) : null;
-  
-  return {
-    date: date ? {
-      day: date.getDate().toString().padStart(2, '0'),
-      month: date.toLocaleString('pl-PL', { month: 'short' }).replace('.', ''),
-      year: date.getFullYear().toString(),
-    } : { day: '?', month: '?', year: '?' },
-    title: w.tytul || 'Bez tytułu',
-    place: w.miejsce || '',
-    type: w.typ || 'Inne',
-    desc: '', // Opis jest w formacie blockContent - wymaga osobnej obsługi
-    status: w.status || 'upcoming',
-    lang: w.jezyki?.join('/') || 'PL',
-    hasReport: w.relacja === 'available',
-    slug: w.slug?.current || '',
-  };
-});
-
-const filterButtons = [
-  { key: 'all',      label: 'Wszystkie'   },
-  { key: 'upcoming', label: 'Nadchodzące' },
-  { key: 'past',     label: 'Archiwum'    },
+const albums = [
+  {
+    id: 'spotkania',
+    title: 'Spotkania i seminaria',
+    year: '2006–2024',
+    count: 48,
+    cover: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=70',
+    photos: [
+      { src: 'https://photos.smugmug.com/photos/i-fZdXVbZ/0/MKDVXzVfnR8x48DR2hL9BKN4dC39jVhh6WTjsvtpS/X2/i-fZdXVbZ-X2.jpg', caption: 'Ateny Roztocza 2025' },
+      { src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80', caption: 'Wykład inauguracyjny — Ateny Roztocza 2006' },
+      { src: 'https://images.unsplash.com/photo-1491975474562-1f4e30bc9468?w=1200&q=80', caption: 'Seminarium filozoficzne — Roztocze 2018' },
+      { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80', caption: 'Ks. prof. Tadeusz Guz podczas wykładu' },
+      { src: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80', caption: 'Dyskusja po seminarium — 2022' },
+      { src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80', caption: 'Konferencja naukowa — Lublin 2023' },
+      { src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=80', caption: 'Spotkanie z uczestnikami projektu' },
+    ],
+  },
+  {
+    id: 'roztocze',
+    title: 'Roztocze — przestrzeń projektu',
+    year: '2010–2024',
+    count: 32,
+    cover: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=70',
+    photos: [
+      { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80', caption: 'Roztocze — wschód słońca nad doliną' },
+      { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80', caption: 'Las bukowy — natura w służbie kontemplacji' },
+      { src: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&q=80', caption: 'Roztocze — wieczorny krajobraz' },
+      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80', caption: 'Widok na okolice centrum projektu' },
+    ],
+  },
 ];
+
+const albumsJson = JSON.stringify(albums);
 ---
 
 <Layout
-  title="Wydarzenia"
-  description="Seminaria, wykłady i konferencje projektu Ateny Roztocza. Spotkania w przestrzeni kultury, filozofii i wiary."
+  title="Galeria"
+  description="Archiwum fotograficzne projektu Ateny Roztocza — ludzie, miejsca, chwile z ponad 20 lat działalności."
 >
   <div class="page-transition">
 
@@ -43,193 +46,392 @@ const filterButtons = [
     <div class="page-hero">
       <div style="position:relative; z-index:2; max-width:700px; margin:0 auto;">
         <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
-          Seminaria · Wykłady · Konferencje
+          Archiwum fotograficzne
         </p>
         <h1 class="section-title gold-shimmer" style="font-size:clamp(2.4rem,7vw,4.8rem); margin-bottom:1rem;">
-          Wydarzenia
+          Galeria
         </h1>
-        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7); line-height:1.75;">
-          Spotkania w przestrzeni kultury, filozofii i wiary
+        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7);">
+          Obrazy z historii projektu — ludzie, miejsca, chwile
         </p>
       </div>
     </div>
 
-    <!-- Sticky filter bar -->
-    <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.15); position:sticky; top:70px; z-index:100;">
-      <div style="max-width:1100px; margin:0 auto; padding:0 1.5rem; display:flex;">
-        {filterButtons.map((btn) => (
-          <button
-            class="tab-btn w-filter-btn"
-            data-filter={btn.key}
-          >
-            {btn.label}
-          </button>
-        ))}
-      </div>
-    </div>
+    <!-- Content -->
+    <div style="background:#F5EDD8; min-height:60vh; padding:clamp(2.5rem,5vw,4rem) clamp(1.25rem,4vw,2rem);">
+      <div style="max-width:1200px; margin:0 auto;">
 
-    <!-- Lista wydarzeń -->
-    <div style="background:#F5EDD8; min-height:60vh;">
-      <div style="max-width:1000px; margin:0 auto; padding:clamp(2.5rem,5vw,4rem) 1.5rem;">
+        <!-- Przycisk Powrót — ukryty na start -->
+        <button
+          id="back-btn"
+          style="display:none; align-items:center; gap:0.5rem; font-family:'Crimson Pro',serif; font-size:clamp(0.88rem,2vw,0.95rem); letter-spacing:0.08em; text-transform:uppercase; background:none; border:none; cursor:pointer; color:rgba(26,18,9,0.5); margin-bottom:2.5rem; padding:0.5rem 0; min-height:44px;"
+        >
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 16">
+            <path d="M12 8H4M7 4L3 8l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Powrót do albumów
+        </button>
 
-        <!-- Legenda -->
-        <div style="display:flex; gap:clamp(0.75rem,2.5vw,1.5rem); flex-wrap:wrap; align-items:center; margin-bottom:clamp(1.5rem,3.5vw,2.5rem); padding:clamp(0.75rem,2vw,1rem) clamp(1rem,2.5vw,1.25rem); background:rgba(26,18,9,0.04); border:1px solid rgba(201,168,76,0.15);">
-          <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); flex-shrink:0;">
-            Oznaczenia:
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 8px; display:inline-flex; align-items:center; gap:4px;">
-              <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-              Relacja
-            </span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— dostępna relacja z wydarzenia</span>
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px;">Archiwum</span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— brak relacji</span>
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#C9A84C; border:1px solid rgba(201,168,76,0.35); background:rgba(201,168,76,0.1); padding:2px 8px;">Wkrótce</span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— wydarzenie nadchodzące</span>
-          </span>
-        </div>
-
-        <!-- Wiersze wydarzeń -->
-        <div id="events-list" style="display:flex; flex-direction:column;">
-          {allEvents.map((event) => (
+        <!-- Lista albumów -->
+        <div id="album-list" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr)); gap:clamp(1.5rem,3vw,2.5rem);">
+          {albums.map((album) => (
             <div
-              class="reveal w-event-row"
-              data-status={event.status}
-              style="display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.25rem,3vw,2.5rem); padding:clamp(1.5rem,3.5vw,2.5rem) 0; border-bottom:1px solid rgba(26,18,9,0.1); cursor:pointer; transition:padding-left 0.3s ease; align-items:start;"
+              class="album-card card-hover gold-border-hover"
+              data-album-id={album.id}
+              style="cursor:pointer; background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); overflow:hidden; position:relative;"
             >
-              <!-- Data -->
-              <div style="text-align:center; min-width:clamp(52px,10vw,70px); border-right:1px solid rgba(201,168,76,0.25); padding-right:clamp(1rem,2.5vw,1.75rem);">
-                <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:${event.status === 'upcoming' ? '#C9A84C' : 'rgba(201,168,76,0.45)'}; line-height:1;`}>
-                  {event.date.day}
-                </div>
-                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.62rem,1.4vw,0.72rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(26,18,9,0.4); margin-top:0.2rem;">
-                  {event.date.month}
-                </div>
-                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.4vw,0.78rem); color:rgba(26,18,9,0.3);">
-                  {event.date.year}
+              <div style="position:relative; padding-bottom:65%; overflow:hidden;">
+                <img
+                  src={album.cover}
+                  alt={album.title}
+                  class="sepia-filter"
+                  style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;"
+                />
+                <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(26,18,9,0.7),transparent); padding:1.5rem 1.25rem 0.75rem;">
+                  <span style="font-family:'Crimson Pro',serif; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,201,122,0.8);">
+                    {album.count} fotografii · {album.year}
+                  </span>
                 </div>
               </div>
-
-              <!-- Treść -->
-              <div>
-                <div style="display:flex; gap:0.55rem; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap;">
-                  <span style={`font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.67rem); letter-spacing:0.2em; text-transform:uppercase; color:${event.status === 'upcoming' ? '#C9A84C' : 'rgba(201,168,76,0.55)'}; border:1px solid ${event.status === 'upcoming' ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.2)'}; padding:2px 8px;`}>
-                    {event.type}
-                  </span>
-
-                  {event.status === 'past' && event.hasReport && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 9px; display:inline-flex; align-items:center; gap:4px; flex-shrink:0;">
-                      <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-                      Relacja
-                    </span>
-                  )}
-
-                  {event.status === 'past' && !event.hasReport && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px; flex-shrink:0;">
-                      Archiwum
-                    </span>
-                  )}
-
-                  {event.lang !== 'PL' && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:0.68rem; color:rgba(26,18,9,0.4); letter-spacing:0.1em;">
-                      🌐 {event.lang}
-                    </span>
-                  )}
-
-                  <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.82rem,1.8vw,0.9rem); color:rgba(26,18,9,0.45); font-style:italic;">
-                    {event.place}
-                  </span>
-                </div>
-
-                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.65rem); font-weight:400; color:#1A1209; line-height:1.3; margin-bottom:0.5rem;">
-                  {event.title}
+              <div style="padding:clamp(1rem,2.5vw,1.5rem);">
+                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.15rem,3vw,1.5rem); font-weight:400; color:#1A1209; margin:0;">
+                  {album.title}
                 </h3>
-
-                <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2vw,1rem); color:rgba(26,18,9,0.5); line-height:1.65; margin:0;">
-                  {event.desc}
+                <p style="font-family:'Crimson Pro',serif; font-size:0.88rem; color:rgba(26,18,9,0.45); margin-top:0.4rem; font-style:italic;">
+                  Kliknij, aby przeglądać zdjęcia
                 </p>
-              </div>
-
-              <!-- Badge prawy -->
-              <div style="align-self:start; margin-top:0.25rem; display:flex; flex-direction:column; gap:0.4rem; align-items:flex-end;">
-                {event.status === 'upcoming' && (
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:4px 10px; white-space:nowrap;">
-                    Wkrótce
-                  </div>
-                )}
-                {event.status === 'past' && event.hasReport && (
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.85); background:#7A1C2E; padding:4px 10px; white-space:nowrap; display:flex; align-items:center; gap:5px;">
-                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-                    Relacja dostępna
-                  </div>
-                )}
               </div>
             </div>
           ))}
         </div>
 
+        <!-- Nagłówek siatki zdjęć — ukryty na start -->
+        <div id="pg-header" style="display:none; margin-bottom:2.5rem;">
+          <h2 id="pg-title" class="section-title" style="color:#1A1209; margin-bottom:0.35rem;"></h2>
+          <p id="pg-subtitle" style="font-family:'Crimson Pro',serif; font-size:clamp(0.88rem,2vw,0.98rem); color:rgba(26,18,9,0.45); font-style:italic;"></p>
+        </div>
+
+        <!-- Siatka zdjęć — ukryta na start, wypełniana przez JS -->
+        <div id="photo-grid" style="display:none; grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr)); gap:clamp(0.75rem,2vw,1.25rem);"></div>
+
       </div>
     </div>
+
   </div>
+
+  <!-- Lightbox — ukryty na start -->
+  <div
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    style="display:none; position:fixed; inset:0; background:rgba(7,5,2,0.97); z-index:3000; flex-direction:column; align-items:center; justify-content:center;"
+  >
+    <!-- Górny pasek -->
+    <div style="position:absolute; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:clamp(0.75rem,2vw,1.25rem) clamp(1rem,3vw,2rem); background:linear-gradient(to bottom,rgba(7,5,2,0.9),transparent); z-index:10;">
+      <span id="lb-counter" style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.5vw,1.3rem); color:rgba(201,168,76,0.8); letter-spacing:0.15em;"></span>
+      <span class="lb-kbd-hint" style="font-family:'Crimson Pro',serif; font-size:0.72rem; letter-spacing:0.12em; color:rgba(201,168,76,0.3);">
+        ← → nawigacja · ESC zamknij
+      </span>
+      <button
+        id="lb-close"
+        aria-label="Zamknij lightbox"
+        style="background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.25); border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:rgba(232,201,122,0.75); font-size:1.1rem; flex-shrink:0;"
+      >✕</button>
+    </div>
+
+    <!-- Strzałki + zdjęcie główne -->
+    <div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%; padding:5.5rem 0.5rem 9rem; gap:1rem; box-sizing:border-box;">
+      <button id="lb-prev" aria-label="Poprzednie zdjęcie" class="lb-arrow">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; max-height:100%;">
+        <img
+          id="lb-img"
+          src=""
+          alt=""
+          class="sepia-filter lb-img-el"
+          style="max-width:100%; max-height:100%; object-fit:contain; display:block; box-shadow:0 8px 60px rgba(0,0,0,0.7);"
+        />
+      </div>
+
+      <button id="lb-next" aria-label="Następne zdjęcie" class="lb-arrow">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Podpis + miniatury -->
+    <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(7,5,2,0.97) 0%,rgba(7,5,2,0.85) 60%,transparent 100%); padding:2rem 2rem 1.5rem; z-index:10;">
+      <p id="lb-caption" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(0.9rem,2vw,1.1rem); color:rgba(232,201,122,0.75); text-align:center; margin-bottom:1rem; line-height:1.5;"></p>
+      <div id="lb-thumbs" style="display:flex; gap:0.5rem; justify-content:center; overflow-x:auto; scrollbar-width:none; padding-bottom:2px;"></div>
+    </div>
+  </div>
+
+  <!-- Dane albumów przekazane do JS -->
+  <script type="application/json" id="albums-data" set:html={albumsJson}></script>
+
 </Layout>
 
 <style>
-  .w-event-row:hover { padding-left: 0.75rem !important; }
+  .lb-kbd-hint { display: none; }
+  @media (min-width: 640px) { .lb-kbd-hint { display: block; } }
 
-  .w-filter-btn {
-    color: rgba(245, 237, 216, 0.45);
-    border-bottom-color: transparent;
-  }
-  .w-filter-btn.active {
+  .lb-arrow {
+    flex-shrink: 0;
+    width: clamp(44px, 7vw, 64px);
+    height: clamp(44px, 7vw, 64px);
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.13);
+    border: 1.5px solid rgba(201, 168, 76, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     color: #E8C97A;
-    border-bottom-color: #C9A84C;
+    transition: all 0.22s;
   }
+  .lb-arrow:hover {
+    background: rgba(201, 168, 76, 0.28);
+    border-color: rgba(201, 168, 76, 0.7);
+    transform: scale(1.08);
+  }
+
+  #lb-close:hover { background: rgba(201,168,76,0.25) !important; color: #E8C97A !important; }
+  #back-btn:hover { color: #C9A84C !important; }
+
+  @keyframes fadeInPhoto {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .lb-fade { animation: fadeInPhoto 0.25s ease; }
 </style>
 
 <script>
-  var activeFilter = 'all';
+  // Odczyt danych z tagu JSON (bezpieczne, bez define:vars)
+  var albumsData = document.getElementById('albums-data');
+  var albums = albumsData ? JSON.parse(albumsData.textContent || '[]') : [];
 
-  var filterBtns = document.querySelectorAll('.w-filter-btn');
-  var eventRows  = document.querySelectorAll('.w-event-row');
+  // Zmienne stanu
+  var activeAlbumId = null;
+  var lightboxIndex = null;
 
-  function applyFilter(filter) {
-    activeFilter = filter;
+  // Elementy DOM
+  var albumListEl = document.getElementById('album-list');
+  var backBtn     = document.getElementById('back-btn');
+  var pgHeader    = document.getElementById('pg-header');
+  var pgTitle     = document.getElementById('pg-title');
+  var pgSubtitle  = document.getElementById('pg-subtitle');
+  var photoGrid   = document.getElementById('photo-grid');
+  var lightbox    = document.getElementById('lightbox');
+  var lbImg       = document.getElementById('lb-img');
+  var lbCaption   = document.getElementById('lb-caption');
+  var lbCounter   = document.getElementById('lb-counter');
+  var lbThumbs    = document.getElementById('lb-thumbs');
 
-    filterBtns.forEach(function(btn) {
-      var isActive = btn.getAttribute('data-filter') === filter;
-      if (isActive) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    eventRows.forEach(function(row) {
-      var status  = row.getAttribute('data-status') || '';
-      var visible = (filter === 'all' || status === filter);
-      row.style.display = visible ? 'grid' : 'none';
-
-      if (visible) {
-        row.classList.remove('visible');
-        setTimeout(function() {
-          if (row.getBoundingClientRect().top < window.innerHeight) {
-            row.classList.add('visible');
-          }
-        }, 60);
-      }
-    });
+  function getAlbum(id) {
+    for (var i = 0; i < albums.length; i++) {
+      if (albums[i].id === id) return albums[i];
+    }
+    return null;
   }
 
-  applyFilter('all');
+  function getActive() {
+    return getAlbum(activeAlbumId);
+  }
 
-  filterBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      applyFilter(btn.getAttribute('data-filter') || 'all');
-    });
+  // ── Nawigacja albumów ────────────────────────────────────
+
+  function openAlbum(id) {
+    var album = getAlbum(id);
+    if (!album) return;
+    activeAlbumId = id;
+
+    backBtn.style.display     = 'flex';
+    albumListEl.style.display = 'none';
+    pgTitle.textContent       = album.title;
+    pgSubtitle.textContent    = album.photos.length + ' fotografii · ' + album.year + ' · kliknij zdjęcie aby powiększyć';
+    pgHeader.style.display    = 'block';
+
+    // Buduj siatkę zdjęć
+    photoGrid.innerHTML = '';
+    for (var i = 0; i < album.photos.length; i++) {
+      (function(photo, idx) {
+        var cell = document.createElement('div');
+        cell.className = 'card-hover';
+
+        var ratio = (idx % 3 === 0) ? '4/3' : '1/1';
+        cell.style.cursor     = 'pointer';
+        cell.style.overflow   = 'hidden';
+        cell.style.position   = 'relative';
+        cell.style.aspectRatio = ratio;
+        cell.style.borderRadius = '2px';
+
+        var img = document.createElement('img');
+        img.src       = photo.src;
+        img.alt       = photo.caption;
+        img.className = 'sepia-filter';
+        img.loading   = 'lazy';
+        img.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease;';
+
+        var overlay = document.createElement('div');
+        overlay.style.cssText = 'position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(13,10,5,0.85) 0%,rgba(13,10,5,0.4) 60%,transparent 100%); padding:2rem 0.85rem 0.75rem;';
+
+        var caption = document.createElement('p');
+        caption.textContent  = photo.caption;
+        caption.style.cssText = 'font-family:Crimson Pro,serif; font-style:italic; font-size:clamp(0.78rem,1.8vw,0.86rem); color:rgba(232,201,122,0.9); margin:0; line-height:1.4;';
+
+        overlay.appendChild(caption);
+
+        var zoomIcon = document.createElement('div');
+        zoomIcon.style.cssText = 'position:absolute; top:0.6rem; right:0.6rem; background:rgba(13,10,5,0.55); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center;';
+        zoomIcon.innerHTML = '<svg width="14" height="14" fill="none" stroke="rgba(232,201,122,0.85)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/><path d="M11 8v6M8 11h6" stroke-linecap="round"/></svg>';
+
+        cell.appendChild(img);
+        cell.appendChild(overlay);
+        cell.appendChild(zoomIcon);
+        cell.addEventListener('click', function() { openLightbox(idx); });
+        photoGrid.appendChild(cell);
+      })(album.photos[i], i);
+    }
+
+    photoGrid.style.display = 'grid';
+    pgHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeAlbum() {
+    activeAlbumId = null;
+    closeLightbox();
+    backBtn.style.display     = 'none';
+    albumListEl.style.display = 'grid';
+    pgHeader.style.display    = 'none';
+    photoGrid.style.display   = 'none';
+    photoGrid.innerHTML       = '';
+  }
+
+  // ── Lightbox ─────────────────────────────────────────────
+
+  function openLightbox(index) {
+    var album = getActive();
+    if (!album) return;
+    lightboxIndex = index;
+    document.body.style.overflow = 'hidden';
+    lightbox.style.display = 'flex';
+    renderPhoto();
+    buildThumbs();
+    lightbox.focus();
+  }
+
+  function closeLightbox() {
+    lightboxIndex = null;
+    document.body.style.overflow = '';
+    lightbox.style.display = 'none';
+  }
+
+  function goPrev() {
+    var album = getActive();
+    if (!album || lightboxIndex === null) return;
+    lightboxIndex = (lightboxIndex - 1 + album.photos.length) % album.photos.length;
+    renderPhoto();
+    syncThumbs();
+  }
+
+  function goNext() {
+    var album = getActive();
+    if (!album || lightboxIndex === null) return;
+    lightboxIndex = (lightboxIndex + 1) % album.photos.length;
+    renderPhoto();
+    syncThumbs();
+  }
+
+  function renderPhoto() {
+    var album = getActive();
+    if (!album || lightboxIndex === null) return;
+    var photo = album.photos[lightboxIndex];
+
+    lbImg.src       = photo.src;
+    lbImg.alt       = photo.caption;
+    lbImg.className = 'sepia-filter lb-fade';
+
+    // Reset animacji
+    void lbImg.offsetWidth;
+
+    lbCaption.textContent = photo.caption;
+
+    var current = String(lightboxIndex + 1).padStart(2, '0');
+    var total   = String(album.photos.length).padStart(2, '0');
+    lbCounter.textContent = current + ' / ' + total;
+
+    lightbox.setAttribute('aria-label', 'Zdjecie ' + (lightboxIndex + 1) + ' z ' + album.photos.length + ': ' + photo.caption);
+  }
+
+  function buildThumbs() {
+    var album = getActive();
+    if (!album) return;
+    lbThumbs.innerHTML = '';
+
+    for (var i = 0; i < album.photos.length; i++) {
+      (function(photo, idx) {
+        var btn = document.createElement('button');
+        btn.setAttribute('aria-label', 'Zdjecie ' + (idx + 1) + ': ' + photo.caption);
+        btn.style.cssText = 'flex-shrink:0; padding:0; border-radius:2px; overflow:hidden; cursor:pointer; background:none; outline:none; transition:all 0.2s ease; width:clamp(44px,8vw,64px); height:clamp(34px,6vw,48px);';
+
+        var timg = document.createElement('img');
+        timg.src       = photo.src.replace('w=1200', 'w=120');
+        timg.alt       = '';
+        timg.className = 'sepia-filter';
+        timg.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block;';
+
+        btn.appendChild(timg);
+        btn.addEventListener('click', function() {
+          lightboxIndex = idx;
+          renderPhoto();
+          syncThumbs();
+        });
+        lbThumbs.appendChild(btn);
+      })(album.photos[i], i);
+    }
+    syncThumbs();
+  }
+
+  function syncThumbs() {
+    var btns = lbThumbs.querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      var isActive = (i === lightboxIndex);
+      btns[i].style.border    = isActive ? '2px solid #C9A84C' : '2px solid rgba(201,168,76,0.2)';
+      btns[i].style.opacity   = isActive ? '1' : '0.5';
+      btns[i].style.transform = isActive ? 'scale(1.1)' : 'scale(1)';
+    }
+  }
+
+  // ── Podpięcie zdarzeń ────────────────────────────────────
+
+  var albumCards = document.querySelectorAll('.album-card');
+  for (var i = 0; i < albumCards.length; i++) {
+    (function(card) {
+      card.addEventListener('click', function() {
+        openAlbum(card.getAttribute('data-album-id'));
+      });
+    })(albumCards[i]);
+  }
+
+  backBtn.addEventListener('click', closeAlbum);
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', goPrev);
+  document.getElementById('lb-next').addEventListener('click', goNext);
+
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  window.addEventListener('keydown', function(e) {
+    if (lightboxIndex === null) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  goPrev();
+    if (e.key === 'ArrowRight') goNext();
   });
 </script>
