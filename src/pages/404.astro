@@ -1,4 +1,5 @@
 ---
+// src/pages/404.astro
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -10,7 +11,7 @@ import Layout from '../layouts/Layout.astro';
       <!-- Glow -->
       <div style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.055) 0%, transparent 65%);"></div>
 
-      <!-- Dekoracyjne kolumny SVG -->
+      <!-- SVG columns -->
       <svg viewBox="0 0 1440 600" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.05; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
         {[80,140,200,1240,1300,1360].map((x) => (
           <g stroke="#C9A84C" stroke-width="1" fill="none">
@@ -23,12 +24,12 @@ import Layout from '../layouts/Layout.astro';
 
       <div style="position:relative; z-index:1; text-align:center; padding:clamp(3rem,8vw,6rem) clamp(1.5rem,5vw,3rem); max-width:700px; margin:0 auto;">
 
-        <!-- Liczba 404 -->
+        <!-- 404 number -->
         <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(6rem,20vw,12rem); font-weight:300; color:rgba(201,168,76,0.18); line-height:1; margin-bottom:-1rem; letter-spacing:-0.03em;">
           404
         </div>
 
-        <!-- Separator ornamentalny -->
+        <!-- Divider -->
         <div style="display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:2rem;">
           <div style="width:60px; height:1px; background:linear-gradient(to right,transparent,#C9A84C);"></div>
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
@@ -48,21 +49,21 @@ import Layout from '../layouts/Layout.astro';
         <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
           <a
             href="/"
-            style="font-family:'Crimson Pro',serif; font-size:0.9rem; letter-spacing:0.14em; text-transform:uppercase; color:#1A1209; background:linear-gradient(135deg,#C9A84C,#E8C97A); padding:0.9rem 2.2rem; text-decoration:none; font-weight:600; transition:all 0.3s ease; display:inline-block;"
             class="btn-404-primary"
+            style="font-family:'Crimson Pro',serif; font-size:0.9rem; letter-spacing:0.14em; text-transform:uppercase; color:#1A1209; background:linear-gradient(135deg,#C9A84C,#E8C97A); padding:0.9rem 2.2rem; text-decoration:none; font-weight:600; transition:all 0.3s ease; display:inline-block;"
           >
             Strona główna
           </a>
           <a
             href="/multimedia"
-            style="font-family:'Crimson Pro',serif; font-size:0.9rem; letter-spacing:0.14em; text-transform:uppercase; color:#E8C97A; border:1px solid rgba(201,168,76,0.45); padding:0.9rem 2.2rem; text-decoration:none; transition:all 0.3s ease; display:inline-block;"
             class="btn-404-secondary"
+            style="font-family:'Crimson Pro',serif; font-size:0.9rem; letter-spacing:0.14em; text-transform:uppercase; color:#E8C97A; border:1px solid rgba(201,168,76,0.45); padding:0.9rem 2.2rem; text-decoration:none; transition:all 0.3s ease; display:inline-block;"
           >
             Multimedia
           </a>
         </div>
 
-        <!-- Motto łacińskie -->
+        <!-- Latin motto -->
         <p style="margin-top:3rem; font-family:'Crimson Pro',serif; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.3);">
           Errare humanum est
         </p>
@@ -74,6 +75,6 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .btn-404-primary:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
-  .btn-404-secondary:hover { border-color: #C9A84C; background: rgba(201,168,76,0.09); transform: translateY(-2px); }
+  .btn-404-primary:hover  { transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.35); }
+  .btn-404-secondary:hover { border-color:#C9A84C; background:rgba(201,168,76,0.09); transform:translateY(-2px); }
 </style>
