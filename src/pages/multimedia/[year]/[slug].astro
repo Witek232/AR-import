@@ -1,4 +1,5 @@
 ---
+// src/pages/multimedia/[year]/[slug].astro
 import Layout from '../../../layouts/Layout.astro';
 import {
   getEntriesByYear,
@@ -53,8 +54,15 @@ const yearHref  = '/multimedia/' + rok;
 const prevHref  = poprzedni ? '/multimedia/' + rok + '/' + poprzedni.slug : '';
 const nextHref  = nastepny  ? '/multimedia/' + rok + '/' + nastepny.slug  : '';
 
-const parts = entry?.parts ?? [];
+const parts    = entry?.parts ?? [];
 const hasEntry = !!entry;
+
+// Formatuj datę
+const dateDisplay = entry
+  ? (entry.date instanceof Date
+      ? entry.date.toLocaleDateString('pl-PL', { year:'numeric', month:'long', day:'numeric' })
+      : String(entry.date))
+  : '';
 ---
 
 <Layout
@@ -88,7 +96,7 @@ const hasEntry = !!entry;
         </nav>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem;">
           <span style={catMetaStyle}>{catLabel}</span>
-          <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">{entry.date}</span>
+          <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">{dateDisplay}</span>
           {entry.place && (
             <span style="font-size:0.85rem;color:rgba(245,237,216,0.5);">📍 {entry.place}</span>
           )}
@@ -195,7 +203,6 @@ const hasEntry = !!entry;
     <!-- NAWIGACJA PREV / NEXT -->
     <nav style="background:#0D0A05;border-top:1px solid rgba(201,168,76,0.12);padding:clamp(2rem,4vw,3rem) clamp(1rem,4vw,2rem);">
       <div class="entry-nav" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center;">
-
         <div>
           {poprzedni && (
             <a href={prevHref} class="nav-link">
@@ -204,9 +211,7 @@ const hasEntry = !!entry;
             </a>
           )}
         </div>
-
         <a href={yearHref} class="nav-center">↑ {rok}</a>
-
         <div style="text-align:right;">
           {nastepny && (
             <a href={nextHref} class="nav-link nav-next">
@@ -215,7 +220,6 @@ const hasEntry = !!entry;
             </a>
           )}
         </div>
-
       </div>
     </nav>
 
@@ -254,7 +258,7 @@ const hasEntry = !!entry;
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
       iframe.className = 'yt-iframe';
       iframe.setAttribute('allow', 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture');
-      iframe.allowFullscreen = true;
+      iframe.setAttribute('allowfullscreen', '');
       wrap.innerHTML = '';
       wrap.appendChild(iframe);
     });
