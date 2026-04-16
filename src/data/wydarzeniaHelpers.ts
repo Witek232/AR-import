@@ -23,11 +23,14 @@ export const typeColors: Record<string, string> = {
 // ── Typ pomocniczy ───────────────────────────────────────────
 type WydarzenieEntry = CollectionEntry<'wydarzenia'>['data'] & {
   body: string;
+  slug: string;  // <-- slug jest ZAWSZE obecny
 };
 
 function toLegacyFormat(entry: CollectionEntry<'wydarzenia'>): WydarzenieEntry {
   return {
     ...entry.data,
+    // slug z frontmatter, a jeśli brak — użyj entry.id (nazwa pliku bez .md)
+    slug: entry.data.slug ?? entry.id.replace(/\.md$/, ''),
     body: entry.body ?? '',
   };
 }
@@ -44,7 +47,6 @@ export function formatEventDate(date: Date | string) {
 
 // ── Pobieranie danych ─────────────────────────────────────────
 
-/** Wszystkie wydarzenia posortowane malejąco po dacie */
 export async function getAllWydarzenia(): Promise<WydarzenieEntry[]> {
   const entries = await getCollection('wydarzenia');
   return entries
@@ -52,32 +54,27 @@ export async function getAllWydarzenia(): Promise<WydarzenieEntry[]> {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-/** Nadchodzące wydarzenia */
 export async function getWydarzeniaUpcoming(): Promise<WydarzenieEntry[]> {
   const all = await getAllWydarzenia();
   return all.filter(e => e.status === 'upcoming');
 }
 
-/** Archiwalne wydarzenia */
 export async function getWydarzeniaPast(): Promise<WydarzenieEntry[]> {
   const all = await getAllWydarzenia();
   return all.filter(e => e.status === 'past');
 }
 
-/** Pojedyncze wydarzenie po slug */
 export async function getWydarzenieBySlug(slug: string): Promise<WydarzenieEntry | null> {
   const all = await getAllWydarzenia();
   return all.find(e => e.slug === slug) ?? null;
 }
 
-/** Lista unikalnych lat (malejąco) */
 export async function getWydarzeniaYears(): Promise<number[]> {
   const all = await getAllWydarzenia();
   const years = new Set(all.map(e => new Date(e.date).getFullYear()));
   return Array.from(years).sort((a, b) => b - a);
 }
 
-/** Poprzednie i następne wydarzenie */
 export async function getSiblings(slug: string) {
   const all = await getAllWydarzenia();
   const idx = all.findIndex(e => e.slug === slug);
