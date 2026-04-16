@@ -10,33 +10,33 @@ import {
 
 // ── Static paths ──────────────────────────────────────────────
 export async function getStaticPaths() {
-  const all = await getAllWydarzenia();
-  return all.map((event) => ({
-    params: { slug: event.slug },
+  const entries = await getCollection('wydarzenia');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug ?? entry.id.replace(/\.md$/, '') },
+    props: { entry },
   }));
 }
 
 // ── Dane bieżącego wydarzenia ─────────────────────────────────
-const { slug } = Astro.params;
-const all      = await getAllWydarzenia();
-const event    = all.find((e) => e.slug === slug);
+const { entry } = Astro.props;
+const { slug }  = Astro.params;
 
-if (!event) {
-  return Astro.redirect('/404');
-}
+const event = {
+  ...entry.data,
+  slug: entry.data.slug ?? entry.id.replace(/\.md$/, ''),
+  body: entry.body ?? '',
+};
 
-// Renderuj body (Markdown) przez Astro content pipeline
-const entries   = await getCollection('wydarzenia');
-const rawEntry  = entries.find((e) => e.data.slug === slug)!;
-const { Content } = await render(rawEntry);
+// Renderuj body (Markdown)
+const { Content } = await render(entry);
 
 // Nawigacja prev / next
-const { prev, next } = await getSiblings(slug);
+const { prev, next } = await getSiblings(slug!);
 
 // Pomocnicze
 const catColor  = typeColors[event.type]  ?? '#C9A84C';
 const catLabel  = typeLabels[event.type]  ?? event.type;
-const hasBody   = rawEntry.body && rawEntry.body.trim().length > 0;
+const hasBody   = entry.body && entry.body.trim().length > 0;
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('pl-PL', {
