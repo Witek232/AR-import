@@ -32,6 +32,16 @@ function toLegacyFormat(entry: CollectionEntry<'wydarzenia'>): WydarzenieEntry {
   };
 }
 
+// ── Formatowanie daty ─────────────────────────────────────────
+export function formatEventDate(date: Date | string) {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return {
+    day:   d.getDate().toString().padStart(2, '0'),
+    month: d.toLocaleString('pl-PL', { month: 'short' }).replace('.', ''),
+    year:  d.getFullYear().toString(),
+  };
+}
+
 // ── Pobieranie danych ─────────────────────────────────────────
 
 /** Wszystkie wydarzenia posortowane malejąco po dacie */
@@ -63,16 +73,16 @@ export async function getWydarzenieBySlug(slug: string): Promise<WydarzenieEntry
 /** Lista unikalnych lat (malejąco) */
 export async function getWydarzeniaYears(): Promise<number[]> {
   const all = await getAllWydarzenia();
-  const years = new Set(all.map(e => e.year));
+  const years = new Set(all.map(e => new Date(e.date).getFullYear()));
   return Array.from(years).sort((a, b) => b - a);
 }
 
-/** Poprzednie i następne wydarzenie (do nawigacji na stronie detalu) */
+/** Poprzednie i następne wydarzenie */
 export async function getSiblings(slug: string) {
   const all = await getAllWydarzenia();
   const idx = all.findIndex(e => e.slug === slug);
   return {
-    prev: idx > 0             ? all[idx - 1] : null,
+    prev: idx > 0              ? all[idx - 1] : null,
     next: idx < all.length - 1 ? all[idx + 1] : null,
   };
 }
