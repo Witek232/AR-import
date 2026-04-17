@@ -1,16 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import {
-  years,
-  multimediaData,
   categoryColors,
   categoryLabels,
   getAllEntries,
-} from '../../data/multimediaData';
+  getYears,
+} from '../../data/multimediaHelpers';
 
-const totalEntries = Object.values(multimediaData).reduce((s, e) => s + e.length, 0);
-const totalFilms   = Object.values(multimediaData).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
-const recentEntries = getAllEntries().slice(0, 5);
+// Pobranie danych z systemu plików .mdx (wymaga await!)
+const years = await getYears();
+const allEntriesList = await getAllEntries();
+
+// Zbuduj mapę rok -> wpisy (zastępuje stary obiekt multimediaData)
+const multimediaDataMap: Record<number, typeof allEntriesList> = {};
+for (const entry of allEntriesList) {
+  if (!multimediaDataMap[entry.year]) {
+    multimediaDataMap[entry.year] = [];
+  }
+  multimediaDataMap[entry.year].push(entry);
+}
+
+const totalEntries = Object.values(multimediaDataMap).reduce((s, e) => s + e.length, 0);
+const totalFilms   = Object.values(multimediaDataMap).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
+const recentEntries = allEntriesList.slice(0, 5);
 const maxYear = Math.max(...years);
 
 const tabs = [
@@ -29,7 +41,7 @@ const naszDziennikArticles = [
   { title: 'Platon i dusza nieśmiertelna',            date: '8 marca 2023',       excerpt: 'Platońska nauka o nieśmiertelności duszy jako przygotowanie ewangeliczne w kulturze greckiej.' },
   { title: 'Rzym — miasto prawa i ładu',              date: '14 stycznia 2023',   excerpt: 'Rzymski geniusz prawa naturalnego jako fundament cywilizacji zachodniej.' },
   { title: 'Heraklit i Logos — u źródeł słowa',      date: '11 listopada 2022',  excerpt: 'Heraklitejski Logos a chrystologiczne pojęcie Słowa — od filozofii do teologii.' },
-  { title: 'Cnota jako fundament kultury',            date: '3 września 2022',    excerpt: 'Arystotelesowska arete w kontekście chrześcijańskiego ideału świętości.' },
+  { title: 'Cnota jako fundament kultury',            date: '3 września 2022',   excerpt: 'Arystotelesowska arete w kontekście chrześcijańskiego ideału świętości.' },
   { title: 'Piękno jako droga do Boga',              date: '22 maja 2022',       excerpt: 'Platońska kalokagathia a chrześcijańska teologia piękna w liturgii i sztuce.' },
   { title: 'Europa a jej chrześcijańskie korzenie',  date: '7 marca 2022',       excerpt: 'Tożsamość Europy i spór o jej fundament cywilizacyjny — refleksja filozoficzna.' },
   { title: 'Jan Paweł II a dziedzictwo greckie',     date: '2 października 2021',excerpt: 'Jak Karol Wojtyła rozumiał rolę filozofii antycznej w kształtowaniu chrześcijańskiego humanizmu.' },
@@ -52,7 +64,7 @@ const radioMaryjaItems = [
 
 // Pre-obliczone dane kart lat (bez template literals w szablonie)
 const yearCards = years.map((year) => {
-  const entries    = multimediaData[year] ?? [];
+  const entries    = multimediaDataMap[year] ?? [];
   const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
   const multiPart  = entries.filter((e) => e.parts.length > 1).length;
   const cats       = [...new Set(entries.map((e) => e.category))];
