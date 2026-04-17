@@ -70,24 +70,24 @@ const filary = [
 
           <!-- Portrait -->
           <div class="reveal" style="position:relative;">
-            <div style="background:linear-gradient(135deg,#EDE0C4 0%,#D9C89A 100%); border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; max-width:380px;">
-              <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.25;">
+            <div style="background:#EDE0C4; border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; position:relative; overflow:hidden; max-width:380px;">
+              <!-- Zdjęcie -->
+              <img
+                src="https://res.cloudinary.com/dmb0xngy0/image/upload/q_auto/f_auto/v1776448708/TG_vunjd2.png"
+                alt="Ks. prof. Tadeusz Guz"
+                style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"
+              />
+              <!-- Ramka ozdobna SVG -->
+              <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.4; pointer-events:none; z-index:1;">
                 <rect x="12" y="12" width="276" height="376" fill="none" stroke="#C9A84C" stroke-width="1" />
                 <rect x="20" y="20" width="260" height="360" fill="none" stroke="#C9A84C" stroke-width="0.5" />
-                {[[12,12],[288,12],[12,388],[288,388]].map(([cx,cy]) => (
-                  <circle cx={cx} cy={cy} r="4" fill="#C9A84C" opacity="0.8" />
-                ))}
-                <line x1="150" y1="80" x2="150" y2="320" stroke="#C9A84C" stroke-width="0.5" opacity="0.5" />
-                <line x1="60" y1="200" x2="240" y2="200" stroke="#C9A84C" stroke-width="0.5" opacity="0.5" />
-                <circle cx="150" cy="200" r="30" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.6" />
-                <text x="150" y="208" text-anchor="middle" font-size="28" fill="#C9A84C" opacity="0.5" font-family="serif" font-style="italic">✝</text>
+                <line x1="12" y1="12" x2="20" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="12" x2="280" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="12" y1="388" x2="20" y2="380" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="388" x2="280" y2="380" stroke="#C9A84C" stroke-width="0.5" />
               </svg>
-              <div style="width:120px; height:120px; border-radius:50%; background:rgba(201,168,76,0.15); border:2px solid rgba(201,168,76,0.3); display:flex; align-items:center; justify-content:center; position:relative; z-index:1;">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-                </svg>
-              </div>
-              <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(26,18,9,0.75); padding:0.85rem 1rem; backdrop-filter:blur(4px);">
+              <!-- Pasek podpisu -->
+              <div style="position:absolute; bottom:0; left:0; right:0; z-index:2; background:rgba(26,18,9,0.8); padding:1rem 1.25rem; backdrop-filter:blur(4px);">
                 <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2vw,1.15rem); color:#E8C97A; margin:0; text-align:center; letter-spacing:0.06em;">
                   Ks. prof. dr hab. Tadeusz Guz
                 </p>
