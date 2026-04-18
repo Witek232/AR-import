@@ -13,6 +13,7 @@ parts:
   - id: ktGFER4-2LU
     label: Struktura myślenia - wykład w Chełmie
     duration: ""
-    analysis: | Oparty na źródłowych badaniach filozoficznych prowadzonych przez autora przez 38 lat, wykład stanowi analizę krytyczną współczesnych prądów filozoficznych w opozycji do tradycji klasycznej. Ks. prof. Guz wskazuje na fundamentalną rolę, jaką odgrywa klasyczna metafizyka w zrozumieniu człowieka, podkreślając, że jej odrzucenie prowadzi do nihilizmu. Kluczowe tematy omówione w materiale to m.in. dialektyka Hegla i jej wpływ na filozofię współczesną, ideologia gender jako nihilistyczna forma neomarksizmu oraz konieczność poświęcenia się Chrystusowi Królowi.
+    analysis: |
+    Oparty na źródłowych badaniach filozoficznych prowadzonych przez autora przez 38 lat, wykład stanowi analizę krytyczną współczesnych prądów filozoficznych w opozycji do tradycji klasycznej. Ks. prof. Guz wskazuje na fundamentalną rolę, jaką odgrywa klasyczna metafizyka w zrozumieniu człowieka, podkreślając, że jej odrzucenie prowadzi do nihilizmu. Kluczowe tematy omówione w materiale to m.in. dialektyka Hegla i jej wpływ na filozofię współczesną, ideologia gender jako nihilistyczna forma neomarksizmu oraz konieczność poświęcenia się Chrystusowi Królowi.
 year: 2026
 ---
