@@ -297,7 +297,7 @@ const dateDisplay = entry
       if (!id) return;
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
-      iframe.className = 'yt-iframe';
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;';
       iframe.setAttribute('allow', 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture');
       iframe.setAttribute('allowfullscreen', '');
       wrap.innerHTML = '';
