@@ -1,3 +1,25 @@
+Jaka jest różnica w sposobie kodowania plików *.md:
+slug: logos-i-poczatek-2026
+title: "Logos i Początek — filozofia stworzenia"
+date: 2026-03-15
+dateSortable: "2026-03-15"
+place: Roztocze
+category: wyklad
+tags: [logos, stworzenie, filozofia]
+description: |
+Wykład o filozoficznym rozumieniu początku w tradycji greckiej i chrześcijańskiej.
+Omówienie relacji między Logosem Heraklita a Prologiem Ewangelii Jana.
+parts:
+
+id: dQw4w9WgXcQ
+label: Część I
+duration: "38:22"
+id: dQw4w9WgXcQ
+label: Część II
+duration: "41:05"
+year: 2026
+oraz
+
 title: "2026-03-20 Chełmno – Struktura myślenia — ks. prof. Tadeusz Guz"slug: "2026-03-20-chelmno-struktura-myslenia-ks-prof-tadeusz-guz"date: "20 marca 2026"dateSortable: "2026-03-20"category: wykladyear: 2026place: "Chełmno"tags: ["struktura myślenia", "tadeusz guz", "neomarksizm", "filozofia współczesna", "ideologia gender", "chrystus król", "metafizyka"]metakey: "struktura myślenia, tadeusz guz, neomarksizm, filozofia współczesna, ideologia gender, chrystus król, chełmno, wykłady"metadesc: "Wykład ks. prof. T. Guza w Chełmie o strukturze myślenia od starożytności po współczesność. Analiza zagrożeń neomarksizmu i ideologii gender."description: "Wykład naukowy wygłoszony 20 marca 2026 roku w Chełmie przez ks. prof. Tadeusza Guza. Omówienie struktury myślenia klasycznej i średniowiecznej w konfrontacji z ideologią neomarksistowską."parts: - id: "ktGFER4-2LU" label: "Struktura myślenia - wykład w Chełmie" duration: ""
 Wykład naukowy wygłoszony 20 marca 2026 roku w Chełmie przez ks. prof. Tadeusza Guza. Tematem przewodnim jest struktura myślenia od starożytności po współczesność oraz zagrożenia płynące z ideologii neomarsistowskich.
 
@@ -16,3 +38,5 @@ Konieczność poświęcenia się Chrystusowi Królowi jako odpowiedź na współ
 Intronizacja Chrystusa Króla w rodzinach, parafiach, przedsiębiorstwach i narodzie
 Po więcej materiałów
 Z kanału Eryk Wojarski.
+
+Popraw drugi plik aby miał podobną strukturę
