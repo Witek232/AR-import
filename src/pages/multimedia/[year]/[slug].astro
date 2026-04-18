@@ -177,8 +177,8 @@ const dateDisplay = entry
                 </div>
 
                 {/* >>> NOWOŚĆ: Opcjonalny opis pod filmem <<< */}
-                                {part.analysis && (
-                  <div style="margin-top:1.5rem; padding:1.5rem; background:rgba(201,168,76,0.04); border-left:3px solid rgba(201,168,76,0.4);" set:html={part.analysis} />
+                 {part.analysis && (
+                  <div class="analysis-block" set:html={part.analysis} />
                 )}
 
               </div>
@@ -260,6 +260,33 @@ const dateDisplay = entry
     .entry-layout { grid-template-columns:1fr !important; }
     .entry-nav    { grid-template-columns:1fr 1fr !important; }
     .nav-center   { display:none; }
+  }
+  /* ── Style dla bloku analysis pod filmem ── */
+  .analysis-block {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(201,168,76,0.04);
+    border-left: 3px solid rgba(201,168,76,0.4);
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(0.95rem, 2vw, 1rem);
+    line-height: 1.7;
+    color: rgba(26,18,9,0.7);
+  }
+  .analysis-block p {
+    margin-bottom: 0.5rem;
+  }
+  .analysis-block ul {
+    list-style-type: disc !important; /* Wymusza kropki */
+    margin: 0.5rem 0 1rem 0 !important;
+    padding-left: 1.5rem !important; /* Odsuwa kropki od lewej */
+  }
+  .analysis-block li {
+    margin-bottom: 0.4rem;
+    font-size: inherit !important; /* Blokuje zmniejszanie czcionki */
+    line-height: inherit !important;
+  }
+  .analysis-block strong {
+    color: rgba(26,18,9,0.85);
   }
 </style>
 
