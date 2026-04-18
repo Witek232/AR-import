@@ -1,15 +1,17 @@
-title: "2026-03-20 Chełmno – Struktura myślenia — ks. prof. Tadeusz Guz"
-slug: "2026-03-20-chelmno-struktura-myslenia-ks-prof-tadeusz-guz"
-date: "20 marca 2026"
+---
+slug: struktura-myslenia-ks-prof-tadeusz-guz
+title: "Struktura myślenia — ks. prof. Tadeusz Guz"
+date: 2026-03-20
 dateSortable: "2026-03-20"
+place: Chełmno
 category: wyklad
-year: 2026
-place: "Chełmno"
-tags: ["struktura myślenia", "tadeusz guz", "neomarksizm", "filozofia współczesna", "ideologia gender", "chrystus król", "metafizyka"]
-metakey: "struktura myślenia, tadeusz guz, neomarksizm, filozofia współczesna, ideologia gender, chrystus król, chełmno, wykłady"
-metadesc: "Wykład ks. prof. T. Guza w Chełmie o strukturze myślenia od starożytności po współczesność. Analiza zagrożeń neomarksizmu i ideologii gender."
-description: "Wykład naukowy wygłoszony 20 marca 2026 roku w Chełmie przez ks. prof. Tadeusza Guza. Omówienie struktury myślenia klasycznej i średniowiecznej w konfrontacji z ideologią neomarksistowską."
+tags: [struktura myślenia, tadeusz guz, neomarksizm, filozofia współczesna, ideologia gender, chrystus król, metafizyka]
+description: |
+  Wykład ks. prof. T. Guza o strukturze myślenia od starożytności po współczesność.
+  Analiza struktury myślenia klasycznej i średniowiecznej w konfrontacji z ideologią neomarksistowską.
 parts:
-  - id: "ktGFER4-2LU"
-    label: "Struktura myślenia - wykład w Chełmie"
+  - id: ktGFER4-2LU
+    label: Struktura myślenia - wykład w Chełmie
     duration: ""
+year: 2026
+---
