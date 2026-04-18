@@ -6,6 +6,7 @@ const partSchema = z.object({
   label:       z.string(),
   duration:    z.string(),
   description: z.string().optional(),
+  analysis:    z.string().optional(),
 });
 
 const multimediaCollection = defineCollection({
