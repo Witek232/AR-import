@@ -177,14 +177,8 @@ const dateDisplay = entry
                 </div>
 
                 {/* >>> NOWOŚĆ: Opcjonalny opis pod filmem <<< */}
-                {part.analysis && (
-                  <div style="margin-top:1.5rem; padding:1.5rem; background:rgba(201,168,76,0.04); border-left:3px solid rgba(201,168,76,0.4);">
-                    {part.analysis.trim().split('\n').filter(p => p.trim()).map((line) => (
-                      <p style="font-family:'Crimson Pro',serif;font-size:0.95rem; line-height:1.7; color:rgba(26,18,9,0.7); margin-bottom:0.5rem;">
-                        {line}
-                      </p>
-                    ))}
-                  </div>
+                                {part.analysis && (
+                  <div style="margin-top:1.5rem; padding:1.5rem; background:rgba(201,168,76,0.04); border-left:3px solid rgba(201,168,76,0.4);" set:html={part.analysis} />
                 )}
 
               </div>
