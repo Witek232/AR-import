@@ -175,6 +175,18 @@ const dateDisplay = entry
                     <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
                   </div>
                 </div>
+
+                {/* >>> NOWOŚĆ: Opcjonalny opis pod filmem <<< */}
+                {part.analysis && (
+                  <div style="margin-top:1.5rem; padding:1.5rem; background:rgba(201,168,76,0.04); border-left:3px solid rgba(201,168,76,0.4);">
+                    {part.analysis.trim().split('\n').filter(p => p.trim()).map((line) => (
+                      <p style="font-family:'Crimson Pro',serif;font-size:0.95rem; line-height:1.7; color:rgba(26,18,9,0.7); margin-bottom:0.5rem;">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
               </div>
             );
           })}
@@ -238,7 +250,9 @@ const dateDisplay = entry
   
   .yt-wrap:hover .yt-thumb { transform: scale(1.02); filter: brightness(0.7); }
   .yt-wrap:hover .yt-play  { background: #ff0000 !important; transform: translate(-50%,-50%) scale(1.08) !important; }
-  .yt-iframe { position:absolute;inset:0;width:100%;height:100%;border:none; }
+  
+  /* POPRAWKA MINIATURY: Wymuszenie pełnego rozmiaru dla iframe */
+  .yt-iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; display:block; }
   
   .nav-link  { display:flex;flex-direction:column;gap:0.3rem;text-decoration:none;color:#1A1209;padding:clamp(0.75rem,2vw,1.25rem);border:1px solid rgba(26,18,9,0.08);transition:all 0.3s ease;background:#F5EDD8; }
   .nav-link:hover { border-color:rgba(201,168,76,0.4); background:rgba(201,168,76,0.05); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
