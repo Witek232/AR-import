@@ -4,7 +4,7 @@ title: "Gietrzwałd – Pokuta 2033 – Stacja VII – Ks. prof. Tadeusz Guz"
 date: 2025-07-01
 dateSortable: "2025-07-01"
 place: Gietrzwałd
-category: droga-krzyzowa
+category: rozważania
 tags: [Droga Krzyżowa, Gietrzwałd, Pokuta 2033, Tadeusz Guz, stacja VII, Życie Zamościa]
 description: |
   Rozważania ks. prof. Tadeusza Guza podczas Drogi Krzyżowej na błoniach gietrzwałdzkich – Stacja VII: „Pan Jezus drugi raz upada pod krzyżem – Wynagradzajmy za grzechy na drodze do Jubileuszu Odkupienia!”
