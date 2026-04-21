@@ -15,7 +15,7 @@ parts:
     analysis: |
       <p>Ks. prof. Guz przedstawia Polskie Państwo Podziemne jako fenomen historyczny i duchowy, unikatowy w skali świata. Wykład opiera się na analizie źródeł ideologicznych II Rzeszy Niemieckiej (<em>Mein Kampf</em> Adolfa Hitlera i <em>Mit XX wieku</em> Alfreda Rosenberga), konfrontując je z wartościami chrześcijańskimi i narodowymi, które kształtowały polski opór na przykładzie grypsów płk. Łukasza Cieplińskiego. Profesor ukazuje głębokie różnice światopoglądowe między totalitarną wizją człowieka jako produktu rasy, a chrześcijańskim rozumieniem osoby jako dziecka Boga.</p>
   - id: nuq9Z_TKlQ8
-    label: dyskusja
+    label: inne
     duration: ""
     analysis: |
       <p>Sesja pytań i dyskusja po wykładzie ks. prof. Tadeusza Guza.</p>
