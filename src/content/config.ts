@@ -17,7 +17,7 @@ const multimediaCollection = defineCollection({
     date:         z.coerce.date(),
     dateSortable: z.string().optional(),
     place:        z.string().optional(),
-    category:     z.enum(['wykład', 'rozważania', 'konferencja', 'homilia', 'kazanie', 'wywiad', 'spotkanie', 'rozmowa','inne']),
+    category:     z.enum(['wykład', 'rozważania', 'konferencja', 'homilia', 'kazanie', 'wywiad', 'spotkanie', 'rozmowa', 'rekolekcje', 'inne']),
     tags:         z.array(z.string()).optional(),
     description:  z.string(),
     parts:        z.array(partSchema),
