@@ -4,7 +4,7 @@ title: "Wybrać człowieka prawego, który opowiada się za Bogiem, za Kościoł
 date: 2025-05-16
 dateSortable: "2025-05-16"
 place: Telewizja Chrystusa Króla
-category: apel
+category: inne
 tags: [wybory, Tadeusz Guz, wartości chrześcijańskie, prezydent, sumienie]
 description: |
   Ks. prof. Tadeusz Guz podkreśla znaczenie wyboru osoby prawej, kierującej się wartościami chrześcijańskimi, na stanowisko prezydenta.
