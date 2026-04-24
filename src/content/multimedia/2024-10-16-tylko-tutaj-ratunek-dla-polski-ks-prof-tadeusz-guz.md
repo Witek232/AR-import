@@ -4,7 +4,7 @@ title: "Tylko tutaj ratunek dla Polski – ks. prof. Tadeusz Guz"
 date: 2024-10-16
 dateSortable: "2024-10-16"
 place: Telewizja Chrystusa Króla
-category: wypowiedź
+category: wywiad
 tags: [Chrystus Król, intronizacja, kataklizmy, znaki czasu, Tadeusz Guz]
 description: |
   Wypowiedź ks. prof. Tadeusza Guza o kataklizmach jako znakach czasu i konieczności koronacji Chrystusa na Króla Polski.
