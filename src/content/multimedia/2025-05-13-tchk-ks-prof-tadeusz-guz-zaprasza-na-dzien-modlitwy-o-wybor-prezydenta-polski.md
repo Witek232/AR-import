@@ -4,7 +4,7 @@ title: "Ks. prof. Tadeusz Guz zaprasza na dzień modlitwy o wybór Prezydenta Po
 date: 2025-05-13
 dateSortable: "2025-05-13"
 place: Telewizja Chrystusa Króla
-category: apel
+category: inne
 tags: [modlitwa, wybory prezydenckie, Tadeusz Guz, Polska, prawo naturalne]
 description: |
   Ks. prof. Tadeusz Guz zachęca do modlitwy o wybór prawego prezydenta Polski, kierującego się Ewangelią i prawem naturalnym.
