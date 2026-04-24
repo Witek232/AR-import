@@ -4,7 +4,7 @@ title: "Tutaj ma swoje miejsce Król i Królowa – ks. prof. Tadeusz Guz"
 date: 2025-05-27
 dateSortable: "2025-05-27"
 place: Telewizja Chrystusa Króla
-category: wypowiedź
+category: wywiad
 tags: [Chrystus Król, Maryja Królowa, Tadeusz Guz, Ateny Roztocza]
 description: |
   Ks. prof. Tadeusz Guz mówi o znaczeniu intronizacji Chrystusa Króla i Matki Bożej Królowej w kontekście Aten Roztocza.
