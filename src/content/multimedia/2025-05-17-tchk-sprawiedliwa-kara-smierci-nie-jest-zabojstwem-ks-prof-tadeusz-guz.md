@@ -4,7 +4,7 @@ title: "Sprawiedliwa kara śmierci nie jest zabójstwem – ks. prof. Tadeusz Gu
 date: 2025-05-17
 dateSortable: "2025-05-17"
 place: Telewizja Chrystusa Króla
-category: wypowiedź
+category: wywiad
 tags: [kara śmierci, sprawiedliwość, Tadeusz Guz, prawo naturalne, aborcja]
 description: |
   Ks. prof. Tadeusz Guz wyjaśnia różnicę między sprawiedliwą karą śmierci a zabójstwem w kontekście moralnym i prawnym.
