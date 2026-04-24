@@ -4,7 +4,7 @@ title: "Kongres dla Społecznego Panowania Chrystusa Króla – ks. prof. Tadeus
 date: 2025-02-02
 dateSortable: "2025-02-02"
 place: Warszawa
-category: kongres
+category: konferencja
 tags: [Chrystus Król, Tadeusz Guz, Intronizacja, Polska, kongres]
 description: |
   Wystąpienie ks. prof. Tadeusza Guza na Kongresie dla Społecznego Panowania Chrystusa Króla w Warszawie.
