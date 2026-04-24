@@ -14,7 +14,7 @@ parts:
     duration: ""
     analysis: |
       <p>12 kwietnia odbyła się w Krakowie konferencja z udziałem m.in. ks. prof. Tadeusza Guza, Piotra Doerre i Sławomira Skiby, przy okazji obchodów 1000-lecia koronowanie pierwszego polskiego monarchy.</p>
-      <p>W wykładzie ks. prof. Tadeusz Guz (do początku nagrania do 33.25) analizuje genezę władzy w Polsce, porównując królewskość z demokratycznością, podkreślając, że prawdziwa władza wywodzi się z Chrystusa i że polska tradycja opiera się na chrześcijańskich wartościach...</p>
+      <p>W wykładzie ks. prof. Tadeusz Guz (do początku nagrania do 33.25) analizuje genezę władzy w Polsce, porównując królewskość z demokratycznością, podkreślając, że prawdziwa władza wywodzi się z Chrystusa i że polska tradycja opiera się na chrześcijańskich wartościach. Zwraca uwagę na różnice między duchowym wymiarem królewskości a materialistyczną demokratycznością, krytykując wpływ ideologii komunistycznych na współczesne społeczeństwo. Podsumowując, cytuje św. Stanisława Papczyńskiego, podkreślając znaczenie rozwijania boskiej czci i prawowiernej religii w Polsce.</p>
       <p>Z kanału PiotrSkargaTV</p>
 year: 2025
 ---
