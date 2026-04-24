@@ -13,7 +13,8 @@ parts:
     label: Wykład – Miłość jako odpowiedź na antykulturę
     duration: ""
     analysis: |
-      <p>W sobotę 10 maja w Warszawie odbyła się konferencja zorganizowana przez Stowarzyszenie Kultury Chrześcijańskiej im. Ks. Piotra Skargi poświęcona problemowi, jaki nazwał i badał śp. Krzysztof Karoń. "Jak pokonać antykulturę?" - to pytanie, na które odpowiedzi szukali prelegenci...</p>
+      <p>W sobotę 10 maja w Warszawie odbyła się konferencja zorganizowana przez Stowarzyszenie Kultury Chrześcijańskiej im. Ks. Piotra Skargi poświęcona problemowi, jaki nazwał i badał śp. Krzysztof Karoń. "Jak pokonać antykulturę?" - to pytanie, na które odpowiedzi szukali prelegenci i uczestnicy dyskusji, widzący zagrożenia płynące na społeczeństwa państw rozwiniętych w XXI wieku.</p>
+      <p>Ks. prof. Tadeusz Guz omówił metafizyczne fundamenty miłości Boga i bliźniego jako odpowiedź na współczesne problemy kulturowe, podkreślając, że prawdziwa kultura opiera się na Bożej miłości, podczas gdy negacje kulturowe wynikają z wpływu zła.</p>
       <p>Z kanału PSTV Piotr Szlachtowicz</p>
 year: 2025
 ---
