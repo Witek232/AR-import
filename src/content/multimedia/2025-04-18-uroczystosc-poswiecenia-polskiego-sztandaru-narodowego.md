@@ -4,7 +4,7 @@ title: "Uroczystość Poświęcenia Polskiego Sztandaru Narodowego i Akt Introni
 date: 2025-04-18
 dateSortable: "2025-04-18"
 place: Ateny Roztocza
-category: uroczystość
+category: inne
 tags: [Intronizacja, Chrystus Król, Polska, Sztandar Narodowy, Tadeusz Guz, Wielki Piątek]
 description: |
   Akt Intronizacji Jezusa Chrystusa na Króla Polski połączony z poświęceniem Polskiego Sztandaru Narodowego w Atenach Roztocza.
