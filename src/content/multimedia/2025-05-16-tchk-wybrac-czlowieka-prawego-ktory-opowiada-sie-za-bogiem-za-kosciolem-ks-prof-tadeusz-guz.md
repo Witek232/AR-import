@@ -4,7 +4,7 @@ title: "Wybrać człowieka prawego, który opowiada się za Bogiem, za Kościoł
 date: 2025-05-16
 dateSortable: "2025-05-16"
 place: Telewizja Chrystusa Króla
-category: inne
+category: apel
 tags: [wybory, Tadeusz Guz, wartości chrześcijańskie, prezydent, sumienie]
 description: |
   Ks. prof. Tadeusz Guz podkreśla znaczenie wyboru osoby prawej, kierującej się wartościami chrześcijańskimi, na stanowisko prezydenta.
@@ -13,7 +13,8 @@ parts:
     label: Apel przedwyborczy
     duration: ""
     analysis: |
-      <p>Wideo zawiera wypowiedź ks. prof. Tadeusza Guza, który podkreśla znaczenie wyboru osoby prawej, kierującej się wartościami chrześcijańskimi oraz troską o dobro wspólne narodu polskiego i Polonii...</p>
+      <p>Wideo zawiera wypowiedź ks. prof. Tadeusza Guza, który podkreśla znaczenie wyboru osoby prawej, kierującej się wartościami chrześcijańskimi oraz troską o dobro wspólne narodu polskiego i Polonii. Ks. Guz akcentuje konieczność oparcia decyzji politycznych na zasadach sprawiedliwości oraz prawie naturalnym, które wywodzi się od Boga. Wskazuje także na istotę poświęcenia państwa Chrystusowi Królowi.</p>
+      <p>Nie podaje konkretnego nazwiska kandydata, ufając, że wyborcy sami dokonają mądrej i prawej decyzji zgodnej z ich sumieniem. W końcowej części udziela błogosławieństwa i zachęca do refleksji nad wyborem w kontekście wartości chrześcijańskich.</p>
       <p>Z kanału Telewizja Chrystusa Króla</p>
 year: 2025
 ---
