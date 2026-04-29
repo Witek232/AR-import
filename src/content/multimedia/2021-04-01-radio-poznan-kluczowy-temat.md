@@ -14,6 +14,7 @@ parts:
     duration: ""
     analysis: |
       <p>Ks. prof. Tadeusz Guz - Kluczowy Temat - wypowiedź dla Radia Poznań</p>
+      <p>https://radiopoznan.fm/uploads/assets/93lhom6litdt0g3_08_15_kluczowy-_ks_prof_t_guz.mp3</p>
       <p>Radiopoznan.fm</p>
 year: 2021
 ---
