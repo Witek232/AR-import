@@ -133,7 +133,7 @@ const dateDisplay = entry
 
           {parts.length > 0 && (
             <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,4vw,1.85rem);font-weight:400;color:#1A1209;margin-bottom:clamp(1.5rem,3vw,2.5rem); padding-bottom:1rem; border-bottom:1px solid rgba(26,18,9,0.1);">
-              Materiał wideo
+              Nagrania
             </h2>
           )}
 
@@ -141,9 +141,14 @@ const dateDisplay = entry
             const partNum  = i < 9 ? '0' + (i + 1) : String(i + 1);
             const isFirst  = i === 0;
             const isMulti  = parts.length > 1;
-            const thumbSrc = 'https://img.youtube.com/vi/' + part.id + '/maxresdefault.jpg';
-            const errSrc   = 'https://img.youtube.com/vi/' + part.id + '/mqdefault.jpg';
+            
+            const isAudio = !!part.url;
+            const isVideo = !!part.id;
+            
+            const thumbSrc = isVideo ? 'https://img.youtube.com/vi/' + part.id + '/maxresdefault.jpg' : '';
+            const errSrc   = isVideo ? 'https://img.youtube.com/vi/' + part.id + '/mqdefault.jpg' : '';
             const altText  = isMulti ? entry.title + ' — ' + part.label : entry.title;
+            
             return (
               <div style="margin-bottom:clamp(2.5rem,5vw,4rem);">
                 {isMulti && (
@@ -151,33 +156,56 @@ const dateDisplay = entry
                     <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3rem);color:rgba(26,18,9,0.15);line-height:1;">{partNum}</span>
                     <div>
                       <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-weight:400;color:#1A1209;margin-bottom:0.35rem;">{part.label}</h3>
-                      <span style="font-family:'Crimson Pro',serif;font-size:0.85rem;color:rgba(26,18,9,0.45);letter-spacing:0.1em;text-transform:uppercase;">⏱ {part.duration}</span>
+                      {part.duration && (
+                        <span style="font-family:'Crimson Pro',serif;font-size:0.85rem;color:rgba(26,18,9,0.45);letter-spacing:0.1em;text-transform:uppercase;">⏱ {part.duration}</span>
+                      )}
                     </div>
                   </div>
                 )}
+                
                 {part.description && (
                   <p style="font-family:'Crimson Pro',serif;font-size:0.95rem;color:rgba(26,18,9,0.55);margin-bottom:1.25rem;font-style:italic;line-height:1.6;">{part.description}</p>
                 )}
-                <div class="yt-wrap" data-yt-id={part.id} style="position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden;border:1px solid rgba(26,18,9,0.1);">
-                  <img
-                    src={thumbSrc}
-                    alt={altText}
-                    loading={isFirst ? 'eager' : 'lazy'}
-                    class="yt-thumb"
-                    style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s,filter 0.3s;"
-                    onerror={'this.src=\'' + errSrc + '\''}
-                  />
-                  <div class="yt-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:50px;background:rgba(255,0,0,0.9);border-radius:14px;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform 0.2s,background 0.2s;">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
-                  </div>
-                  <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;">
-                    <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">▶ Kliknij aby odtworzyć</span>
-                    <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
-                  </div>
-                </div>
 
-                {/* >>> NOWOŚĆ: Opcjonalny opis pod filmem <<< */}
-                 {part.analysis && (
+                {/* --- WYŚWIETLACZ AUDIO --- */}
+                {isAudio && (
+                  <div class="audio-player-wrapper">
+                    <audio 
+                      controls 
+                      style="width:100%; height:45px; border-radius:30px; outline:none;"
+                      preload="metadata"
+                    >
+                      <source src={part.url} type="audio/mpeg" />
+                      Twoja przeglądarka nie obsługuje odtwarzacza audio.
+                    </audio>
+                  </div>
+                )}
+
+                {/* --- WYŚWIETLACZ WIDEO (YOUTUBE) --- */}
+                {isVideo && (
+                  <div class="yt-wrap" data-yt-id={part.id} style="position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden;border:1px solid rgba(26,18,9,0.1);">
+                    <img
+                      src={thumbSrc}
+                      alt={altText}
+                      loading={isFirst ? 'eager' : 'lazy'}
+                      class="yt-thumb"
+                      style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s,filter 0.3s;"
+                      onerror={'this.src=\'' + errSrc + '\''}
+                    />
+                    <div class="yt-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:50px;background:rgba(255,0,0,0.9);border-radius:14px;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform 0.2s,background 0.2s;">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
+                    </div>
+                    <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;">
+                      <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">▶ Kliknij aby odtworzyć</span>
+                      {part.duration && (
+                        <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* --- OPIS / ANALIZA POD MATERIAŁEM --- */}
+                {part.analysis && (
                   <div class="analysis-block" set:html={part.analysis} />
                 )}
 
@@ -245,7 +273,6 @@ const dateDisplay = entry
   .yt-wrap:hover .yt-thumb { transform: scale(1.02); filter: brightness(0.7); }
   .yt-wrap:hover .yt-play  { background: #ff0000 !important; transform: translate(-50%,-50%) scale(1.08) !important; }
   
-  /* POPRAWKA MINIATURY: Wymuszenie pełnego rozmiaru dla iframe */
   .yt-iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; display:block; }
   
   .nav-link  { display:flex;flex-direction:column;gap:0.3rem;text-decoration:none;color:#1A1209;padding:clamp(0.75rem,2vw,1.25rem);border:1px solid rgba(26,18,9,0.08);transition:all 0.3s ease;background:#F5EDD8; }
@@ -261,7 +288,8 @@ const dateDisplay = entry
     .entry-nav    { grid-template-columns:1fr 1fr !important; }
     .nav-center   { display:none; }
   }
-  /* ── Style dla bloku analysis pod filmem (z :global dla set:html) ── */
+
+  /* ── Style dla bloku analysis ── */
   .analysis-block {
     margin-top: 1.5rem;
     padding: 1.5rem;
@@ -287,6 +315,19 @@ const dateDisplay = entry
   }
   .analysis-block :global(strong) {
     color: rgba(26,18,9,0.85);
+  }
+
+  /* ── Style dla natywnego playera Audio ── */
+  .audio-player-wrapper {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(26,18,9,0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #F5EDD8 0%, #EDE0C4 100%);
+  }
+  .audio-player-wrapper audio {
+    width: 100%;
+    filter: sepia(10%) saturate(80%) hue-rotate(350deg);
   }
 </style>
 
