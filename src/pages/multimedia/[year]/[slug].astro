@@ -167,14 +167,10 @@ const dateDisplay = entry
                   <p style="font-family:'Crimson Pro',serif;font-size:0.95rem;color:rgba(26,18,9,0.55);margin-bottom:1.25rem;font-style:italic;line-height:1.6;">{part.description}</p>
                 )}
 
-                {/* --- WYŚWIETLACZ AUDIO --- */}
+                                {/* --- WYŚWIETLACZ AUDIO --- */}
                 {isAudio && (
                   <div class="audio-player-wrapper">
-                    <audio 
-                      controls 
-                      style="width:100%; height:45px; border-radius:30px; outline:none;"
-                      preload="metadata"
-                    >
+                    <audio controls preload="metadata">
                       <source src={part.url} type="audio/mpeg" />
                       Twoja przeglądarka nie obsługuje odtwarzacza audio.
                     </audio>
@@ -317,17 +313,20 @@ const dateDisplay = entry
     color: rgba(26,18,9,0.85);
   }
 
-  /* ── Style dla natywnego playera Audio ── */
+   /* ── Style dla natywnego playera Audio ── */
   .audio-player-wrapper {
-    margin-bottom: 1rem;
-    border: 1px solid rgba(26,18,9,0.1);
+    margin-bottom: 1.5rem;
+    border: 2px solid rgba(201, 168, 76, 0.4); /* Wyraźna ramka, żeby było widać */
     border-radius: 8px;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, #F5EDD8 0%, #EDE0C4 100%);
+    padding: 1.25rem;
+    background: #F5EDD8;
   }
   .audio-player-wrapper audio {
     width: 100%;
-    filter: sepia(10%) saturate(80%) hue-rotate(350deg);
+    height: 54px; /* Standardowa, bezpieczna wysokość playera */
+    outline: none;
+    border-radius: 30px;
+    /* Usunięto filter - w niektórych przeglądarkach sprawiał problemy z widocznością */
   }
 </style>
 
