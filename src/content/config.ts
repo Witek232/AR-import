@@ -2,10 +2,9 @@ import { defineCollection, z } from 'astro:content';
 
 // ── Multimedia ────────────────────────────────────────────────
 const partSchema = z.object({
-  id:          z.string().optional(), // Zmieniono na opcjonalne (dla YouTube)
-  url:         z.string().url().optional(), // NOWE: dla bezpośrednich linków z audio np. .mp3
+  id:          z.string(),
   label:       z.string(),
-  duration:    z.string().optional(), // Zmieniono na opcjonalne (bo miałeś puste "")
+  duration:    z.string(),
   description: z.string().optional(),
   analysis:    z.string().optional(),
 });
