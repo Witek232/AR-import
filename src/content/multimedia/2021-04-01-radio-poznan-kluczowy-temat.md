@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, Radio Poznań, wywiad]
 description: |
   Wypowiedź ks. prof. Tadeusza Guza dla Radia Poznań w cyklu „Kluczowy Temat”.
 parts:
-  - id: https://radiopoznan.fm/uploads/assets/93lhom6litdt0g3_08_15_kluczowy-_ks_prof_t_guz.mp3
+  - url: https://radiopoznan.fm/uploads/assets/93lhom6litdt0g3_08_15_kluczowy-_ks_prof_t_guz.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
