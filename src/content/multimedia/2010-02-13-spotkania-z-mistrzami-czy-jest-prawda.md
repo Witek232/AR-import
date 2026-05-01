@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, prawda, filozofia, Radio Maryja]
 description: |
   Audycja „Spotkania z mistrzami” – pytanie o prawdę.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2010/02/2010.02.13.szm02.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2010/02/2010.02.13.szm02.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
