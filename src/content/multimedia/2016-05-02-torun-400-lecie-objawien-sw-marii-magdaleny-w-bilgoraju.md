@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, Maria Magdalena, Biłgoraj, objawienia]
 description: |
   Rozmowy niedokończone o 400-leciu objawień św. Marii Magdaleny w Biłgoraju.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2016/05/2016.05.02.-RozmNiedok.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2016/05/2016.05.02.-RozmNiedok.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
