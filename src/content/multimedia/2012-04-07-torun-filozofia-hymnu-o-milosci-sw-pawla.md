@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, św. Paweł, hymn o miłości, Radio Maryja]
 description: |
   Audycja w Radiu Maryja z ks. prof. Tadeuszem Guzem o filozofii Hymnu o Miłości św. Pawła.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2012/04/2012.04.07.rn18.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2012/04/2012.04.07.rn18.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
