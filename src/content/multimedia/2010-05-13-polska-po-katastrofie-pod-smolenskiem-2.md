@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, Smoleńsk, katastrofa, Radio Maryja]
 description: |
   Powtórzenie wypowiedzi dla Radia Maryja o sytuacji Polski po katastrofie smoleńskiej.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2010/05/2010.05.13.akt03.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2010/05/2010.05.13.akt03.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
