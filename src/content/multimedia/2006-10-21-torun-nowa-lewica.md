@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, nowa lewica, Radio Maryja]
 description: |
   Audycja „Rozmowy niedokończone” – nowa lewica.
 parts:
-  - id:: https://www.radiomaryja.pl/wp-content/uploads/2006/10/2006.10.21.rn18.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2006/10/2006.10.21.rn18.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
