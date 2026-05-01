@@ -9,12 +9,12 @@ tags: [Tadeusz Guz, Krzyż, Miłosierdzie Boże, Michał Sopoćko]
 description: |
   Rozmowy niedokończone o Krzyżu jako znaku Miłosierdzia Bożego w myśli bł. Michała Sopoćki.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2015/06/2015.06.20.RozmowyNiedokonczone22.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2015/06/2015.06.20.RozmowyNiedokonczone22.mp3
     label: Część 1
     duration: ""
     analysis: |
       <p>Rozmowy niedokończone - ks. prof. dr hab. Tadeusz Guz - Krzyż Jezusa Chrystusa znakiem Miłosierdzia Bożego w myśli Bł. Michała Sopoćki. cz. 1.</p>
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2015/06/2015.06.20.RozmowyNiedokonczonepo24.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2015/06/2015.06.20.RozmowyNiedokonczonepo24.mp3
     label: Część 2
     duration: ""
     analysis: |
