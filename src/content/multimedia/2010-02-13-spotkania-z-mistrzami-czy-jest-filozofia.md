@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, filozofia, Radio Maryja]
 description: |
   Audycja „Spotkania z mistrzami” – pytanie o istnienie filozofii.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2010/02/2010.02.13.szm01.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2010/02/2010.02.13.szm01.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
