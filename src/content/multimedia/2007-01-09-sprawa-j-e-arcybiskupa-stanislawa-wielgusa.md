@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, Stanisław Wielgus, Radio Maryja]
 description: |
   Komentarz w Radiu Maryja dotyczący sprawy abp. Stanisława Wielgusa.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2007/01/2007.01.09.akt01.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2007/01/2007.01.09.akt01.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
