@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, eurokonstytucja, konferencja]
 description: |
   Wykład wygłoszony przez ks. prof. Tadeusza Guza w Łodzi podczas konferencji zorganizowanej przez posłów do PE Urszulę Krupę i Witolda Tomczaka na temat eurokonstytucji.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2008/01/2008.01.13.guz.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2008/01/2008.01.13.guz.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
