@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, życie, poczęcie, śmierć, Radio Maryja]
 description: |
   Audycja Aktualności dnia o ochronie życia od poczęcia do naturalnej śmierci.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2007/03/2007.03.21.akt02.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2007/03/2007.03.21.akt02.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
