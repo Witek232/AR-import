@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, Polska-Izrael, II wojna światowa, relacje polsko-żydowskie
 description: |
   Wywiad z ks. prof. Tadeuszem Guzem w Polskim Radiu Trójka na temat historii i relacji polsko-izraelskich. Ks. Guz podkreśla, że nie ma dwóch prawd o II wojnie światowej.
 parts:
-  - id: trójka-20180205
+  - url: trójka-20180205
     label: Wywiad w Trójce
     duration: ""
     analysis: |
