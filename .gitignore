@@ -4,3 +4,5 @@ dist/
 .DS_Store
 free-claude-code/
 free-claude-code/
+echo ".astro/" >> .gitignore
+git add .gitignore.astro/

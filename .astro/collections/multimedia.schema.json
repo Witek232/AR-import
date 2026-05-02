@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dateSortable": {
+      "type": "string"
+    },
+    "place": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "wykład",
+        "rozważania",
+        "konferencja",
+        "homilia",
+        "kazanie",
+        "wywiad",
+        "spotkanie",
+        "rozmowa",
+        "rekolekcje",
+        "inne"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "analysis": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "duration"
+        ]
+      }
+    },
+    "year": {
+      "type": "number"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "category",
+    "description",
+    "parts",
+    "year"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "place": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "wyklad",
+        "seminarium",
+        "konferencja",
+        "sympozjum",
+        "warsztaty",
+        "spotkanie"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "upcoming",
+        "past"
+      ]
+    },
+    "languages": {
+      "default": [
+        "PL"
+      ],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hasReport": {
+      "default": false,
+      "type": "boolean"
+    },
+    "reportUrl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "place",
+    "type",
+    "status"
+  ]
+}
