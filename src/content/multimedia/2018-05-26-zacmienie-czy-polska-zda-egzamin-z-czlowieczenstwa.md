@@ -4,7 +4,7 @@ title: "Zaćmienie – czy Polska zda egzamin z człowieczeństwa? – ks. prof.
 date: 2018-05-26
 dateSortable: "2018-05-26"
 place: nieznane
-category: film
+category: inne
 tags: [Tadeusz Guz, ekologia, ideologia, film dokumentalny]
 description: |
   Film dokumentalny z udziałem ks. prof. Tadeusza Guza o wojnie ideologicznej i pseudoekologii.
