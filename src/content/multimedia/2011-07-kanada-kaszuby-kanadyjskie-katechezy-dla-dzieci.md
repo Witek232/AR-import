@@ -4,7 +4,7 @@ title: "Katechezy dla dzieci na Kaszubach Kanadyjskich – ks. prof. Tadeusz Guz
 date: 2011-07-14
 dateSortable: "2011-07-14"
 place: Kaszuby Kanadyjskie (Ontario)
-category: katecheza
+category: inne
 tags: [Tadeusz Guz, katecheza, dzieci, Kaszuby Kanadyjskie]
 description: |
   Katechezy dla dzieci podczas Akcji Letniej na Kaszubach Kanadyjskich.
