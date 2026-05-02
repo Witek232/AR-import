@@ -9,13 +9,13 @@ tags: [Tadeusz Guz, Zwiastowanie, Bóg, rozmowy niedokończone]
 description: |
   Rozmowy niedokończone: Zwiastowanie Pańskie – cud przychodzącego Boga. Z pytaniami słuchaczy.
 parts:
-  - url: bZY6ZQ5YBp4
+  - id: bZY6ZQ5YBp4
     label: Rozmowa (wideo)
     duration: ""
     analysis: |
       <p>Rozmowy niedokończone: Zwiastowanie Pańskie – cud przychodzącego Boga.</p>
       <p>Z kanału Marcin Dybowski</p>
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2020/03/2020.03.25.Rozmowy21.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2020/03/2020.03.25.Rozmowy21.mp3
     label: Pytania słuchaczy (audio)
     duration: ""
     analysis: |
