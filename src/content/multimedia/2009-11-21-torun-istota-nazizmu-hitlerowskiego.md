@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, nazizm, Hitler]
 description: |
   Rozmowy niedokończone – istota nazizmu hitlerowskiego. Część 1 (wideo) i część 2 (audio – pytania słuchaczy).
 parts:
-  - url: otdH70IAgSY
+  - id: otdH70IAgSY
     label: Część 1 (wideo)
     duration: ""
     analysis: |
