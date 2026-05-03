@@ -164,26 +164,27 @@ const filary = [
             <p class="reveal section-label" style="margin-bottom:1rem;">Chronologia</p>
             <h2 class="reveal section-title" style="color:#1A1209;">Droga życia i myśli</h2>
           </div>
-          <div style="max-width:700px; margin:0 auto; position:relative;">
+          {/* Zwiększyłem max-width z 700px na 780px, aby zmieścić szerszą siatkę */}
+          <div style="max-width:780px; margin:0 auto; position:relative;">
             
-            {/* Pionowa linia - 80px (kolumna lat) + 10px (połowa kolumny kropki) = 90px */}
-            <div style="position:absolute; left:90px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
+            {/* Pionowa linia: 150px (kolumna lat) + 12px (połowa kropki 24px) = 162px */}
+            <div style="position:absolute; left:162px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
             
             {timeline.map(item => (
-              <div class="reveal" style="display:grid; grid-template-columns: 80px 20px 1fr; margin-bottom:2rem; position:relative; align-items:start;">
+              <div class="reveal" style="display:grid; grid-template-columns: 150px 24px 1fr; margin-bottom:2rem; position:relative; align-items:start;">
                 
-                {/* 1. Kolumna: Lata (sztywno 80px, tekst zawija się wewnątrz) */}
-                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); font-weight:600; color:#C9A84C; text-align:right; padding-top:0.2rem; padding-right:10px; letter-spacing:0.04em; line-height:1.3;">
+                {/* 1. Kolumna: Lata (150px + padding prawy robiący odstęp od kropki) */}
+                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); font-weight:600; color:#C9A84C; text-align:right; padding-top:0.2rem; padding-right:20px; letter-spacing:0.04em; line-height:1.3; white-space:nowrap;">
                   {item.year}
                 </div>
 
-                {/* 2. Kolumna: Kropka (20px, wyśrodkowana, idealnie na linii 90px) */}
+                {/* 2. Kolumna: Kropka (środek wypada idealnie na linii 162px) */}
                 <div style="display:flex; justify-content:center; padding-top:6px;">
                   <div style="width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1; flex-shrink:0;"></div>
                 </div>
 
-                {/* 3. Kolumna: Treść wydarzenia (reszta dostępnego miejsca) */}
-                <div style="padding-top:0.1rem;">
+                {/* 3. Kolumna: Treść wydarzenia (padding lewy robiący odstęp od kropki) */}
+                <div style="padding-top:0.1rem; padding-left:24px;">
                   <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
                 </div>
 
