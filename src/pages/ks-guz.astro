@@ -5,10 +5,10 @@ import Layout from '../layouts/Layout.astro';
 const timeline = [
   { year: '1959-02-07',      event: 'Urodziny w Zwierzyńcu' },
   { year: '1979',            event: 'matura' },
-  { year: '1979 – 1984',    event: 'Studia teologii na Wydziale Teologii Katolickiej KUL – Magister teologii' },
+  { year: '1979 – 1984',   event: 'Studia teologii na Wydziale Teologii Katolickiej KUL – Magister teologii' },
   { year: '1984-12-16',     event: 'Święcenia kapłańskie w Lublinie' },
-  { year: '1988 – 1989',    event: 'Studia filozofii na Wydziale Filozofii Chrześcijańskiej KUL' },
-  { year: '1989 – 1994',    event: 'Studia filozofii i socjologii na Gustav-Siewerth-Akademie w RFN – Magister filozofii i socjologii' },
+  { year: '1988 – 1989',   event: 'Studia filozofii na Wydziale Filozofii Chrześcijańskiej KUL' },
+{ year: '1989 – 1994',     event: 'Studia filozofii i socjologii na Gustav-Siewerth-Akademie w RFN – Magister filozofii i socjologii' },
   { year: '1996',            event: 'Doktor nauk humanistycznych w zakresie filozofii na Wydziale Filozofii Chrześcijańskiej Akademii Teologii Katolickiej w Warszawie' },
   { year: '1996 – 2001',    event: 'Asystent naukowy na Gustav-Siewerth-Akademie w RFN' },
   { year: '2001',            event: 'Habilitacja z filozofii na Wydziale Filozofii Chrześcijańskiej Uniwersytetu Kard. S. Wyszyńskiego w Warszawie' },
@@ -167,22 +167,12 @@ const filary = [
           <div style="max-width:700px; margin:0 auto; position:relative;">
             <div style="position:absolute; left:90px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
             {timeline.map(item => (
-              <div class="reveal" style="display:flex; gap:2rem; margin-bottom:2rem; align-items:flex-start;">
-                
-                {/* Kolumna roku + kropka w wspólnym kontekście pozycjonowania */}
-                <div style="position:relative; min-width:70px; text-align:right;">
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); font-weight:600; color:#C9A84C; padding-top:0.2rem; letter-spacing:0.04em;">
-                    {item.year}
-                  </div>
-                  {/* Kropka pozycjonowana względem kolumny roku */}
-                  <div style="position:absolute; right:-24px; top:6px; width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1;"></div>
-                </div>
-                
-                {/* Treść wydarzenia */}
-                <div style="padding-top:0.1rem;">
+              <div class="reveal" style="display:flex; gap:2rem; margin-bottom:2rem; position:relative; align-items:flex-start;">
+                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.85rem,2vw,1rem); font-weight:600; color:#C9A84C; min-width:70px; text-align:right; padding-top:0.2rem; letter-spacing:0.04em;">{item.year}</div>
+                <div style="position:absolute; left:82px; top:6px; width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1;"></div>
+                <div style="padding-left:1.5rem; padding-top:0.1rem;">
                   <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
                 </div>
-                
               </div>
             ))}
           </div>
