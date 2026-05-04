@@ -4,7 +4,7 @@ title: "Ostateczny cel marksizmu. Raj czy piekło na ziemi? – ks. prof. Tadeus
 date: 2018-01-20
 dateSortable: "2018-01-20"
 place: Wrocław
-category: debata
+category: rozmowa
 tags: [Tadeusz Guz, marksizm, debata, Karoń]
 description: |
   Debata z udziałem ks. prof. Tadeusza Guza i Krzysztofa Karonia.
