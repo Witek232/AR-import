@@ -1,3 +1,4 @@
+---
 slug: 2016-04-12-bezkarnosc-to-droga-do-deprawacji
 title: "Bezkarność to droga do deprawacji – ks. prof. Tadeusz Guz"
 date: 2016-04-12
