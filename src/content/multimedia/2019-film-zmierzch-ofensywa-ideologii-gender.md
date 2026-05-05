@@ -4,7 +4,7 @@ title: "Zmierzch. Ofensywa ideologii gender – film Telewizji TRWAM"
 date: 2019-05-24
 dateSortable: "2019-05-24"
 place: Telewizja TRWAM
-category: film
+category: inne
 tags: [Tadeusz Guz, gender, film, TRWAM]
 description: |
   Film Telewizji TRWAM pod patronatem merytorycznym ks. prof. Tadeusza Guza.
