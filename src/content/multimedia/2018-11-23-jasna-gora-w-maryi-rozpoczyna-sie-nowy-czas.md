@@ -2,7 +2,7 @@
 slug: 2018-11-23-jasna-gora-w-maryi-rozpoczyna-sie-nowy-czas
 title: "W Maryi rozpoczyna się nowy czas – ks. prof. Tadeusz Guz"
 date: 2018-11-23
-dateSortable: 2018-11-23
+dateSortable: "2018-11-23"
 place: Jasna Góra
 category: rekolekcje
 tags: [Tadeusz Guz, Maryi, Rozpoczyna]
