@@ -2,7 +2,7 @@
 slug: 2019-03-10-do-04-17-warszawa-kazania-pasyjne-siedem-ostatnich-slow-chrystusa
 title: "Kazania pasyjne - Siedem ostatnich słów Chrystusa – ks. prof. Tadeusz Guz"
 date: 2019-03-10
-dateSortable: 2019-03-10
+dateSortable: "2019-03-10"
 place: Warszawa
 category: kazanie
 tags: [Tadeusz Guz, Kazania, Pasyjne]
