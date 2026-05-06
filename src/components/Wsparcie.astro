@@ -9,29 +9,38 @@ const accounts = [
   {
     label: 'Przelewy krajowe',
     currency: 'PLN', currencyName: 'Złoty polski', flag: '🇵🇱',
-    bank: 'Bank PKO BP',
-    iban: 'PL12 3456 7890 1234 5678 9012 3456',
-    ibanRaw: 'PL12345678901234567890123456',
-    bic: 'BPKOPLPW', beneficiary: 'Fundacja Ateny Roztocza',
+    bank: 'PKO BanK Polski S.A.',
+    iban: 'PL08 1020 5385 0000 9002 0167 7376',
+    ibanRaw: 'PL08102053850000900201677376',
+    bic: 'BPKOPLPW', beneficiary: 'Fundacja Ateny Roztocza: Deo, Reginae Poloniae et Patriae',
     note: 'Przelewy krajowe i SEPA', color: '#C9A84C',
   },
   {
     label: 'Przelewy europejskie',
     currency: 'EUR', currencyName: 'Euro', flag: '🇪🇺',
     bank: 'Bank PKO BP',
-    iban: 'PL98 7654 3210 9876 5432 1098 7654',
-    ibanRaw: 'PL98765432109876543210987654',
+    iban: 'PL16 1020 5385 0000 9602 0169 0130',
+    ibanRaw: 'PL16102053850000960201690130',
     bic: 'BPKOPLPW', beneficiary: 'Fundacja Ateny Roztocza',
     note: 'Dla darczyńców z krajów strefy euro', color: '#4C7BC9',
   },
   {
-    label: 'Przelewy z USA i Kanady',
+    label: 'Przelewy z USA',
     currency: 'USD', currencyName: 'Dolar amerykański', flag: '🇺🇸',
     bank: 'Bank PKO BP',
-    iban: 'PL76 5432 1098 7654 3210 9876 5432',
-    ibanRaw: 'PL76543210987654321098765432',
+    iban: 'PL34 1020 5385 0000 9102 0169 0148',
+    ibanRaw: 'PL34102053850000910201690148',
     bic: 'BPKOPLPW', swift: 'PKOPPLPW', beneficiary: 'Fundacja Ateny Roztocza',
-    note: 'Dla darczyńców ze Stanów Zjednoczonych i Kanady', color: '#7A1C2E',
+    note: 'Dla darczyńców ze Stanów Zjednoczonych', color: '#7A1C2E',
+  },
+{
+    label: 'Przelewy z Kanady',
+    currency: 'USD', currencyName: 'Dolar kanadyjski', flag: '🇺🇸',
+    bank: 'Bank PKO BP',
+    iban: 'PL51 1020 5385 0000 9702 0174 8524',
+    ibanRaw: 'PL51102053850000970201748524',
+    bic: 'BPKOPLPW', swift: 'PKOPPLPW', beneficiary: 'Fundacja Ateny Roztocza',
+    note: 'Dla darczyńców z Kanady', color: '#98a82c',
   },
 ];
 ---
@@ -65,8 +74,10 @@ const accounts = [
         Wesprzyj Ateny Roztocza
       </h2>
       <p class="reveal" style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.5vw,1.15rem); color:rgba(26,18,9,0.6); max-width:560px; margin:0 auto; line-height:1.75;">
-        Twoje wsparcie pozwala nam kontynuować dzieło budowania mostów
-        między starożytnością a współczesnością chrześcijańską.
+        Ateny Roztocza to dzieło mające służyć tym wszystkim, którym PRAWDA, DOBRO i PIĘKNO są bliskie.
+        Dzięki Twojej hojności ta enklawa prawdziwie wolnej myśli, kultury i sztuki może się rozwijać.
+        Zapraszamy Cię do współpracy i wsparcia naszych działań.
+        Możesz to uczynić w sposób duchowy - modlitwą, a także finansowo.
       </p>
     </div>
 
@@ -173,7 +184,7 @@ const accounts = [
       </svg>
       <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.9rem,2.2vw,0.95rem); line-height:1.7; color:rgba(26,18,9,0.65); font-style:italic; margin:0;">
         W tytule przelewu prosimy wpisać:
-        <strong style="font-style:normal; color:#1A1209;">„Darowizna — Ateny Roztocza"</strong>.
+        <strong style="font-style:normal; color:#1A1209;">„Darowizna na cele statutowe"</strong>.
         Dziękujemy za każde wsparcie — nawet drobna wpłata pozwala nam
         kontynuować misję przez kolejne lata.
       </p>
