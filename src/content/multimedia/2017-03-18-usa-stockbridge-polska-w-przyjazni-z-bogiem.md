@@ -1,8 +1,8 @@
 ---
-slug: 2017-03-18-usa-stockbridge-polska-w-przyjazni-z-bogiem
+slug: 2018-03-18-usa-stockbridge-polska-w-przyjazni-z-bogiem
 title: "Polska w przyjaźni z Bogiem – homilia – ks. prof. Tadeusz Guz"
-date: 2017-03-18
-dateSortable: "2017-03-18"
+date: 2018-03-18
+dateSortable: "2018-03-18"
 place: Stockbridge (Sanktuarium Miłosierdzia Bożego)
 category: homilia
 tags: [Tadeusz Guz, Polska, przyjaźń z Bogiem, homilia]
