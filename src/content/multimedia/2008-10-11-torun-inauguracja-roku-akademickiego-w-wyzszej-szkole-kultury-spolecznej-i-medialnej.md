@@ -9,7 +9,7 @@ tags: [Tadeusz Guz, inauguracja, WSKSiM, Logos]
 description: |
   Wykład inauguracyjny „Umiłowanie Logosu – istota nauki”.
 parts:
-  - id: https://www.radiomaryja.pl/wp-content/uploads/2008/10/2008.10.11.tr8.mp3
+  - url: https://www.radiomaryja.pl/wp-content/uploads/2008/10/2008.10.11.tr8.mp3
     label: Nagranie audio
     duration: ""
     analysis: |
