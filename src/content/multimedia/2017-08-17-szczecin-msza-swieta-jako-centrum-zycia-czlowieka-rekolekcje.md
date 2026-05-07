@@ -1,5 +1,5 @@
 ---
-slug: 2017-08-17-szczecin-msza-swieta-jako-centrum-zycia-czlowieka-rekolekcje
+slug: 2018-08-17-szczecin-msza-swieta-jako-centrum-zycia-czlowieka-rekolekcje
 title: "Msza Święta jako centrum życia człowieka - rekolekcje – ks. prof. Tadeusz Guz"
 date: 2017-08-17
 dateSortable: "2017-08-17"
