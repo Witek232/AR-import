@@ -13,6 +13,7 @@ const pillars = [
     symbol:      '✝',
     description: 'Duchowa kolebka chrześcijaństwa. Tradycja biblijna i patrystyczna jako fundament tożsamości europejskiej. Objawienie, które weszło w historię i kulturę.',
     accentColor: '#9E2A40',
+    link: '/artykuly/jerozolima', // ZMIEŃ NA PRAWIDŁOWY LINK
   },
   {
     numeral:     'II',
@@ -21,6 +22,7 @@ const pillars = [
     symbol:      'Φ',
     description: 'Filozofia i rozum. Logos grecki jako język, którym myśl chrześcijańska wyraziła swe treści. Dialog wiary i rozumu, sokratejski nakaz poznania siebie.',
     accentColor: '#C9A84C',
+    link: '/artykuly/ateny', // ZMIEŃ NA PRAWIDŁOWY LINK
   },
   {
     numeral:     'III',
@@ -29,6 +31,7 @@ const pillars = [
     symbol:      'Σ',
     description: 'Prawo, instytucje i sztuka organizacji życia zbiorowego. Cywilizacja łacińska jako forma, w której chrześcijaństwo ukształtowało Europę przez dwa tysiąclecia.',
     accentColor: '#6B8A4E',
+    link: '/artykuly/roma', // ZMIEŃ NA PRAWIDŁOWY LINK
   },
 ];
 ---
@@ -62,9 +65,10 @@ const pillars = [
     <!-- Cards -->
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:clamp(1.25rem,3vw,2rem);">
       {pillars.map((pillar, i) => (
-        <div
+        <a
+          href={pillar.link}
           class={`reveal reveal-delay-${i + 1} card-hover gold-border-hover`}
-          style="background:rgba(255,255,255,0.025); border:1px solid rgba(201,168,76,0.14); padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:default;"
+          style="display:block; background:rgba(255,255,255,0.025); border:1px solid rgba(201,168,76,0.14); padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition: background 0.3s ease;"
         >
           <!-- Latin numeral watermark -->
           <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:${pillar.accentColor}; opacity:0.18; position:absolute; top:0.75rem; right:1.25rem; line-height:1; letter-spacing:-0.04em; pointer-events:none; user-select:none;`}>
@@ -93,7 +97,14 @@ const pillars = [
           <p style="font-family:'Crimson Pro',serif; font-size:clamp(1.0625rem,2.5vw,1.125rem); line-height:1.82; color:rgba(245,237,216,0.68);">
             {pillar.description}
           </p>
-        </div>
+
+          <!-- Czytaj więcej -->
+          <div style="margin-top:clamp(1.5rem,3vw,2rem); display:flex; justify-content:flex-end;">
+            <span style={`font-family:'Crimson Pro',serif; font-size:0.9rem; color:${pillar.accentColor}; letter-spacing:0.04em; border-bottom:1px solid ${pillar.accentColor}; padding-bottom:2px; opacity:0.8; transition: opacity 0.3s ease;`}>
+              Czytaj więcej →
+            </span>
+          </div>
+        </a>
       ))}
     </div>
 
