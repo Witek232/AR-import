@@ -16,6 +16,11 @@ parts:
       <p>IX Toruńskie Sympozjum poświęcone Alternatywnym Ruchom Religijnym i Religiom.</p>
       <p>Z jakich źródeł ideologicznych wypływa współczesny potop przemocy i agresji?</p>
       <p>Wykład ks. prof. dr hab. Tadeusza Guza na Wydziale Teologicznym UMK w Toruniu</p>
+  - id: igBDx5IbdPI
+    label: Pytania po wykładzie 1
+    duration: ""
+    analysis: |
+      <p>Pytania po wykładzie 1</p>
       <p>Z kanału Apologeticum TV</p>
 year: 2017
 ---
