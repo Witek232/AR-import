@@ -24,12 +24,15 @@ export type ArticlesBySource = {
   totalArticles: number;
 };
 
-// Funkcja przetwarzająca pojedynczy artykuł (dodaje logiczny href i atrybuty)
+// Funkcja przetwarzająca pojedynczy artykuł (dodaje logiczny href)
 function processArticle(art: CollectionEntry<'articles'>): ProcessedArticle {
   const isExternal = !!art.data.externalLink;
+  // W nowym Astro używamy art.id. Usuwamy rozszerzenie .md, aby link był czysty
+  const slug = art.id.replace(/\.md$/, '');
+  
   return {
     ...art,
-    href: isExternal ? art.data.externalLink! : `/publikacje/${art.slug}`,
+    href: isExternal ? art.data.externalLink! : `/publikacje/${slug}`,
     target: isExternal ? '_blank' : undefined,
     rel: isExternal ? 'noopener noreferrer' : undefined,
   };
