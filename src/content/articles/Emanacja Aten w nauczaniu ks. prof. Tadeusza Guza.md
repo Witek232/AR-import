@@ -1,9 +1,9 @@
 ---
 title: "Emanacja Aten w nauczaniu ks. prof. Tadeusza Guza"
-description: "Ateny jako kolebka filozofii i nauki w nauczaniu ks. prof. Tadeusza Guza oraz ich wcielenie w projekcie Ateny Roztocza."
-author: "Opracowanie na podstawie nauczania ks. prof. Tadeusza Guza"
-date: "2026-05-12"
+dateDisplay: "2026-05-12"
+dateSortable: "2026-05-12"
 source: "Filary"
+excerpt: "Ateny jako kolebka filozofii i nauki w nauczaniu ks. prof. Tadeusza Guza oraz ich wcielenie w projekcie Ateny Roztocza."
 tags:
   - Ateny
   - Tadeusz Guz
