@@ -13,7 +13,6 @@ const partSchema = z.object({
 });
 
 const multimediaCollection = defineCollection({
-  // UWAGA: brak type: 'content' – usuwamy, używamy loadera
   loader: glob({ pattern: '**/*.md', base: './src/content/multimedia' }),
   schema: z.object({
     title:        z.string(),
@@ -44,7 +43,22 @@ const wydarzeniaCollection = defineCollection({
   }),
 });
 
+// ── Artykuły / Publikacje ─────────────────────────────────────
+const articlesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+  schema: z.object({
+    title:        z.string(),
+    dateDisplay:  z.string(),                                 // np. "15 marca 2024" (do wyświetlenia)
+    dateSortable: z.string(),                                 // np. "2024-03-15" (do sortowania, ZAWSZE string!)
+    source:       z.enum(['Nasz Dziennik', 'Niedziela', 'Inne', 'Filary']),
+    excerpt:      z.string(),
+    externalLink: z.string().optional(),                      // Jeśli podasz link (np. do gazety), ominie wewnętrzną podstronę
+    duration:     z.string().optional(),                      // Opcjonalnie, np. dla audycji radiowych
+  }),
+});
+
 export const collections = {
   multimedia: multimediaCollection,
   wydarzenia: wydarzeniaCollection,
+  articles: articlesCollection,
 };
