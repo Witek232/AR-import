@@ -1,4 +1,5 @@
 ---
+slug: "emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza"
 title: "Emanacja Jerozolimy w nauczaniu ks. prof. Tadeusza Guza"
 dateDisplay: "12 maj 2026"
 dateSortable: "2025-05-12"
@@ -10,9 +11,7 @@ excerpt: "Jerozolima jako źródło Objawienia i centrum historii zbawienia w na
 
 ## Jerozolima jako źródło Objawienia
 
-Spośród trzech wielkich filarów cywilizacji europejskiej — Aten, Rzymu i Jerozolimy — to właśnie Jerozolima zajmuje miejsce najwyższe i najbardziej fundamentalne. Ateny dały filozofię i naukę, Rzym — prawo, lecz Jerozolima przyniosła to, czego ani grecki rozum, ani rzymska jurydyczna precyzja nie były w stanie same osiągnąć: pełnię Bożego Objawienia.
-
-W nauczaniu ks. prof. Tadeusza Guza Jerozolima nie jest jedynie geograficznym ani historycznym punktem odniesienia — jest symbolem spotkania Boga z człowiekiem, spotkania, które zmieniło bieg dziejów i nadało ostateczny sens ludzkiemu istnieniu.
+Spośród trzech wielkich filarów cywilizacji europejskiej — Aten, Rzymu i Jerozolimy — to właśnie Jerozolima zajmuje miejsce najwyższe i najbardziej fundamentalne. Ateny dały filozofię i naukę, Rzym — prawo, lecz Jerozolima przyniosła to, czego ani grecki rozum, ani rzymska jurydyczna precyzja nie były w stanie same osiągnąć: pełnię Bożego Objawienia. W nauczaniu ks. prof. Tadeusza Guza Jerozolima nie jest jedynie geograficznym ani historycznym punktem odniesienia — jest symbolem spotkania Boga z człowiekiem, spotkania, które zmieniło bieg dziejów i nadało ostateczny sens ludzkiemu istnieniu.
 
 ---
 
@@ -30,15 +29,13 @@ Grecka filozofia odkryła Absolut, lecz nie znała jego imienia. Dopiero Jerozol
 
 ## Bóg Objawiony — Prawda i Miłość zarazem
 
-Centralną nowością, którą Jerozolima wnosi w dzieje myśli ludzkiej, jest objawienie Boga nie tylko jako najwyższej Prawdy i Mądrości — co odkryli już Grecy — lecz jako Miłości. To połączenie zmienia wszystko: filozofię, etykę, rozumienie człowieka i cel jego istnienia.
+Centralną nowością, którą Jerozolima wnosi w dzieje myśli ludzkiej, jest objawienie Boga nie tylko jako najwyższej Prawdy i Mądrości — co odkryli już Grecy — lecz jako Miłości. To połączenie zmienia wszystko: filozofię, etykę, rozumienie człowieka i cel jego istnienia:
 
 > „(...) Dopiero chrześcijańska filozofia, szeroko pojęta, nawiązująca do rozumienia Boga – wprawdzie jako jednego, ale istniejącego w trzech osobach, Ojca, Syna i Ducha Świętego jako zarazem najwyższa Prawda i najwyższa Miłość – otworzyła przed rozumem ludzkim fascynujące przestrzenie systematycznego namysłu nad Bogiem jako miłością i człowiekiem, którego najważniejszym wymiarem bytowania jest stać się istotą miłującą. (...)"
 
 Ks. Guz podkreśla, że starożytni — mimo całej swej genialności — nie odkryli tego pomostu:
 
 > „(...) Starożytni Grecy i Rzymianie, nie do końca wiedzieli, co wynika z tego, że istnieje Pan Bóg, który jest najdoskonalszą istotą, który jest samą Prawdą i samą Mądrością. Co z tego wynika? Oni nie odnaleźli tego pomostu do miłości Boga. A my, dzieci Boże, znający Objawionego Boga, wiemy doskonale: nasz Pan Bóg to nie tylko wiekuista Prawda, to nie tylko wiekuisty Rozum, który sam jest absolutną prawdą i każdą prawdę istniejącą zna absolutnie doskonale. Nasz Pan Bóg jest także w swojej bytowości odwieczną wolną istotą, o wolnej woli, która wiecznie jest spełniona jako Miłość. (...)"
-
----
 
 ## Jezus Chrystus — klucz do rozumienia rzeczywistości
 
@@ -66,7 +63,7 @@ Krzyż Chrystusa jest dla ks. Guza nie tylko wydarzeniem historycznym, lecz wiec
 
 ## Objawienie a pełne rozumienie człowieka
 
-Jerozolima przynosi nie tylko prawdę o Bogu, lecz także pełną prawdę o człowieku — prawdę, której ani grecka, ani rzymska filozofia nie były w stanie same osiągnąć.
+Jerozolima przynosi nie tylko prawdę o Bogu, lecz także pełną prawdę o człowieku — prawdę, której ani grecka, ani rzymska filozofia nie były w stanie same osiągnąć. Ks. Guz wskazuje kolejne wymiary tej nowości.
 
 ### Nieśmiertelność całego człowieka
 
@@ -174,21 +171,17 @@ Jerozolima jako symbol Bożego Objawienia Starego i Nowego Testamentu jest pierw
 
 > „Ateny Roztocza są projektem-syntezą Jerozolimy jako symbolu Bożego Objawienia Starego i Nowego Testamentu, antyku ze starożytnej Grecji jako kolebki filozofii i nauki w ogóle, starożytnego Rzymu z prawem rzymskim zdumiewająco wiernym prawu naturalnemu i zarazem stolicy św. Kościoła katolickiego naszego Pana Jezusa Chrystusa, jako prawdziwego Boga i zarazem prawdziwego Człowieka, opartego z woli Jego Boskiego Założyciela na Kolegium Apostołów ze św. Piotrem na czele."
 
-Wymownym wyrazem tej hierarchii jest fakt, że pierwszą figurą witającą wchodzących do centrum jest figura Chrystusa Króla — Wcielonego Logosu, który jest kluczem do rozumienia zarówno filozofii greckiej, jak i prawa rzymskiego.
-
-Na fasadzie wschodniej Domu Filozofii Starożytnej zgromadzono kolekcję figur postaci ze Starego Testamentu — od Adama i Ewy, przez patriarchów i proroków, aż po Jana Chrzciciela jako ostatniego proroka.
-
-Kaplica Królowej Polski, wzniesiona na kształt statku-arki, jest kopią kapliczki z Gietrzwałdu — miejsca objawień maryjnych. Ogród Różańcowy z dwudziestoma tajemnicami odlanymi w brązie zamknięty będzie koroną Matki Bożej Królowej Polski. Nad całością czuwać będzie figura Jezusa Króla Wszechświata i Króla Miłosierdzia — centrum i zwieńczenie całego dzieła.
+Wymownym wyrazem tej hierarchii jest fakt, że pierwszą figurą witającą wchodzących do centrum jest figura Chrystusa Króla — Wcielonego Logosu, który jest kluczem do rozumienia zarówno filozofii greckiej, jak i prawa rzymskiego. Na fasadzie wschodniej Domu Filozofii Starożytnej zgromadzono kolekcję figur postaci ze Starego Testamentu — od Adama i Ewy, przez patriarchów i proroków, aż po Jana Chrzciciela jako ostatniego proroka. Kaplica Królowej Polski, wzniesiona na kształt statku-arki, jest kopią kapliczki z Gietrzwałdu — miejsca objawień maryjnych. Ogród Różańcowy z dwudziestoma tajemnicami odlanymi w brązie zamknięty będzie koroną Matki Bożej Królowej Polski. Nad całością czuwać będzie figura Jezusa Króla Wszechświata i Króla Miłosierdzia — centrum i zwieńczenie całego dzieła.
 
 ---
 
 ## Podsumowanie
 
-Nauczanie ks. prof. Tadeusza Guza o Jerozolimie to nie akademicki wykład z historii religii — to żywe świadectwo człowieka, który przez dziesięciolecia studiował dzieje myśli ludzkiej po to, by odkryć, gdzie leży jej ostateczne źródło i cel.
+Nauczanie ks. prof. Tadeusza Guza o Jerozolimie to nie akademicki wykład z historii religii — to żywe świadectwo człowieka, który przez dziesięciolecia studiował dzieje myśli ludzkiej po to, by odkryć, gdzie leży jej ostateczne źródło i cel. Jerozolima jako symbol Bożego Objawienia jest dla ks. Guza odpowiedzią na wszystkie pytania, które Ateny i Rzym zdołały postawić, lecz nie potrafiły samodzielnie rozwiązać. Logos odkryty przez Greków stał się ciałem w Jerozolimie. Prawo poznane przez Rzymian zostało wypełnione i przekroczone przez Miłość, która oddała się za człowieka na krzyżu. Człowiek, którego naturę opisała filozofia antyczna, otrzymał w Objawieniu pełnię prawdy o sobie samym — prawdę o swoim Boskim pochodzeniu, o swojej godności jako osoby, o swoim powołaniu do wieczności i o jedynej drodze, która tam prowadzi: przez Jezusa Chrystusa, z Jezusem Chrystusem i w Jezusie Chrystusie.
 
-Jerozolima jako symbol Bożego Objawienia jest dla ks. Guza odpowiedzią na wszystkie pytania, które Ateny i Rzym zdołały postawić, lecz nie potrafiły samodzielnie rozwiązać.
+---
 
-Logos odkryty przez Greków stał się ciałem w Jerozolimie. Prawo poznane przez Rzymian zostało wypełnione i przekroczone przez Miłość, która oddała się za człowieka na krzyżu. Człowiek, którego naturę opisała filozofia antyczna, otrzymał w Objawieniu pełnię prawdy o sobie samym — prawdę o swoim Boskim pochodzeniu, o swojej godności jako osoby, o swoim powołaniu do wieczności i o jedynej drodze, która tam prowadzi: przez Jezusa Chrystusa, z Jezusem Chrystusem i w Jezusie Chrystusie.
+*Cytaty pochodzą z audycji „Rozmowy Niedokończone z ks. prof. Tadeuszem Guzem" emitowanych w Radio Maryja i TV Trwam oraz z innych publicznych wystąpień ks. prof. Tadeusza Guza. Zestawienie cytatów i kontekst na podstawie tekstu Aldony Ciborowskiej i Edwarda Małachowskiego.*
 
 ---
 
