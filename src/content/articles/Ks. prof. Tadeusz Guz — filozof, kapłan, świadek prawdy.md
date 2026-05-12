@@ -1,8 +1,8 @@
 ---
 title: "Ks. prof. Tadeusz Guz — filozof, kapłan, świadek prawdy"
-dateDisplay: "2024"
-dateSortable: "2024-01-01"
-source: "Inne"
+dateDisplay: "12 maj 2026"
+dateSortable: "2026-05-12"
+source: "Filary"
 excerpt: "Filozof, kapłan, świadek prawdy. Wizytka w biografii ks. prof. Tadeusza Guza — od korzeni na Roztoczu, przez duchową więź z bł. ks. Jerzym Popiełuszką, lata badań w Niemczech, aż po budowę „Aten Roztocza” i posługę głoszenia prawdy."
 ---
 
