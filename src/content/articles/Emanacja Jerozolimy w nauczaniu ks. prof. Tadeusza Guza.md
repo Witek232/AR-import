@@ -1,7 +1,7 @@
 ---
 title: "Emanacja Jerozolimy w nauczaniu ks. prof. Tadeusza Guza"
-dateDisplay: "2024"
-dateSortable: "2024-01-01"
+dateDisplay: "12 maj 2026"
+dateSortable: "2025-05-12"
 source: "Filary"
 excerpt: "Jerozolima jako źródło Objawienia i centrum historii zbawienia w nauczaniu ks. prof. Tadeusza Guza. O relacji między Atenami, Rzymem i Jerozolimą, o Chrystusie jako Logosie wcielonym oraz o prawdzie, miłości i powołaniu człowieka."
 ---
