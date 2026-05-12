@@ -2,16 +2,21 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
-// BARDZO WAŻNE: Ta funkcja mówi Astro, dla jakich artykułów ma wygenerować podstrony
+// Funkcja generująca statyczne strony dla każdego artykułu
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
-  return articles.map(article => ({
-    params: { slug: article.slug },
-    props: { article },
-  }));
+  return articles.map(article => {
+    // W nowym Astro używamy article.id. Usuwamy rozszerzenie .md, aby slug był czysty (np. "tytul-artykulu")
+    const slug = article.id.replace(/\.md$/, '');
+    
+    return {
+      params: { slug: slug },
+      props: { article },
+    };
+  });
 }
 
-// Pobieramy artykuł przekazany w props (z funkcji wyżej)
+// Pobieramy artykuł przekazany w props
 const { article } = Astro.props;
 const { Content } = await render(article);
 ---
