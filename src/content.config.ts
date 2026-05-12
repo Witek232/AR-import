@@ -4,8 +4,8 @@ import { glob } from 'astro/loaders';
 
 // ── Multimedia ────────────────────────────────────────────────
 const partSchema = z.object({
-  id:          z.string().optional(),   // opcjonalne, jak wcześniej
-  url:         z.string().url().optional(), // opcjonalne, dla linków do plików
+  id:          z.string().optional(),
+  url:         z.string().url().optional(),
   label:       z.string(),
   duration:    z.string().optional(),
   description: z.string().optional(),
@@ -48,12 +48,15 @@ const articlesCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: z.object({
     title:        z.string(),
-    dateDisplay:  z.string(),                                 // np. "15 marca 2024" (do wyświetlenia)
-    dateSortable: z.string(),                                 // np. "2024-03-15" (do sortowania, ZAWSZE string!)
+    dateDisplay:  z.string(),
+    dateSortable: z.string(),
     source:       z.enum(['Nasz Dziennik', 'Niedziela', 'Inne', 'Filary']),
     excerpt:      z.string(),
-    externalLink: z.string().optional(),                      // Jeśli podasz link (np. do gazety), ominie wewnętrzną podstronę
-    duration:     z.string().optional(),                      // Opcjonalnie, np. dla audycji radiowych
+    externalLink: z.string().optional(),
+    duration:     z.string().optional(),
+    // NOWE POLA DLA CYKLI:
+    cycle:        z.string().optional(),       // Nazwa cyklu, np. "Sekrety Różańca"
+    cycleOrder:   z.number().optional(),       // Kolejność w cyklu, np. 1, 2, 3
   }),
 });
 
