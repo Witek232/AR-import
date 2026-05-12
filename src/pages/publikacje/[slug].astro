@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+// Pobieramy dynamiczny parametr z URL (np. "artykul-o-rozancu")
+const { slug } = Astro.params;
+
+// Szukamy artykułu w bazie
+const article = await getCollection('articles', ({ id }) => id === slug);
+
+// Jeśli nie ma takiego artykułu, zwracamy błąd 404
+if (!article || article.length === 0) {
+  return Astro.redirect('/404');
+}
+
+const entry = article[0];
+const { Content } = await render(entry);
+---
+
+<Layout title={entry.data.title} description={entry.data.excerpt}>
+  <div style="max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem;">
+    
+    <header style="margin-bottom: 2rem; border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 1.5rem;">
+      <p style="font-family:'Crimson Pro',serif; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: #C9A84C; margin-bottom: 0.5rem;">
+        {entry.data.dateDisplay} · {entry.data.source}
+      </p>
+      <h1 style="font-family:'Cormorant Garamond',serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; color: #1A1209; line-height: 1.2; margin: 0;">
+        {entry.data.title}
+      </h1>
+    </header>
+
+    <article style="font-family: 'Crimson Pro', serif; font-size: 1.1rem; line-height: 1.8; color: rgba(26,18,9,0.85);">
+      <Content />
+    </article>
+
+    {/* Jeśli artykuł ma link zewnętrzny, wyświetlamy przycisk przenoszący do źródła */}
+    {entry.data.externalLink && (
+      <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(26,18,9,0.1); text-align: center;">
+        <a href={entry.data.externalLink} target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 0.75rem 2rem; background: #C9A84C; color: #fff; text-decoration: none; font-family: 'Crimson Pro',serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem;">
+          Przejdź do oryginalnego artykułu →
+        </a>
+      </div>
+    )}
+  </div>
+</Layout>
