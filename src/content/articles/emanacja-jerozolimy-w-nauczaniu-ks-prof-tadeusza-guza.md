@@ -7,8 +7,6 @@ source: "Filary"
 excerpt: "Jerozolima jako źródło Objawienia i centrum historii zbawienia w nauczaniu ks. prof. Tadeusza Guza. O relacji między Atenami, Rzymem i Jerozolimą, o Chrystusie jako Logosie wcielonym oraz o prawdzie, miłości i powołaniu człowieka."
 ---
 
-# Emanacja Jerozolimy w nauczaniu ks. prof. Tadeusza Guza
-
 ## Jerozolima jako źródło Objawienia
 
 Spośród trzech wielkich filarów cywilizacji europejskiej — Aten, Rzymu i Jerozolimy — to właśnie Jerozolima zajmuje miejsce najwyższe i najbardziej fundamentalne. Ateny dały filozofię i naukę, Rzym — prawo, lecz Jerozolima przyniosła to, czego ani grecki rozum, ani rzymska jurydyczna precyzja nie były w stanie same osiągnąć: pełnię Bożego Objawienia. W nauczaniu ks. prof. Tadeusza Guza Jerozolima nie jest jedynie geograficznym ani historycznym punktem odniesienia — jest symbolem spotkania Boga z człowiekiem, spotkania, które zmieniło bieg dziejów i nadało ostateczny sens ludzkiemu istnieniu.
