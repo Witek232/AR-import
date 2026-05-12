@@ -1,7 +1,7 @@
 ---
 title: "Emanacja Rzymu w nauczaniu ks. prof. Tadeusza Guza"
-dateDisplay: "2024"
-dateSortable: "2024-01-01"
+dateDisplay: "12 maj 2026"
+dateSortable: "2026-05-12"
 source: "Filary"
 excerpt: "Rzym jako kolebka prawa naturalnego i fundament ładu cywilizacyjnego. Analiza nauczania ks. prof. Tadeusza Guza o prawie rzymskim, państwie, małżeństwie, dobru wspólnym i kryzysie współczesnej Europy."
 ---
