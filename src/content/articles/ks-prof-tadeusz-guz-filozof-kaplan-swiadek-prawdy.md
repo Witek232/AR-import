@@ -1,5 +1,6 @@
 ---
 title: "Ks. prof. Tadeusz Guz — filozof, kapłan, świadek prawdy"
+slug: "ks-prof-tadeusz-guz-filozof-kaplan-swiadek-prawdy"
 dateDisplay: "12 maj 2026"
 dateSortable: "2026-05-12"
 source: "Filary"
