@@ -14,8 +14,6 @@ tags:
   - Ateny Roztocza
 ---
 
-# Emanacja Aten w nauczaniu ks. prof. Tadeusza Guza
-
 ## Ateny jako kolebka nauki i filozofii
 
 Wśród trzech wielkich cywilizacyjnych źródeł, które ukształtowały kulturę europejską — Jerozolimy, Aten i Rzymu — starożytna Grecja zajmuje szczególne miejsce jako kolebka filozofii i nauki. Ks. prof. Tadeusz Guz, filozof i kapłan, od dziesięcioleci zgłębiający dzieje myśli ludzkiej, poświęcił temu dziedzictwu znaczną część swojego nauczania. Syntezę tych trzech tradycji ucieleśniają dziś **Ateny Roztocza** — unikalne centrum kulturowe i sakralne wznoszone w Szozdach koło Zwierzyńca, w rodzinnej wsi ks. Profesora.
