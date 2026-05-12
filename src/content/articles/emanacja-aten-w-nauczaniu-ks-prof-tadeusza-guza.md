@@ -1,5 +1,6 @@
 ---
 title: "Emanacja Aten w nauczaniu ks. prof. Tadeusza Guza"
+slug: "emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza"
 dateDisplay: "12 maj 2026"
 dateSortable: "2026-05-12"
 source: "Filary"
