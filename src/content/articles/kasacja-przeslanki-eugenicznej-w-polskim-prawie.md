@@ -6,16 +6,7 @@ dateSortable: "2020-11-14"
 source: "Nasz Dziennik"
 excerpt: "Analiza wyroku Trybunału Konstytucyjnego zakazującego aborcji z przesłanki eugenicznej jako aktu obrony prawa naturalnego, Konstytucji RP i dobra wspólnego w nauczaniu ks. prof. Tadeusza Guza."tags: - Trybunał Konstytucyjny - aborcja - eugenika - prawo naturalne - Tadeusz Guz - obrona życia - Konstytucja RP
 Kasacja przesłanki eugenicznej w polskim prawie − koniecznym, sprawiedliwym i opatrznościowym aktem Trybunału Konstytucyjnego Rzeczypospolitej Polskiej."
-tags:
-  - Trybunał Konstytucyjny
-  - aborcja
-  - aborcja
-  - eugenika
-  - prawo naturalne
-  - Tadeusz Guz
-  - obrona życia
-  - Konstytucja RP
----
+tags: [Trybunał Konstytucyjny, aborcja, aborcja, eugenika, prawo naturalne, Tadeusz Guz, obrona życia, Konstytucja RP]
 
 Dlaczego wyrok Trybunału Konstytucyjnego w Polsce, eliminujący z polskiego prawa sprzeczność w postaci legalnej możliwości zabójstwa chorego dziecka poczętego i nienarodzonego, jest ponadepokowym i niezwykle doniosłym aktem w dziejach naszego Państwa, które konstytucyjnie zdefiniowało siebie jako „demokratyczne państwo prawa”?
 
