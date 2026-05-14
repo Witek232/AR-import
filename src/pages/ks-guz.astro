@@ -20,14 +20,7 @@ const timeline = [
   { year: '2012-2013',       event: 'Prodziekan Wydziału Zamiejscowego Nauk Prawnych i Ekonomicznych KUL w Tomaszowie Lub.' },
   { year: '2017',            event: 'Tytuł profesora nauk humanistycznych z rąk prezydenta RP Andrzeja Dudy' },
 ];
-const dzielaSample = [
-  { title: 'Logos i Sacrum. Filozofia helleńska w służbie Ewangelii',     type: 'Monografia',  year: '2008', opis: 'Fundamentalne studium relacji między myślą grecką a Objawieniem chrześcijańskim.' },
-  { title: 'Sokrates, Platon, Chrystus — trzy świadectwa prawdy',          type: 'Artykuł',     year: '2012', opis: 'Porównawcza analiza pojęcia prawdy w filozofii antycznej i teologii chrześcijańskiej.' },
-  { title: 'Arystoteles i cnota w świetle Ewangelii',                       type: 'Wykład',      year: '2015', opis: 'Recepcja etyki arystotelesowskiej w tradycji scholastycznej i jej aktualność.' },
-  { title: 'Konstantyn Wielki — nawrócenie i misja cywilizacyjna',          type: 'Konferencja', year: '2019', opis: 'Studium przełomowego momentu, w którym Ateny i Rzym spotkały się z Jerozolimą.' },
-  { title: 'Piękno jako droga do Boga — teologia estetyczna',               type: 'Seminarium',  year: '2022', opis: 'Rozważania o roli piękna w tradycji platońskiej i chrześcijańskiej mistyce.' },
-  { title: 'Fides et Ratio — wiara i rozum w dialogu',                      type: 'Wykład',      year: '2024', opis: 'Komentarz do encykliki Jana Pawła II w kontekście dziedzictwa starożytnego.' },
-];
+
 const filary = [
   { roman:'I',   city:'Jerozolima', theme:'Wiara i Objawienie',  icon:'✝', color:'#7A1C2E', text:'Badanie relacji między Objawieniem biblijnym a myślą filozoficzną. Jak Słowo Boże oświeca rozum i prowadzi ku pełni prawdy, której filozofia poszukuje.' },
   { roman:'II',  city:'Ateny',      theme:'Rozum i Filozofia',    icon:'Φ', color:'#C9A84C', text:'Gruntowna znajomość Platona, Arystotelesa, stoików i neoplatoników. Filozofia klasyczna jako niezbędne narzędzie chrześcijańskiego rozumienia świata.' },
@@ -79,13 +72,11 @@ const filary = [
           <!-- Portrait -->
           <div class="reveal" style="position:relative;">
             <div style="background:#EDE0C4; border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; position:relative; overflow:hidden; max-width:380px;">
-              <!-- Zdjęcie -->
               <img
                 src="https://res.cloudinary.com/dmb0xngy0/image/upload/q_auto/f_auto/v1776448708/TG_vunjd2.png"
                 alt="Ks. prof. Tadeusz Guz"
                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"
               />
-              <!-- Ramka ozdobna SVG -->
               <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.4; pointer-events:none; z-index:1;">
                 <rect x="12" y="12" width="276" height="376" fill="none" stroke="#C9A84C" stroke-width="1" />
                 <rect x="20" y="20" width="260" height="360" fill="none" stroke="#C9A84C" stroke-width="0.5" />
@@ -94,7 +85,6 @@ const filary = [
                 <line x1="12" y1="388" x2="20" y2="380" stroke="#C9A84C" stroke-width="0.5" />
                 <line x1="288" y1="388" x2="280" y2="380" stroke="#C9A84C" stroke-width="0.5" />
               </svg>
-              <!-- Pasek podpisu -->
               <div style="position:absolute; bottom:0; left:0; right:0; z-index:2; background:rgba(26,18,9,0.8); padding:1rem 1.25rem; backdrop-filter:blur(4px);">
                 <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2vw,1.15rem); color:#E8C97A; margin:0; text-align:center; letter-spacing:0.06em;">
                   Ks. prof. dr hab. Tadeusz Guz
@@ -110,30 +100,59 @@ const filary = [
           <!-- Bio text -->
           <div>
             <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:2rem; font-size:clamp(1.8rem,4vw,2.8rem);">
-              Duchowy Fundament<br />
-              <span style="color:#C9A84C; font-weight:400;">Aten Roztocza</span>
+              Człowiek i jego misja
             </h2>
-            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
-              „Gdzie filozofia milknie, tam zaczyna mówić teologia — i odwrotnie. Zadaniem chrześcijańskiego myśliciela jest słuchać obu."
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              W rodzinnej wsi Szody koło Zwierzyńca na Roztoczu, wśród wzgórz ciągnących się od Kraśnika do Lwowa, rośnie dziś niezwykłe dzieło — centrum „Ateny Roztocza". Jego twórca, ks. prof. Tadeusz Guz, jest postacią rzadką w polskim życiu intelektualnym i duchowym: filozofem, który swą naukę rozumie jako służbę prawdzie, i kapłanem, który swoje kapłaństwo rozumie jako służbę człowiekowi.
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem; border-left:3px solid rgba(201,168,76,0.4); padding-left:1.5rem;">
+              „Jest to dzieło Boże powierzone temu łagodnemu Człowiekowi, by w Jego rodzinnej wsi Szody koło Zwierzyńca na Roztoczu, mógł głosić i bronić prawdę."<br/>
+              <span style="font-family:'Crimson Pro',serif; font-size:0.85rem; color:rgba(26,18,9,0.5); letter-spacing:0.05em;">— Aldona Ciborowska</span>
             </div>
             <div class="reveal body-text" style="margin-bottom:1.5rem;">
-              Ksiądz profesor dr hab. Tadeusz Guz jest jedną z najwybitniejszych polskich postaci łączących filozofię klasyczną z teologią chrześcijańską. Jego myśl wyrasta z najgłębszych źródeł tradycji zachodniej: platońskiego umiłowania mądrości, arystotelesowskiej troski o cnotę i tomistycznej syntezy rozumu z wiarą.
-            </div>
-            <div class="reveal body-text" style="margin-bottom:1.5rem;">
-              Jako profesor filozofii i teologii dogmatycznej prowadził badania i wykłady w Polsce i za granicą, wpisując się w wielowiekową tradycję chrześcijańskiego humanizmu. Jego prace naukowe obejmują zagadnienia filozofii starożytnej, etyki, filozofii Boga oraz relacji między wiarą a rozumem.
+              Ks. Tadeusz Guz pochodzi z Roztocza — krainy o wyjątkowym charakterze, gdzie natura i historia splotły się w niepowtarzalny sposób. To na tej ziemi ukształtowała się jego wrażliwość, tu zakorzenione jest jego myślenie o Polsce, Kościele i człowieku. Już jako młody człowiek wiedział, że filozofia będzie jego powołaniem.
             </div>
             <div class="reveal body-text" style="margin-bottom:2rem;">
-              Projekt <strong>Ateny Roztocza</strong> wyrasta wprost z jego wizji intelektualnej: trzy cywilizacyjne filary — Jerozolima, Ateny i Rzym — tworzą fundamenty autentycznej kultury europejskiej, którą należy ocalać, badać i przekazywać kolejnym pokoleniom.
-            </div>
-            <div class="reveal" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; border-top:1px solid rgba(201,168,76,0.25); padding-top:2rem;">
-              {[{num:'20+',label:'lat projektu'},{num:'200+',label:'wykładów i seminariów'},{num:'5',label:'języki publikacji'}].map(s => (
-                <div style="text-align:center;">
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.35rem;">{s.num}</div>
-                  <div style="font-family:'Crimson Pro',serif; font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(26,18,9,0.45);">{s.label}</div>
-                </div>
-              ))}
+              Droga do kapłaństwa wiodła przez lata formacji, których owocem były święcenia kapłańskie w katedrze lubelskiej. Moment ten zbiegł się z jednym z najważniejszych wydarzeń w historii polskiego Kościoła — śmiercią męczeńską bł. ks. Jerzego Popiełuszki.
             </div>
           </div>
+        </div>
+
+        <!-- Bł. ks. Jerzy Popiełuszko -->
+        <div style="margin-bottom:6rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Duchowy ojciec</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Błogosławiony ks. Jerzy</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div style="max-width:800px; margin:0 auto;">
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Związek ks. prof. Guza z postacią bł. ks. Jerzego Popiełuszki jest głęboki i wielowymiarowy. Jako młody wikariusz przywoził on na Żoliborz młodzież z ziemi lubelskiej, by czerpała z mądrości kapłana-męczennika. Śmierć ks. Popiełuszki stała się dla młodego ks. Guza momentem przełomowym — chwilą, w której zrodziło się pytanie o kontynuację jego misji na drodze filozofii:
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Na krótko przed święceniami kapłańskimi mogłem oglądać relację telewizyjną z jego pogrzebu i wtedy tak sobie pomyślałem: »Jerzy, Twoja misja tutaj na tym świecie zakończona, ale nie w wieczności. A ja, ponieważ mam takie zacięcie filozoficzne — pomyślę, jak kontynuować Twoje niedoścignione dzieło«."
+            </div>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Ten wewnętrzny dialog z postacią męczennika przybrał z czasem wymiar mistyczny. Ks. Guz opowiada o śnie, w którym ks. Jerzy zjeżdżał na rowerze i bez słów obdarzał młodego kapłana listami, które ten zbierał do kieszeni sutanny. Ten obraz — listów powierzonych i przyjętych — stał się dla ks. Guza symbolem misji, którą czuł się zobowiązany podjąć. Wyznał wprost:
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Gdyby nie Ty, błogosławiony księże Jerzy, to by mnie tutaj nie było."
+            </div>
+          </div>
+        </div>
+
+        <!-- Modlitwa św. Ignacego -->
+        <div class="reveal" style="background:#1A1209; padding:clamp(2.5rem,6vw,4rem); text-align:center; position:relative; overflow:hidden; margin-bottom:6rem;">
+          <div style="position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(201,168,76,0.06) 0%,transparent 70%); pointer-events:none;"></div>
+          <p class="reveal section-label" style="color:rgba(201,168,76,0.5); margin-bottom:1.5rem;">Duchowość kapłańska</p>
+          <blockquote style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.15rem,2.8vw,1.6rem); line-height:1.9; color:rgba(232,201,122,0.85); max-width:700px; margin:0 auto 1.5rem;">
+            Słowo Odwieczne, Jednorodzony Synu Boży, proszę Cię, naucz mnie służyć Ci tak, jak tego jesteś godzien. Naucz mnie dawać, a nie liczyć, walczyć, a nie zważać na rany, pracować, a nie szukać spoczynku, ofiarować się, a nie szukać nagrody innej prócz poczucia, że spełniłem Twoją Najświętszą Wolę. Amen.
+          </blockquote>
+          <cite style="font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,168,76,0.5);">
+            — Modlitwa św. Ignacego Loyoli
+          </cite>
         </div>
 
         <!-- Three pillars -->
@@ -158,61 +177,87 @@ const filary = [
           </div>
         </div>
 
-                <!-- Timeline -->
+        <!-- Lata w Niemczech i Powrót -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Droga nauki</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Filozof i Nauczyciel</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            W roku 1989 ks. prof. Guz wyjechał do Republiki Federalnej Niemiec, gdzie spędził czternaście lat. Był to okres intensywnych studiów filozoficznych, zakończonych doktoratem, który stał się fundamentem jego późniejszej działalności naukowej. To właśnie tam ukształtował się w pełni jego warsztat filozoficzny i jego szczególne zainteresowanie ideologiami nowożytności — komunizmem, materializmem, ateizmem — które uczynił przedmiotem swoich wieloletnich badań:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Zajmuję się między innymi rozprawami teoretycznymi z tymi ideologiami, które uśmierciły ciało błogosławionego księdza Jerzego."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Po powrocie do kraju podjął pracę akademicką, stając się jednym z najbardziej rozpoznawalnych filozofów katolickich w Polsce. Jego wykłady, audycje radiowe i telewizyjne, a także liczne publikacje naukowe, zjednały mu szerokie grono słuchaczy i czytelników. Dziedzinę swojej pracy naukowej opisuje precyzyjnie:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Dziedzina nauki, którą się zajmuję już dwudziesty ósmy rok, nakazuje mi jako filozofowi poszukiwać pierwszych racji dla tego, co jest, czyli dla całej rzeczywistości. Według Arystotelesa człowiek dopiero wtedy mówi właściwie, czyli zgodnie z prawdą, o badanej rzeczywistości, gdy na drodze poznania dochodzi do źródeł."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Centrum jego zainteresowań naukowych stanowi relacja między rozumem a wiarą, między filozofią klasyczną a Objawieniem chrześcijańskim, między prawdą a ideologią. Szczególne miejsce zajmuje w jego badaniach Osoba Jezusa Chrystusa — jako najdotkliwiej atakowana i zarazem jedyna odpowiedź na pytania, które stawia sobie rozum ludzki:
+          </div>
+          <div class="reveal elegant-quote">
+            „W ostatnich pięciu wiekach osobą najbardziej zaatakowaną ze wszystkich osób Boskich i anielskich, i ludzkich, jest Osoba Jezusa z Nazaretu. We wszystkich ideologiach jakkolwiek się one nazywają. Już od prawie trzydziestu lat są one przedmiotem moich badań i muszę z całą odpowiedzialnością powiedzieć, że nikogo w ostatnich pięciu wiekach tak nie sponiewierano, jak Pana Jezusa."
+          </div>
+        </div>
+
+        <!-- Timeline -->
         <div style="margin-bottom:6rem;">
           <div style="text-align:center; margin-bottom:3rem;">
             <p class="reveal section-label" style="margin-bottom:1rem;">Chronologia</p>
             <h2 class="reveal section-title" style="color:#1A1209;">Droga życia i myśli</h2>
           </div>
-          {/* Zwiększyłem max-width z 700px na 780px, aby zmieścić szerszą siatkę */}
           <div style="max-width:780px; margin:0 auto; position:relative;">
-            
-            {/* Pionowa linia: 150px (kolumna lat) + 12px (połowa kropki 24px) = 162px */}
             <div style="position:absolute; left:162px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
-            
             {timeline.map(item => (
               <div class="reveal" style="display:grid; grid-template-columns: 150px 24px 1fr; margin-bottom:2rem; position:relative; align-items:start;">
-                
-                {/* 1. Kolumna: Lata (150px + padding prawy robiący odstęp od kropki) */}
                 <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,2.2vw,1.2rem); font-weight:700; color:#7A6429; text-align:right; padding-top:0.1rem; padding-right:20px; letter-spacing:0.03em; line-height:1.3; white-space:nowrap;">
                   {item.year}
                 </div>
-
-                {/* 2. Kolumna: Kropka (środek wypada idealnie na linii 162px) */}
                 <div style="display:flex; justify-content:center; padding-top:6px;">
                   <div style="width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1; flex-shrink:0;"></div>
                 </div>
-
-                {/* 3. Kolumna: Treść wydarzenia (padding lewy robiący odstęp od kropki) */}
                 <div style="padding-top:0.1rem; padding-left:24px;">
                   <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
                 </div>
-
               </div>
             ))}
           </div>
         </div>
 
-        <!-- Works -->
-        <div style="margin-bottom:5rem;">
+        <!-- Ateny Roztocza -->
+        <div style="margin-bottom:6rem;">
           <div style="text-align:center; margin-bottom:3rem;">
-            <p class="reveal section-label" style="margin-bottom:1rem;">Dorobek naukowy</p>
-            <h2 class="reveal section-title" style="color:#1A1209;">Wybrane wykłady &amp; publikacje</h2>
+            <p class="reveal section-label" style="margin-bottom:1rem;">Dzieło życia</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Ateny Roztocza</h2>
             <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
             </div>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem;">
-            {dzielaSample.map(d => (
-              <div class="reveal card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:1.75rem; position:relative;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem;">
-                  <span style="font-family:'Crimson Pro',serif; font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C;">{d.type}</span>
-                  <span style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; color:rgba(26,18,9,0.18);">{d.year}</span>
-                </div>
-                <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.05rem,2.5vw,1.25rem); font-weight:400; color:#1A1209; line-height:1.4; margin-bottom:0.85rem;">{d.title}</h3>
-                <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.92rem; color:rgba(26,18,9,0.55); line-height:1.6; margin:0;">{d.opis}</p>
-              </div>
-            ))}
+          <div style="max-width:800px; margin:0 auto;">
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Owocem całej drogi duchowej, kapłańskiej i filozoficznej ks. prof. Guza jest centrum „Ateny Roztocza — Deo, Reginae Poloniae et Patriae", wznoszone od marca 2020 roku na ojcowiźnie w Szozdach. Jest to projekt bez precedensu w historii Kościoła w Polsce — synteza Jerozolimy, Aten i Rzymu, wcielona w kamień, drewno i brąz:
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Ateny Roztocza są projektem-syntezą Jerozolimy jako symbolu Bożego Objawienia Starego i Nowego Testamentu, antyku ze starożytnej Grecji jako kolebki filozofii i nauki w ogóle, starożytnego Rzymu z prawem rzymskim zdumiewająco wiernym prawu naturalnemu i zarazem stolicy św. Kościoła katolickiego naszego Pana Jezusa Chrystusa."
+            </div>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Centrum obejmuje Dom Filozofii Starożytnej poświęcony Bogu Ojcu, Dom Filozofii Średniowiecznej poświęcony Synowi Bożemu, Kaplicę Królowej Polski, Ogród Różańcowy oraz planowaną monumentalną figurę Jezusa Króla Wszechświata. Każdy element tego dzieła jest przemyślany do najdrobniejszego szczegółu — od czarnych belek dębowych liczących ponad 1700 lat, przez krzyże partyzanckie, aż po granitowe płyty ze zdemontowanego mostu „Przyjaźni" między Słubicami a Frankfurtem nad Odrą.
+            </div>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Figura Chrystusa Króla, witająca wchodzących do centrum, wyraża serce całego dzieła. Ks. Guz tłumaczy jej symbolikę:
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Wchodzących do Aten wita Wcielony Logos Odwiecznego Boga Ojca – Odwieczny Syn Boga Ojca i zarazem nasz Pan Jezus Chrystus, jedynie prawdziwy Mesjasz. On jest tym kluczem dla rozumienia całego wszechświata, całego stworzenia, bo w Nim, i z Nim, i dla Niego Bóg Ojciec wraz z Duchem Świętym stworzyli cały wszechświat. I dlatego tutaj umieściliśmy Chrystusa, żeby witał wszystkich przychodzących do tego miejsca."
+            </div>
+            <div class="reveal body-text">
+              Jednym z najważniejszych owoców posługi ks. prof. Guza są również audycje z cyklu „Rozmowy Niedokończone" emitowane w Radio Maryja i TV Trwam — tysiące godzin rozmów o filozofii, teologii, historii idei, prawie naturalnym, rodzinie, państwie i kulturze. Ich tytuł jest programowy — rozmowy te są niedokończone, bo prawda, którą głoszą, nigdy nie wyczerpuje się w jednym spotkaniu.
+            </div>
           </div>
         </div>
 
@@ -223,12 +268,10 @@ const filary = [
             <path d="M0 30V18C0 8 6 2 18 0l2 4C12 6 9 10 9 16h6v14H0zm22 0V18C22 8 28 2 40 0l2 4C34 6 31 10 31 16h6v14H22z"/>
           </svg>
           <blockquote style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.15rem,2.8vw,1.6rem); line-height:1.9; color:rgba(232,201,122,0.85); max-width:700px; margin:0 auto 1.5rem;">
-            Prawdziwa kultura rodzi się tam, gdzie człowiek odważa się zapytać
-            o Boga, o dobro i o piękno — i nie boi się odpowiedzi,
-            jaką daje mu tradycja starożytna i chrześcijańska.
+            Ks. prof. Tadeusz Guz jest człowiekiem, którego droga życiowa — od Roztocza przez Chełm, Niemcy i polskie uniwersytety, aż po Szozdy — jest drogą konsekwentnego poszukiwania i głoszenia prawdy. Dawać, nie licząc; walczyć, nie zważając na rany; pracować, nie szukając spoczynku. I spełniać Najświętszą Wolę Bożą.
           </blockquote>
           <cite style="font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,168,76,0.5);">
-            — Ks. prof. Tadeusz Guz
+            — Na podstawie tekstu Aldony Ciborowskiej
           </cite>
         </div>
 
