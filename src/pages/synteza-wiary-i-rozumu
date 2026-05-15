@@ -3,34 +3,47 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="O projekcie"
+  title="Synteza Wiary i Rozumu"
   description="Projekt kulturalno-filozoficzno-religijny zrodzony z przekonania, że kultura europejska ma swoje niezbywalne korzenie — i że warto je pielęgnować."
 >
   <div class="page-transition">
+    <section id="synteza" style="background:#F5EDD8; position:relative; overflow:hidden;">
 
-    <!-- Hero -->
-    <div class="page-hero">
-      <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
-        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
-          Dzieło życia
-        </p>
-        <h1 class="section-title gold-shimmer" style="font-size:clamp(2.2rem,6vw,4.5rem); margin-bottom:1.25rem;">
-          Synteza Wiary i Rozumu
-        </h1>
-        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.3rem); color:rgba(232,201,122,0.7); max-width:580px; margin:0 auto; line-height:1.75;">
-          Projekt, który zrodził się z przekonania, że kultura europejska ma swoje
-          niezbywalne korzenie — i że warto je pielęgnować
-        </p>
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="position:relative;">
+        <svg viewBox="0 0 1440 500" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.07; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
+          {[100,180,260,1180,1260,1340].map((x) => (
+            <g stroke="#C9A84C" stroke-width="1" fill="none">
+              <rect x={x} y={80} width={28} height={340} rx="1" />
+              <rect x={x-7} y={75} width={42} height={14} rx="1" />
+              <rect x={x-7} y={417} width={42} height={12} rx="1" />
+              <rect x={x-11} y={429} width={50} height={10} rx="1" />
+            </g>
+          ))}
+          <ellipse cx="720" cy="80" rx="120" ry="40" stroke="#C9A84C" stroke-width="0.8" fill="none" />
+        </svg>
+        <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
+          <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+            Dzieło życia
+          </p>
+          <h1 class="reveal section-title gold-shimmer" style="font-size:clamp(2.2rem,6vw,4.5rem); margin-bottom:0.5rem;">
+            Synteza Wiary i Rozumu
+          </h1>
+          <div class="ornament reveal" style="max-width:320px; margin:1.5rem auto; color:#C9A84C;">
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="#C9A84C">
+              <path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" />
+            </svg>
+          </div>
+          <p class="reveal" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:rgba(232,201,122,0.8); line-height:1.75;">
+            Projekt, który zrodził się z przekonania, że kultura europejska ma swoje niezbywalne korzenie — i że warto je pielęgnować
+          </p>
+        </div>
       </div>
-    </div>
 
-    <OProjekcie />
-    <Filary />
+      <!-- MAIN CONTENT -->
+      <div style="max-width:1200px; margin:0 auto; padding:5rem 2rem;">
 
-    <!-- Synteza Wiary i Rozumu -->
-    <section style="background:#F5EDD8; padding:6rem 2rem; position:relative; overflow:hidden;">
-      <div style="max-width:800px; margin:0 auto;">
-        
+        <!-- Synteza Wiary i Rozumu -->
         <div style="margin-bottom:6rem;">
           <div style="text-align:center; margin-bottom:3rem;">
             <p class="reveal section-label" style="margin-bottom:1rem;">Fundament</p>
@@ -39,31 +52,31 @@ import Layout from '../layouts/Layout.astro';
               <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
             </div>
           </div>
+          
+          <div style="max-width:800px; margin:0 auto;">
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Owocem całej drogi duchowej, kapłańskiej i filozoficznej ks. prof. Guza jest centrum „Ateny Roztocza — Deo, Reginae Poloniae et Patriae", wznoszone od marca 2020 roku na ojcowiźnie w Szozdach. Jest to projekt bez precedensu w historii Kościoła w Polsce — synteza Jerozolimy, Aten i Rzymu, wcielona w kamień, drewno i brąz:
+            </div>
 
-          <div class="reveal body-text" style="margin-bottom:1.5rem;">
-            Owocem całej drogi duchowej, kapłańskiej i filozoficznej ks. prof. Guza jest centrum „Ateny Roztocza — Deo, Reginae Poloniae et Patriae", wznoszone od marca 2020 roku na ojcowiźnie w Szozdach. Jest to projekt bez precedensu w historii Kościoła w Polsce — synteza Jerozolimy, Aten i Rzymu, wcielona w kamień, drewno i brąz:
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Ateny Roztocza są projektem-syntezą Jerozolimy jako symbolu Bożego Objawienia Starego i Nowego Testamentu, antyku ze starożytnej Grecji jako kolebki filozofii i nauki w ogóle, starożytnego Rzymu z prawem rzymskim zdumiewająco wiernym prawu naturalnemu i zarazem stolicy św. Kościoła katolickiego naszego Pana Jezusa Chrystusa."
+            </div>
+
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Centrum obejmuje Dom Filozofii Starożytnej poświęcony Bogu Ojcu, Dom Filozofii Średniowiecznej poświęcony Synowi Bożemu, Kaplicę Królowej Polski, Ogród Różańcowy oraz planowaną monumentalną figurę Jezusa Króla Wszechświata. Każdy element tego dzieła jest przemyślany do najdrobniejszego szczegółu — od czarnych belek dębowych liczących ponad 1700 lat, przez krzyże partyzanckie z największego cmentarza partyzanckiego w Europie, aż po granitowe płyty ze zdemontowanego mostu „Przyjaźni" między Słubicami a Frankfurtem nad Odrą.
+            </div>
+
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Figura Chrystusa Króla, witająca wchodzących do centrum, wyraża serce całego dzieła. Ks. Guz tłumaczy jej symbolikę:
+            </div>
+
+            <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+              „Wchodzących do Aten wita Wcielony Logos Odwiecznego Boga Ojca – Odwieczny Syn Boga Ojca i zarazem nasz Pan Jezus Chrystus, jedynie prawdziwy Mesjasz. On jest tym kluczem dla rozumienia całego wszechświata, całego stworzenia, bo w Nim, i z Nim, i dla Niego Bóg Ojciec wraz z Duchem Świętym stworzyli cały wszechświat. I dlatego tutaj umieściliśmy Chrystusa, żeby witał wszystkich przychodzących do tego miejsca."
+            </div>
           </div>
-
-          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
-            „Ateny Roztocza są projektem-syntezą Jerozolimy jako symbolu Bożego Objawienia Starego i Nowego Testamentu, antyku ze starożytnej Grecji jako kolebki filozofii i nauki w ogóle, starożytnego Rzymu z prawem rzymskim zdumiewająco wiernym prawu naturalnemu i zarazem stolicy św. Kościoła katolickiego naszego Pana Jezusa Chrystusa."
-          </div>
-
-          <div class="reveal body-text" style="margin-bottom:1.5rem;">
-            Centrum obejmuje Dom Filozofii Starożytnej poświęcony Bogu Ojcu, Dom Filozofii Średniowiecznej poświęcony Synowi Bożemu, Kaplicę Królowej Polski, Ogród Różańcowy oraz planowaną monumentalną figurę Jezusa Króla Wszechświata. Każdy element tego dzieła jest przemyślany do najdrobniejszego szczegółu — od czarnych belek dębowych liczących ponad 1700 lat, przez krzyże partyzanckie z największego cmentarza partyzanckiego w Europie, aż po granitowe płyty ze zdemontowanego mostu „Przyjaźni" między Słubicami a Frankfurtem nad Odrą.
-          </div>
-
-          <div class="reveal body-text" style="margin-bottom:1.5rem;">
-            Figura Chrystusa Króla, witająca wchodzących do centrum, wyraża serce całego dzieła. Ks. Guz tłumaczy jej symbolikę:
-          </div>
-
-          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
-            „Wchodzących do Aten wita Wcielony Logos Odwiecznego Boga Ojca – Odwieczny Syn Boga Ojca i zarazem nasz Pan Jezus Chrystus, jedynie prawdziwy Mesjasz. On jest tym kluczem dla rozumienia całego wszechświata, całego stworzenia, bo w Nim, i z Nim, i dla Niego Bóg Ojciec wraz z Duchem Świętym stworzyli cały wszechświat. I dlatego tutaj umieściliśmy Chrystusa, żeby witał wszystkich przychodzących do tego miejsca."
-          </div>
-
         </div>
 
       </div>
     </section>
-
   </div>
 </Layout>
