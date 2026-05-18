@@ -32,9 +32,9 @@ const articlesData = processArticles(allArticlesRaw);
 
 const tabs = [
   { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: String(totalEntries) },
-  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: String(articlesData.naszDziennik.length) },
-  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: String(articlesData.niedziela.length) },
   { key: 'cykle',         label: 'Cykle artykułów',         icon: '📚', count: String(articlesData.cycles.length) },
+  { key: 'nasz-dziennik', label: 'Nasz Dziennik',           icon: '📰', count: String(articlesData.naszDziennik.length) },
+  { key: 'niedziela',     label: 'Niedziela',               icon: '📖', count: String(articlesData.niedziela.length) }, 
   { key: 'inne',          label: 'Inne publikacje',          icon: '📄', count: String(articlesData.inne.length) },
 ];
 
