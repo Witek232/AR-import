@@ -43,6 +43,16 @@ const wydarzeniaCollection = defineCollection({
   }),
 });
 
+// ── Cykle Artykułów (NOWOŚĆ) ──────────────────────────────────
+const cyclesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/cycles' }),
+  schema: z.object({
+    title:       z.string(),           // Nazwa cyklu wyświetlana na kafelku
+    description: z.string(),           // Krótki opis cyklu na kafelku
+    order:       z.number().optional(),// Opcjonalna kolejność wyświetlania kafelków na stronie listy
+  }),
+});
+
 // ── Artykuły / Publikacje ─────────────────────────────────────
 const articlesCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
@@ -55,7 +65,7 @@ const articlesCollection = defineCollection({
     externalLink: z.string().optional(),
     duration:     z.string().optional(),
     // NOWE POLA DLA CYKLI:
-    cycle:        z.string().optional(),       // Nazwa cyklu, np. "Sekrety Różańca"
+    cycle:        z.string().optional(),       // ID cyklu (nazwa pliku .md z folderu cycles), np. "sekrety-rozanca"
     cycleOrder:   z.number().optional(),       // Kolejność w cyklu, np. 1, 2, 3
   }),
 });
@@ -63,5 +73,6 @@ const articlesCollection = defineCollection({
 export const collections = {
   multimedia: multimediaCollection,
   wydarzenia: wydarzeniaCollection,
+  cycles: cyclesCollection,         // <-- DODANE: Rejestracja nowej kolekcji
   articles: articlesCollection,
 };
