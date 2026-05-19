@@ -133,7 +133,7 @@ Dotyczy to też zasad myślenia — powrotu do fundamentalnych struktur intelekt
 
 ---
 
-## Ateny Roztocza: żywe wcielenie greckiego dziedzictwa
+## Ateny Roztocza: wcielenie greckiego dziedzictwa
 
 Syntezę nauczania o Atenach, Rzymie i Jerozolimie ks. prof. Guz wcielił w konkretne dzieło architektoniczne i duchowe — centrum **„Ateny Roztocza”** w Szozdach. Jak sam napisał w jednym z pierwszych folderów fundacji:
 
