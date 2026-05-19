@@ -1,8 +1,9 @@
 ---
 // ── ANALIZA ──────────────────────────────────────────────────
-// Komponent STATYCZNY — zero interakcji.
-// useRef + useEffect (IntersectionObserver) → zastąpiony przez
-// globalny initReveal() w Layout.astro + klasy CSS reveal-delay-*
+// Komponent STATYCZNY — zero interakcji JS.
+// Hover na kartach obsługiwany przez CSS custom properties.
+// useRef + useEffect (IntersectionObserver) → globalny initReveal()
+// w Layout.astro + klasy CSS reveal / reveal-delay-*
 // ─────────────────────────────────────────────────────────────
 
 const pillars = [
@@ -12,8 +13,10 @@ const pillars = [
     latinName:   'Hierosolyma',
     symbol:      '✝',
     description: 'Duchowa kolebka chrześcijaństwa. Tradycja biblijna i patrystyczna jako fundament tożsamości europejskiej. Objawienie, które weszło w historię i kulturę.',
-    accentColor: '#9E2A40',
-    link: '/publikacje/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza', // ZMIEŃ NA PRAWIDŁOWY LINK
+    accentColor: '#B8405A',
+    accentHover: '#352028',
+    accentBorder: 'rgba(184,64,90,0.22)',
+    link: '/publikacje/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
   },
   {
     numeral:     'II',
@@ -21,8 +24,10 @@ const pillars = [
     latinName:   'Athenae',
     symbol:      'Φ',
     description: 'Filozofia i rozum. Logos grecki jako język, którym myśl chrześcijańska wyraziła swe treści. Dialog wiary i rozumu, sokratejski nakaz poznania siebie.',
-    accentColor: '#C9A84C',
-    link: '/publikacje/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza', // ZMIEŃ NA PRAWIDŁOWY LINK
+    accentColor: '#D4B455',
+    accentHover: '#352E1E',
+    accentBorder: 'rgba(212,180,85,0.22)',
+    link: '/publikacje/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza',
   },
   {
     numeral:     'III',
@@ -30,27 +35,29 @@ const pillars = [
     latinName:   'Roma Aeterna',
     symbol:      'Σ',
     description: 'Prawo, instytucje i sztuka organizacji życia zbiorowego. Cywilizacja łacińska jako forma, w której chrześcijaństwo ukształtowało Europę przez dwa tysiąclecia.',
-    accentColor: '#6B8A4E',
-    link: '/publikacje/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza', // ZMIEŃ NA PRAWIDŁOWY LINK
+    accentColor: '#7A9E58',
+    accentHover: '#263020',
+    accentBorder: 'rgba(122,158,88,0.22)',
+    link: '/publikacje/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza',
   },
 ];
 ---
 
 <section
   id="filary"
-  style="background:#1A1209; padding:clamp(3.5rem,9vw,7rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
+  style="background:#EBE1CA; padding:clamp(3.5rem,9vw,7rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
 >
   <!-- Subtle grid texture -->
-  <div style="position:absolute; inset:0; pointer-events:none; background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,0.025) 59px,rgba(201,168,76,0.025) 60px);"></div>
+  <div style="position:absolute; inset:0; pointer-events:none; background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,0.04) 59px,rgba(201,168,76,0.04) 60px);"></div>
 
   <div style="max-width:1200px; margin:0 auto; position:relative;">
 
-    <!-- Section header -->
+    <!-- Section header — dark text on light bg -->
     <div class="reveal" style="text-align:center; margin-bottom:clamp(2.5rem,6vw,4rem);">
-      <p class="section-label" style="color:rgba(201,168,76,0.55); margin-bottom:0.85rem;">
+      <p class="section-label" style="color:#6B5B43; margin-bottom:0.85rem;">
         Fundamenty projektu
       </p>
-      <h2 class="section-title" style="color:#E8C97A; font-size:clamp(2rem,6vw,3.75rem); margin-bottom:0;">
+      <h2 class="section-title" style="color:#1A1209; font-size:clamp(2rem,6vw,3.75rem); margin-bottom:0;">
         Trzy Filary Cywilizacji
       </h2>
       <div class="section-ornament">
@@ -62,21 +69,21 @@ const pillars = [
       </div>
     </div>
 
-    <!-- Cards -->
+    <!-- Cards — dark islands on light bg -->
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:clamp(1.25rem,3vw,2rem);">
       {pillars.map((pillar, i) => (
         <a
           href={pillar.link}
-          class={`reveal reveal-delay-${i + 1} card-hover gold-border-hover`}
-          style="display:block; background:rgba(255,255,255,0.025); border:1px solid rgba(201,168,76,0.14); padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition: background 0.3s ease;"
+          class={`reveal reveal-delay-${i + 1} pillar-card card-hover gold-border-hover`}
+          style={`--card-accent:${pillar.accentColor}; --card-hover-bg:${pillar.accentHover}; --card-border:${pillar.accentBorder}; display:block; background:#2A2118; border:1px solid ${pillar.accentBorder}; border-radius:2px; padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition:background 0.3s ease;`}
         >
           <!-- Latin numeral watermark -->
-          <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:${pillar.accentColor}; opacity:0.18; position:absolute; top:0.75rem; right:1.25rem; line-height:1; letter-spacing:-0.04em; pointer-events:none; user-select:none;`}>
+          <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:${pillar.accentColor}; opacity:0.14; position:absolute; top:0.75rem; right:1.25rem; line-height:1; letter-spacing:-0.04em; pointer-events:none; user-select:none;`}>
             {pillar.numeral}
           </div>
 
           <!-- Symbol -->
-          <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,4vw,2rem); color:${pillar.accentColor}; margin-bottom:clamp(0.75rem,2vw,1rem); opacity:0.9;`}>
+          <div style={`font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,4vw,2rem); color:${pillar.accentColor}; margin-bottom:clamp(0.75rem,2vw,1rem); opacity:0.85;`}>
             {pillar.symbol}
           </div>
 
@@ -86,21 +93,21 @@ const pillars = [
           </h3>
 
           <!-- Latin subtitle -->
-          <p style={`font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(0.875rem,2vw,0.9375rem); color:rgba(201,168,76,0.55); margin-bottom:clamp(1rem,2.5vw,1.35rem); letter-spacing:0.05em;`}>
+          <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(0.875rem,2vw,0.9375rem); color:rgba(212,180,85,0.55); margin-bottom:clamp(1rem,2.5vw,1.35rem); letter-spacing:0.05em;">
             {pillar.latinName}
           </p>
 
           <!-- Accent line -->
-          <div style={`width:36px; height:1px; background:linear-gradient(to right,${pillar.accentColor},transparent); margin-bottom:clamp(1rem,2.5vw,1.35rem);`}></div>
+          <div style={`width:36px; height:1px; background:linear-gradient(to right,${pillar.accentColor},transparent); margin-bottom:clamp(1rem,2.5vw,1.35rem); opacity:0.5;`}></div>
 
           <!-- Description -->
-          <p style="font-family:'Crimson Pro',serif; font-size:clamp(1.0625rem,2.5vw,1.125rem); line-height:1.82; color:rgba(245,237,216,0.68);">
+          <p style="font-family:'Crimson Pro',serif; font-size:clamp(1.0625rem,2.5vw,1.125rem); line-height:1.82; color:rgba(245,237,216,0.78);">
             {pillar.description}
           </p>
 
           <!-- Czytaj więcej -->
           <div style="margin-top:clamp(1.5rem,3vw,2rem); display:flex; justify-content:flex-end;">
-            <span style={`font-family:'Crimson Pro',serif; font-size:0.9rem; color:${pillar.accentColor}; letter-spacing:0.04em; border-bottom:1px solid ${pillar.accentColor}; padding-bottom:2px; opacity:0.8; transition: opacity 0.3s ease;`}>
+            <span style={`font-family:'Crimson Pro',serif; font-size:0.9rem; color:${pillar.accentColor}; letter-spacing:0.04em; border-bottom:1px solid ${pillar.accentColor}; padding-bottom:2px; opacity:0.8; transition:opacity 0.3s ease;`}>
               Czytaj więcej →
             </span>
           </div>
@@ -108,9 +115,9 @@ const pillars = [
       ))}
     </div>
 
-    <!-- Bottom quote -->
+    <!-- Bottom quote — dark text on light bg -->
     <div class="reveal" style="text-align:center; margin-top:clamp(2.5rem,6vw,4.5rem);">
-      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.0625rem,3vw,1.375rem); color:rgba(201,168,76,0.58); max-width:680px; margin:0 auto; line-height:1.85;">
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.0625rem,3vw,1.375rem); color:#6B5B43; max-width:680px; margin:0 auto; line-height:1.85;">
         „Trzy korzenie wyrosły z jednej gleby i dały człowiekowi Zachodu
         jego tożsamość duchową, intelektualną i prawną."
       </p>
@@ -118,3 +125,10 @@ const pillars = [
 
   </div>
 </section>
+
+<style>
+  /* Hover na kartach — kolor tła z CSS custom property, zero JS */
+  .pillar-card:hover {
+    background: var(--card-hover-bg) !important;
+  }
+</style>
