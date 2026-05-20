@@ -28,7 +28,8 @@ const maxYear = Math.max(...years);
 
 // 2. Pobranie i przetworzenie artykułów (NOWE Z HELPEREM)
 const allArticlesRaw = await getCollection('articles');
-const articlesData = processArticles(allArticlesRaw);
+const allCyclesRaw = await getCollection('cycles'); // DODANO
+const articlesData = processArticles(allArticlesRaw, allCyclesRaw); // DODANO DRUGI ARGUMENT
 
 const tabs = [
   { key: 'audiowizualne', label: 'Materiały audiowizualne', icon: '🎬', count: String(totalEntries) },
