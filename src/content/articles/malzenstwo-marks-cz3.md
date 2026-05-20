@@ -1,5 +1,3 @@
-Oto gotowy kod dla trzeciej części artykułu. Podobnie jak wcześniej, oczyściłem kod HTML, poprawiłem drobne literówki (np. "i i rodziny" na "i rodziny", "poczętych" na "poczętych") oraz sformatowałem tekst jako czytelny Markdown.
-
 ---
 title: "Małżeństwo i rodzina według Marksa, Engelsa i Lenina (Cz. 3)"
 dateDisplay: "Sobota, 11 kwietnia 2015"
