@@ -1,11 +1,11 @@
 ---
-title: "Boskość i Natura Boga w ujęciu Marcina Lutra (Cz. 1)"
+title: "Sprzeczność w Naturze Boskiej Jezusa Chrystusa według Marcina Lutra (Cz. 6)"
 dateDisplay: "Sobota, 28 lutego 2015"
 dateSortable: "2015-02-28"
 source: "Nasz Dziennik"
 excerpt: "W najstarszych zachowanych na papirusach zapisach dotyczących wyznania wiary katolickiej na Wschodzie w Boskość Jezusa Chrystusa jako prawdziwego Syna Bożego nie ma co do tego najmniejszych wątpliwości."
 cycle: "marcin-luter"
-cycleOrder: 1
+cycleOrder: 6
 ---
 
 W najstarszych zachowanych na papirusach zapisach dotyczących wyznania wiary katolickiej na Wschodzie w Boskość Jezusa Chrystusa jako prawdziwego Syna Bożego nie ma co do tego najmniejszych wątpliwości, że On jest prawdziwym Bogiem w dosłownym tego słowa znaczeniu, co przekazane jest np. na papirusie Dêr Balyzeh z północnego Egiptu: „Wierzę w Boga, Ojca Wszechmogącego i w Jego jednorodzonego Syna, naszego Pana, Jezusa Chrystusa”. Także Zachód posiada łacińską formę „Traditio apostolica” Hippolita z Rzymu, w którym zapisane jest pytanie o wiarę: „Czy ty wierzysz w Chrystusa Jezusa, Syna Boga, który narodzony został za sprawą Ducha Świętego z Maryi Dziewicy…?”. Taka była też wiara Ojców i Doktorów Kościoła z pierwszych wieków chrześcijaństwa.
