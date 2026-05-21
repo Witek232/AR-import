@@ -7,7 +7,7 @@ excerpt: >-
   Kościół święty naucza, że obie natury Chrystusa są zjednoczone w unii
   hipostatycznej, natomiast Luter i reformacja artykułują ich sprzeczność,
   a naturę ludzką określają jako „larwę", którą Chrystus odrzuca.
----cycle: "marcin-luter"
+cycle: "marcin-luter"
 order: 3
 ---
 
