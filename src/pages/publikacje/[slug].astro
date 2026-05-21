@@ -12,7 +12,7 @@ export async function getStaticPaths() {
     const slug = article.id.replace(/\.md$/, '');
     return {
       params: { slug: slug },
-      props: { article, cycles }, // Przekazujemy cycles do obliczenia nawigacji
+      props: { article, cycles },
     };
   });
 }
@@ -20,7 +20,6 @@ export async function getStaticPaths() {
 const { article, cycles } = Astro.props;
 const { Content } = await render(article);
 
-// Obliczanie nawigacji (Poprzedni/Następny)
 const { prev, next, cycleData } = getCycleNavigation(article, cycles);
 ---
 
@@ -31,7 +30,6 @@ const { prev, next, cycleData } = getCycleNavigation(article, cycles);
     <div class="page-hero">
       <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
         
-        {/* Jeśli artykuł jest w cyklu, wyświetl nazwę cyklu nad tytułem */}
         {cycleData && (
           <a href={cycleData.href} class="section-label" style="color: rgba(201,168,76,0.65); margin-bottom:1rem; text-decoration:none; display:block; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(201,168,76,0.65)'">
             Cykl: {cycleData.data.title}
@@ -47,7 +45,7 @@ const { prev, next, cycleData } = getCycleNavigation(article, cycles);
         </h1>
         
         {article.data.excerpt && (
-          <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem, 2.2vw, 1.2rem); color:rgba(232,201,122,0.7); max-width:600px; margin:0 auto; line-height:1.75;">
+          <p style="font-family:'Charm'; font-style:italic; font-size:clamp(1rem, 2.2vw, 1.2rem); color:rgba(232,201,122,0.7); max-width:600px; margin:0 auto; line-height:1.75;">
             {article.data.excerpt}
           </p>
         )}
@@ -89,12 +87,12 @@ const { prev, next, cycleData } = getCycleNavigation(article, cycles);
           <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
             
             {next ? (
-              <a href={next.href} style="display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Crimson Pro', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--ink-deep)'" onmouseout="this.style.background='var(--ink)'">
+              <a href={next.href} target={next.target} rel={next.rel} style="display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Crimson Pro', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--ink-deep)'" onmouseout="this.style.background='var(--ink)'">
                 Następna część cyklu
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             ) : (
-              <div style="font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem;">
+              <div style="font-family: 'Charm', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem;">
                 ✦ To jest ostatnia część tego cyklu ✦
               </div>
             )}
@@ -120,8 +118,88 @@ const { prev, next, cycleData } = getCycleNavigation(article, cycles);
   </div>
 </Layout>
 
-<!-- Pozostałe style .article-prose zostają bez zmian... -->
 <style>
-  .article-prose :global(h2) { /* wasne style z Twojego pliku */ }
-  /* ... reszta Twoich stylów prozy ... */
+  /* ── SPECJALNE STYLOWANIE DLA MARKDOWN (PROSE) ── */
+  .article-prose :global(h2) {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2.1rem, 4.8vw, 2.7rem);  /* +20% */
+    color: var(--ink);
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    line-height: 1.2;
+  }
+
+  .article-prose :global(h3) {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(1.68rem, 3.6vw, 2.1rem);  /* +20% */
+    color: var(--ink-deep);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .article-prose :global(p) {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+    line-height: 1.85;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .article-prose :global(blockquote) {
+    font-family: 'Charm', serif;
+    font-style: italic;
+    font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+    line-height: 1.85;
+    color: var(--text-dark);
+    border-left: 3px solid var(--gold);
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    margin: 2.5rem 0;
+    background: rgba(201,168,76,0.03);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+  }
+
+  .article-prose :global(blockquote p) {
+    margin-bottom: 0;
+    font-family: 'Charm', serif;
+    font-style: italic;
+  }
+
+  .article-prose :global(strong) {
+    color: var(--ink-deep);
+    font-weight: 600;
+  }
+
+  .article-prose :global(em) {
+    color: var(--text-muted);
+  }
+
+  .article-prose :global(hr) {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 3rem 0;
+    opacity: 0.5;
+  }
+
+  .article-prose :global(ul), .article-prose :global(ol) {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+    line-height: 1.85;
+    color: var(--text-dark);
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
 </style>
