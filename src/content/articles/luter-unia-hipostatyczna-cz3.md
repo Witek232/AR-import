@@ -3,8 +3,11 @@ title: "Unia hipostatyczna w Chrystusie a protestancka negacja"
 date: 2015-02-14
 dateDisplay: "14 lutego 2015"
 source: "Nasz Dziennik"
-excerpt: "Kościół święty naucza, że obie natury Chrystusa są zjednoczone w unii hipostatycznej, natomiast Luter i reformacja artykułują ich sprzeczność, a naturę ludzką określają jako „larwę", którą Chrystus odrzuca."
-cycle: "marcin-luter"
+excerpt: >-
+  Kościół święty naucza, że obie natury Chrystusa są zjednoczone w unii
+  hipostatycznej, natomiast Luter i reformacja artykułują ich sprzeczność,
+  a naturę ludzką określają jako „larwę", którą Chrystus odrzuca.
+---cycle: "marcin-luter"
 order: 3
 ---
 
