@@ -1,11 +1,11 @@
 ---
-title: Unia hipostatyczna w Chrystusie a protestancka negacja (Cz. 3)"
+title: "Negacja *unii hipostatycznej* w osobie Jezusa Chrystusa (Cz. 4)"
 dateDisplay: "14 lutego 2015"
 dateSortable: "2015-02-14"
 source: "Nasz Dziennik"
 excerpt: "Kościół święty naucza, że obie natury Chrystusa są zjednoczone w unii hipostatycznej, natomiast Luter i reformacja artykułują ich sprzeczność, a naturę ludzką określają jako *larwę*, którą Chrystus odrzuca."
 cycle: "marcin-luter"
-cycleOrder: 3
+cycleOrder: 4
 ---
 
 Na gruncie poprzedniego szkicu o negacji Osoby Boskiej Jezusa Chrystusa w teologii protestanckiej Marcina Lutra powstaje następne, niezwykle ważne pytanie o sposób współistnienia dwóch natur: Boskiej i ludzkiej w Jezusie. Kościół święty, zbudowany na św. Piotrze, naucza, że obie natury są zjednoczone w postaci „unii hipostatycznej", natomiast Luter i reformacja artykułują ich sprzeczność, a naturę ludzką określają jako „larwę", którą Chrystus odrzuca.
