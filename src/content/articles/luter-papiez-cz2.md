@@ -34,4 +34,5 @@ Szczytem tej negacji papiestwa, ustanowionego przecież przez samego Jezusa Chry
 
 Dzięki zrządzeniu Bożej Opatrzności te antyboskie i antyeklezjalne żądania Lutra nie tylko nie zostały spełnione, ale co więcej, sobór trydencki dokonał wielkiego dzieła odnowy ludzkiej twarzy Kościoła i umocnił urząd Piotrowy dla wszelakiego dobra nie tylko samego Kościoła Chrystusowego, lecz także ludzi dobrej woli w dziejach świata po jednej z największych tragedii moralno-religijnych, duchowych i kulturowych w ogóle, jaką była tragiczna w swojej istocie reformacja jako rewolucja m.in. przeciwko papiestwu jako świętemu dziełu Boskiego Zbawiciela.
 
+***
 *Ks. prof. Tadeusz Guz, Kierownik Katedry Filozofii Prawa KUL.*
