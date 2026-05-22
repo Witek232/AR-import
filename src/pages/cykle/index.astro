@@ -27,18 +27,34 @@ const { cycles } = processArticles(allArticles, allCycles);
       </div>
     </div>
 
-    <!-- Siatka Kafelków -->
+    <!-- Lista cykli — układ poziomy -->
     <div style="background: var(--parchment); padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
-      <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 0;">
         
-        {cycles.map(cycle => (
-          <a href={cycle.href} class="cycle-tile">
-            <h2 class="cycle-tile-title">{cycle.data.title}</h2>
-            <p class="cycle-tile-desc">{cycle.data.description}</p>
-            <div class="cycle-tile-footer">
-              <span>{cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}</span>
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {cycles.map((cycle, index) => (
+          <a href={cycle.href} class="cycle-row">
+            
+            <!-- Numer -->
+            <div class="cycle-number">
+              {String(index + 1).padStart(2, '0')}
             </div>
+
+            <!-- Treść -->
+            <div class="cycle-content">
+              <h2 class="cycle-title">{cycle.data.title}</h2>
+              <p class="cycle-desc">{cycle.data.description}</p>
+            </div>
+
+            <!-- Meta + strzałka -->
+            <div class="cycle-meta">
+              <span class="cycle-count">
+                {cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}
+              </span>
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="cycle-arrow">
+                <path d="M7 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
           </a>
         ))}
 
@@ -49,45 +65,119 @@ const { cycles } = processArticles(allArticles, allCycles);
 </Layout>
 
 <style>
-  .cycle-tile {
+  .cycle-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: center;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1rem, 2vw, 1.5rem);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.3s ease, background 0.25s ease;
+    position: relative;
+  }
+
+  .cycle-row:first-child {
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .cycle-row:hover {
+    padding-left: clamp(1.75rem, 3vw, 2.5rem);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .cycle-row:hover .cycle-title {
+    color: var(--gold, #C9A84C);
+  }
+
+  .cycle-row:hover .cycle-arrow {
+    stroke: var(--gold, #C9A84C);
+    transform: translateX(4px);
+  }
+
+  .cycle-row:hover .cycle-number {
+    color: var(--gold, #C9A84C);
+  }
+
+  /* Numer */
+  .cycle-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 300;
+    color: rgba(201,168,76,0.4);
+    line-height: 1;
+    min-width: clamp(2.5rem, 6vw, 3.5rem);
+    text-align: center;
+    transition: color 0.25s ease;
+  }
+
+  /* Treść */
+  .cycle-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cycle-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--ink-deep, #1A1209);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    transition: color 0.25s ease;
+  }
+
+  .cycle-desc {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    color: rgba(26,18,9,0.5);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Meta */
+  .cycle-meta {
     display: flex;
     flex-direction: column;
-    background: var(--bg);
-    border: 1px solid rgba(201,168,76,0.2);
-    padding: 2rem;
-    text-decoration: none;
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-shrink: 0;
   }
-  .cycle-tile:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
-  .cycle-tile-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    color: var(--ink-deep);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  .cycle-tile-desc {
+
+  .cycle-count {
     font-family: 'Crimson Pro', serif;
-    font-size: 1rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    flex-grow: 1;
-    margin-bottom: 1.5rem;
-  }
-  .cycle-tile-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    color: var(--gold);
+    font-size: clamp(0.72rem, 1.8vw, 0.8rem);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    border-top: 1px solid rgba(201,168,76,0.15);
-    padding-top: 1rem;
+    color: var(--gold, #C9A84C);
+    white-space: nowrap;
+  }
+
+  .cycle-arrow {
+    stroke: rgba(201,168,76,0.4);
+    transition: stroke 0.25s ease, transform 0.25s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .cycle-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .cycle-number {
+      font-size: 1.5rem;
+      text-align: left;
+    }
+
+    .cycle-meta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
   }
 </style>
