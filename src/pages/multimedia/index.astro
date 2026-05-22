@@ -24,7 +24,7 @@ for (const entry of allEntriesList) {
 const totalEntries = Object.values(multimediaDataMap).reduce((s, e) => s + e.length, 0);
 const totalFilms   = Object.values(multimediaDataMap).reduce((s, entries) => s + entries.reduce((ss, e) => ss + e.parts.length, 0), 0);
 const recentEntries = allEntriesList.slice(0, 5);
-const maxYear = Math.max(...years);
+const maxYear = years.length > 0 ? Math.max(...years) : new Date().getFullYear();
 
 // 2. Pobranie i przetworzenie artykułów (NOWE Z HELPEREM)
 const allArticlesRaw = await getCollection('articles');
