@@ -11,28 +11,28 @@ import {
 const allWydarzenia = await getAllWydarzenia();
 
 const eventsDisplay = allWydarzenia.map((event) => {
-  const d           = formatEventDate(event.date);
-  const type        = typeLabels[event.type] ?? event.type;
-  const typeColor   = typeColors[event.type] ?? '#C9A84C';
-  const langLabel   = (event.languages ?? ['PL']).join('/');
+  const d = formatEventDate(event.date);
+  const type = typeLabels[event.type] ?? event.type;
+  const typeColor = typeColors[event.type] ?? '#C9A84C';
+  const langLabel = (event.languages ?? ['PL']).join('/');
   const isMultiLang = (event.languages ?? []).length > 1;
   return { event, d, type, typeColor, langLabel, isMultiLang };
 });
 
 const filterButtons = [
-  { key: 'all',      label: 'Wszystkie'   },
+  { key: 'all', label: 'Wszystkie' },
   { key: 'upcoming', label: 'Nadchodzące' },
-  { key: 'past',     label: 'Archiwum'    },
+  { key: 'past', label: 'Archiwum' },
 ];
 ---
 
 <Layout
   title="Wydarzenia"
-  description="Seminaria, wykłady i konferencje projektu Ateny Roztocza. Spotkania w przestrzeni kultury, filozofii i wiary."
+  description="Seminaria, wykłady i konferencje projektu Ateny Roztocza."
 >
   <div class="page-transition">
 
-    <!-- ── Hero ─────────────────────────────────────────────── -->
+    <!-- Hero -->
     <div class="page-hero">
       <div style="position:relative; z-index:2; max-width:700px; margin:0 auto;">
         <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
@@ -41,13 +41,13 @@ const filterButtons = [
         <h1 class="section-title gold-shimmer" style="font-size:clamp(2.4rem,7vw,4.8rem); margin-bottom:1rem;">
           Wydarzenia
         </h1>
-        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7); line-height:1.75;">
+        <p style="font-family:'Charm',serif; font-style:italic; font-size:clamp(1rem,2.2vw,1.25rem); color:rgba(232,201,122,0.7); line-height:1.75;">
           Spotkania w przestrzeni kultury, filozofii i wiary
         </p>
       </div>
     </div>
 
-    <!-- ── Sticky filter bar ─────────────────────────────────── -->
+    <!-- Filtry -->
     <div style="background:#1A1209; border-bottom:1px solid rgba(201,168,76,0.15); position:sticky; top:70px; z-index:100;">
       <div style="max-width:1100px; margin:0 auto; padding:0 1.5rem; display:flex;">
         {filterButtons.map((btn) => (
@@ -58,47 +58,17 @@ const filterButtons = [
       </div>
     </div>
 
-    <!-- ── Lista wydarzeń ─────────────────────────────────────── -->
+    <!-- Lista wydarzeń -->
     <div style="background:#F5EDD8; min-height:60vh;">
       <div style="max-width:1000px; margin:0 auto; padding:clamp(2.5rem,5vw,4rem) 1.5rem;">
 
-        <!-- Legenda -->
-        <div style="display:flex; gap:clamp(0.75rem,2.5vw,1.5rem); flex-wrap:wrap; align-items:center; margin-bottom:clamp(1.5rem,3.5vw,2.5rem); padding:clamp(0.75rem,2vw,1rem) clamp(1rem,2.5vw,1.25rem); background:rgba(26,18,9,0.04); border:1px solid rgba(201,168,76,0.15);">
-          <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); flex-shrink:0;">
-            Oznaczenia:
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 8px; display:inline-flex; align-items:center; gap:4px;">
-              <svg width="8" height="8" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-              Relacja
-            </span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— dostępna relacja z wydarzenia</span>
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px;">Archiwum</span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— brak relacji</span>
-          </span>
-          <span style="display:inline-flex; align-items:center; gap:6px;">
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.65rem); letter-spacing:0.16em; text-transform:uppercase; color:#C9A84C; border:1px solid rgba(201,168,76,0.35); background:rgba(201,168,76,0.1); padding:2px 8px;">Wkrótce</span>
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.78rem,2vw,0.88rem); color:rgba(26,18,9,0.5); font-style:italic;">— wydarzenie nadchodzące</span>
-          </span>
-        </div>
-
-        {eventsDisplay.length === 0 && (
-          <div style="text-align:center; padding:5rem 0;">
-            <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:rgba(26,18,9,0.3);">
-              Brak wydarzeń w archiwum.
-            </p>
-          </div>
-        )}
-
-        <!-- Wiersze wydarzeń -->
         <div id="events-list" style="display:flex; flex-direction:column;">
           {eventsDisplay.map(({ event, d, type, typeColor, langLabel, isMultiLang }) => (
-            <div
+            <a 
+              href={`/wydarzenia/${event.slug}`}
               class="reveal w-event-row"
               data-status={event.status}
-              style="display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.25rem,3vw,2.5rem); padding:clamp(1.5rem,3.5vw,2.5rem) 0; border-bottom:1px solid rgba(26,18,9,0.1); cursor:default; transition:padding-left 0.3s ease; align-items:start;"
+              style="display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.25rem,3vw,2.5rem); padding:clamp(1.5rem,3.5vw,2.5rem) 0; border-bottom:1px solid rgba(26,18,9,0.1); cursor:pointer; transition:padding-left 0.3s ease, background 0.2s; align-items:start; text-decoration:none; color:inherit;"
             >
               <!-- Data -->
               <div style="text-align:center; min-width:clamp(52px,10vw,70px); border-right:1px solid rgba(201,168,76,0.25); padding-right:clamp(1rem,2.5vw,1.75rem);">
@@ -121,15 +91,15 @@ const filterButtons = [
                   </span>
 
                   {event.status === 'past' && event.hasReport && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 9px; display:inline-flex; align-items:center; gap:4px; flex-shrink:0;">
+                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.18em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:2px 9px; display:inline-flex; align-items:center; gap:4px;">
                       <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
                       Relacja
                     </span>
                   )}
 
-                  {event.status === 'past' && !event.hasReport && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.38); border:1px solid rgba(26,18,9,0.15); padding:2px 8px; flex-shrink:0;">
-                      Archiwum
+                  {event.status === 'upcoming' && (
+                    <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:2px 8px;">
+                      Wkrótce
                     </span>
                   )}
 
@@ -153,32 +123,15 @@ const filterButtons = [
                     {event.description}
                   </p>
                 )}
-
-                {event.status === 'past' && event.hasReport && event.reportUrl && (
-                  <a
-                    href={event.reportUrl}
-                    style="display:inline-flex; align-items:center; gap:0.4rem; margin-top:0.75rem; font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,1.8vw,0.88rem); letter-spacing:0.1em; text-transform:uppercase; color:#C9A84C; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.35); padding-bottom:1px; transition:color 0.2s;"
-                  >
-                    Obejrzyj relację →
-                  </a>
-                )}
               </div>
 
-              <!-- Badge prawy -->
-              <div style="align-self:start; margin-top:0.25rem; display:flex; flex-direction:column; gap:0.4rem; align-items:flex-end;">
-                {event.status === 'upcoming' && (
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:4px 10px; white-space:nowrap;">
-                    Wkrótce
-                  </div>
-                )}
-                {event.status === 'past' && event.hasReport && (
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.6rem,1.4vw,0.68rem); letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.85); background:#7A1C2E; padding:4px 10px; white-space:nowrap; display:flex; align-items:center; gap:5px;">
-                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-                    Relacja
-                  </div>
-                )}
+              <!-- Strzałka -->
+              <div style="align-self:center;">
+                <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5">
+                  <path d="M7 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -188,7 +141,13 @@ const filterButtons = [
 </Layout>
 
 <style>
-  .w-event-row:hover { padding-left: 0.5rem; }
+  .w-event-row:hover { 
+    padding-left: 0.75rem; 
+    background: rgba(201,168,76,0.03);
+  }
+  .w-event-row:hover svg { 
+    stroke: #C9A84C; 
+  }
 
   .w-filter-btn {
     color: rgba(245, 237, 216, 0.45);
@@ -202,24 +161,16 @@ const filterButtons = [
 
 <script>
   var filterBtns = document.querySelectorAll('.w-filter-btn');
-  var eventRows  = document.querySelectorAll('.w-event-row');
+  var eventRows = document.querySelectorAll('.w-event-row');
 
   function applyFilter(filter) {
     filterBtns.forEach(function(btn) {
       btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
     });
     eventRows.forEach(function(row) {
-      var status  = row.getAttribute('data-status') || '';
+      var status = row.getAttribute('data-status') || '';
       var visible = (filter === 'all' || status === filter);
       row.style.display = visible ? 'grid' : 'none';
-      if (visible) {
-        row.classList.remove('visible');
-        setTimeout(function() {
-          if (row.getBoundingClientRect().top < window.innerHeight) {
-            row.classList.add('visible');
-          }
-        }, 60);
-      }
     });
   }
 
