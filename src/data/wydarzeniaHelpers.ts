@@ -1,89 +1,67 @@
+// src/data/wydarzeniaHelpers.ts
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
 
-// ── Stałe ────────────────────────────────────────────────────
 export const typeLabels: Record<string, string> = {
-  wyklad:      'Wykład',
-  seminarium:  'Seminarium',
   konferencja: 'Konferencja',
-  sympozjum:   'Sympozjum',
-  warsztaty:   'Warsztaty',
-  spotkanie:   'Spotkanie',
+  seminarium: 'Seminarium',
+  wyklad: 'Wykład',
+  spotkanie: 'Spotkanie',
+  msza: 'Msza święta',
 };
 
 export const typeColors: Record<string, string> = {
-  wyklad:      '#C9A84C',
-  seminarium:  '#7A5C2E',
-  konferencja: '#8B3A3A',
-  sympozjum:   '#4A5A8B',
-  warsztaty:   '#4A6741',
-  spotkanie:   '#6A4A7A',
+  konferencja: '#7A1C2E',
+  seminarium: '#C9A84C',
+  wyklad: '#4A7C59',
+  spotkanie: '#5B4A6F',
+  msza: '#8B4513',
 };
 
-// ── Typ pomocniczy ───────────────────────────────────────────
-type WydarzenieEntry = CollectionEntry<'wydarzenia'>['data'] & {
-  body: string;
-  slug: string;
-};
+// Automatyczne określenie statusu na podstawie daty
+export function getEventStatus(eventDate: Date): 'upcoming' | 'past' {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const event = new Date(eventDate);
+  event.setHours(0, 0, 0, 0);
+  
+  return event >= today ? 'upcoming' : 'past';
+}
 
-function toLegacyFormat(entry: CollectionEntry<'wydarzenia'>): WydarzenieEntry {
+export function formatEventDate(date: Date) {
+  const d = new Date(date);
   return {
-    ...entry.data,
-    slug: entry.data.slug ?? entry.id.replace(/\.md$/, ''),
-    body: entry.body ?? '',
+    day: d.getDate(),
+    month: d.toLocaleDateString('pl-PL', { month: 'short' }).replace('.', ''),
+    year: d.getFullYear(),
+    full: d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }),
   };
 }
 
-// ── Formatowanie daty ─────────────────────────────────────────
-export function formatEventDate(date: Date | string) {
-  const d = typeof date === 'string' ? new Date(date) : date;
-  return {
-    day:   d.getDate().toString().padStart(2, '0'),
-    month: d.toLocaleString('pl-PL', { month: 'short' }).replace('.', ''),
-    year:  d.getFullYear().toString(),
-  };
-}
-
-// ── Pobieranie danych ─────────────────────────────────────────
-
-export async function getAllWydarzenia(): Promise<WydarzenieEntry[]> {
+export async function getAllWydarzenia() {
   const entries = await getCollection('wydarzenia');
+  
   return entries
-    .map(toLegacyFormat)
+    .map((entry) => {
+      const slug = entry.data.slug ?? entry.id.replace(/\.md$/, '');
+      const status = getEventStatus(entry.data.date); // AUTOMATYCZNY STATUS
+      
+      return {
+        ...entry.data,
+        slug,
+        status,
+        body: entry.body ?? '',
+      };
+    })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export async function getWydarzeniaUpcoming(): Promise<WydarzenieEntry[]> {
+export async function getSiblings(currentSlug: string) {
   const all = await getAllWydarzenia();
-  return all.filter(e => e.status === 'upcoming');
-}
-
-export async function getUpcomingWydarzenia(limit?: number): Promise<WydarzenieEntry[]> {
-  const all = await getWydarzeniaUpcoming();
-  return limit ? all.slice(0, limit) : all;
-}
-
-export async function getWydarzeniaPast(): Promise<WydarzenieEntry[]> {
-  const all = await getAllWydarzenia();
-  return all.filter(e => e.status === 'past');
-}
-
-export async function getWydarzenieBySlug(slug: string): Promise<WydarzenieEntry | null> {
-  const all = await getAllWydarzenia();
-  return all.find(e => e.slug === slug) ?? null;
-}
-
-export async function getWydarzeniaYears(): Promise<number[]> {
-  const all = await getAllWydarzenia();
-  const years = new Set(all.map(e => new Date(e.date).getFullYear()));
-  return Array.from(years).sort((a, b) => b - a);
-}
-
-export async function getSiblings(slug: string) {
-  const all = await getAllWydarzenia();
-  const idx = all.findIndex(e => e.slug === slug);
+  const idx = all.findIndex((e) => e.slug === currentSlug);
+  
   return {
-    prev: idx > 0              ? all[idx - 1] : null,
+    prev: idx > 0 ? all[idx - 1] : null,
     next: idx < all.length - 1 ? all[idx + 1] : null,
   };
 }
