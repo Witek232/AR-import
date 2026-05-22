@@ -44,7 +44,7 @@ export async function getAllWydarzenia() {
   return entries
     .map((entry) => {
       const slug = entry.data.slug ?? entry.id.replace(/\.md$/, '');
-      const status = getEventStatus(entry.data.date); // AUTOMATYCZNY STATUS
+      const status = getEventStatus(entry.data.date);
       
       return {
         ...entry.data,
@@ -54,6 +54,28 @@ export async function getAllWydarzenia() {
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+// NOWA FUNKCJA: Pobiera nadchodzące wydarzenia
+export async function getUpcomingWydarzenia(limit?: number) {
+  const all = await getAllWydarzenia();
+  
+  const upcoming = all
+    .filter((e) => e.status === 'upcoming')
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Od najbliższego
+  
+  return limit ? upcoming.slice(0, limit) : upcoming;
+}
+
+// NOWA FUNKCJA: Pobiera archiwalne wydarzenia
+export async function getPastWydarzenia(limit?: number) {
+  const all = await getAllWydarzenia();
+  
+  const past = all
+    .filter((e) => e.status === 'past')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Od najnowszego
+  
+  return limit ? past.slice(0, limit) : past;
 }
 
 export async function getSiblings(currentSlug: string) {
