@@ -34,7 +34,7 @@ const wydarzeniaCollection = defineCollection({
     title:       z.string(),
     date:        z.coerce.date(),
     place:       z.string(),
-    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie', 'uroczystość',]),
+    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie', 'uroczystosc',]),
     status:      z.enum(['upcoming', 'past']),
     languages:   z.array(z.string()).optional().default(['PL']),
     hasReport:   z.boolean().optional().default(false),
