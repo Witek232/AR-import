@@ -31,11 +31,12 @@ const multimediaCollection = defineCollection({
 const wydarzeniaCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/wydarzenia' }),
   schema: z.object({
+    slug:        z.string().optional(),  // ← DODANE (opcjonalne)
     title:       z.string(),
     date:        z.coerce.date(),
     place:       z.string(),
-    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie', 'uroczystość',]),
-    status:      z.enum(['upcoming', 'past']),
+    type:        z.enum(['wyklad', 'seminarium', 'konferencja', 'sympozjum', 'warsztaty', 'spotkanie', 'uroczystość', 'msza']),
+    // status:   USUNIĘTE - obliczane automatycznie przez helper
     languages:   z.array(z.string()).optional().default(['PL']),
     hasReport:   z.boolean().optional().default(false),
     reportUrl:   z.string().optional(),
