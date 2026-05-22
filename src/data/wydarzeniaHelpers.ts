@@ -7,6 +7,7 @@ export const typeLabels: Record<string, string> = {
   wyklad: 'Wykład',
   spotkanie: 'Spotkanie',
   msza: 'Msza święta',
+  uroczystość: 'Uroczystość',
 };
 
 export const typeColors: Record<string, string> = {
@@ -15,6 +16,7 @@ export const typeColors: Record<string, string> = {
   wyklad: '#4A7C59',
   spotkanie: '#5B4A6F',
   msza: '#8B4513',
+  uroczystość: '#8B4513',
 };
 
 // Automatyczne określenie statusu na podstawie daty
