@@ -27,30 +27,29 @@ const { cycles } = processArticles(allArticles, allCycles);
       </div>
     </div>
 
-    <!-- Lista cykli — układ poziomy -->
+    <!-- Lista cykli — jeden pod drugim -->
     <div style="background: var(--parchment); padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
-      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 0;">
+      <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(1.25rem, 3vw, 1.75rem);">
         
         {cycles.map((cycle, index) => (
-          <a href={cycle.href} class="cycle-row">
+          <a href={cycle.href} class="cycle-tile">
             
-            <!-- Numer -->
-            <div class="cycle-number">
+            <!-- Numer + treść -->
+            <div class="cycle-tile-number">
               {String(index + 1).padStart(2, '0')}
             </div>
 
-            <!-- Treść -->
-            <div class="cycle-content">
-              <h2 class="cycle-title">{cycle.data.title}</h2>
-              <p class="cycle-desc">{cycle.data.description}</p>
+            <div class="cycle-tile-body">
+              <h2 class="cycle-tile-title">{cycle.data.title}</h2>
+              <p class="cycle-tile-desc">{cycle.data.description}</p>
             </div>
 
             <!-- Meta + strzałka -->
-            <div class="cycle-meta">
-              <span class="cycle-count">
+            <div class="cycle-tile-meta">
+              <span class="cycle-tile-count">
                 {cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}
               </span>
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="cycle-arrow">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="cycle-tile-arrow">
                 <path d="M7 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
@@ -65,70 +64,68 @@ const { cycles } = processArticles(allArticles, allCycles);
 </Layout>
 
 <style>
-  .cycle-row {
+  .cycle-tile {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: clamp(1.25rem, 3vw, 2.5rem);
+    gap: clamp(1.25rem, 3vw, 2rem);
     align-items: center;
-    padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1rem, 2vw, 1.5rem);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
+    background: var(--bg, #EDE0C4);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
     text-decoration: none;
     color: inherit;
-    transition: padding-left 0.3s ease, background 0.25s ease;
-    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
   }
 
-  .cycle-row:first-child {
-    border-top: 1px solid rgba(201,168,76,0.2);
+  .cycle-tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold, #C9A84C);
+    box-shadow: 0 10px 30px rgba(26,18,9,0.12);
   }
 
-  .cycle-row:hover {
-    padding-left: clamp(1.75rem, 3vw, 2.5rem);
-    background: rgba(201,168,76,0.06);
-  }
-
-  .cycle-row:hover .cycle-title {
+  .cycle-tile:hover .cycle-tile-title {
     color: var(--gold, #C9A84C);
   }
 
-  .cycle-row:hover .cycle-arrow {
+  .cycle-tile:hover .cycle-tile-number {
+    color: var(--gold, #C9A84C);
+  }
+
+  .cycle-tile:hover .cycle-tile-arrow {
     stroke: var(--gold, #C9A84C);
     transform: translateX(4px);
   }
 
-  .cycle-row:hover .cycle-number {
-    color: var(--gold, #C9A84C);
-  }
-
   /* Numer */
-  .cycle-number {
+  .cycle-tile-number {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 300;
-    color: rgba(201,168,76,0.4);
+    color: rgba(201,168,76,0.35);
     line-height: 1;
     min-width: clamp(2.5rem, 6vw, 3.5rem);
     text-align: center;
-    transition: color 0.25s ease;
+    transition: color 0.3s ease;
   }
 
   /* Treść */
-  .cycle-content {
+  .cycle-tile-body {
     flex: 1;
     min-width: 0;
   }
 
-  .cycle-title {
+  .cycle-tile-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.25rem, 3.5vw, 1.75rem);
     font-weight: 400;
     color: var(--ink-deep, #1A1209);
     line-height: 1.25;
     margin-bottom: 0.5rem;
-    transition: color 0.25s ease;
+    transition: color 0.3s ease;
   }
 
-  .cycle-desc {
+  .cycle-tile-desc {
     font-family: 'Crimson Pro', serif;
     font-style: italic;
     font-size: clamp(0.9rem, 2.2vw, 1rem);
@@ -138,7 +135,7 @@ const { cycles } = processArticles(allArticles, allCycles);
   }
 
   /* Meta */
-  .cycle-meta {
+  .cycle-tile-meta {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -146,38 +143,38 @@ const { cycles } = processArticles(allArticles, allCycles);
     flex-shrink: 0;
   }
 
-  .cycle-count {
+  .cycle-tile-count {
     font-family: 'Crimson Pro', serif;
-    font-size: clamp(0.72rem, 1.8vw, 0.8rem);
+    font-size: clamp(0.72rem, 1.8vw, 0.82rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold, #C9A84C);
     white-space: nowrap;
   }
 
-  .cycle-arrow {
+  .cycle-tile-arrow {
     stroke: rgba(201,168,76,0.4);
-    transition: stroke 0.25s ease, transform 0.25s ease;
+    transition: stroke 0.3s ease, transform 0.3s ease;
   }
 
   /* Responsive */
   @media (max-width: 600px) {
-    .cycle-row {
+    .cycle-tile {
       grid-template-columns: 1fr;
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
-    .cycle-number {
+    .cycle-tile-number {
       font-size: 1.5rem;
       text-align: left;
     }
 
-    .cycle-meta {
+    .cycle-tile-meta {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(201,168,76,0.12);
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201,168,76,0.15);
     }
   }
 </style>
