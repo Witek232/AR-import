@@ -4,17 +4,29 @@ import type { CollectionEntry } from 'astro:content';
 
 // ── Słowniki ──────────────────────────────────────────────────
 export const categoryLabels: Record<string, string> = {
-  wyklad:      'Wykład',
-  seminarium:  'Seminarium',
-  konferencja: 'Konferencja',
-  inne:        'Inne',
+  'wykład':      'Wykład',
+  'rozważania':  'Rozważania',
+  'konferencja': 'Konferencja',
+  'homilia':     'Homilia',
+  'kazanie':     'Kazanie',
+  'wywiad':      'Wywiad',
+  'spotkanie':   'Spotkanie',
+  'rozmowa':     'Rozmowa',
+  'rekolekcje':  'Rekolekcje',
+  'inne':        'Inne',
 };
 
 export const categoryColors: Record<string, string> = {
-  wyklad:      '#C9A84C',
-  seminarium:  '#7A5C2E',
-  konferencja: '#8B3A3A',
-  inne:        '#4A6741',
+  'wykład':      '#C9A84C',
+  'rozważania':  '#8B6914',
+  'konferencja': '#8B3A3A',
+  'homilia':     '#6B4423',
+  'kazanie':     '#5D4E37',
+  'wywiad':      '#4A6741',
+  'spotkanie':   '#4A5568',
+  'rozmowa':     '#6B5B95',
+  'rekolekcje':  '#7A5C2E',
+  'inne':        '#718096',
 };
 
 // Typ eksportowany — slug zawsze string
