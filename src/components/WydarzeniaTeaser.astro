@@ -7,9 +7,20 @@ const upcomingEvents = await getUpcomingWydarzenia(3);
 
 <section
   id="wydarzenia-teaser"
-  style="background:#EDE0C4; padding:clamp(4rem,8vw,7rem) clamp(1.25rem,4vw,2rem);"
+  style="background:#F5EDD8; padding:clamp(4rem,8vw,7rem) clamp(1.25rem,4vw,2rem); position:relative; overflow:hidden;"
 >
-  <div style="max-width:1100px; margin:0 auto;">
+  <!-- Decorative geometric background -->
+  <div style="position:absolute; right:-5rem; top:50%; transform:translateY(-50%); opacity:0.04; pointer-events:none;">
+    <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
+      <circle cx="250" cy="250" r="240" stroke="#1A1209" stroke-width="1" />
+      <circle cx="250" cy="250" r="200" stroke="#1A1209" stroke-width="1" />
+      <circle cx="250" cy="250" r="160" stroke="#1A1209" stroke-width="1" />
+      <polygon points="250,30 470,195 385,440 115,440 30,195" stroke="#1A1209" stroke-width="1" fill="none" />
+      <polygon points="250,80 420,205 360,400 140,400 80,205" stroke="#C9A84C" stroke-width="0.5" fill="none" />
+    </svg>
+  </div>
+
+  <div style="max-width:1100px; margin:0 auto; position:relative; z-index:1;">
 
     <!-- Header -->
     <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:clamp(2.5rem,5vw,4rem);">
