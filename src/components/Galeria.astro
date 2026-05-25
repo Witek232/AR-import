@@ -47,7 +47,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
 
     <!-- Header -->
     <div style="text-align:center; margin-bottom:clamp(2rem,4vw,3rem);">
-      <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.72rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.85rem;">
+      <p class="reveal" style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.8vw,0.72rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.5); margin-bottom:0.85rem;">
         Archiwum fotograficzne
       </p>
       <h2 class="reveal section-title" style="font-size:clamp(2rem,4.5vw,3.5rem); color:#E8C97A; line-height:1.1;">
@@ -116,7 +116,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
 
           <!-- Caption -->
           <div class="gallery-caption">
-            <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.8rem,1.8vw,0.9rem); color:rgba(232,201,122,0.92); line-height:1.4;">
+            <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.8rem,1.8vw,0.9rem); color:rgba(232,201,122,0.92); line-height:1.4;">
               {item.caption}
             </p>
           </div>
@@ -160,7 +160,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
     <!-- Top bar -->
     <div style="position:absolute; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:clamp(0.75rem,2vw,1.25rem) clamp(1rem,3vw,2rem); background:linear-gradient(to bottom,rgba(0,0,0,0.6),transparent); z-index:10;">
       <span id="lb-counter" style="font-family:'Playfair Display',serif; font-size:clamp(0.9rem,2vw,1.1rem); color:rgba(201,168,76,0.65); letter-spacing:0.12em;"></span>
-      <span id="lb-album-name" style="font-family:'Crimson Pro',serif; font-size:clamp(0.7rem,1.5vw,0.8rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(232,201,122,0.45);"></span>
+      <span id="lb-album-name" style="font-family:'Inter',serif; font-size:clamp(0.7rem,1.5vw,0.8rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(232,201,122,0.45);"></span>
       <button id="lb-close" aria-label="Zamknij (Esc)" class="lb-close-btn" style="background:none; border:1px solid rgba(201,168,76,0.3); color:#C9A84C; width:clamp(38px,5vw,46px); height:clamp(38px,5vw,46px); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; flex-shrink:0;">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
           <path d="M4 4l10 10M14 4L4 14" stroke-linecap="round" />
@@ -207,7 +207,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
     <!-- Keyboard hint -->
     <div class="lb-keyboard-hint" style="position:absolute; bottom:clamp(4rem,8vw,5.5rem); left:50%; transform:translateX(-50%); display:flex; gap:0.75rem; align-items:center; pointer-events:none;">
       {[['←','Poprzednie'],['→','Następne'],['Esc','Zamknij']].map(([key, label]) => (
-        <span style="display:flex; align-items:center; gap:4px; font-family:'Crimson Pro',serif; font-size:0.7rem; color:rgba(201,168,76,0.3); letter-spacing:0.05em;">
+        <span style="display:flex; align-items:center; gap:4px; font-family:'Inter',serif; font-size:0.7rem; color:rgba(201,168,76,0.3); letter-spacing:0.05em;">
           <kbd style="background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); padding:2px 6px; font-size:0.65rem; color:rgba(201,168,76,0.45);">{key}</kbd>
           {label}
         </span>
@@ -287,7 +287,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
 
   /* ── Filter buttons ── */
   .album-filter-btn {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: clamp(0.82rem, 2vw, 0.88rem);
     letter-spacing: 0.08em;
     padding: clamp(0.5rem, 1.5vw, 0.65rem) clamp(1rem, 3vw, 1.5rem);
@@ -331,7 +331,7 @@ const totalCount = albums.reduce((a, b) => a + b.count, 0);
   .lb-nav-btn:disabled { opacity: 0.25; cursor: default; }
 
   .lb-nav-label {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: clamp(0.58rem, 1.2vw, 0.68rem);
     letter-spacing: 0.15em;
     text-transform: uppercase;
