@@ -56,12 +56,12 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
 
     <div class="page-hero" style="position:relative;">
       <div style="position:relative;z-index:2;max-width:760px;margin:0 auto;">
-        <nav style="font-family:'Crimson Pro',serif;font-size:0.8rem;letter-spacing:0.12em;color:rgba(201,168,76,0.5);margin-bottom:1.5rem;">
+        <nav style="font-family:'Inter',serif;font-size:0.8rem;letter-spacing:0.12em;color:rgba(201,168,76,0.5);margin-bottom:1.5rem;">
           <a href="/multimedia" class="bc-link" style="color:rgba(201,168,76,0.6);text-decoration:none;">Multimedia</a>
           <span style="margin:0 0.6rem;color:rgba(201,168,76,0.3);">›</span>
           <span style="color:rgba(201,168,76,0.9);">{rok}</span>
         </nav>
-        <p style="font-family:'Crimson Pro',serif;font-size:clamp(0.65rem,1.5vw,0.75rem);letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.65);margin-bottom:1rem;">
+        <p style="font-family:'Inter',serif;font-size:clamp(0.65rem,1.5vw,0.75rem);letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.65);margin-bottom:1rem;">
           Archiwum audiowizualne
         </p>
         <h1 class="section-title gold-shimmer" style="font-size:clamp(3rem,10vw,6rem);margin-bottom:0.75rem;line-height:1;">
@@ -81,7 +81,7 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
             <p style="font-family:'Playfair Display',serif;font-size:1.5rem;color:rgba(26,18,9,0.3);">
               Brak materiałów dla roku {rok}.
             </p>
-            <a href="/multimedia" style="display:inline-block;margin-top:1.5rem;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:#C9A84C;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
+            <a href="/multimedia" style="display:inline-block;margin-top:1.5rem;font-family:'Inter',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:#C9A84C;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
               ← Powrót do archiwum
             </a>
           </div>
@@ -99,18 +99,18 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
                     <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.4rem;">
                       <span style={catStyle}>{catLabel}</span>
                       {hasMany && (
-                        <span style="font-family:'Crimson Pro',serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.7);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:2px 7px;">
+                        <span style="font-family:'Inter',serif;font-size:clamp(0.6rem,1.4vw,0.68rem);letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.7);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:2px 7px;">
                           {partsCount} części
                         </span>
                       )}
-                      <span style="font-family:'Crimson Pro',serif;font-size:clamp(0.78rem,1.8vw,0.85rem);color:rgba(26,18,9,0.38);font-style:italic;">
+                      <span style="font-family:'Inter',serif;font-size:clamp(0.78rem,1.8vw,0.85rem);color:rgba(26,18,9,0.38);font-style:italic;">
                         {datePlace}
                       </span>
                     </div>
                     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.05rem,3vw,1.5rem);font-weight:400;color:#1A1209;line-height:1.35;margin-bottom:0.35rem;">
                       {entry.title}
                     </h2>
-                    <p style="font-family:'Crimson Pro',serif;font-size:clamp(0.85rem,2vw,0.95rem);color:rgba(26,18,9,0.45);font-style:italic;margin:0;line-height:1.5;">
+                    <p style="font-family:'Inter',serif;font-size:clamp(0.85rem,2vw,0.95rem);color:rgba(26,18,9,0.45);font-style:italic;margin:0;line-height:1.5;">
                       {firstDesc}
                     </p>
                   </div>
@@ -147,13 +147,13 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
 <style>
   .bc-link:hover { color: #C9A84C !important; }
   .year-nav-all {
-    font-family: 'Crimson Pro', serif; font-size: 0.8rem; letter-spacing: 0.15em;
+    font-family: 'Inter', serif; font-size: 0.8rem; letter-spacing: 0.15em;
     text-transform: uppercase; color: rgba(26,18,9,0.45); text-decoration: none;
     border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 1px; transition: color 0.2s;
   }
   .year-nav-all:hover { color: #C9A84C; }
   .year-nav-btn {
-    font-family: 'Crimson Pro', serif; font-size: 0.85rem; letter-spacing: 0.12em;
+    font-family: 'Inter', serif; font-size: 0.85rem; letter-spacing: 0.12em;
     text-transform: uppercase; color: rgba(26,18,9,0.55); text-decoration: none;
     display: inline-flex; align-items: center; gap: 0.4rem;
     border: 1px solid rgba(201,168,76,0.25); padding: 0.55rem 1.1rem; transition: all 0.25s;
