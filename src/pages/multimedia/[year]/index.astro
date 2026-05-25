@@ -78,7 +78,7 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
 
         {materialy.length === 0 && (
           <div style="text-align:center;padding:5rem 0;">
-            <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:rgba(26,18,9,0.3);">
+            <p style="font-family:'Playfair Display',serif;font-size:1.5rem;color:rgba(26,18,9,0.3);">
               Brak materiałów dla roku {rok}.
             </p>
             <a href="/multimedia" style="display:inline-block;margin-top:1.5rem;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;color:#C9A84C;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
@@ -92,7 +92,7 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
             {entriesDisplay.map(({ entry, num, href, catLabel, catStyle, datePlace, firstDesc, hasMany, partsCount }) => (
               <a href={href} style="text-decoration:none;" class="entry-row-link">
                 <div class="entry-row" style="display:grid;grid-template-columns:3rem 1fr auto;gap:clamp(1rem,3vw,2rem);padding:clamp(1.25rem,3vw,2rem) 0;border-bottom:1px solid rgba(26,18,9,0.09);align-items:start;transition:padding-left 0.25s ease;">
-                  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3.5vw,1.8rem);font-weight:300;color:rgba(201,168,76,0.3);line-height:1;padding-top:0.15rem;text-align:right;">
+                  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,1.8rem);font-weight:300;color:rgba(201,168,76,0.3);line-height:1;padding-top:0.15rem;text-align:right;">
                     {num}
                   </div>
                   <div>
@@ -107,7 +107,7 @@ const nextHref = rokNowszy  ? '/multimedia/' + rokNowszy  : '';
                         {datePlace}
                       </span>
                     </div>
-                    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.05rem,3vw,1.5rem);font-weight:400;color:#1A1209;line-height:1.35;margin-bottom:0.35rem;">
+                    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.05rem,3vw,1.5rem);font-weight:400;color:#1A1209;line-height:1.35;margin-bottom:0.35rem;">
                       {entry.title}
                     </h2>
                     <p style="font-family:'Crimson Pro',serif;font-size:clamp(0.85rem,2vw,0.95rem);color:rgba(26,18,9,0.45);font-style:italic;margin:0;line-height:1.5;">
