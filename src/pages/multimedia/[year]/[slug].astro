@@ -72,7 +72,7 @@ const dateDisplay = entry
 {!hasEntry && (
   <div style="background:#F5EDD8;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;">
     <div>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
+      <p style="font-family:'Playfair Display',serif;font-size:2rem;color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
       <a href={yearHref} style="color:#C9A84C;margin-top:1rem;display:inline-block;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
         ← Wróć do {rok}
       </a>
@@ -105,7 +105,7 @@ const dateDisplay = entry
           )}
         </div>
 
-        <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:400;line-height:1.15;color:#1A1209;margin-bottom:1.5rem;">
+        <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:400;line-height:1.15;color:#1A1209;margin-bottom:1.5rem;">
           {entry.title}
         </h1>
 
@@ -132,7 +132,7 @@ const dateDisplay = entry
           </div>
 
           {parts.length > 0 && (
-            <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,4vw,1.85rem);font-weight:400;color:#1A1209;margin-bottom:clamp(1.5rem,3vw,2.5rem); padding-bottom:1rem; border-bottom:1px solid rgba(26,18,9,0.1);">
+            <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,1.85rem);font-weight:400;color:#1A1209;margin-bottom:clamp(1.5rem,3vw,2.5rem); padding-bottom:1rem; border-bottom:1px solid rgba(26,18,9,0.1);">
               Nagrania
             </h2>
           )}
@@ -153,9 +153,9 @@ const dateDisplay = entry
               <div style="margin-bottom:clamp(2.5rem,5vw,4rem);">
                 {isMulti && (
                   <div style="display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:1.25rem;">
-                    <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3rem);color:rgba(26,18,9,0.15);line-height:1;">{partNum}</span>
+                    <span style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:rgba(26,18,9,0.15);line-height:1;">{partNum}</span>
                     <div>
-                      <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-weight:400;color:#1A1209;margin-bottom:0.35rem;">{part.label}</h3>
+                      <h3 style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-weight:400;color:#1A1209;margin-bottom:0.35rem;">{part.label}</h3>
                       {part.duration && (
                         <span style="font-family:'Crimson Pro',serif;font-size:0.85rem;color:rgba(26,18,9,0.45);letter-spacing:0.1em;text-transform:uppercase;">⏱ {part.duration}</span>
                       )}
@@ -216,7 +216,7 @@ const dateDisplay = entry
 
         <aside style="position:sticky;top:90px;">
           <div style="background:#EDE0C4;border:1px solid rgba(26,18,9,0.08);padding:1.5rem;">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:#1A1209;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(26,18,9,0.1);">
+            <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:#1A1209;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(26,18,9,0.1);">
               Inne z {rok}
             </h4>
             <ul style="list-style:none;padding:0;margin:0;">
@@ -224,7 +224,7 @@ const dateDisplay = entry
                 <li style="margin-bottom:0.25rem;">
                   <a href={link.href} class="sidebar-link" style="display:flex;flex-direction:column;gap:0.15rem;text-decoration:none;padding:0.6rem 0.5rem;border-radius:2px;transition:background 0.2s;">
                     <span style={'font-family:Crimson Pro,serif;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:' + link.catColor + ';'}>{link.catLabel}</span>
-                    <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:rgba(26,18,9,0.8);line-height:1.3;">{link.title}</span>
+                    <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:rgba(26,18,9,0.8);line-height:1.3;">{link.title}</span>
                   </a>
                 </li>
               ))}
@@ -279,7 +279,7 @@ const dateDisplay = entry
   .nav-link:hover { border-color:rgba(201,168,76,0.4); background:rgba(201,168,76,0.05); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
   .nav-next  { text-align:right; }
   .nav-dir   { font-family:'Crimson Pro',serif; font-size:0.75rem;color:#C9A84C;letter-spacing:0.14em; }
-  .nav-title { font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(26,18,9,0.8); }
+  .nav-title { font-family:'Playfair Display',serif;font-size:1rem;color:rgba(26,18,9,0.8); }
   .nav-center { text-align:center;font-family:'Crimson Pro',serif;font-size:0.9rem;color:rgba(26,18,9,0.5);text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;letter-spacing:0.08em;transition:color 0.2s; }
   .nav-center:hover { color:#C9A84C; }
   
