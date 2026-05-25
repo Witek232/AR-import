@@ -4,12 +4,10 @@
 // Komponent w 100% statyczny — zero JS potrzebnego lokalnie
 // ─────────────────────────────────────────────────────────────
 ---
-
 <section
   id="o-projekcie"
   style="background:#F5EDD8; padding:6rem 2rem; position:relative; overflow:hidden;"
 >
-  <!-- Decorative BG -->
   <div style="position:absolute; right:-5rem; top:50%; transform:translateY(-50%); opacity:0.04; pointer-events:none;">
     <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
       <circle cx="250" cy="250" r="240" stroke="#1A1209" stroke-width="1" />
@@ -20,10 +18,9 @@
     </svg>
   </div>
 
-  <div style="max-width:800px; margin:0 auto;">
+  <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:4rem;">
     
-    <!-- Content -->
-    <div>
+    <div style="flex:1; min-width:300px;">
       <p class="reveal" style="font-family:'Crimson Pro',serif; font-size:0.7rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.7); margin-bottom:1rem;">
         Jak powstają Ateny Roztocza
       </p>
@@ -51,6 +48,10 @@
       >
         Czytaj więcej →
       </a>
+    </div>
+
+    <div class="reveal" style="flex:0 0 300px; display:flex; justify-content:center; align-items:center;">
+        <img src="https://res.cloudinary.com/dmb0xngy0/image/upload/v1779483013/logoAR_imprmp.svg" alt="Logo Ateny Roztocza" style="width:100%; max-width:300px; height:auto; opacity:0.9;">
     </div>
 
   </div>

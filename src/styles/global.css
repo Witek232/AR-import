@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* ── Czcionki przez Fontsource (lokalnie, bez Google Fonts) ── */
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource/playfair-display/400-italic.css';
+@import '@fontsource/playfair-display/700-italic.css';
+
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
 /* ================================================================
    ATENY ROZTOCZA — Global Styles
    "Sacred Antiquity" Design System
@@ -21,6 +31,10 @@
     --text-dark:      #2C1F0E;
     --text-muted:     #6B5B43;
     --text-light:     #9A8A72;
+
+    /* Czcionki */
+    --font-heading: 'Playfair Display', serif;
+    --font-body:    'Inter', sans-serif;
 
     /* Spacing scale */
     --space-xs:  clamp(0.5rem,  1.5vw, 0.75rem);
@@ -45,7 +59,7 @@
   }
 
   body {
-    font-family: 'Crimson Pro', Georgia, serif;
+    font-family: var(--font-body);
     background-color: var(--parchment);
     color: var(--text-dark);
     overflow-x: hidden;
@@ -158,7 +172,7 @@
 
 /* Section title — elegant, scalable */
 .section-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-heading);
   font-weight: 300;
   letter-spacing: 0.04em;
   /* Mobile: ≥28px, desktop: up to 52px */
@@ -169,7 +183,7 @@
 
 /* Section label — small caps eyebrow */
 .section-label {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   /* Mobile: ≥12px */
   font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
   letter-spacing: 0.28em;
@@ -180,7 +194,7 @@
 
 /* Pull quote */
 .elegant-quote {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-heading);
   font-style: italic;
   /* Mobile: ≥18px */
   font-size: clamp(1.125rem, 3vw, 1.375rem);
@@ -193,7 +207,7 @@
 
 /* Body prose */
 .body-text {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
   line-height: 1.85;
   color: var(--text-dark);
@@ -201,7 +215,7 @@
 
 /* Lead paragraph — slightly larger */
 .lead-text {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   font-size: clamp(1.125rem, 3vw, 1.3125rem);
   line-height: 1.85;
   color: var(--text-dark);
@@ -246,7 +260,7 @@
    NAVIGATION
    ================================================================ */
 .nav-link {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   /* Minimum 14px on all screens */
   font-size: clamp(0.875rem, 1.3vw, 0.9375rem);
   letter-spacing: 0.08em;
@@ -283,7 +297,7 @@
   min-height: 44px;
   text-align: left;
   padding: 0.65rem 1.25rem;
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   font-size: clamp(0.9rem, 2vw, 0.9375rem);
   letter-spacing: 0.04em;
   color: rgba(232, 201, 122, 0.75);
@@ -401,7 +415,7 @@
    FORMS
    ================================================================ */
 .form-input {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   /* Minimum 16px prevents iOS zoom on focus */
   font-size: clamp(1rem, 2.2vw, 1.0625rem);
   background: rgba(245,237,216,0.6);
@@ -428,7 +442,7 @@
 }
 
 label {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   font-size: clamp(0.9375rem, 2vw, 1rem);
   letter-spacing: 0.04em;
   color: var(--text-dark);
@@ -441,7 +455,7 @@ label {
    TABS
    ================================================================ */
 .tab-btn {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   /* Mobile minimum 15px */
   font-size: clamp(0.9375rem, 2vw, 1rem);
   letter-spacing: 0.03em;
@@ -594,7 +608,7 @@ label {
 .copy-pulse { animation: pulse-gold 0.65s ease; }
 
 .iban-box {
-  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-family: var(--font-body), monospace;
   letter-spacing: 0.05em;
   font-size: clamp(0.8rem, 2vw, 0.95rem);
   white-space: nowrap;
@@ -644,7 +658,7 @@ label {
 
 /* ── Stat number ── */
 .stat-number {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 300;
   color: var(--gold);
@@ -660,7 +674,7 @@ label {
 /* ── Tag / badge ── */
 .tag {
   display: inline-block;
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-body);
   font-size: clamp(0.75rem, 1.8vw, 0.8125rem);
   letter-spacing: 0.1em;
   text-transform: uppercase;

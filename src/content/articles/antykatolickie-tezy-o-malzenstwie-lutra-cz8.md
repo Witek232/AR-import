@@ -3,7 +3,7 @@ title: "Antykatolickie tezy o małżeństwie Lutra (Cz. 8)"
 dateDisplay: "Sobota, 21 marca 2015"
 dateSortable: "2015-03-21"
 source: "Nasz Dziennik"
-excerpt: "Chociaż częściowo powyższa kwestia została już poruszona w artykule „Antykatolicka koncepcja małżeństwa według Marcina Lutra”, to jednak warto jeszcze uwzględnić kilka ważnych aspektów tej problematyki."
+excerpt: "Chociaż częściowo powyższa kwestia została już poruszona w artykule Antykatolicka koncepcja małżeństwa według Marcina Lutra, to jednak warto jeszcze uwzględnić kilka ważnych aspektów tej problematyki."
 cycle: "marcin-luter"
 cycleOrder: 8
 ---
