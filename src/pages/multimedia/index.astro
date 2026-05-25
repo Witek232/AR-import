@@ -105,7 +105,7 @@ const yearCardCatBadges = yearCards.map((card) =>
           [String(articlesData.totalArticles), 'publikacji'],
         ].map(([n, l]) => (
           <div style="text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.75rem,5vw,2.5rem); font-weight:300; color:#E8C97A; line-height:1;">{n}</div>
+            <div style="font-family:'Playfair Display',serif; font-size:clamp(1.75rem,5vw,2.5rem); font-weight:300; color:#E8C97A; line-height:1;">{n}</div>
             <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.8rem); letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-top:0.3rem;">{l}</div>
           </div>
         ))}
@@ -136,15 +136,15 @@ const yearCardCatBadges = yearCards.map((card) =>
 
       <!-- Ostatnio dodane -->
       <div style="margin-bottom:clamp(2rem,5vw,3.5rem);">
-        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.5rem;">Ostatnio dodane</h2>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.5rem;">Ostatnio dodane</h2>
         <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent); margin-bottom:clamp(1rem,2.5vw,1.5rem);"></div>
         <div style="display:flex; flex-direction:column;">
           {recentDisplay.map((entry) => (
             <a href={entry.href} style="text-decoration:none;" class="mm-recent-link">
               <div style="display:flex; align-items:center; gap:clamp(0.75rem,2vw,1.25rem); padding:clamp(0.75rem,2vw,1rem) clamp(0.5rem,1.5vw,0.75rem); border-bottom:1px solid rgba(26,18,9,0.07); transition:background 0.2s,padding-left 0.2s; cursor:pointer;">
-                <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.4rem); font-weight:300; color:#C9A84C; min-width:3.5rem; line-height:1;">{entry.year}</div>
+                <div style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.4rem); font-weight:300; color:#C9A84C; min-width:3.5rem; line-height:1;">{entry.year}</div>
                 <div style="flex:1; min-width:0;">
-                  <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(0.95rem,2.5vw,1.15rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.15rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{entry.title}</div>
+                  <div style="font-family:'Playfair Display',serif; font-size:clamp(0.95rem,2.5vw,1.15rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.15rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{entry.title}</div>
                   <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:rgba(26,18,9,0.38); letter-spacing:0.1em;">{entry.date} · {entry.dateInfo}</div>
                 </div>
                 <svg width="16" height="16" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"><path d="M3 8h10M9 5l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -156,7 +156,7 @@ const yearCardCatBadges = yearCards.map((card) =>
 
       <!-- Archiwum według roku -->
       <div style="margin-bottom:clamp(1.25rem,3vw,2rem);">
-        <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem;">Archiwum według roku</h2>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem;">Archiwum według roku</h2>
         <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.45); margin-bottom:0.75rem;">
           Kliknij rok, aby zobaczyć chronologiczną listę wszystkich wystąpień
         </p>
@@ -171,7 +171,7 @@ const yearCardCatBadges = yearCards.map((card) =>
               class="card-hover"
               style={'background:' + card.bgStyle + '; border:1px solid ' + card.borderColor + '; padding:clamp(1.1rem,2.5vw,1.5rem); cursor:pointer; position:relative; overflow:hidden;'}
             >
-              <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.5rem; letter-spacing:-0.01em;">
+              <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.5rem; letter-spacing:-0.01em;">
                 {card.year}
               </div>
               <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,2vw,0.9rem); color:rgba(26,18,9,0.55); margin-bottom:0.6rem; line-height:1.5;">
@@ -230,7 +230,7 @@ const yearCardCatBadges = yearCards.map((card) =>
           <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
             <div>
               <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Nasz Dziennik</p>
-              <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
               <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
             {art.target ? (
@@ -260,7 +260,7 @@ const yearCardCatBadges = yearCards.map((card) =>
           <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
             <div>
               <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Niedziela</p>
-              <h3 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
               <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
             {art.target ? (
