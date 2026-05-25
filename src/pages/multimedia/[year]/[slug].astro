@@ -73,7 +73,7 @@ const dateDisplay = entry
   <div style="background:#F5EDD8;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;">
     <div>
       <p style="font-family:'Playfair Display',serif;font-size:2rem;color:rgba(26,18,9,0.3);">Materiał nie został znaleziony.</p>
-      <a href={yearHref} style="color:#C9A84C;margin-top:1rem;display:inline-block;font-family:'Crimson Pro',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
+      <a href={yearHref} style="color:#C9A84C;margin-top:1rem;display:inline-block;font-family:'Inter',serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">
         ← Wróć do {rok}
       </a>
     </div>
@@ -86,7 +86,7 @@ const dateDisplay = entry
     <section style="background:#F5EDD8; padding:clamp(3.5rem,9vw,6rem) clamp(1rem,4vw,2rem) clamp(2.5rem,5vw,4rem); position:relative;">
       <div style="max-width:1100px;margin:0 auto;">
         
-        <nav style="font-family:'Crimson Pro',serif;font-size:0.82rem;letter-spacing:0.1em;margin-bottom:clamp(1.5rem,3vw,2.5rem);">
+        <nav style="font-family:'Inter',serif;font-size:0.82rem;letter-spacing:0.1em;margin-bottom:clamp(1.5rem,3vw,2.5rem);">
           <a href="/multimedia" class="bc-link" style="color:rgba(26,18,9,0.5);text-decoration:none;transition:color 0.2s;">Multimedia</a>
           <span style="margin:0 0.6rem;color:rgba(26,18,9,0.2);">›</span>
           <a href={yearHref} class="bc-link" style="color:rgba(26,18,9,0.5);text-decoration:none;transition:color 0.2s;">{rok}</a>
@@ -96,12 +96,12 @@ const dateDisplay = entry
 
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-bottom:clamp(1rem,2.5vw,1.5rem);">
           <span style={catMetaStyle}>{catLabel}</span>
-          <span style="font-family:'Crimson Pro',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);letter-spacing:0.05em;">{dateDisplay}</span>
+          <span style="font-family:'Inter',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);letter-spacing:0.05em;">{dateDisplay}</span>
           {entry.place && (
-            <span style="font-family:'Crimson Pro',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);">· {entry.place}</span>
+            <span style="font-family:'Inter',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);">· {entry.place}</span>
           )}
           {parts.length > 1 && (
-            <span style="font-family:'Crimson Pro',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);">· {parts.length} części</span>
+            <span style="font-family:'Inter',serif; font-size:0.85rem;color:rgba(26,18,9,0.5);">· {parts.length} części</span>
           )}
         </div>
 
@@ -112,7 +112,7 @@ const dateDisplay = entry
         {entry.tags && entry.tags.length > 0 && (
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
             {entry.tags.map((t) => (
-              <span style="font-family:'Crimson Pro',serif;font-size:0.75rem;color:rgba(26,18,9,0.6);background:rgba(201,168,76,0.08);padding:0.25rem 0.75rem;border:1px solid rgba(201,168,76,0.2);letter-spacing:0.05em;"># {t}</span>
+              <span style="font-family:'Inter',serif;font-size:0.75rem;color:rgba(26,18,9,0.6);background:rgba(201,168,76,0.08);padding:0.25rem 0.75rem;border:1px solid rgba(201,168,76,0.2);letter-spacing:0.05em;"># {t}</span>
             ))}
           </div>
         )}
@@ -157,14 +157,14 @@ const dateDisplay = entry
                     <div>
                       <h3 style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-weight:400;color:#1A1209;margin-bottom:0.35rem;">{part.label}</h3>
                       {part.duration && (
-                        <span style="font-family:'Crimson Pro',serif;font-size:0.85rem;color:rgba(26,18,9,0.45);letter-spacing:0.1em;text-transform:uppercase;">⏱ {part.duration}</span>
+                        <span style="font-family:'Inter',serif;font-size:0.85rem;color:rgba(26,18,9,0.45);letter-spacing:0.1em;text-transform:uppercase;">⏱ {part.duration}</span>
                       )}
                     </div>
                   </div>
                 )}
                 
                 {part.description && (
-                  <p style="font-family:'Crimson Pro',serif;font-size:0.95rem;color:rgba(26,18,9,0.55);margin-bottom:1.25rem;font-style:italic;line-height:1.6;">{part.description}</p>
+                  <p style="font-family:'Inter',serif;font-size:0.95rem;color:rgba(26,18,9,0.55);margin-bottom:1.25rem;font-style:italic;line-height:1.6;">{part.description}</p>
                 )}
 
                 {/* --- WYŚWIETLACZ AUDIO --- */}
@@ -196,9 +196,9 @@ const dateDisplay = entry
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
                     </div>
                     <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;">
-                      <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">▶ Kliknij aby odtworzyć</span>
+                      <span style="font-family:'Inter',serif;font-size:0.8rem;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">▶ Kliknij aby odtworzyć</span>
                       {part.duration && (
-                        <span style="font-family:'Crimson Pro',serif;font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
+                        <span style="font-family:'Inter',serif;font-size:0.8rem;color:rgba(255,255,255,0.7);">{part.duration}</span>
                       )}
                     </div>
                   </div>
@@ -280,7 +280,7 @@ const dateDisplay = entry
   .nav-next  { text-align:right; }
   .nav-dir   { font-family:'Crimson Pro',serif; font-size:0.75rem;color:#C9A84C;letter-spacing:0.14em; }
   .nav-title { font-family:'Playfair Display',serif;font-size:1rem;color:rgba(26,18,9,0.8); }
-  .nav-center { text-align:center;font-family:'Crimson Pro',serif;font-size:0.9rem;color:rgba(26,18,9,0.5);text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;letter-spacing:0.08em;transition:color 0.2s; }
+  .nav-center { text-align:center;font-family:'Inter',serif;font-size:0.9rem;color:rgba(26,18,9,0.5);text-decoration:none;padding:0.5rem 1rem;white-space:nowrap;letter-spacing:0.08em;transition:color 0.2s; }
   .nav-center:hover { color:#C9A84C; }
   
   @media (max-width:900px) {
@@ -295,7 +295,7 @@ const dateDisplay = entry
     padding: 1.5rem;
     background: rgba(201,168,76,0.04);
     border-left: 3px solid rgba(201,168,76,0.4);
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: clamp(0.95rem, 2vw, 1rem);
     line-height: 1.7;
     color: rgba(26,18,9,0.7);
