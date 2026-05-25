@@ -214,7 +214,7 @@ const albumsJson = JSON.stringify(albums);
     <!-- Hero -->
     <div class="page-hero">
       <div style="position:relative; z-index:2; max-width:700px; margin:0 auto;">
-        <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+        <p style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
           Archiwum fotograficzne
         </p>
         <h1 class="section-title gold-shimmer" style="font-size:clamp(2.4rem,7vw,4.8rem); margin-bottom:1rem;">
@@ -233,7 +233,7 @@ const albumsJson = JSON.stringify(albums);
         <!-- Przycisk Powrót — ukryty na start -->
         <button
           id="back-btn"
-          style="display:none; align-items:center; gap:0.5rem; font-family:'Crimson Pro',serif; font-size:clamp(0.88rem,2vw,0.95rem); letter-spacing:0.08em; text-transform:uppercase; background:none; border:none; cursor:pointer; color:rgba(26,18,9,0.5); margin-bottom:2.5rem; padding:0.5rem 0; min-height:44px;"
+          style="display:none; align-items:center; gap:0.5rem; font-family:'Inter',serif; font-size:clamp(0.88rem,2vw,0.95rem); letter-spacing:0.08em; text-transform:uppercase; background:none; border:none; cursor:pointer; color:rgba(26,18,9,0.5); margin-bottom:2.5rem; padding:0.5rem 0; min-height:44px;"
         >
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 16">
             <path d="M12 8H4M7 4L3 8l4 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -257,7 +257,7 @@ const albumsJson = JSON.stringify(albums);
                   style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;"
                 />
                 <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(26,18,9,0.7),transparent); padding:1.5rem 1.25rem 0.75rem;">
-                  <span style="font-family:'Crimson Pro',serif; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,201,122,0.8);">
+                  <span style="font-family:'Inter',serif; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,201,122,0.8);">
                     {album.count} fotografii · {album.year}
                   </span>
                 </div>
@@ -266,7 +266,7 @@ const albumsJson = JSON.stringify(albums);
                 <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.15rem,3vw,1.5rem); font-weight:400; color:#1A1209; margin:0;">
                   {album.title}
                 </h3>
-                <p style="font-family:'Crimson Pro',serif; font-size:0.88rem; color:rgba(26,18,9,0.45); margin-top:0.4rem; font-style:italic;">
+                <p style="font-family:'Inter',serif; font-size:0.88rem; color:rgba(26,18,9,0.45); margin-top:0.4rem; font-style:italic;">
                   Kliknij, aby przeglądać zdjęcia
                 </p>
               </div>
@@ -277,7 +277,7 @@ const albumsJson = JSON.stringify(albums);
         <!-- Nagłówek siatki zdjęć — ukryty na start -->
         <div id="pg-header" style="display:none; margin-bottom:2.5rem;">
           <h2 id="pg-title" class="section-title" style="color:#1A1209; margin-bottom:0.35rem;"></h2>
-          <p id="pg-subtitle" style="font-family:'Crimson Pro',serif; font-size:clamp(0.88rem,2vw,0.98rem); color:rgba(26,18,9,0.45); font-style:italic;"></p>
+          <p id="pg-subtitle" style="font-family:'Inter',serif; font-size:clamp(0.88rem,2vw,0.98rem); color:rgba(26,18,9,0.45); font-style:italic;"></p>
         </div>
 
         <!-- Siatka zdjęć — ukryta na start, wypełniana przez JS -->
@@ -299,7 +299,7 @@ const albumsJson = JSON.stringify(albums);
     <!-- Górny pasek -->
     <div style="position:absolute; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:clamp(0.75rem,2vw,1.25rem) clamp(1rem,3vw,2rem); background:linear-gradient(to bottom,rgba(7,5,2,0.9),transparent); z-index:10;">
       <span id="lb-counter" style="font-family:'Playfair Display',serif; font-size:clamp(1rem,2.5vw,1.3rem); color:rgba(201,168,76,0.8); letter-spacing:0.15em;"></span>
-      <span class="lb-kbd-hint" style="font-family:'Crimson Pro',serif; font-size:0.72rem; letter-spacing:0.12em; color:rgba(201,168,76,0.3);">
+      <span class="lb-kbd-hint" style="font-family:'Inter',serif; font-size:0.72rem; letter-spacing:0.12em; color:rgba(201,168,76,0.3);">
         ← → nawigacja · ESC zamknij
       </span>
       <button
