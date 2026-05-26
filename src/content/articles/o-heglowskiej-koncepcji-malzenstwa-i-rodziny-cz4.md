@@ -1,0 +1,54 @@
+---
+title: "O heglowskiej koncepcji małżeństwa i rodziny cz4."
+dateDisplay: "16 maja 2015"
+dateSortable: "2015-05-16"
+source: "Nasz Dziennik"
+excerpt: "Niektórzy teologowie „katoliccy”, bazujący na Heglu i Schellingu, żądają dopuszczenia osób rozwiedzionych do aktywnego życia sakramentalnego. Heglowska redukcja miłości do zmiennego uczucia i negacja osoby ludzkiej w imię ewolucji ducha absolutnego prowadzą do odrzucenia sakramentalności małżeństwa oraz zniszczenia rodziny, a państwo pruskie zastępuje Królestwo Niebieskie."
+cycle: "heglowska-koncepcja-malzenstwa-i-rodziny"
+cycleOrder: 4
+tags: [Georg Wilhelm Friedrich Hegel, małżeństwo, rodzina, duch absolutny, filozofia idealizmu, marksizm, Tadeusz Guz, Kościół, teologia]
+---
+
+Niektórzy teologowie „katoliccy”, bazujący na Heglu i Schellingu, żądają dopuszczenia osób rozwiedzionych do aktywnego życia sakramentalnego.
+
+Czy małżeństwo według Hegla może być oparte na miłości, wierności i uczciwości małżeńskiej? To jest realnie możliwe, ale tylko na fundamencie rozumienia małżonków jako osób, natomiast Hegel twierdzi, że w procesie stawania się „ducha absolutnego” jako „samoświadomego” człowiek jako indywidualna osoba musi się zatracić najpierw w „małżeństwie”, które, podobnie jak „rodzina”, ma „utworzyć jedną osobę”, względnie „substancję”.
+
+„Członkowie” zatem rodziny w sensie heglowskim są „przypadłościami” rodziny jako „substancji”, ale tylko przejściowo, ponieważ ostatecznie wyłącznie „bóg” Hegla jest „substancją”. Dla porównania – w katolickiej nauce o małżeństwie i rodzinie zarówno małżonkowie, rodzice, jak i dzieci są jednostkowymi substancjami i osobami oraz pozostają nimi na wieki, natomiast małżeństwo, rodzina, naród czy państwo są „relacjami”, czyli przypadłościami, a więc nie substancjami.
+
+### „Najpotworniejsza sprzeczność”
+
+Skoro człowiek zredukowany jest w rodzinie heglowskiej do „przypadłości”, to trudno mówić o „miłości” jako akcie i postawie osoby ludzkiej. Hegel przyznaje, że „miłość jest zatem najpotworniejszą sprzecznością, której rozum nie może rozwiązać, gdyż nie istnieje nic twardszego aniżeli punktowość samoświadomości, która jest negowana i która pomimo tego powinna mieć siebie jako afirmatywną”.
+
+Ta „sprzeczność” oznacza, że chociaż człowiek przestaje być osobą, to musi w idealizmie Hegla uznać tę zmianę za coś „pozytywnego”, bowiem „miłość jest równocześnie zrodzeniem i zniesieniem sprzeczności: jako kasacja jest ona moralną jednością”. Jako „moralna relacja” mężczyzny i kobiety w małżeństwie jest jeszcze „bezpośrednią”, czyli „naturalnym życiem”, tzn. wyłącznie „cielesnym”, „uczuciowym” i „zmysłowym”, co jest oceniane przez niego jako negatywne i porównywalne ze światem zwierząt, ponieważ „miłość jest wrażeniem (Empfindung), to nazywa się moralnością w formie tego, co naturalne; w państwie nie ma jej już więcej, ponieważ tam jest się świadomym jedności jako prawa, tam treść musi być rozumna, a ja muszę ją wiedzieć”. Bezzasadne zredukowanie cnoty „miłości” jako stałej postawy wolnej woli człowieka do zasadniczo zmiennego „uczucia” doprowadza myśl Hegla do pojęcia „miłości” jako „sprzeczności”.
+
+### Odrzucenie siebie jako „osoby”
+
+Hegel argumentuje tak: „Miłością nazywa się w ogóle świadomość mojej jedności z drugim tak, że ja dla siebie nie jestem odizolowany, lecz zdobędę moją samoświadomość tylko jako odrzucenie mojego bytu dla siebie i przez wiedzę o mnie jako jedność mnie z drugim i drugiego ze mną”. Miłość jako w etyce katolickiej wolny akt woli człowieka, względnie jako cnota miłości potraktowana jest najpierw jako emocjonalny etap procesu samouświadamiania się „boga” heglowskiego, czyli jako etap rozwoju „boskiego” rozumu, a nie innej władzy ducha w postaci wolnej woli. Przy tym każda suwerenna osoba ludzka jako dla Hegla tylko „członek”, czyli „moment” „boskości”, musi zatracić siebie w dążeniu „ducha absolutnego” do jedności ze sobą samym. Co więcej, to jest „pierwszym momentem w miłości, że nie chcę być żadną samodzielną osobą dla mnie i że jeżeli byłbym nią, to czuję się zbrakowany i niepełny”.
+
+Hegel ocenia jako „brak” to, co jest obiektywnie doskonałością, czyli człowieka w swojej substancjalnej i osobowej istocie, natomiast przekreślenie tej doskonałości, względnie „utracenie” i „przejście do rozdarcia i na stanowisko względnego” jest procesem wyższego rozwoju aż do „społeczeństwa obywatelskiego” i ostatecznie „państwa” jako szczytu istnienia samego „boga” idealistycznego.
+
+### Na „popiołach” drugiego
+
+Hegel obiecuje wprawdzie, iż w jego dialektyce sprzeczności małżeńskiej „drugim momentem jest, że zdobywam siebie w drugiej osobie, że jestem w niej ważny, co ona osiąga z kolei we mnie”, ale tutaj powstaje logiczne pytanie: Jak ze śmierci drugiego jako osoby może sam człowiek jako „przypadłość” wydobyć własne życie osobowe oraz jak drugi człowiek jako tylko przejściowy „moment” „całości” „boga” jako świata może w zatraconym już w swojej osobowej jednostkowości bycie, czyli w umarłym, zdobywać siebie?
+
+Trudno Heglowi przezwyciężać następne absurdy myślenia w aspekcie „wierności” rodzinnej, skoro jego pierwotnym założeniem jest absurd niedoskonałego „boga”, traktującego wszystkie małżeństwa i rodziny jako etapy rozwoju swojej niedoskonałej „boskości”.
+
+### Podstawa „zaniku rodziców”
+
+Według Hegla, „relacja mężczyzny i kobiety jest najpierw bezpośrednim poznaniem siebie jednej świadomości w drugim i poznaniem wzajemnego bytu uznania siebie”. Warto pamiętać, iż w tym procesie wzajemnego poznania się małżonków wciąż mamy do czynienia z samopoznaniem się „absolutu” heglowskiego. Tzn. jako taka ta relacja małżeńska jest tylko „wyobrażeniem i obrazem ducha, ale nie samym rzeczywistym duchem”, czyli jest etapem poznania zmysłowego, a przecież „duch” ten chce stać się „absolutnym” i mieć „absolutne” poznanie. Dlatego prawda o nich obydwojgu uzewnętrznia się w „dziecku”.
+
+Wprawdzie w pewnym okresie Hegel myślał, że „obowiązkiem rodziców względem dzieci jest troszczyć się o ich utrzymanie i wychowanie – tym (obowiązkiem) dzieci, by być [im] posłusznym, aż staną się one samodzielnymi i czcić ich całe życie – tym (obowiązkiem) rodzeństwa w ogóle postępować względem siebie nawzajem według miłości i wspaniałej słuszności”, ale zasadniczo je zmienił. Bycie „dla siebie”, czyli bycie w pełni ludzkie, nikt z małżonków ani z dzieci nie osiągnie tak długo, jak długo te relacje małżeńsko-rodzinne będą istnieć. Dopiero przez „rozdzielenie (dzieci) od przyczyny powstania”, czyli poprzez rozdzielenie dzieci od rodziców, a małżonków od siebie nawzajem, powstaje „własna samoświadomość” ludzka, czyli świadomość siebie jako podmiotu. Hegel pisze konkretnie, iż „z naturalnego ruchu i z moralnym spokojem kobieta jako córka musi widzieć znikanie rodziców, ponieważ tylko na stracie tej relacji dochodzi ona do bytu dla siebie, którego jest zdolna; ona nie ogląda więc w rodzicach jej bytu dla siebie na sposób pozytywny”, stąd musi ich porzucić, ale też tylko przez „moment” może radować się suwerennością, bo przecież w swoim związku małżeńskim dokona się to samo z nią poprzez jej dzieci, co ona jako córka czy syn uczynili ze swoimi rodzicami. Interesujący jest fakt, że Hegel odróżnia „małżeństwo” od „konkubinatu”, w którym według niego chodzi „głównie o zaspokojenie popędu natury”, a nie o „poczęcie” i zrodzenie nowych „części” „ducha absolutnego” w postaci nowych dzieci, poprzez które „bóg” Hegla dąży do pełnej świadomości siebie, a co bez uzewnętrznienia się wszystkich jego części bytowych nigdy się nie dokona.
+
+### Antysakramentalność heglowskiej koncepcji
+
+Jeżeli „sakrament” w Kościele św. jest zrozumiany jako zewnętrzny znak realnej obecności Boga Objawionego w Jezusie Chrystusie, to jasne jest, iż w idealizmie Hegla nie ma miejsca na żaden sakrament, który Hegel klasyfikuje jako największą „sprzeczność”. Dlaczego? Z tej racji, w świetle której „dogmaty” Kościoła są dla niego jako „sprzeczność” „niepojmowalne”, „niewyobrażalne” i tym samym „bezużyteczne”, Hegel odrzuca radykalnie każdy sakrament. Jeżeli według Hegla wszystko, co jest, jest „bogiem”, to wszystko istnieje już w „bogu” heglowskim, a jego „bóg” istnieje we wszystkim, względnie jako wszystko, co jest, to bezsensem jest dla niego przyjmowanie tezy o zasadności sakramentów świętych, a pośród nich także sakramentu małżeństwa.
+
+### „Państwo pruskie” albo „inne”
+
+Według Hegla, rodzina „wydoskonala się w trzech aspektach: a) w postaci jej bezpośredniego pojęcia jako małżeństwo; b) w zewnętrznej egzystencji, własności i dobru rodziny i trosce o to; c) w wychowaniu dzieci i rozpadzie rodziny”, ponieważ jest „rzeczywistością gatunku i jego procesu”, a tenże „gatunek” pojęty jest jako część całości rozwoju absolutu. „Naturalna całość, którą stanowi rodzina, rozszerza się do całości narodu i państwa, w którym indywidua mają dla siebie samodzielną wolę”.
+
+Państwo zatem staje się tym docelowym sposobem bytowania rodziny, a nie rodzina jako rodzina, a następnie rodzina wieczna z Bogiem, aniołami i świętymi w transcendentnym Królestwie Niebieskim. Dlaczego? Ponieważ dla Hegla „królestwo niebieskie przesadzone jest na ziemię” („Fenomenologia ducha”) i stanowi je na ówczesnym etapie dziejów „boga” w realnej postaci „państwo pruskie”. Także inne państwa mogą, według niego, w innym czasie stanowić awangardę tak pojętego „królestwa niebieskiego” jako ostatecznego „raju”, bo „pierwszy raj był rajem natury ludzkiej, tak drugi, wyższy jest rajem ducha ludzkiego, który wychodzi w jego piękniejszej naturalności, wolności, głębi i świeżości jak panna młoda z jej komnaty” i wtapia się całkowicie w „ducha absolutnego” wędrującego „przez świat” jako jego „moment” ku jego absolutnej „samoświadomości”, czyli pojednaniu samego siebie ze sobą.
+
+Uświatowienie i utożsamienie Boga Objawionego w Chrystusie z „państwem” przez Hegla stało się przyczyną jego antypersonalnej i antysakramentalnej, a tym samym ostatecznie antymałżeńskiej i antyrodzinnej, bo antyboskiej koncepcji myśli, która nie ma żadnej wspólnej płaszczyzny z katolicką nauką o małżeństwie i rodzinie. Wyrażają to zewnętrznie m.in. gratulacje Hegla dla spokrewnionego merytorycznie z jego idealizmem Schellinga z racji jego zaślubin, ale z rozwiedzioną ze swoim mężem A.W. Schlegel Caroline Schlegel. Jeszcze bardziej zdumiewający jest dla obecnej dyskusji wokół katolickiej nauki o sakramentalności małżeństwa i możliwościach przyjmowania sakramentów świętych: pokuty i Eucharystii, przez małżonków, a nie przez osoby rozwiedzione i praktykujące inny związek z osobami trzecimi, fakt, że niektórzy teologowie „katoliccy”, bazujący na Heglu i Schellingu, żądają dopuszczenia do aktywnego życia sakramentalnego tych ostatnich, co stoi w ewidentnej sprzeczności z Ewangelią Jezusa i nauczaniem Urzędu Nauczycielskiego Kościoła św. katolickiego.
+
+*Ks. prof. Tadeusz Guz, kierownik Katedry Filozofii Prawa KUL*
