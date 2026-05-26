@@ -1,5 +1,5 @@
 ---
 title: "Totemy Freuda"
-description: "Cykl analiz destrukcyjnego wpływu freudowskiej psychoanalizy na rozumienie małżeństwa, rodziny i religii, obnażający panteistyczną i antypersonalistyczną naturę tej ideologii, która redukuje człowieka do niewolnika popędów, otwierając drogę do współczesnego nihilizmu i ideologicznej zagłady chrześcijańskiego porządku."
+description: "Cykl demaskuje psychoanalizę Freuda jako destrukcyjną ideologię, która redukuje człowieka do niewolnika popędów, a wiarę w Boga sprowadza do neurotycznej iluzji, stając się fundamentem dla neomarksistowskiej rewolucji seksualnej i ideologii gender."
 order: 4
 ---
