@@ -47,25 +47,25 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
       <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
 
         <!-- Breadcrumb -->
-        <a href="/wydarzenia" style="display:inline-flex; align-items:center; gap:0.5rem; font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(201,168,76,0.6); text-decoration:none; margin-bottom:1.5rem; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(201,168,76,0.6)'">
+        <a href="/wydarzenia" style="display:inline-flex; align-items:center; gap:0.5rem; font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(201,168,76,0.6); text-decoration:none; margin-bottom:1.5rem; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(201,168,76,0.6)'">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Wydarzenia
         </a>
 
         <!-- Badges -->
         <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem;">
-          <span style={`font-family:'Crimson Pro',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.2em; text-transform:uppercase; color:${catColor}; border:1px solid ${catColor}55; padding:3px 10px;`}>
+          <span style={`font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.2em; text-transform:uppercase; color:${catColor}; border:1px solid ${catColor}55; padding:3px 10px;`}>
             {catLabel}
           </span>
 
           {status === 'upcoming' && (
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); padding:3px 10px;">
+            <span style="font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); padding:3px 10px;">
               Nadchodzące
             </span>
           )}
 
           {status === 'past' && event.hasReport && (
-            <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:3px 10px; display:inline-flex; align-items:center; gap:4px;">
+            <span style="font-family:'Inter',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:3px 10px; display:inline-flex; align-items:center; gap:4px;">
               <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
               Relacja dostępna
             </span>
@@ -151,7 +151,7 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
             </a>
           ) : <div></div>}
 
-          <a href="/wydarzenia" style="font-family:'Crimson Pro',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.45); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.35); padding-bottom:2px; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(26,18,9,0.45)'">
+          <a href="/wydarzenia" style="font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.45); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.35); padding-bottom:2px; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(26,18,9,0.45)'">
             Wszystkie wydarzenia
           </a>
 
@@ -176,7 +176,7 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
 <style>
   /* ── Treść Markdown ── */
   .event-content {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
     line-height: 1.85;
     color: #4A3A28;
@@ -285,7 +285,7 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
   .event-content :global(th) {
     background: rgba(201,168,76,0.12);
     color: #1A1209;
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -336,7 +336,7 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
 
   .nav-dir {
     display: block;
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
