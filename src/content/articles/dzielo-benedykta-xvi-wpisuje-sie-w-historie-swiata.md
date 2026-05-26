@@ -2,7 +2,7 @@
 title: "Dzieło Benedykta XVI wpisuje się w historię świata"
 dateDisplay: "21 lutego 2013"
 dateSortable: "2013-02-21"
-source: "Inne publikacje"
+source: "Inne"
 excerpt: "Wypowiedź ks. prof. Tadeusza Guza z Katolickiego Uniwersytetu Lubelskiego Jana Pawła II na temat rezygnacji Benedykta XVI z urzędu piotrowego, jego dokonająń teologicznych, walki z ideologiami oraz niezwykłej więzi z Polską."
 tags: Benedykt XVI, Tadeusz Guz, Radio Maryja, Kościół, pontyfikat, rezygnacja, teologia
 ---
