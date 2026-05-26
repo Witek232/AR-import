@@ -1,5 +1,5 @@
 ---
 title: "Małżeństwo i rodzina według Kanta"
-description: "Cykl analiz filozoficznych demaskujący destrukcyjny wpływ kantowskiej etyki obiektywnej na rozumienie małżeństwa i rodziny, który poprzez odrywanie moralności od natury i redukowanie relacji osób do prawno-utylitarnych kontraktów, otwiera drogę do współczesnego relatywizmu i ideologicznej zagłady chrześcijańskiego porządku."
+description: "Cykl demaskuje kantowską filozofię jako destrukcyjny subiektywizm, który odcinając prawo i moralność od obiektywnego porządku Stwórcy, redukuje małżeństwo do cielesnej umowy, instrumentalizuje osoby do poziomu rzeczy i logicznie prowadzi do całkowitego rozpadu rodziny."
 order: 5
 ---
