@@ -106,7 +106,7 @@ const yearCardCatBadges = yearCards.map((card) =>
         ].map(([n, l]) => (
           <div style="text-align:center;">
             <div style="font-family:'Playfair Display',serif; font-size:clamp(1.75rem,5vw,2.5rem); font-weight:300; color:#E8C97A; line-height:1;">{n}</div>
-            <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.8vw,0.8rem); letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-top:0.3rem;">{l}</div>
+            <div style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.8vw,0.8rem); letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-top:0.3rem;">{l}</div>
           </div>
         ))}
       </div>
@@ -145,7 +145,7 @@ const yearCardCatBadges = yearCards.map((card) =>
                 <div style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.4rem); font-weight:300; color:#C9A84C; min-width:3.5rem; line-height:1;">{entry.year}</div>
                 <div style="flex:1; min-width:0;">
                   <div style="font-family:'Playfair Display',serif; font-size:clamp(0.95rem,2.5vw,1.15rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.15rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{entry.title}</div>
-                  <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:rgba(26,18,9,0.38); letter-spacing:0.1em;">{entry.date} · {entry.dateInfo}</div>
+                  <div style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:rgba(26,18,9,0.38); letter-spacing:0.1em;">{entry.date} · {entry.dateInfo}</div>
                 </div>
                 <svg width="16" height="16" fill="none" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"><path d="M3 8h10M9 5l4 3-4 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
@@ -157,7 +157,7 @@ const yearCardCatBadges = yearCards.map((card) =>
       <!-- Archiwum według roku -->
       <div style="margin-bottom:clamp(1.25rem,3vw,2rem);">
         <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.3rem,4vw,1.85rem); font-weight:400; color:#1A1209; margin-bottom:0.35rem;">Archiwum według roku</h2>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.45); margin-bottom:0.75rem;">
+        <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.45); margin-bottom:0.75rem;">
           Kliknij rok, aby zobaczyć chronologiczną listę wszystkich wystąpień
         </p>
         <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.45),transparent);"></div>
@@ -174,7 +174,7 @@ const yearCardCatBadges = yearCards.map((card) =>
               <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,3rem); font-weight:300; color:#C9A84C; line-height:1; margin-bottom:0.5rem; letter-spacing:-0.01em;">
                 {card.year}
               </div>
-              <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,2vw,0.9rem); color:rgba(26,18,9,0.55); margin-bottom:0.6rem; line-height:1.5;">
+              <div style="font-family:'Inter',serif; font-size:clamp(0.8rem,2vw,0.9rem); color:rgba(26,18,9,0.55); margin-bottom:0.6rem; line-height:1.5;">
                 {card.entries.length} {card.countLabel}
                 {card.totalParts > card.entries.length && (
                   <span style="color:rgba(26,18,9,0.35);"> · {card.totalParts} filmów</span>
@@ -188,7 +188,7 @@ const yearCardCatBadges = yearCards.map((card) =>
                 ))}
               </div>
               <div style="border-top:1px solid rgba(26,18,9,0.08); padding-top:0.65rem;">
-                <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:#C9A84C; letter-spacing:0.1em; text-transform:uppercase;">Zobacz listę →</span>
+                <span style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.6vw,0.75rem); color:#C9A84C; letter-spacing:0.1em; text-transform:uppercase;">Zobacz listę →</span>
               </div>
               <div style="position:absolute; bottom:1rem; right:1rem; opacity:0.35;">
                 <svg width="18" height="18" fill="none" stroke="#C9A84C" stroke-width="1.5">
@@ -203,7 +203,7 @@ const yearCardCatBadges = yearCards.map((card) =>
       <!-- Info box -->
       <div style="margin-top:clamp(2rem,5vw,3.5rem); padding:clamp(1rem,2.5vw,1.5rem); background:rgba(26,18,9,0.05); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:flex-start; gap:0.75rem;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3" stroke-linecap="round"/></svg>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.48); margin:0; flex:1; line-height:1.7;">
+        <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.875rem,2.2vw,0.95rem); color:rgba(26,18,9,0.48); margin:0; flex:1; line-height:1.7;">
           Każdy rok otwiera <strong style="font-style:normal;">chronologiczną listę wystąpień</strong> z tytułami, datami i opisami.
           Z listy rocznej możesz przejść do pełnej strony każdego wystąpienia — z opisem i filmami YouTube ładowanymi wyłącznie na żądanie.
         </p>
@@ -219,7 +219,7 @@ const yearCardCatBadges = yearCards.map((card) =>
           <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📰</span>
           <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Naszym Dzienniku</h2>
         </div>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.5rem;">
+        <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.5rem;">
           {articlesData.naszDziennik.length} publikacji ks. prof. Tadeusza Guza i współpracowników projektu
         </p>
         <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
@@ -229,9 +229,9 @@ const yearCardCatBadges = yearCards.map((card) =>
         <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit;">
           <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
             <div>
-              <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Nasz Dziennik</p>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Nasz Dziennik</p>
               <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
-              <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
             {art.target ? (
               <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -259,9 +259,9 @@ const yearCardCatBadges = yearCards.map((card) =>
         <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit;">
           <article class="card-hover mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
             <div>
-              <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Niedziela</p>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Niedziela</p>
               <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
-              <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
             {art.target ? (
               <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -282,14 +282,14 @@ const yearCardCatBadges = yearCards.map((card) =>
           <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📚</span>
           <h2 class="section-title" style="color:#1A1209; margin:0;">Cykle publikacji</h2>
         </div>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
+        <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
           Serie tematyczne i wieloczęściowe artykuły
         </p>
         <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
       </div>
 
       {articlesData.cycles.length === 0 && (
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; color:rgba(26,18,9,0.45); text-align:center; padding:2rem 0;">Brak cykli artykułów</p>
+        <p style="font-family:'Inter',serif; font-style:italic; color:rgba(26,18,9,0.45); text-align:center; padding:2rem 0;">Brak cykli artykułów</p>
       )}
 
      <div style="display:flex; flex-direction:column; gap:clamp(1rem,3vw,1.5rem);">
@@ -301,12 +301,12 @@ const yearCardCatBadges = yearCards.map((card) =>
                 {cycle.data.title}
               </h3>
               
-              <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 1.5rem; flex-grow:1;">
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 1.5rem; flex-grow:1;">
                 {cycle.data.description}
               </p>
               
               <div style="display:flex; align-items:center; justify-content: space-between; color:#C9A84C; border-top:1px solid rgba(26,18,9,0.08); padding-top:0.85rem;">
-                <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">
+                <span style="font-family:'Inter',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">
                   {cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}
                 </span>
                 <svg width="18" height="18" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -327,7 +327,7 @@ const yearCardCatBadges = yearCards.map((card) =>
           <span style="font-size:clamp(1.5rem,4vw,1.875rem);">📄</span>
           <h2 class="section-title" style="color:#1A1209; margin:0;">Inne publikacje</h2>
         </div>
-        <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
+        <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
           Wypowiedzi z Radia Maryja, wywiady prasowe i inne formy obecności medialnej projektu
         </p>
         <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
@@ -345,19 +345,19 @@ const yearCardCatBadges = yearCards.map((card) =>
                   <circle cx="16" cy="12" r="1.5" fill="currentColor"/>
                 </svg>
               </div>
-              <p style="font-family:'Crimson Pro',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.45rem;">
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.45rem;">
                 {item.data.dateDisplay}
                 {item.data.duration && ` · ${item.data.duration}`}
               </p>
               <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.05rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:clamp(0.5rem,1.5vw,0.75rem);">{item.data.title}</h3>
-              <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 clamp(0.85rem,2vw,1.25rem);">{item.data.excerpt}</p>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 clamp(0.85rem,2vw,1.25rem);">{item.data.excerpt}</p>
               <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C;">
                 {item.target ? (
                   <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 ) : (
                   <svg width="14" height="14" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
                 )}
-                <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">{item.target ? 'Link zewnętrzny' : 'Czytaj więcej'}</span>
+                <span style="font-family:'Inter',serif; font-size:clamp(0.72rem,1.8vw,0.8rem); letter-spacing:0.1em; text-transform:uppercase;">{item.target ? 'Link zewnętrzny' : 'Czytaj więcej'}</span>
               </div>
             </div>
           </a>
