@@ -56,10 +56,10 @@ const upcomingEvents = await getUpcomingWydarzenia(3);
                 <div style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:300; color:#C9A84C; line-height:1;">
                   {d.day}
                 </div>
-                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(26,18,9,0.45); margin-top:0.2rem;">
+                <div style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.2em; text-transform:uppercase; color:rgba(26,18,9,0.45); margin-top:0.2rem;">
                   {d.month}
                 </div>
-                <div style="font-family:'Crimson Pro',serif; font-size:clamp(0.7rem,1.5vw,0.8rem); color:rgba(26,18,9,0.3);">
+                <div style="font-family:'Inter',serif; font-size:clamp(0.7rem,1.5vw,0.8rem); color:rgba(26,18,9,0.3);">
                   {d.year}
                 </div>
               </div>
@@ -67,14 +67,14 @@ const upcomingEvents = await getUpcomingWydarzenia(3);
               <!-- Content -->
               <div>
                 <div style="display:flex; gap:0.75rem; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap;">
-                  <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.62rem,1.5vw,0.68rem); letter-spacing:0.22em; text-transform:uppercase; color:#C9A84C; border:1px solid rgba(201,168,76,0.35); padding:2px 8px;">
+                  <span style="font-family:'Inter',serif; font-size:clamp(0.62rem,1.5vw,0.68rem); letter-spacing:0.22em; text-transform:uppercase; color:#C9A84C; border:1px solid rgba(201,168,76,0.35); padding:2px 8px;">
                     {type}
                   </span>
-                  <span style="font-family:'Crimson Pro',serif; font-size:clamp(0.8rem,1.8vw,0.88rem); color:rgba(26,18,9,0.45); font-style:italic;">
+                  <span style="font-family:'Inter',serif; font-size:clamp(0.8rem,1.8vw,0.88rem); color:rgba(26,18,9,0.45); font-style:italic;">
                     {event.place}
                   </span>
                   {event.languages && event.languages.length > 1 && (
-                    <span style="font-family:'Crimson Pro',serif; font-size:0.72rem; color:rgba(26,18,9,0.4); letter-spacing:0.1em;">
+                    <span style="font-family:'Inter',serif; font-size:0.72rem; color:rgba(26,18,9,0.4); letter-spacing:0.1em;">
                       🌐 {event.languages.join('/')}
                     </span>
                   )}
@@ -83,7 +83,7 @@ const upcomingEvents = await getUpcomingWydarzenia(3);
                   {event.title}
                 </h3>
                 {event.description && (
-                  <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:clamp(0.9rem,2vw,1rem); color:rgba(26,18,9,0.5); line-height:1.65; margin:0;">
+                  <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2vw,1rem); color:rgba(26,18,9,0.5); line-height:1.65; margin:0;">
                     {event.description}
                   </p>
                 )}
@@ -117,7 +117,7 @@ const upcomingEvents = await getUpcomingWydarzenia(3);
   }
 
   .wydarzenia-all-btn {
-    font-family: 'Crimson Pro', serif;
+    font-family: 'Inter', serif;
     font-size: clamp(0.82rem, 1.8vw, 0.9rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
