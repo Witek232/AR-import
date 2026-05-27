@@ -74,9 +74,9 @@ const pillars = [
       {pillars.map((pillar, i) => (
         <a
           href={pillar.link}
-          class={`reveal reveal-delay-${i + 1} pillar-card card-hover gold-border-hover`}
-          style={`--card-accent:${pillar.accentColor}; --card-hover-bg:${pillar.accentHover}; --card-border:${pillar.accentBorder}; display:block; background:#2A2118; border:1px solid ${pillar.accentBorder}; border-radius:2px; padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition:background 0.3s ease;`}
-        >
+          class={`reveal pillar-card card-hover gold-border-hover`}
+          style={`--card-accent:${pillar.accentColor}; --card-hover-bg:${pillar.accentHover}; --card-border:${pillar.accentBorder}; display:block; background:#2A2118; border:1px solid ${pillar.accentBorder}; border-radius:2px; padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition:background 0.3s ease, opacity 0.75s ease, transform 0.75s ease;`}
+          >
           <!-- Latin numeral watermark -->
           <div style={`font-family:'Playfair Display',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:${pillar.accentColor}; opacity:0.14; position:absolute; top:0.75rem; right:1.25rem; line-height:1; letter-spacing:-0.04em; pointer-events:none; user-select:none;`}>
             {pillar.numeral}
