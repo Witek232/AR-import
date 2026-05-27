@@ -1,6 +1,5 @@
 ---
-// import '../styles/global.css'; // USUNIĘTO: To powodowało blokowanie renderowania
-import globalCssUrl from '../styles/global.css?url'; // Vite zwraca URL do pliku CSS
+import globalCssUrl from '../styles/global.css?url'; // Bezpieczne pobranie URL do pliku CSS
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -24,8 +23,13 @@ else if (pathname.startsWith('/de')) htmlLang = 'de';
 else if (pathname.startsWith('/es')) htmlLang = 'es';
 else if (pathname.startsWith('/it')) htmlLang = 'it';
 
-// ── Canonical URL ─────────────────────────────────────────────
-const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl');
+// ── Bezpieczny bazowy URL ─────────────────────────────────────
+// Astro.site może być undefined podczas buildu (np. dla strony 404), 
+// dlatego zawsze upewniamy się, że mamy fallback z ukośnikiem na końcu.
+const siteUrl = Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl/';
+
+const canonicalURL = new URL(pathname, siteUrl);
+const absoluteOgImage = new URL(ogImage, siteUrl).href;
 ---
 <!doctype html>
 <html lang={htmlLang}>
@@ -39,7 +43,7 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
     <!-- Open Graph -->
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image"       content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image"       content={absoluteOgImage} />
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content={canonicalURL} />
 
@@ -52,15 +56,13 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- ═══════════════════════════════════════════════════════════
-         1. ASYNCHRONICZNE ŁADOWANIE CSS (Eliminuje Render-Blocking)
-         Zamiast <link rel="stylesheet">, ładujemy CSS w tle.
+         ASYNCHRONICZNE ŁADOWANIE CSS (Eliminuje Render-Blocking)
          ═══════════════════════════════════════════════════════════ -->
     <link rel="preload" href={globalCssUrl} as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href={globalCssUrl}></noscript>
 
     <!-- ═══════════════════════════════════════════════════════════
-         2. CRITICAL CSS (Zapobiega migotaniu strony podczas ładowania asynchronicznego)
-         Wstawiamy tylko to, co potrzebne do wyrenderowania tła i tekstu.
+         CRITICAL CSS (Zapobiega migotaniu strony - FOUC)
          ═══════════════════════════════════════════════════════════ -->
     <style>
       body {
@@ -73,9 +75,13 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
     </style>
 
     <!-- ═══════════════════════════════════════════════════════════
-         3. PRELOAD FONTÓW (Kluczowe dla LCP - tekst musi się pojawić natychmiast)
-         Upewnij się, że pliki .woff2 istnieją w folderze /public/fonts/
+         PRELOAD FONTÓW (Kluczowe dla LCP)
          ═══════════════════════════════════════════════════════════ -->
+    <!-- 
+      UWAGA: Upewnij się, że te pliki istnieją w folderze /public/fonts/ .
+      Jeśli używasz oryginalnych nazw z hashami z Astro, zmień ścieżki poniżej.
+      Najlepiej skopiować czyste pliki .woff2 do /public/fonts/ bez hashów.
+    -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -101,7 +107,6 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
     </div>
 
     <style>
-      /* Przeniesienie inline styles do CSS dla lepszej czytelności i specyficzności */
       .layout-wrapper {
         overflow-x: hidden;
         min-height: 100vh;
@@ -115,8 +120,8 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
 
     <script>
       // ── IntersectionObserver dla .reveal ─────────────────────
-      // Zmiana na astro:page-load zapewnia, że skrypt zadziała 
-      // poprawnie również po przejściu między podstronami (View Transitions)
+      // Wykorzystujemy 'astro:page-load', aby skrypt działał poprawnie 
+      // również po przejściach między stronami (View Transitions)
       document.addEventListener('astro:page-load', () => {
         const observer = new IntersectionObserver(
           (entries) => {
@@ -130,10 +135,8 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
         );
         
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-      });
 
-      // ── Back to top ──────────────────────────────────────────
-      document.addEventListener('astro:page-load', () => {
+        // ── Back to top ──────────────────────────────────────────
         const btn = document.getElementById('back-to-top');
 
         if (btn) {
