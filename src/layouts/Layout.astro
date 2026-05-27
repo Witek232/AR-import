@@ -1,5 +1,5 @@
 ---
-import globalCssUrl from '../styles/global.css?url'; // Bezpieczne pobranie adresu URL pliku CSS
+import '../styles/global.css'; // POWRÓT DO STANDARDOWEGO IMPORTU - gwarantuje poprawny build i layout
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -53,29 +53,9 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- ═══════════════════════════════════════════════════════════
-         ASYNCHRONICZNE ŁADOWANIE CSS (Najbezpieczniejsza metoda)
-         Trick z media="print" - przeglądarka ignoruje blokowanie 
-         renderowania dla CSS "dla drukarki", a JS w tle natychmiast 
-         go aplikuje. PageSpeed Insights to uwielbia.
-         ═══════════════════════════════════════════════════════════ -->
-    <link rel="stylesheet" href={globalCssUrl} media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href={globalCssUrl}></noscript>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         CRITICAL CSS (Zapobiega migotaniu strony - FOUC)
-         ═══════════════════════════════════════════════════════════ -->
-    <style>
-      body {
-        background-color: #f5edd8; /* --parchment */
-        color: #2c1f0e; /* --text-dark */
-        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        margin: 0;
-      }
-    </style>
-
-    <!-- ═══════════════════════════════════════════════════════════
          PRELOAD FONTÓW (Kluczowe dla LCP)
+         Teraz, gdy CSS ładuje się standardowo, przeglądarka szybciej 
+         zmapuje te fonty i nie spowolni renderowania tekstu.
          ═══════════════════════════════════════════════════════════ -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -84,38 +64,31 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
   </head>
 
   <body>
-    <div class="layout-wrapper">
+    <div style="overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column;">
+
       <Header />
 
-      <main>
+      <main style="flex:1;">
         <slot />
       </main>
 
       <Footer />
 
       <!-- Back to top -->
-      <button id="back-to-top" aria-label="Wróć na górę">
+      <button
+        id="back-to-top"
+        aria-label="Wróć na górę"
+      >
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 10L8 5l5 5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-    </div>
 
-    <style>
-      .layout-wrapper {
-        overflow-x: hidden;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-      main {
-        flex: 1;
-      }
-    </style>
+    </div>
 
     <script>
       // ── IntersectionObserver dla .reveal ─────────────────────
-      document.addEventListener('astro:page-load', () => {
+      function initReveal() {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -126,21 +99,19 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
           },
           { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
         );
-        
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      }
+      setTimeout(initReveal, 100);
 
-        // ── Back to top ──────────────────────────────────────────
-        const btn = document.getElementById('back-to-top');
+      // ── Back to top ──────────────────────────────────────────
+      const btn = document.getElementById('back-to-top');
 
-        if (btn) {
-          window.addEventListener('scroll', () => {
-            btn.classList.toggle('visible', window.scrollY > 400);
-          }, { passive: true });
+      window.addEventListener('scroll', () => {
+        btn?.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
 
-          btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
-        }
+      btn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
