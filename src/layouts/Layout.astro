@@ -1,7 +1,5 @@
 ---
-// 1. PRZYWRACAMY STANDARDOWY IMPORT CSS
-// Usuwamy import z '?url', wracamy do zwykłego importu
-import '../styles/global.css'; 
+import globalCssUrl from '../styles/global.css?url'; // Bezpieczne pobranie adresu URL pliku CSS
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -55,14 +53,13 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- ═══════════════════════════════════════════════════════════
-         ASYNCHRONICZNE ŁADOWANIE CSS (Poprawiona wersja dla Astro)
-         Zamiast preloadu z JS, używamy tricku z media="print".
-         Przeglądarka ignoruje CSS dla drukarki, ale JS natychmiast
-         zmienia media na "all", ładując CSS asynchronicznie.
-         Astro poprawnie zbuduje pliki, a PageSpeed nie zgłosi blokady!
+         ASYNCHRONICZNE ŁADOWANIE CSS (Najbezpieczniejsza metoda)
+         Trick z media="print" - przeglądarka ignoruje blokowanie 
+         renderowania dla CSS "dla drukarki", a JS w tle natychmiast 
+         go aplikuje. PageSpeed Insights to uwielbia.
          ═══════════════════════════════════════════════════════════ -->
-    <link rel="stylesheet" href={Astro.resolvePath('../styles/global.css')} media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href={Astro.resolvePath('../styles/global.css')}></noscript>
+    <link rel="stylesheet" href={globalCssUrl} media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href={globalCssUrl}></noscript>
 
     <!-- ═══════════════════════════════════════════════════════════
          CRITICAL CSS (Zapobiega migotaniu strony - FOUC)
