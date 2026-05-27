@@ -1,11 +1,26 @@
 ---
+import globalCssUrl from '../styles/global.css?url'; // Bezpieczne pobranie URL do pliku CSS
 import '../styles/global.css';
-// import '../styles/global.css'; // USUNIĘTO: To powodowało blokowanie renderowania
-import globalCssUrl from '../styles/global.css?url'; // Vite zwraca URL do pliku CSS
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-@@ -33,11 +34,12 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
+@@ -23,13 +23,8 @@ else if (pathname.startsWith('/de')) htmlLang = 'de';
+else if (pathname.startsWith('/es')) htmlLang = 'es';
+else if (pathname.startsWith('/it')) htmlLang = 'it';
+
+// ── Bezpieczny bazowy URL ─────────────────────────────────────
+// Astro.site może być undefined podczas buildu (np. dla strony 404), 
+// dlatego zawsze upewniamy się, że mamy fallback z ukośnikiem na końcu.
+const siteUrl = Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl/';
+
+const canonicalURL = new URL(pathname, siteUrl);
+const absoluteOgImage = new URL(ogImage, siteUrl).href;
+// ── Canonical URL ─────────────────────────────────────────────
+const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl');
+---
+<!doctype html>
+<html lang={htmlLang}>
+@@ -38,12 +33,11 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"        content={description} />
     <meta name="theme-color"        content="#1A1209" />
@@ -14,30 +29,35 @@ import Footer from '../components/Footer.astro';
     <!-- Open Graph -->
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image"       content={absoluteOgImage} />
     <meta property="og:image"       content={ogImage} />
-    <meta property="og:image"       content={new URL(ogImage, Astro.site).href} />
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content={canonicalURL} />
 
-@@ -46,39 +48,76 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
+@@ -52,77 +46,46 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
 
     <title>{title} | Ateny Roztocza</title>
 
+    <!-- Preconnect fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&family=Courier+Prime&display=swap"
+      rel="stylesheet"
+    />
     <!-- USUNIĘTO STARE LINKI DO GOOGLE FONTS - TERAZ ZARZĄDZA TYM ASTRO.CONFIG.MJS -->
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- ═══════════════════════════════════════════════════════════
-         1. ASYNCHRONICZNE ŁADOWANIE CSS (Eliminuje Render-Blocking)
-         Zamiast <link rel="stylesheet">, ładujemy CSS w tle.
+         ASYNCHRONICZNE ŁADOWANIE CSS (Eliminuje Render-Blocking)
          ═══════════════════════════════════════════════════════════ -->
     <link rel="preload" href={globalCssUrl} as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href={globalCssUrl}></noscript>
 
     <!-- ═══════════════════════════════════════════════════════════
-         2. CRITICAL CSS (Zapobiega migotaniu strony podczas ładowania asynchronicznego)
-         Wstawiamy tylko to, co potrzebne do wyrenderowania tła i tekstu.
+         CRITICAL CSS (Zapobiega migotaniu strony - FOUC)
          ═══════════════════════════════════════════════════════════ -->
     <style>
       body {
@@ -50,9 +70,13 @@ import Footer from '../components/Footer.astro';
     </style>
 
     <!-- ═══════════════════════════════════════════════════════════
-         3. PRELOAD FONTÓW (Kluczowe dla LCP - tekst musi się pojawić natychmiast)
-         Upewnij się, że pliki .woff2 istnieją w folderze /public/fonts/
+         PRELOAD FONTÓW (Kluczowe dla LCP)
          ═══════════════════════════════════════════════════════════ -->
+    <!-- 
+      UWAGA: Upewnij się, że te pliki istnieją w folderze /public/fonts/ .
+      Jeśli używasz oryginalnych nazw z hashami z Astro, zmień ścieżki poniżej.
+      Najlepiej skopiować czyste pliki .woff2 do /public/fonts/ bez hashów.
+    -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -60,33 +84,31 @@ import Footer from '../components/Footer.astro';
   </head>
 
   <body>
+    <div class="layout-wrapper">
     <div style="overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column;">
 
-    <div class="layout-wrapper">
       <Header />
 
-      <main style="flex:1;">
       <main>
+      <main style="flex:1;">
         <slot />
       </main>
 
       <Footer />
 
       <!-- Back to top -->
+      <button id="back-to-top" aria-label="Wróć na górę">
       <button
         id="back-to-top"
         aria-label="Wróć na górę"
       >
-      <button id="back-to-top" aria-label="Wróć na górę">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 10L8 5l5 5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-
     </div>
 
     <style>
-      /* Przeniesienie inline styles do CSS dla lepszej czytelności i specyficzności */
       .layout-wrapper {
         overflow-x: hidden;
         min-height: 100vh;
@@ -97,18 +119,19 @@ import Footer from '../components/Footer.astro';
         flex: 1;
       }
     </style>
+    </div>
 
     <script>
       // ── IntersectionObserver dla .reveal ─────────────────────
+      // Wykorzystujemy 'astro:page-load', aby skrypt działał poprawnie 
+      // również po przejściach między stronami (View Transitions)
+      document.addEventListener('astro:page-load', () => {
       // Obsługuje WSZYSTKIE strony — uruchamia się raz po load
       function initReveal() {
-      // Zmiana na astro:page-load zapewnia, że skrypt zadziała 
-      // poprawnie również po przejściu między podstronami (View Transitions)
-      document.addEventListener('astro:page-load', () => {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-@@ -89,20 +128,23 @@ const canonicalURL = new URL(pathname, Astro.site ?? 'https://atenyroztocza.pl')
+@@ -133,21 +96,20 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
           },
           { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
         );
@@ -117,29 +140,26 @@ import Footer from '../components/Footer.astro';
       }
       // 100ms delay zachowany 1:1 z App.tsx
       setTimeout(initReveal, 100);
-      });
 
+        // ── Back to top ──────────────────────────────────────────
+        const btn = document.getElementById('back-to-top');
       // ── Back to top ──────────────────────────────────────────
       const btn = document.getElementById('back-to-top');
-
-      window.addEventListener('scroll', () => {
-        btn?.classList.toggle('visible', window.scrollY > 400);
-      }, { passive: true });
-
-      btn?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.addEventListener('astro:page-load', () => {
-        const btn = document.getElementById('back-to-top');
 
         if (btn) {
           window.addEventListener('scroll', () => {
             btn.classList.toggle('visible', window.scrollY > 400);
           }, { passive: true });
+      window.addEventListener('scroll', () => {
+        btn?.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
 
           btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           });
         }
+      btn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
