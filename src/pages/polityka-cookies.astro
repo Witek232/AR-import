@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+const title = "Polityka Cookies";
+const description = "Informacje o wykorzystaniu plików cookies na stronie Ateny Roztocza.";
+---
+
+<Layout title={title} description={description}>
+  <div class="page-transition">
+    <section class="page-hero">
+      <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
+        <p class="section-label" style="color:rgba(201,168,76,0.65); margin-bottom:1rem;">Dokument prawny</p>
+        <h1 class="section-title gold-shimmer">Polityka Cookies</h1>
+      </div>
+    </section>
+
+    <section style="background:#F5EDD8; padding:clamp(3rem,8vw,5rem) clamp(1rem,4vw,2rem);">
+      <div style="max-width:800px; margin:0 auto;">
+        
+        <div class="body-text" style="margin-bottom:3rem;">
+          <p>Pliki cookies (tzw. „ciasteczka”) to małe pliki tekstowe zapisywane na Twoim urządzeniu podczas odwiedzania strony internetowej. Pomagają one w prawidłowym funkcjonowaniu strony i ulepszaniu Twojego doświadczenia.</p>
+        </div>
+
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.3rem,3vw,1.6rem); color:#1A1209; margin-bottom:1rem; border-bottom:1px solid rgba(201,168,76,0.3); padding-bottom:0.5rem;">1. Rodzaje używanych plików Cookies</h2>
+        <div class="body-text" style="margin-bottom:2.5rem;">
+          <ul style="list-style:disc; padding-left:1.5rem; margin-bottom:1rem;">
+            <li><strong>Niezbędne (techniczne):</strong> Wymagane do podstawowego działania strony (np. zapamiętywanie wyboru języka, sesja użytkownika). Nie wymagają zgody.</li>
+            <li><strong>Analityczne:</strong> Pozwalają zrozumieć, w jaki sposób użytkownicy korzystają ze strony (np. Google Analytics). Są instalowane tylko po wyrażeniu zgody w bannerze cookies.</li>
+            <li><strong>Funkcjonalne (YouTube):</strong> Strona osadza filmy z YouTube. Po kliknięciu przycisku odtwarzania, YouTube może umieścić własne pliki cookies na Twoim urządzeniu.</li>
+          </ul>
+        </div>
+
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.3rem,3vw,1.6rem); color:#1A1209; margin-bottom:1rem; border-bottom:1px solid rgba(201,168,76,0.3); padding-bottom:0.5rem;">2. Zarządzanie plikami Cookies</h2>
+        <div class="body-text" style="margin-bottom:2.5rem;">
+          <p>Możesz w każdej chwili zarządzać zgodami za pomocą ustawień swojej przeglądarki, decydując, które pliki cookies akceptować, a które odrzucić. Pamiętaj jednak, że wyłączenie niektórych plików może wpłynąć na funkcjonowanie strony.</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</Layout>
