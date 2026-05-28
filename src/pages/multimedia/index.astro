@@ -9,7 +9,7 @@ import {
 } from '../../data/multimediaHelpers';
 import { processArticles } from '../../data/articleHelpers';
 
-// 1. Pobranie danych multimedia (stare)
+// 1. Pobranie danych multimedia
 const years = await getYears();
 const allEntriesList = await getAllEntries();
 
@@ -39,7 +39,7 @@ const tabs = [
   { key: 'inne',          label: 'Inne publikacje',          count: String(articlesData.inne.length) },
 ];
 
-// Pre-obliczone dane kart lat (bez zmian)
+// Pre-obliczone dane kart lat
 const yearCards = years.map((year) => {
   const entries    = multimediaDataMap[year] ?? [];
   const totalParts = entries.reduce((s, e) => s + e.parts.length, 0);
@@ -204,185 +204,141 @@ const yearCardCatBadges = yearCards.map((card) =>
     </div>
   </div>
 
-  <!-- ── PANEL: NASZ DZIENNIK (SPÓJNE KAFELKI) ──────────── -->
+  <!-- ── PANEL: NASZ DZIENNIK (LISTA WIERSZOWA) ──────────── -->
   <div id="mm-panel-nasz-dziennik" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:1100px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem); text-align:center;">
-        <div style="margin-bottom:1rem; color:#C9A84C;">
-          <!-- Elegancka ikona gazety -->
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg>
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Naszym Dzienniku</h2>
         </div>
-        <h2 class="section-title" style="color:#1A1209; margin-bottom:0.5rem;">Artykuły w Naszym Dzienniku</h2>
         <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.5rem;">
           {articlesData.naszDziennik.length} publikacji ks. prof. Tadeusza Guza i współpracowników projektu
         </p>
-        <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
       </div>
       
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
-        {articlesData.naszDziennik.map((art) => (
-          <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit; display:block;">
-            <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; height:100%; display:flex; flex-direction:column;">
-              <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.75rem;">
-                {art.data.dateDisplay}
-              </p>
-              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.75rem;">
-                {art.data.title}
-              </h3>
-              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 auto 0; flex-grow:1;">
-                {art.data.excerpt}
-              </p>
-              <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C; border-top:1px solid rgba(26,18,9,0.08); padding-top:0.85rem; margin-top:1rem;">
-                {art.target ? (
-                  <svg width="14" height="14" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
-                )}
-                <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;">{art.target ? 'Link zewnętrzny' : 'Czytaj więcej'}</span>
-              </div>
+      {articlesData.naszDziennik.map((art) => (
+        <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit;">
+          <article class="mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+            <div>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Nasz Dziennik</p>
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
-          </a>
-        ))}
-      </div>
+            {art.target ? (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            )}
+          </article>
+        </a>
+      ))}
     </div>
   </div>
 
-  <!-- ── PANEL: NIEDZIELA (SPÓJNE KAFELKI) ──────────────── -->
+  <!-- ── PANEL: NIEDZIELA (LISTA WIERSZOWA) ──────────────── -->
   <div id="mm-panel-niedziela" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:1100px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem); text-align:center;">
-        <div style="margin-bottom:1rem; color:#C9A84C;">
-          <!-- Elegancka ikona otwartej książki -->
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Artykuły w Niedzieli</h2>
         </div>
-        <h2 class="section-title" style="color:#1A1209; margin-bottom:0.5rem;">Artykuły w Niedzieli</h2>
-        <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
       </div>
       
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
-        {articlesData.niedziela.map((art) => (
-          <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit; display:block;">
-            <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; height:100%; display:flex; flex-direction:column;">
-              <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.75rem;">
-                {art.data.dateDisplay}
-              </p>
-              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.75rem;">
-                {art.data.title}
-              </h3>
-              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 auto 0; flex-grow:1;">
-                {art.data.excerpt}
-              </p>
-              <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C; border-top:1px solid rgba(26,18,9,0.08); padding-top:0.85rem; margin-top:1rem;">
-                {art.target ? (
-                  <svg width="14" height="14" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
-                )}
-                <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;">{art.target ? 'Link zewnętrzny' : 'Czytaj więcej'}</span>
-              </div>
+      {articlesData.niedziela.map((art) => (
+        <a href={art.href} target={art.target} rel={art.rel} style="text-decoration:none; color:inherit;">
+          <article class="mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+            <div>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">{art.data.dateDisplay} · Niedziela</p>
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{art.data.title}</h3>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{art.data.excerpt}</p>
             </div>
-          </a>
-        ))}
-      </div>
+            {art.target ? (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            )}
+          </article>
+        </a>
+      ))}
     </div>
   </div>
 
-  <!-- ── PANEL: CYKLE (SPÓJNE KAFELKI) ──────────────────── -->
+  <!-- ── PANEL: CYKLE (LISTA WIERSZOWA) ──────────────────── -->
   <div id="mm-panel-cykle" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:1100px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem); text-align:center;">
-        <div style="margin-bottom:1rem; color:#C9A84C;">
-          <!-- Elegancka ikona stosu książek -->
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v7"/><path d="M8 9.5h8"/></svg>
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v7"/><path d="M8 9.5h8"/></svg>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Cykle publikacji</h2>
         </div>
-        <h2 class="section-title" style="color:#1A1209; margin-bottom:0.5rem;">Cykle publikacji</h2>
         <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
           Serie tematyczne i wieloczęściowe artykuły
         </p>
-        <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
       </div>
 
       {articlesData.cycles.length === 0 && (
         <p style="font-family:'Inter',serif; font-style:italic; color:rgba(26,18,9,0.45); text-align:center; padding:2rem 0;">Brak cykli artykułów</p>
       )}
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
-        {articlesData.cycles.map(cycle => (
-          <a href={cycle.href} style="text-decoration:none; color:inherit; display:block;">
-            <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; height:100%; display:flex; flex-direction:column;">
-              
-              <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.75rem;">
-                Seria tematyczna
+      {articlesData.cycles.map(cycle => (
+        <a href={cycle.href} style="text-decoration:none; color:inherit;">
+          <article class="mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+            <div>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">
+                Seria tematyczna · {cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}
               </p>
-
-              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.75rem;">
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">
                 {cycle.data.title}
               </h3>
-              
-              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 auto 0; flex-grow:1;">
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">
                 {cycle.data.description}
               </p>
-              
-              <div style="display:flex; align-items:center; justify-content: space-between; color:#C9A84C; border-top:1px solid rgba(26,18,9,0.08); padding-top:0.85rem; margin-top:1rem;">
-                <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;">
-                  {cycle.articles.length} {cycle.articles.length === 1 ? 'część' : 'części'}
-                </span>
-                <svg width="14" height="14" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
-              </div>
-
             </div>
-          </a>
-        ))}
-      </div>
+            <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </article>
+        </a>
+      ))}
     </div>
   </div>
 
-  <!-- ── PANEL: INNE (SPÓJNE KAFELKI) ──────────────────── -->
+  <!-- ── PANEL: INNE (LISTA WIERSZOWA) ──────────────────── -->
   <div id="mm-panel-inne" class="mm-panel" style="display:none; background:#F5EDD8; min-height:60vh;">
-    <div style="max-width:1100px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
-      <div style="margin-bottom:clamp(2rem,5vw,3rem); text-align:center;">
-        <div style="margin-bottom:1rem; color:#C9A84C;">
-          <!-- Elegancka ikona pergaminu/zwoju -->
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20a2 2 0 0 0 2-2h14V4H6a2 2 0 0 0-2 2z"/><path d="M8 10h6"/><path d="M8 14h8"/></svg>
+    <div style="max-width:900px; margin:0 auto; padding:clamp(2rem,5vw,4rem) clamp(1rem,3vw,1.5rem);">
+      <div style="margin-bottom:clamp(2rem,5vw,3rem);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.5rem;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20a2 2 0 0 0 2-2h14V4H6a2 2 0 0 0-2 2z"/><path d="M8 10h6"/><path d="M8 14h8"/></svg>
+          <h2 class="section-title" style="color:#1A1209; margin:0;">Inne publikacje</h2>
         </div>
-        <h2 class="section-title" style="color:#1A1209; margin-bottom:0.5rem;">Inne publikacje</h2>
         <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.48); margin-top:0.35rem;">
           Wypowiedzi z Radia Maryja, wywiady prasowe i inne formy obecności medialnej projektu
         </p>
-        <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
+        <div style="height:1px; background:linear-gradient(to right,rgba(201,168,76,0.5),transparent); margin-top:1.25rem;"></div>
       </div>
       
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr)); gap:clamp(1rem,3vw,1.5rem);">
-        {articlesData.inne.map((item) => (
-          <a href={item.href} target={item.target} rel={item.rel} style="text-decoration:none; color:inherit; display:block;">
-            <div class="card-hover gold-border-hover" style="background:#EDE0C4; border:1px solid rgba(26,18,9,0.08); padding:clamp(1.25rem,3vw,1.75rem); cursor:pointer; height:100%; display:flex; flex-direction:column;">
-              
-              <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.75rem;">
+      {articlesData.inne.map((item) => (
+        <a href={item.href} target={item.target} rel={item.rel} style="text-decoration:none; color:inherit;">
+          <article class="mm-article-row" style="padding:clamp(1.1rem,2.5vw,1.6rem) 0; border-bottom:1px solid rgba(26,18,9,0.08); cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:clamp(1rem,3vw,2rem); align-items:start; transition:padding-left 0.25s ease;">
+            <div>
+              <p style="font-family:'Inter',serif; font-size:clamp(0.68rem,1.8vw,0.75rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.4rem;">
                 {item.data.dateDisplay}
                 {item.data.duration && ` · ${item.data.duration}`}
               </p>
-
-              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3vw,1.3rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.75rem;">
-                {item.data.title}
-              </h3>
-
-              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0 0 auto 0; flex-grow:1;">
-                {item.data.excerpt}
-              </p>
-
-              <div style="display:flex; align-items:center; gap:0.45rem; color:#C9A84C; border-top:1px solid rgba(26,18,9,0.08); padding-top:0.85rem; margin-top:1rem;">
-                {item.target ? (
-                  <svg width="14" height="14" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="#C9A84C"><path d="M5 3.5l13 6.5-13 6.5V3.5z"/></svg>
-                )}
-                <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;">{item.target ? 'Link zewnętrzny' : 'Czytaj więcej'}</span>
-              </div>
-
+              <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.1rem,3.5vw,1.45rem); font-weight:400; color:#1A1209; line-height:1.35; margin-bottom:0.5rem;">{item.data.title}</h3>
+              <p style="font-family:'Inter',serif; font-style:italic; font-size:clamp(0.9rem,2.2vw,1rem); color:rgba(26,18,9,0.52); line-height:1.68; margin:0;">{item.data.excerpt}</p>
             </div>
-          </a>
-        ))}
-      </div>
+            {item.target ? (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ) : (
+              <svg width="20" height="20" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.5rem;"><path d="M3 10h14M13 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            )}
+          </article>
+        </a>
+      ))}
     </div>
   </div>
 
@@ -390,6 +346,7 @@ const yearCardCatBadges = yearCards.map((card) =>
 </Layout>
 
 <style>
+  .mm-article-row:hover { padding-left: 0.75rem !important; }
   .mm-recent-link:hover > div { background: rgba(201,168,76,0.06) !important; padding-left: clamp(1rem,2.5vw,1.25rem) !important; }
 
   .mm-tab-btn { color: rgba(245,237,216,0.42); border-bottom-color: transparent; }
