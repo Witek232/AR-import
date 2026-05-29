@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Wsparcie from '../components/Wsparcie.astro';
 
 const contactInfo = [
   {
@@ -53,7 +52,7 @@ const languages = [
     <!-- ── Main content ──────────────────────────────────────── -->
     <div style="background:#F5EDD8; padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,2rem);">
       <div style="max-width:1100px; margin:0 auto;">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(2.5rem,5vw,5rem); margin-bottom:4rem;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(2.5rem,5vw,5rem);">
 
           <!-- ── Contact info ─────────────────────────────────── -->
           <div>
@@ -103,7 +102,7 @@ const languages = [
               Wyślij wiadomość
             </h2>
 
-            <!-- Confirmation (ukryte domyślnie) -->
+            <!-- Confirmation -->
             <div
               id="form-success"
               style="display:none; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); padding:2rem; text-align:center;"
@@ -116,61 +115,26 @@ const languages = [
             </div>
 
             <!-- Form -->
-            <form
-              id="contact-form"
-              novalidate
-              style="display:flex; flex-direction:column; gap:1.1rem;"
-            >
+            <form id="contact-form" novalidate style="display:flex; flex-direction:column; gap:1.1rem;">
               <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.1rem;">
                 <div>
                   <label class="contact-label" for="name">Imię i nazwisko</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    class="form-input"
-                    placeholder="Jan Kowalski"
-                    autocomplete="name"
-                  />
+                  <input id="name" name="name" type="text" required class="form-input" placeholder="Jan Kowalski" autocomplete="name" />
                 </div>
                 <div>
                   <label class="contact-label" for="email">E-mail</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    class="form-input"
-                    placeholder="jan@example.com"
-                    autocomplete="email"
-                  />
+                  <input id="email" name="email" type="email" required class="form-input" placeholder="jan@example.com" autocomplete="email" />
                 </div>
               </div>
 
               <div>
                 <label class="contact-label" for="subject">Temat</label>
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  required
-                  class="form-input"
-                  placeholder="W jakim celu piszesz?"
-                />
+                <input id="subject" name="subject" type="text" required class="form-input" placeholder="W jakim celu piszesz?" />
               </div>
 
               <div>
                 <label class="contact-label" for="message">Wiadomość</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  class="form-input"
-                  rows="6"
-                  placeholder="Treść wiadomości..."
-                  style="resize:vertical; min-height:140px;"
-                ></textarea>
+                <textarea id="message" name="message" required class="form-input" rows="6" placeholder="Treść wiadomości..." style="resize:vertical; min-height:140px;"></textarea>
               </div>
 
               <button type="submit" id="submit-btn" class="contact-submit">
@@ -183,14 +147,10 @@ const languages = [
       </div>
     </div>
 
-    <!-- ── Wsparcie ───────────────────────────────────────────── -->
-    <Wsparcie />
-
   </div>
 </Layout>
 
 <style>
-  /* Overriding global label style for contact page */
   .contact-label {
     font-family: 'Inter', serif;
     font-size: 0.7rem;
@@ -230,8 +190,6 @@ const languages = [
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // ── Walidacja HTML5 ───────────────────────────────────────
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -241,20 +199,13 @@ const languages = [
     btn.disabled     = true;
     btn.textContent  = 'Wysyłanie…';
 
-    // ── Tu podłącz własne API / Netlify Forms / Formspree ────
-    // Przykład z Formspree:
-    // const data = new FormData(form);
-    // await fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body:data });
-
-    // Symulacja — zastąp prawdziwym fetch
+    // Tu podłącz formspree / netlify forms
     await new Promise((r) => setTimeout(r, 800));
 
-    // ── Pokaż potwierdzenie ───────────────────────────────────
     form.style.display    = 'none';
     success.style.display = 'block';
     form.reset();
 
-    // Schowaj po 4s i przywróć formularz
     setTimeout(() => {
       success.style.display = 'none';
       form.style.display    = 'flex';
