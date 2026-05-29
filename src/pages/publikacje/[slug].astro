@@ -63,55 +63,62 @@ const { prev, next, cycleData } = getCycleNavigation(article, cycles);
 
     <!-- ── TREŚĆ ARTYKUŁU ──────────────────────────────────── -->
     <div style="background: var(--parchment); position: relative;">
-      <article class="article-prose" style="max-width: 800px; margin: 0 auto; padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
-        <Content />
-      </article>
+      
+      {/* Zewnętrzny wrapper przejmuje padding odpowiedzialny za marginesy na mobile */}
+      <div style="max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
 
-      {/* ── PRZYCISK LINKU ZEWNĘTRZNEGO ── */}
-      {article.data.externalLink && (
-        <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(3rem, 8vw, 5rem); text-align: center;">
-          <div class="gold-hr" style="margin-bottom: 2rem;"></div>
-          <a href={article.data.externalLink} target="_blank" rel="noopener noreferrer" class="card-hover" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Inter', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3);">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Przejdź do oryginalnego artykułu
-          </a>
-        </div>
-      )}
+        {/* Artykuł bez poziomego paddingu - tekst rozciąga się na pełne 800px */}
+        <article class="article-prose" style="max-width: 800px; margin: 0 auto;">
+          <Content />
+        </article>
 
-      {/* ── NAWIGACJA CYKLU ── */}
-      {cycleData && (
-        <div style="max-width: 800px; margin: 0 auto; padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 5vw, 3rem); border-top: 1px solid rgba(201,168,76,0.3);">
-          
-          <div class="gold-hr" style="margin-bottom: 2rem;"></div>
-          
-          <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
-            
-            {next ? (
-              <a href={next.href} target={next.target} rel={next.rel} style="display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Inter', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--ink-deep)'" onmouseout="this.style.background='var(--ink)'">
-                Następna część cyklu
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            ) : (
-              <div style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem;">
-                ✦ To jest ostatnia część tego cyklu ✦
-              </div>
-            )}
-
-            <a href={cycleData.href} style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Zobacz spis treści cyklu
+        {/* ── PRZYCISK LINKU ZEWNĘTRZNEGO ── */}
+        {article.data.externalLink && (
+          <div style="max-width: 800px; margin: 0 auto; padding: 0 0 clamp(3rem, 8vw, 5rem); text-align: center;">
+            <div class="gold-hr" style="margin-bottom: 2rem;"></div>
+            <a href={article.data.externalLink} target="_blank" rel="noopener noreferrer" class="card-hover" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Inter', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3);">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Przejdź do oryginalnego artykułu
             </a>
           </div>
+        )}
 
+        {/* ── NAWIGACJA CYKLU ── */}
+        {cycleData && (
+          <div style="max-width: 800px; margin: 0 auto; padding: clamp(2rem, 5vw, 3rem) 0; border-top: 1px solid rgba(201,168,76,0.3);">
+            
+            <div class="gold-hr" style="margin-bottom: 2rem;"></div>
+            
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: center;">
+              
+              {next ? (
+                <a href={next.href} target={next.target} rel={next.rel} style="display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--ink); color: var(--gold-light); text-decoration: none; font-family: 'Inter', serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.95rem; border: 1px solid rgba(201,168,76,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--ink-deep)'" onmouseout="this.style.background='var(--ink)'">
+                  Następna część cyklu
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              ) : (
+                <div style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem;">
+                  ✦ To jest ostatnia część tego cyklu ✦
+                </div>
+              )}
+
+              <a href={cycleData.href} style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Zobacz spis treści cyklu
+              </a>
+            </div>
+
+          </div>
+        )}
+
+        {/* ── POWRÓT DO LISTY ── */}
+        <div style="max-width: 800px; margin: 0 auto; padding: 0 0 clamp(3rem, 8vw, 5rem);">
+          <a href="/multimedia" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', serif; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Powrót do publikacji
+          </a>
         </div>
-      )}
 
-      {/* ── POWRÓT DO LISTY ── */}
-      <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(3rem, 8vw, 5rem);">
-        <a href="/multimedia" style="display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', serif; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Powrót do publikacji
-        </a>
       </div>
     </div>
 
