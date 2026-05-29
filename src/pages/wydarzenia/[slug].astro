@@ -44,54 +44,57 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
 
     <!-- ── HERO ─────────────────────────────────────────────── -->
     <div class="page-hero">
-      <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
+      <!-- Zewnętrzny kontener przejmujący marginesy boczne -->
+      <div style="max-width:1200px; margin:0 auto; padding:0 clamp(1.25rem,5vw,3rem);">
+        <div style="position:relative; z-index:2; max-width:800px; margin:0 auto;">
 
-        <!-- Breadcrumb -->
-        <a href="/wydarzenia" style="display:inline-flex; align-items:center; gap:0.5rem; font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(201,168,76,0.6); text-decoration:none; margin-bottom:1.5rem; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(201,168,76,0.6)'">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Wydarzenia
-        </a>
+          <!-- Breadcrumb -->
+          <a href="/wydarzenia" style="display:inline-flex; align-items:center; gap:0.5rem; font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(201,168,76,0.6); text-decoration:none; margin-bottom:1.5rem; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(201,168,76,0.6)'">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Wydarzenia
+          </a>
 
-        <!-- Badges -->
-        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem;">
-          <span style={`font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.2em; text-transform:uppercase; color:${catColor}; border:1px solid ${catColor}55; padding:3px 10px;`}>
-            {catLabel}
-          </span>
-
-          {status === 'upcoming' && (
-            <span style="font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); padding:3px 10px;">
-              Nadchodzące
+          <!-- Badges -->
+          <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-bottom:1.25rem;">
+            <span style={`font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.2em; text-transform:uppercase; color:${catColor}; border:1px solid ${catColor}55; padding:3px 10px;`}>
+              {catLabel}
             </span>
-          )}
 
-          {status === 'past' && event.hasReport && (
-            <span style="font-family:'Inter',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:3px 10px; display:inline-flex; align-items:center; gap:4px;">
-              <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
-              Relacja dostępna
-            </span>
-          )}
+            {status === 'upcoming' && (
+              <span style="font-family:'Inter',serif; font-size:clamp(0.62rem,1.4vw,0.68rem); letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35); padding:3px 10px;">
+                Nadchodzące
+              </span>
+            )}
+
+            {status === 'past' && event.hasReport && (
+              <span style="font-family:'Inter',serif; font-size:clamp(0.58rem,1.3vw,0.65rem); letter-spacing:0.15em; text-transform:uppercase; color:#fff; background:#7A1C2E; padding:3px 10px; display:inline-flex; align-items:center; gap:4px;">
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="white"/></svg>
+                Relacja dostępna
+              </span>
+            )}
+          </div>
+
+          <!-- Meta -->
+          <p class="section-label" style="color:rgba(201,168,76,0.6); margin-bottom:1rem;">
+            📅 {dateDisplay} · 📍 {event.place}
+            {event.languages && event.languages.length > 1 && ` · 🌐 ${event.languages.join(' / ')}`}
+          </p>
+
+          <!-- Tytuł -->
+          <h1 class="section-title gold-shimmer" style="font-size:clamp(2rem,6vw,3.5rem); margin-bottom:1.5rem;">
+            {event.title}
+          </h1>
+
+          <!-- Ornament -->
+          <div class="section-ornament" style="margin-top:2rem; margin-bottom:0;">
+            <div class="section-ornament-line"></div>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="#C9A84C">
+              <path d="M8 1l1.8 4.4L14.4 6l-3.2 3.1.75 4.4L8 11.4l-3.95 2.1.75-4.4L1.6 6l4.6-.6L8 1z" />
+            </svg>
+            <div class="section-ornament-line"></div>
+          </div>
+
         </div>
-
-        <!-- Meta -->
-        <p class="section-label" style="color:rgba(201,168,76,0.6); margin-bottom:1rem;">
-          📅 {dateDisplay} · 📍 {event.place}
-          {event.languages && event.languages.length > 1 && ` · 🌐 ${event.languages.join(' / ')}`}
-        </p>
-
-        <!-- Tytuł -->
-        <h1 class="section-title gold-shimmer" style="font-size:clamp(2rem,6vw,3.5rem); margin-bottom:1.5rem;">
-          {event.title}
-        </h1>
-
-        <!-- Ornament -->
-        <div class="section-ornament" style="margin-top:2rem; margin-bottom:0;">
-          <div class="section-ornament-line"></div>
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="#C9A84C">
-            <path d="M8 1l1.8 4.4L14.4 6l-3.2 3.1.75 4.4L8 11.4l-3.95 2.1.75-4.4L1.6 6l4.6-.6L8 1z" />
-          </svg>
-          <div class="section-ornament-line"></div>
-        </div>
-
       </div>
     </div>
 
@@ -109,64 +112,69 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
         </svg>
       </div>
 
-      <div style="max-width:800px; margin:0 auto; padding:clamp(3rem,8vw,5rem) clamp(1.25rem,5vw,3rem); position:relative; z-index:2;">
+      <!-- Zewnętrzny kontener przejmujący marginesy boczne -->
+      <div style="max-width:1200px; margin:0 auto; padding:0 clamp(1.25rem,5vw,3rem); position:relative; z-index:2;">
 
-        <!-- Description -->
-        {event.description && (
-          <div class="reveal" style="margin-bottom:2.5rem;">
-            <blockquote class="elegant-quote" style="border-color:#C9A84C; margin-left:0;">
-              {event.description}
-            </blockquote>
-          </div>
-        )}
+        <!-- Kontener treści (800px) bez poziomych paddingów -->
+        <div style="max-width:800px; margin:0 auto; padding:clamp(3rem,8vw,5rem) 0;">
 
-        <!-- Markdown content -->
-        {hasBody && (
-          <div class="event-content">
-            <Content />
-          </div>
-        )}
+          <!-- Description -->
+          {event.description && (
+            <div class="reveal" style="margin-bottom:2.5rem;">
+              <blockquote class="elegant-quote" style="border-color:#C9A84C; margin-left:0;">
+                {event.description}
+              </blockquote>
+            </div>
+          )}
 
-        {!hasBody && (
-          <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:rgba(26,18,9,0.45); text-align:center; padding:3rem 0;">
-            {status === 'upcoming' 
-              ? 'Szczegółowy program zostanie opublikowany wkrótce…'
-              : 'Sprawozdanie zostanie dodane wkrótce…'}
-          </p>
-        )}
+          <!-- Markdown content -->
+          {hasBody && (
+            <div class="event-content">
+              <Content />
+            </div>
+          )}
 
-        <!-- Separator -->
-        <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin:clamp(2.5rem,6vw,4rem) 0;"></div>
+          {!hasBody && (
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:rgba(26,18,9,0.45); text-align:center; padding:3rem 0;">
+              {status === 'upcoming' 
+                ? 'Szczegółowy program zostanie opublikowany wkrótce…'
+                : 'Sprawozdanie zostanie dodane wkrótce…'}
+            </p>
+          )}
 
-        <!-- Nawigacja prev/next -->
-        <nav style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
-          
-          {prev ? (
-            <a href={'/wydarzenia/' + prev.slug} class="event-nav-link">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <div>
-                <span class="nav-dir">Poprzednie</span>
-                <span class="nav-title">{prev.title}</span>
-              </div>
+          <!-- Separator -->
+          <div style="height:1px; background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent); margin:clamp(2.5rem,6vw,4rem) 0;"></div>
+
+          <!-- Nawigacja prev/next -->
+          <nav style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+            
+            {prev ? (
+              <a href={'/wydarzenia/' + prev.slug} class="event-nav-link">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 3L5 9l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>
+                  <span class="nav-dir">Poprzednie</span>
+                  <span class="nav-title">{prev.title}</span>
+                </div>
+              </a>
+            ) : <div></div>}
+
+            <a href="/wydarzenia" style="font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.45); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.35); padding-bottom:2px; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(26,18,9,0.45)'">
+              Wszystkie wydarzenia
             </a>
-          ) : <div></div>}
 
-          <a href="/wydarzenia" style="font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(26,18,9,0.45); text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.35); padding-bottom:2px; transition:color 0.2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(26,18,9,0.45)'">
-            Wszystkie wydarzenia
-          </a>
+            {next ? (
+              <a href={'/wydarzenia/' + next.slug} class="event-nav-link event-nav-next">
+                <div>
+                  <span class="nav-dir">Następne</span>
+                  <span class="nav-title">{next.title}</span>
+                </div>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            ) : <div></div>}
 
-          {next ? (
-            <a href={'/wydarzenia/' + next.slug} class="event-nav-link event-nav-next">
-              <div>
-                <span class="nav-dir">Następne</span>
-                <span class="nav-title">{next.title}</span>
-              </div>
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          ) : <div></div>}
+          </nav>
 
-        </nav>
-
+        </div>
       </div>
     </section>
 
