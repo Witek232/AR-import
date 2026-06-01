@@ -7,6 +7,7 @@ type: konferencja
 languages: [PL]
 hasReport: true
 description: "Relacja z pierwszego dnia wydarzenia w Szozdach. Homilia oraz konferencja ks. prof. Tadeusza Guza o teologicznych fundamentach Królestwa Chrystusa i Maryi w Polsce."
+---
 
 W wyjątkowym miejscu, jakim są Ateny Roztocza w Szozdach, rozpoczął się dwudniowy cykl spotkań modlitewno-naukowych. Sobotni program, zorganizowany pod przewodnictwem duchowym ks. prof. Tadeusza Guza oraz z inicjatywy prezesa Marka, zgromadził kapłanów i wiernych z całego kraju wokół debaty nad Polską i Polonią jako Królestwem Chrystusa i Maryi.
 
