@@ -1,5 +1,5 @@
 ---
-## slug: 2026-05-30-guz-abrahamowy-rys-krolestwa
+slug: 2026-05-30-guz-abrahamowy-rys-krolestwa
 title: "OBECNY CZAS JEST NASZYM CZASEM"
 date: 2026-05-30
 place: "Szozdy, Ateny Roztocza"
