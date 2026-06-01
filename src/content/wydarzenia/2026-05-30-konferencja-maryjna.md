@@ -1,10 +1,9 @@
 ---
-
 ## slug: 2026-05-30-guz-abrahamowy-rys-krolestwa
 title: "OBECNY CZAS JEST NASZYM CZASEM"
 date: 2026-05-30
 place: "Szozdy, Ateny Roztocza"
-type: relacja
+type: konferencja
 languages: [PL]
 hasReport: true
 description: "Relacja z pierwszego dnia wydarzenia w Szozdach. Homilia oraz konferencja ks. prof. Tadeusza Guza o teologicznych fundamentach Królestwa Chrystusa i Maryi w Polsce."
