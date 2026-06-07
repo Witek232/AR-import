@@ -18,7 +18,7 @@ Wydarzenie zgromadziło wybitnych prelegentów, którzy z różnych perspektyw �
 
 Wydarzenie otworzyła homilia **ks. prof. Tadeusza Guza**, który wskazał na „abrahamowy rys Chrystusowego Królestwa" jako fundament polskiej tożsamości. Kaznodzieja podkreślił, że uznanie Chrystusa za Króla wymaga bezwarunkowej wiary we wszechmoc Boga, analogicznej do postawy Abrahama, który uwierzył Bogu wbrew wszelkiej logice ludzkiej. Bez przyjęcia tej prawdy centralnej, wszelkie dysputy o władzy i prawie stają się niepełne lub niejasne, ponieważ brakuje im ostatecznego punktu odniesienia. Prawdziwa królewskość wyraża się w postawie służby, gdzie człowiek uznaje swój status stworzenia wobec Stwórcy — dopiero w tej perspektywie władza zyskuje swój autentyczny sens i godność.
 
-👉 [Wystąpienie na stronie multimediów](/multimedia/2026-05-30-szozdy-polska-abrahamem-ks-prof-tadeusz-guz.md)
+👉 [Wystąpienie na stronie multimediów](/multimedia/2026/2026-05-30-szozdy-polska-abrahamem-ks-prof-tadeusz-guz/)
 
 ### Intronizacja Chrystusa Króla w Polsce
 
