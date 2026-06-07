@@ -7,7 +7,7 @@ place: Ateny Roztocza, Szozdy
 category: konferencja
 tags: [Tadeusz Guz, Dzień Pani, Matka Wszystkich Narodów, intronizacja, Chrystus Król, Gietrzwałd, Abraham, mariologia, Współodkupicielka, Szozdy]
 description: |
-Wystąpienia ks. prof. Tadeusza Guza podczas konferencji „Dzień Pani – Matki Wszystkich Narodów" w Atenach Roztocza w Szozdach (30–31 maja 2026 r.). Homilia o abrahamowym rysie Królestwa, konferencja o intronizacji Chrystusa Króla, podsumowanie bloku gietrzwałdzkiego, uzupełnienie mariologiczne oraz homilia o Pani Wszystkich Narodów. Wystąpienia pozostałych prelegentów (Jerzy Duda, Janusz Górzyński, Jan Łopuszański) dostępne są na stronie sprawozdania z konferencji.
+Wystąpienia ks. prof. Tadeusza Guza podczas konferencji "Dzień Pani – Matki Wszystkich Narodów" w Atenach Roztocza w Szozdach (30–31 maja 2026 r.). Homilia o abrahamowym rysie Królestwa, konferencja o intronizacji Chrystusa Króla, podsumowanie bloku gietrzwałdzkiego, uzupełnienie mariologiczne oraz homilia o Pani Wszystkich Narodów. Wystąpienia pozostałych prelegentów (Jerzy Duda, Janusz Górzyński, Jan Łopuszański) dostępne są na stronie sprawozdania z konferencji.
 parts:
 - id: B7H7WQEmhjI
 label: Kazanie – Polska jako duchowy Abraham
