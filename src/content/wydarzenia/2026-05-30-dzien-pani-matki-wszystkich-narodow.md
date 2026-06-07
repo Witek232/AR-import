@@ -10,8 +10,6 @@ description: |
   Konferencja „Dzień Pani – Matki Wszystkich Narodów", która odbyła się w dniach 30–31 maja 2026 roku w Atenach Roztocza w Szozdach, stała się forum pogłębionej refleksji nad królewską godnością Chrystusa i Maryi w kontekście dziejów oraz współczesności Polski.
 ---
 
-# Konferencja „Dzień Pani – Matki Wszystkich Narodów"
-
 Konferencja **„Dzień Pani – Matki Wszystkich Narodów"**, która odbyła się w dniach **30–31 maja 2026 roku** w Atenach Roztocza w Szozdach, stała się forum pogłębionej refleksji nad królewską godnością Chrystusa i Maryi w kontekście dziejów oraz współczesności Polski. Wydarzenie zgromadziło wybitnych prelegentów, którzy z różnych perspektyw — teologicznej, historycznej i filozoficznej — przybliżali uczestnikom prawdę o królewskim majestacie Zbawiciela i Jego Matki oraz ich nieustannym orędniku wobec narodu polskiego.
 
 ## Dzień pierwszy — 30 maja 2026
