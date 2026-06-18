@@ -28,7 +28,7 @@ parts:
 
     analysis: |
 
-      <p>Rozmowa z ks. prof. Tadeuszem Guzem została opublikowana 02.06.2026 r. na kanale Telewizja Chrystusa Króla w Chicago. Wywiad podejmuje aktualny temat rozwoju technologii, tzw. sztucznej inteligencji oraz pytania o to, czy człowiek współczesny nie oddaje stopniowo własnego myślenia, sumienia i odpowiedzialności maszynom.</p>
+      <p>Wywiad podejmuje aktualny temat rozwoju technologii, tzw. sztucznej inteligencji oraz pytania o to, czy człowiek współczesny nie oddaje stopniowo własnego myślenia, sumienia i odpowiedzialności maszynom.</p>
 
       <p>Ks. profesor wychodzi od rozróżnienia między prawdziwą inteligencją, właściwą Bogu, aniołom i ludziom, a technicznymi wytworami człowieka. Podkreśla, że rozum i inteligencja są związane z bytem osobowym i duchowym, dlatego określanie robotów, algorytmów czy maszyn cyfrowych mianem „sztucznej inteligencji” uznaje za głębokie nadużycie pojęciowe. W jego ocenie maszyny mogą jedynie wykonywać zakodowane przez człowieka funkcje, lecz nie posiadają ducha, osoby ani prawdziwego rozumu.</p>
 
