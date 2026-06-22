@@ -4,7 +4,7 @@ title: "Święty Antoni, Kościół i droga do świętości – cykl kazań ks. 
 date: 2026-06-07
 dateSortable: "2026-06-07"
 place: Sanktuarium św. Antoniego, Radecznica
-category: kazania
+category: kazanie
 tags: [Tadeusz Guz, św. Antoni, Radecznica, Kościół, modlitwa, Eucharystia, Polska, kapłaństwo, jubileusz]
 description: "Pięć kazań ks. prof. Tadeusza Guza wygłoszonych podczas uroczystości odpustowych ku czci św. Antoniego w Sanktuarium w Radecznicy. Rozważania poświęcone osobie Jezusa Chrystusa, tajemnicy Kościoła, chrześcijańskim korzeniom Polski, kapłaństwu, modlitwie oraz życiu sakramentalnemu."
 parts:
