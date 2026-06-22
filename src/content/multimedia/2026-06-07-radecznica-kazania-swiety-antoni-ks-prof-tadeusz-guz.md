@@ -10,7 +10,7 @@ tags: [Tadeusz Guz, św. Antoni, Radecznica, Kościół, modlitwa, Eucharystia, 
 description: "Pięć kazań ks. prof. Tadeusza Guza wygłoszonych podczas uroczystości odpustowych ku czci św. Antoniego w Sanktuarium w Radecznicy. Rozważania poświęcone osobie Jezusa Chrystusa, tajemnicy Kościoła, chrześcijańskim korzeniom Polski, kapłaństwu, modlitwie oraz życiu sakramentalnemu."
 parts:
 
-* id: nyPSn9lXYgA
+- id: nyPSn9lXYgA
   label: "Kazanie I – Jezus Chrystus jedynym Zbawicielem świata"
   duration: ""
   analysis: |
@@ -21,7 +21,7 @@ parts:
 
     <p>Homilia stanowi jednocześnie wezwanie do odważnego wyznawania wiary oraz do przeciwstawienia się procesom marginalizowania Chrystusa we współczesnej kulturze. Według kaznodziei od odpowiedzi na pytanie o Jezusa zależy nie tylko los człowieka, ale także przyszłość całych narodów.</p>
 
-* id: ycGWBsM_w6U
+- id: ycGWBsM_w6U
   label: "Kazanie II – Święty Antoni i tajemnica Kościoła"
   duration: ""
   analysis: |
@@ -32,7 +32,7 @@ parts:
 
     <p>Kaznodzieja szeroko omawia znaczenie <strong>chrztu świętego</strong>, dzięki któremu człowiek otrzymuje najwyższą godność dziecka Bożego i zostaje wszczepiony w Mistyczne Ciało Chrystusa. W czasach podważania znaczenia Kościoła św. Antoni jawi się jako wzór niezachwianej wierności Ewangelii i wspólnocie założonej przez Zbawiciela.</p>
 
-* id: Q6FHKjLDSeM
+- id: Q6FHKjLDSeM
   label: "Kazanie III – Wiara, naród i świadectwo kapłańskiej wierności"
   duration: ""
   analysis: |
@@ -45,7 +45,7 @@ parts:
 
     <p>Kazanie kończy się apelem o zachowanie chrześcijańskich fundamentów Polski oraz przekazywanie wiary następnym pokoleniom jako najcenniejszego narodowego dziedzictwa.</p>
 
-* id: m2WHxvjZqbA
+- id: m2WHxvjZqbA
   label: "Kazanie IV – Modlitwa jako spotkanie człowieka z Bogiem"
   duration: ""
   analysis: |
@@ -56,7 +56,7 @@ parts:
 
     <p>Odwołując się do nauczania świętego Antoniego, przedstawia modlitwę jako znak miłości do Boga, źródło duchowej siły oraz fundament chrześcijańskiej cywilizacji. Bez odniesienia do Boga człowiek pozostaje zagubiony, natomiast życie modlitwy przywraca właściwy porządek rozumu, serca i sumienia.</p>
 
-* id: HESd3rohsg8
+- id: HESd3rohsg8
   label: "Kazanie V – Eucharystia i życie sakramentalne drogą do wieczności"
   duration: ""
   analysis: |
