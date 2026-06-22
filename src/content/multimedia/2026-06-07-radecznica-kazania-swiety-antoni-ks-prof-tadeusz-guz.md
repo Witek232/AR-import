@@ -1,5 +1,4 @@
 ---
-
 slug: 2026-06-07-radecznica-kazania-swiety-antoni-ks-prof-tadeusz-guz
 title: "Święty Antoni, Kościół i droga do świętości – cykl kazań ks. prof. Tadeusza Guza"
 date: 2026-06-07
