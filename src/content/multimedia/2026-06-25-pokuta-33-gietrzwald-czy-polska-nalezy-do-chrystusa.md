@@ -1,5 +1,5 @@
 ---
-slug: 2025-06-25-pokuta-33-gietrzwald-czy-polska-nalezy-do-chrystusa
+slug: 2026-06-25-pokuta-33-gietrzwald-czy-polska-nalezy-do-chrystusa
 title: "Pokuta 33 w Gietrzwałdzie: Czy Polska należy do Chrystusa? – dr Aldona Ciborowska, ks. prof. Tadeusz Guz"
 date: 2025-06-25
 dateSortable: "2025-06-25"
@@ -21,5 +21,5 @@ parts:
       <p><strong>Zaproszenie na 1 lipca do Gietrzwałdu:</strong> W programie uroczystości zaplanowano m.in. Mszę Świętą w tradycyjnym rycie łacińskim (trydencką) oraz w języku polskim, konferencję ascetyczną wokół VIII stacji Drogi Krzyżowej, nabożeństwo różańcowe oraz Adorację Najświętszego Sakramentu.</p>
       <p>„Nie miejcie żadnych lęków przed goliatami spod znaku szatana. Wszyscy zostali definitywnie pokonani na Krzyżu" – podsumował prof. Guz.</p>
       <p>Z kanału PL1</p>
-year: 2025
+year: 2026
 ---
