@@ -1,4 +1,3 @@
-```md
 ---
 slug: 2026-06-25-polsko-czy-nalezysz-do-chrystusa
 title: "Polsko, czy należysz do Chrystusa? – dr Aldona Ciborowska, ks. prof. Tadeusz Guz"
@@ -48,4 +47,3 @@ parts:
 
 year: 2025
 ---
-```
