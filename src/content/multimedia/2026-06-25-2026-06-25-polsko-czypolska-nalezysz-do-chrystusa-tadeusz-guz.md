@@ -1,9 +1,9 @@
 ---
-slug: 2026-06-25-pokuta-33-gietrzwald-czy-polska-nalezy-do-chrystusa
-title: "Pokuta 33 w Gietrzwałdzie: Czy Polska należy do Chrystusa? – dr Aldona Ciborowska, ks. prof. Tadeusz Guz"
+slug: 2026-06-25-polsko-czypolska-nalezysz-do-chrystusa-tadeusz-guz
+title: "Polsko, czy należysz do Chrystusa? – dr Aldona Ciborowska, ks. prof. Tadeusz Guz"
 date: 2025-06-25
 dateSortable: "2025-06-25"
-place: PL1
+place: PL1.TV
 category: rozmowa
 tags: [Tadeusz Guz, Aldona Ciborowska, Pokuta 33, Gietrzwałd, Jubileusz 2033, Edyta Paradowska]
 description: |
