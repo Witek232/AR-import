@@ -45,5 +45,5 @@ parts:
 
       <p>Z kanału <strong>Telewizja PL1</strong>.</p>
 
-year: 2025
+year: 2026
 ---
