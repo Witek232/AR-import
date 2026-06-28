@@ -1,9 +1,9 @@
 ```md
 ---
-slug: 2026-06-25-polsko-czy-nalezysz-do-chrystusa-tadeusz-guz
+slug: 2026-06-25-polsko-czy-nalezysz-do-chrystusa
 title: "Polsko, czy należysz do Chrystusa? – dr Aldona Ciborowska, ks. prof. Tadeusz Guz"
-date: 2025-06-25
-dateSortable: "2025-06-25"
+date: 2026-06-25
+dateSortable: "2026-06-25"
 place: "Telewizja PL1"
 category: wywiad
 tags:
