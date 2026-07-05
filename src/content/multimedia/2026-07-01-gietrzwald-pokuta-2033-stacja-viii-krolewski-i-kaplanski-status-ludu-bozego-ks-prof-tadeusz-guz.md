@@ -7,7 +7,7 @@ place: Gietrzwałd
 category: rozważania
 tags: [Tadeusz Guz, Gietrzwałd, Pokuta 2033, Droga Krzyżowa, Stacja VIII, Lud Boży, Abraham, Matka Boża Gietrzwałdzka]
 description: |
-  Rozważania ks. prof. Tadeusza Guza wygłoszone 1 lipca 2026 r. w Gietrzwałdzie w ramach inicjatywy Pokuta 2033 – Stacja VIII Drogi Krzyżowej. O królewskim i kapłańskim statusie Ludu Bożego, napomnieniach Chrystusa i aktualności objawień gietrzwałdzkich.
+  Rozważania ks. prof. Tadeusza Guza wygłoszone 1 lipca 2026 r. w Gietrzwałdzie w ramach inicjatywy Pokuta 2033 – Stacja VIII Drogi Krzyżowej. O królewskim i kapłańskim statusie Ludu Bożego, napomnieniach Chrystusa i aktualności objawień gietrzwałdzkich. Początek Drogi Krzyżowej.
 parts:
   - id: Nw1J51RX9x4
     label: Konferencja – Królewski i Kapłański status Ludu Bożego
