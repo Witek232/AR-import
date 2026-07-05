@@ -38,15 +38,17 @@ parts:
     - id: xJ5O7at9h_c
       label: GIETRZWAŁD 2026. WYJĄTKOWA KONFERENCJA KS. PROF. TADEUSZA GUZA
       duration: "34:15"
-      analysis: | <p>Konferencja ks. prof. Tadeusza Guza wygłoszona 1 lipca 2026 r. w Bazylice Matki Bożej Gietrzwałdzkiej, w trakcie pielgrzymki Pokuta 2033.</p> <p>Z kanału PCh24TV · Polonia Christiana</p>
+      analysis: | 
+      <p>Konferencja ks. prof. Tadeusza Guza wygłoszona 1 lipca 2026 r. w Bazylice Matki Bożej Gietrzwałdzkiej, w trakcie pielgrzymki Pokuta 2033.</p> <p>Z kanału PCh24TV · Polonia Christiana</p>
       <p><strong>Ateny Roztocza – Ogród Różańcowy i astronomia objawień gietrzwałdzkich:</strong></p> 
-      <ul> 
-        <li><strong>Ogród Różańcowy – 99 kolumn.</strong> Nawiązanie do 99 lat Abrahama w chwili zawarcia przymierza z Bogiem. Zwieńczenie – ośmiokąt z 8 kolumn (8 m wysokości) – symbol Krzyża Chrystusowego. Attyka 12 – symbol 12 Apostołów.</li> 
-        <li><strong>Korona Matki Bożej Gietrzwałdzkiej.</strong> Rekonstrukcja korony z objawień – obwód 20 m, wysokość 7 m – razem 27, na pamiątkę 27 czerwca 1877 r., pierwszego dnia objawień. Wnętrze korony wyłożone blachą kobaltową.</li> 
-        <li><strong>Rekonstrukcja nieboskłonu z Gietrzwałdu 27.06.1877, godz. 21/22.</strong> We współpracy z polskimi astronomami. Kolor nieba – kobaltowy, identyczny z blachą z Chicago. Układ gwiazdozbiorów: Lew astronomiczny – Chrystus Król; Panna – Niepokalana Maryja; Wojownik z wężem – Protoewangelia Rdz 3,15; Tarcza – tarcza króla Jana III Sobieskiego (Bitwa pod Wiedniem); Księżyc w pełni pod jej stopami.</li> 
-        <li><strong>Apokalipsa – Ap 12.</strong> Na szczycie korony – słońce, łączące realizm objawień z mistyką Apokalipsy: „Niewiasta obleczona w słońce, księżyc pod jej stopami, a na jej głowie wieniec z gwiazd dwunastu”. Odkryty gwiazdozbiór Korony – 12 gwiazd, najjaśniejsza „Klejnot”.</li> 
-        <li><strong>Matematyka biblijna.</strong> Gwiazdy ośmioramienne – imię Jeszua = 888. Wejście do ogrodu – 24 kolumny. Tablice edukacyjne 90×90 cm. Kolumna pod figurą Matki Bożej – 3,30 m – lata ziemskiego życia Chrystusa, kapitel koryncki, figura dłuta Jerzego Dudy.</li> 
-        <li><strong>Wizja św. Jana Bosko.</strong> Pod koroną – witraż Eucharystii z Liège (św. Julianna – kolebka Bożego Ciała). Nawiązanie do snu św. Jana Bosko: okręt Kościoła cumowany do dwóch kolumn – Niepokalanej i Eucharystii.</li> 
-      </ul> <p>Ksiądz Profesor podkreśla, że zarówno początek Pisma (Rdz 3,15), jak i jego kres (Ap 12) zostały kosmicznie zilustrowane na niebie warmińskim w godzinie objawień Matki Bożej Królowej Polski w Gietrzwałdzie.</p>
+      <ul>
+        <li><strong>Ogród Różańcowy – 99 kolumn.</strong> Nawiązanie do 99 lat Abrahama w chwili zawarcia przymierza z Bogiem. Zwieńczenie – ośmiokąt z 8 kolumn (8 m wysokości) – symbol Krzyża Chrystusowego. Attyka 12 – symbol 12 Apostołów.</li>
+        <li><strong>Korona Matki Bożej Gietrzwałdzkiej.</strong> Rekonstrukcja korony z objawień – obwód 20 m, wysokość 7 m – razem 27, na pamiątkę 27 czerwca 1877 r., pierwszego dnia objawień. Wnętrze korony wyłożone blachą kobaltową.</li>
+        <li><strong>Rekonstrukcja nieboskłonu z Gietrzwałdu 27.06.1877, godz. 21/22.</strong> We współpracy z polskimi astronomami. Kolor nieba – kobaltowy, identyczny z blachą z Chicago. Układ gwiazdozbiorów: Lew astronomiczny – Chrystus Król; Panna – Niepokalana Maryja; Wojownik z wężem – Protoewangelia Rdz 3,15; Tarcza – tarcza króla Jana III Sobieskiego (Bitwa pod Wiedniem); Księżyc w pełni pod jej stopami.</li>
+        <li><strong>Apokalipsa – Ap 12.</strong> Na szczycie korony – słońce, łączące realizm objawień z mistyką Apokalipsy: „Niewiasta obleczona w słońce, księżyc pod jej stopami, a na jej głowie wieniec z gwiazd dwunastu”. Odkryty gwiazdozbiór Korony – 12 gwiazd, najjaśniejsza „Klejnot”.</li>
+        <li><strong>Matematyka biblijna.</strong> Gwiazdy ośmioramienne – imię Jeszua = 888. Wejście do ogrodu – 24 kolumny. Tablice edukacyjne 90×90 cm. Kolumna pod figurą Matki Bożej – 3,30 m – lata ziemskiego życia Chrystusa, kapitel koryncki, figura dłuta Jerzego Dudy.</li>
+        <li><strong>Wizja św. Jana Bosko.</strong> Pod koroną – witraż Eucharystii z Liège (św. Julianna – kolebka Bożego Ciała). Nawiązanie do snu św. Jana Bosko: okręt Kościoła cumowany do dwóch kolumn – Niepokalanej i Eucharystii.</li>
+      </ul> 
+      <p>Ksiądz Profesor podkreśla, że zarówno początek Pisma (Rdz 3,15), jak i jego kres (Ap 12) zostały kosmicznie zilustrowane na niebie warmińskim w godzinie objawień Matki Bożej Królowej Polski w Gietrzwałdzie.</p>
 year: 2026
 ---
