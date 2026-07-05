@@ -31,7 +31,7 @@ parts:
         „Nie wyście Mnie wybrali, ale Ja was wybrałem”. Lud królewski, lud kapłański. Matka Boża w Gietrzwałdzie upomina się o nasz chrzcielny, królewski i kapłański status Ludu Bożego – wybranego w czasie i w wieczności.</li>
       </ol>
       <p>Konferencja zawiera także aktualne odniesienia do zagrożenia wolności akademickiej w Polsce, zapowiedzi przymusowych egzaminów „z równości” dla profesorów uniwersytetów, w tym katolickich, oraz wezwanie do pielgrzymowania do Gietrzwałdu jako duchowej stolicy Polski.</p>
-      - id: n-BbQAZBfXw
+    - id: n-BbQAZBfXw
       label: Gietrzwałd – Pokuta 2033 – Stacja VIII – Droga Krzyżowa
       duration: ""
       analysis: | <p>Fragment Drogi Krzyżowej na błoniach gietrzwałdzkich – Stacja VIII, w ramach inicjatywy Pokuta 2033 przygotowującej Polskę do Jubileuszu Odkupienia 2033.</p> <p>Z kanału Grzegorz Braun</p>
