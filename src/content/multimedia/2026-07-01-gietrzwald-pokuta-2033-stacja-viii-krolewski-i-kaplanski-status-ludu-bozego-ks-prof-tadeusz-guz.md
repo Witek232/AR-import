@@ -32,13 +32,21 @@ parts:
       </ol>
       <p>Konferencja zawiera także aktualne odniesienia do zagrożenia wolności akademickiej w Polsce, zapowiedzi przymusowych egzaminów „z równości” dla profesorów uniwersytetów, w tym katolickich, oraz wezwanie do pielgrzymowania do Gietrzwałdu jako duchowej stolicy Polski.</p>
 
-  - id: n-BbQAZBfXw
-    label: Gietrzwałd – Pokuta 2033 – Stacja VIII – Droga Krzyżowa
-    duration: ""
+  - id: qmFdBapdzmo
+    label: Droga Krzyżowa w Gietrzwałdzie – celebruje ks. prof. Tadeusz Guz
+    duration: "1:45:49"
     analysis: |
-      <p>Fragment Drogi Krzyżowej na błoniach gietrzwałdzkich – Stacja VIII, w ramach inicjatywy Pokuta 2033 przygotowującej Polskę do Jubileuszu Odkupienia 2033.</p>
-      <p>Z kanału Grzegorz Braun</p>
-
+      <p>Droga Krzyżowa na błoniach gietrzwałdzkich 1 lipca 2026 r., w ramach inicjatywy Pokuta 2033 przygotowującej Polskę do Jubileuszu Odkupienia 2033. Celebruje ks. prof. Tadeusz Guz.</p>
+      
+      <p><strong>Główne wątki rozważań:</strong></p>
+      <ul>
+        <li><strong>Przymierze Jezusa i Maryi z Polską i Polonią.</strong> Krzyż jako symbol zwycięstwa Boga nad szatanem; objawienia gietrzwałdzkie 1877 jako jeden z najsłodszych momentów duchowej historii narodu. Trwanie w przymierzu z Chrystusem i Królową Korony Polskiej jako najwyższa racja stanu Polski i Kościoła.</li>
+        <li><strong>Stacja V – Szymon z Cyreny.</strong> Pomoc Chrystusa oświecająca wiarą, nadzieją i miłością. Wezwanie Matki Bożej Gietrzwałdzkiej: jedna Msza św. może uwolnić od nałogu alkoholowego. Krytyka pasterzy i polityków radzących się ludzi zamiast Chrystusa; prawo chroniące bestie ponad nienarodzone dziecko.</li>
+        <li><strong>Stacja VI – św. Weronika.</strong> Chusta jako znak prawdziwej twarzy człowieka – mądrości, odwagi, uczciwości, prawdomówności i pokoju. Polska ma być narodem o obliczu Chrystusa; męstwo zakorzenione w Mesjaszu, którego nikt nie złamie.</li>
+        <li><strong>Stacja VII i kolejne.</strong> Upadki pod krzyżem w świetle proroka Izajasza – wezwanie do wiary objawionej zamiast pogańskich rad; kontynuacja stacji z lekturą Pisma i aktualnymi odniesieniami do życia narodu.</li>
+      </ul>
+      <p>Nabożeństwo łączy klasyczne wezwania pasyjne z rozważaniami o Polsce jako przedmurzu chrześcijaństwa oraz o niewyczerpanych źródłach mocy w Chrystusie i Niepokalanej Królowej Polski.</p>
+      <p>Z kanału Kronika Korony Polskiej</p>
   - id: xJ5O7at9h_c
     label: GIETRZWAŁD 2026. WYJĄTKOWA KONFERENCJA KS. PROF. TADEUSZA GUZA
     duration: "34:15"
