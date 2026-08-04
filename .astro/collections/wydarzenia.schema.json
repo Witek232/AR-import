@@ -2,6 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
+    "slug": {
+      "type": "string"
+    },
     "title": {
       "type": "string"
     },
@@ -20,14 +23,9 @@
         "konferencja",
         "sympozjum",
         "warsztaty",
-        "spotkanie"
-      ]
-    },
-    "status": {
-      "type": "string",
-      "enum": [
-        "upcoming",
-        "past"
+        "spotkanie",
+        "uroczystość",
+        "msza"
       ]
     },
     "languages": {
@@ -57,7 +55,6 @@
     "title",
     "date",
     "place",
-    "type",
-    "status"
+    "type"
   ]
 }

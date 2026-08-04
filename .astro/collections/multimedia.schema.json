@@ -47,6 +47,10 @@
           "id": {
             "type": "string"
           },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
           "label": {
             "type": "string"
           },
@@ -61,9 +65,7 @@
           }
         },
         "required": [
-          "id",
-          "label",
-          "duration"
+          "label"
         ]
       }
     },
