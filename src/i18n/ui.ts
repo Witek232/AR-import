@@ -253,7 +253,7 @@ export const ui = {
     'wsparcie.cur.eur': 'Euro',
     'wsparcie.cur.usd': 'US dollar',
     'wsparcie.cur.cad': 'Canadian dollar',
-  },,
+  },
   de: {
     'meta.homeTitle': 'Startseite',
     'meta.homeDescription':
