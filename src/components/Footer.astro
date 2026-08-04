@@ -1,57 +1,65 @@
 ---
+import { getLangFromUrl, useTranslations, localePath, EN_TRANSLATED_PATHS } from '../i18n/utils';
+
 const year = new Date().getFullYear();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (path: string) =>
+  localePath(path, lang, {
+    translatedPaths: EN_TRANSLATED_PATHS,
+    forceLocale: path === '/' || path.startsWith('/#'),
+  });
 
 const navLinks = [
-  { label: 'Strona główna', href: '/'           },
-  { label: 'O projekcie',   href: '/o-projekcie' },
-  { label: 'Trzy filary',   href: '/filary'     },
-  { label: 'Wydarzenia',    href: '/wydarzenia'  },
-  { label: 'Galeria',       href: '/galeria'     },
-  { label: 'Kontakt',       href: '/kontakt'     },
+  { label: t('footer.home'), href: lp('/') },
+  { label: t('footer.about'), href: lp('/#o-projekcie') },
+  { label: t('footer.pillars'), href: lp('/#filary') },
+  { label: t('footer.events'), href: lp('/wydarzenia') },
+  { label: t('footer.gallery'), href: lp('/galeria') },
+  { label: t('footer.contact'), href: lp('/kontakt') },
 ];
 
 const multimediaLinks = [
-  { label: 'Materiały audio-wiz.',     href: '/multimedia'                   },
-  { label: 'Artykuły — Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
-  { label: 'Artykuły — Niedziela',     href: '/multimedia?tab=niedziela'     },
-  { label: 'Archiwum 2006–2026',       href: '/multimedia'                   },
+  { label: t('footer.av'), href: lp('/multimedia') },
+  { label: t('footer.naszDziennik'), href: lp('/multimedia?tab=nasz-dziennik') },
+  { label: t('footer.niedziela'), href: lp('/multimedia?tab=niedziela') },
+  { label: t('footer.archive'), href: lp('/multimedia') },
 ];
 
 const supportLinks = [
-  { label: 'Polityka prywatności', href: 'polityka-prywatnosci'         },
-  { label: 'Pliki cookies',       href: 'polityka-cookies'          },
+  { label: t('footer.privacy'), href: lp('/polityka-prywatnosci') },
+  { label: t('footer.cookies'), href: lp('/polityka-cookies') },
 ];
 
 const langFlags = [
-  { flag: '🇵🇱', code: 'PL', href: '/'    },
-  { flag: '🇬🇧', code: 'EN', href: '/en'  },
-  { flag: '🇩🇪', code: 'DE', href: '/de'  },
-  { flag: '🇮🇹', code: 'IT', href: '/it'  },
-  { flag: '🇪🇸', code: 'ES', href: '/es'  },
+  { flag: '🇵🇱', code: 'PL', href: '/' },
+  { flag: '🇬🇧', code: 'EN', href: '/en' },
+  { flag: '🇩🇪', code: 'DE', href: '/de' },
+  { flag: '🇮🇹', code: 'IT', href: '/it' },
+  { flag: '🇪🇸', code: 'ES', href: '/es' },
 ];
+
+const homeHref = lp('/');
+const supportHref = lp('/wsparcie');
 ---
 
 <footer style="background:#0D0A05; border-top:1px solid rgba(201,168,76,0.15); padding:4rem 2rem 2rem;">
   <div style="max-width:1200px; margin:0 auto;">
 
-    <!-- Top gold line -->
     <div style="height:1px; background:linear-gradient(90deg, transparent, rgba(201,168,76,0.4) 30%, rgba(232,201,122,0.6) 50%, rgba(201,168,76,0.4) 70%, transparent); margin-bottom:3.5rem;"></div>
 
-    <!-- Main grid -->
     <div class="footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem;">
 
-      <!-- Brand column -->
       <div>
         <div style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:300; color:#E8C97A; margin-bottom:0.35rem; letter-spacing:0.06em;">
           Ateny Roztocza
         </div>
         <div style="font-family:'Inter',serif; font-size:0.65rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.45); margin-bottom:1.5rem;">
-          Jerozolima · Ateny · Rzym
+          {t('brand.subtitle')}
         </div>
         <p style="font-family:'Inter',serif; font-size:0.95rem; line-height:1.75; color:rgba(245,237,216,0.45); max-width:280px; margin-bottom:1.75rem;">
-          Projekt kulturalno-filozoficzno-religijny na Roztoczu. Budujemy mosty między starożytnością chrześcijańską a dniem dzisiejszym.
+          {t('footer.blurb')}
         </p>
-        <!-- Language flags -->
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
           {langFlags.map(({ flag, code, href }) => (
             <a href={href} class="footer-lang-flag">
@@ -61,44 +69,38 @@ const langFlags = [
         </div>
       </div>
 
-      <!-- Navigation -->
       <div>
-        <div class="footer-col-title">Nawigacja</div>
+        <div class="footer-col-title">{t('footer.nav')}</div>
         {navLinks.map(({ label, href }) => (
           <a href={href} class="footer-link">{label}</a>
         ))}
       </div>
 
-      <!-- Multimedia -->
       <div>
-        <div class="footer-col-title">Multimedia</div>
+        <div class="footer-col-title">{t('footer.multimedia')}</div>
         {multimediaLinks.map(({ label, href }) => (
           <a href={href} class="footer-link">{label}</a>
         ))}
       </div>
 
-      <!-- Support & Legal -->
       <div>
-        <div class="footer-col-title">Wsparcie &amp; Prawne</div>
+        <div class="footer-col-title">{t('footer.legal')}</div>
         {supportLinks.map(({ label, href }) => (
           <a href={href} class="footer-link">{label}</a>
         ))}
-
-        <!-- Support CTA -->
-        <a href="/wsparcie" class="footer-cta">
-          Wesprzyj →
+        <a href={supportHref} class="footer-cta">
+          {t('footer.supportCta')}
         </a>
       </div>
 
     </div>
 
-    <!-- Bottom bar -->
     <div style="border-top:1px solid rgba(201,168,76,0.1); padding-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
       <p style="font-family:'Inter',serif; font-size:0.8rem; color:rgba(245,237,216,0.25); letter-spacing:0.05em; margin:0;">
-        © {year} Ateny Roztocza — atenyroztocza.pl · Wszelkie prawa zastrzeżone
+        © {year} Ateny Roztocza — atenyroztocza.pl · {t('footer.rights')}
       </p>
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:0.85rem; color:rgba(201,168,76,0.3); letter-spacing:0.04em; margin:0;">
-        „Fides quaerens intellectum"
+        „Fides quaerens intellectum”
       </p>
       <p style="font-family:'Inter',serif; font-size:0.75rem; color:rgba(245,237,216,0.15); letter-spacing:0.05em; margin:0;">
         Sanity · Astro · Cloudflare Pages
@@ -117,7 +119,6 @@ const langFlags = [
     color: rgba(201, 168, 76, 0.5);
     margin-bottom: 1.25rem;
   }
-
   .footer-link {
     display: block;
     font-family: 'Inter', serif;
@@ -128,7 +129,6 @@ const langFlags = [
     transition: color 0.2s;
   }
   .footer-link:hover { color: rgba(232, 201, 122, 0.8); }
-
   .footer-lang-flag {
     font-family: 'Inter', serif;
     font-size: 0.75rem;
@@ -138,7 +138,6 @@ const langFlags = [
     transition: color 0.2s;
   }
   .footer-lang-flag:hover { color: #C9A84C; }
-
   .footer-cta {
     display: inline-block;
     margin-top: 1.25rem;
@@ -153,7 +152,6 @@ const langFlags = [
     transition: opacity 0.2s;
   }
   .footer-cta:hover { opacity: 0.85; }
-
   @media (max-width: 900px) {
     .footer-grid { grid-template-columns: 1fr 1fr !important; }
   }

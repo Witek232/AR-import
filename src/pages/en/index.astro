@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/en/Hero.astro';
+import Filary from '../../components/en/Filary.astro';
+import OProjekcie from '../../components/en/OProjekcie.astro';
+import KsGuzTeaser from '../../components/en/KsGuzTeaser.astro';
+import WydarzeniaTeaser from '../../components/en/WydarzeniaTeaser.astro';
+import Wsparcie from '../../components/en/Wsparcie.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+---
+<Layout
+  title={t('meta.homeTitle')}
+  description={t('meta.homeDescription')}
+  lang="en"
+>
+  <div class="page-transition">
+    <Hero />
+    <Filary />
+    <OProjekcie />
+    <KsGuzTeaser />
+    <WydarzeniaTeaser />
+    <Wsparcie />
+  </div>
+</Layout>

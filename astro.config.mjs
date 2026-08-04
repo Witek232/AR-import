@@ -2,14 +2,14 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://atenyroztocza.pl', // DODANA DOMENA DOCELOWA - kluczowe dla SEO i canonical!
+  site: 'https://atenyroztocza.pl',
   output: 'static',
   vite: {
-    plugins: [tailwindcss()], // Tailwind v4 — przez Vite plugin, nie integrację
+    plugins: [tailwindcss()],
   },
   i18n: {
     defaultLocale: 'pl',
-    locales: ['pl', 'en', 'de'],
+    locales: ['pl', 'en', 'de', 'es', 'it'],
     routing: {
       prefixDefaultLocale: false,
     },

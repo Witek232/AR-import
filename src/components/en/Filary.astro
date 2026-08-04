@@ -1,0 +1,113 @@
+---
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+
+// Deep links still point to PL articles until EN pages exist
+const pillars = [
+  {
+    numeral: 'I',
+    cityKey: 'filary.jerusalem.city' as const,
+    latinName: 'Hierosolyma',
+    symbol: '✝',
+    descKey: 'filary.jerusalem.desc' as const,
+    accentColor: '#B8405A',
+    accentHover: '#352028',
+    accentBorder: 'rgba(184,64,90,0.22)',
+    link: '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
+  },
+  {
+    numeral: 'II',
+    cityKey: 'filary.athens.city' as const,
+    latinName: 'Athenae',
+    symbol: 'Φ',
+    descKey: 'filary.athens.desc' as const,
+    accentColor: '#D4B455',
+    accentHover: '#352E1E',
+    accentBorder: 'rgba(212,180,85,0.22)',
+    link: '/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza',
+  },
+  {
+    numeral: 'III',
+    cityKey: 'filary.rome.city' as const,
+    latinName: 'Roma Aeterna',
+    symbol: 'Σ',
+    descKey: 'filary.rome.desc' as const,
+    accentColor: '#7A9E58',
+    accentHover: '#263020',
+    accentBorder: 'rgba(122,158,88,0.22)',
+    link: '/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza',
+  },
+];
+---
+
+<section
+  id="filary"
+  style="background:#EBE1CA; padding:clamp(3.5rem,9vw,7rem) clamp(1rem,4vw,2rem); position:relative; overflow:hidden;"
+>
+  <div style="position:absolute; inset:0; pointer-events:none; background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(201,168,76,0.04) 59px,rgba(201,168,76,0.04) 60px);"></div>
+
+  <div style="max-width:1200px; margin:0 auto; position:relative;">
+
+    <div class="reveal" style="text-align:center; margin-bottom:clamp(2.5rem,6vw,4rem);">
+      <p class="section-label" style="color:#6B5B43; margin-bottom:0.85rem;">
+        {t('filary.label')}
+      </p>
+      <h2 class="section-title" style="color:#1A1209; font-size:clamp(2rem,6vw,3.75rem); margin-bottom:0;">
+        {t('filary.title')}
+      </h2>
+      <div class="section-ornament">
+        <div class="section-ornament-line"></div>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="#C9A84C">
+          <path d="M8 1l1.8 4.4L14.4 6l-3.2 3.1.75 4.4L8 11.4l-3.95 2.1.75-4.4L1.6 6l4.6-.6L8 1z" />
+        </svg>
+        <div class="section-ornament-line"></div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:clamp(1.25rem,3vw,2rem);">
+      {pillars.map((pillar) => (
+        <a
+          href={pillar.link}
+          class={`reveal pillar-card card-hover gold-border-hover`}
+          style={`--card-accent:${pillar.accentColor}; --card-hover-bg:${pillar.accentHover}; --card-border:${pillar.accentBorder}; display:block; background:#2A2118; border:1px solid ${pillar.accentBorder}; border-radius:2px; padding:clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3.5vw,2rem); position:relative; cursor:pointer; text-decoration:none; color:inherit; transition:background 0.3s ease, opacity 0.75s ease, transform 0.75s ease;`}
+        >
+          <div style={`font-family:'Playfair Display',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:${pillar.accentColor}; opacity:0.14; position:absolute; top:0.75rem; right:1.25rem; line-height:1; letter-spacing:-0.04em; pointer-events:none; user-select:none;`}>
+            {pillar.numeral}
+          </div>
+          <div style={`font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4vw,2rem); color:${pillar.accentColor}; margin-bottom:clamp(0.75rem,2vw,1rem); opacity:0.85;`}>
+            {pillar.symbol}
+          </div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:clamp(1.75rem,5vw,2.4rem); font-weight:400; color:#F5EDD8; margin-bottom:0.2rem; line-height:1.1;">
+            {t(pillar.cityKey)}
+          </h3>
+          <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(0.875rem,2vw,0.9375rem); color:rgba(212,180,85,0.55); margin-bottom:clamp(1rem,2.5vw,1.35rem); letter-spacing:0.05em;">
+            {pillar.latinName}
+          </p>
+          <div style={`width:36px; height:1px; background:linear-gradient(to right,${pillar.accentColor},transparent); margin-bottom:clamp(1rem,2.5vw,1.35rem); opacity:0.5;`}></div>
+          <p style="font-family:'Inter',serif; font-size:clamp(1.0625rem,2.5vw,1.125rem); line-height:1.82; color:rgba(245,237,216,0.78);">
+            {t(pillar.descKey)}
+          </p>
+          <div style="margin-top:clamp(1.5rem,3vw,2rem); display:flex; justify-content:flex-end;">
+            <span style={`font-family:'Inter',serif; font-size:0.9rem; color:${pillar.accentColor}; letter-spacing:0.04em; border-bottom:1px solid ${pillar.accentColor}; padding-bottom:2px; opacity:0.8; transition:opacity 0.3s ease;`}>
+              {t('filary.readMore')}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="reveal" style="text-align:center; margin-top:clamp(2.5rem,6vw,4.5rem);">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.0625rem,3vw,1.375rem); color:#6B5B43; max-width:680px; margin:0 auto; line-height:1.85;">
+        {t('filary.quote')}
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pillar-card:hover {
+    background: var(--card-hover-bg) !important;
+  }
+</style>

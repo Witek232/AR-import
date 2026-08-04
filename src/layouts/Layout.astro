@@ -1,33 +1,37 @@
 ---
-import '../styles/global.css'; // POWRÓT DO STANDARDOWEGO IMPORTU - gwarantuje poprawny build i layout
+import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import CookieBanner from '../components/CookieBanner.astro'; // DODANY IMPORT BANNERA
+import CookieBanner from '../components/CookieBanner.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
   title?:       string;
   description?: string;
   ogImage?:     string;
+  lang?:        Lang;
 }
 
 const {
   title       = 'Ateny Roztocza',
   description = 'Projekt kulturalno-filozoficzno-religijny na Roztoczu. Budujemy mosty między starożytnością chrześcijańską a dniem dzisiejszym.',
   ogImage     = '/og-image.jpg',
+  lang: langProp,
 } = Astro.props;
 
-// ── Język z URL ───────────────────────────────────────────────
 const pathname = Astro.url.pathname;
-let htmlLang = 'pl';
-if      (pathname.startsWith('/en')) htmlLang = 'en';
-else if (pathname.startsWith('/de')) htmlLang = 'de';
-else if (pathname.startsWith('/es')) htmlLang = 'es';
-else if (pathname.startsWith('/it')) htmlLang = 'it';
+const htmlLang: Lang = langProp ?? getLangFromUrl(Astro.url);
+const t = useTranslations(htmlLang);
 
-// ── Bezpieczny bazowy URL ─────────────────────────────────────
 const siteUrl = Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl/';
 const canonicalURL = new URL(pathname, siteUrl);
 const absoluteOgImage = new URL(ogImage, siteUrl).href;
+
+// Alternate language URLs (homepage pair for now)
+const pathNoLang = pathname.replace(/^\/(en|de|es|it)(?=\/|$)/, '') || '/';
+const hrefPl = new URL(pathNoLang === '/' ? '/' : pathNoLang, siteUrl).href;
+const hrefEn = new URL('/en' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
 ---
 <!doctype html>
 <html lang={htmlLang}>
@@ -44,20 +48,18 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
     <meta property="og:image"       content={absoluteOgImage} />
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:locale"      content={htmlLang === 'pl' ? 'pl_PL' : htmlLang === 'en' ? 'en_GB' : htmlLang} />
 
-    <!-- Canonical -->
+    <!-- Canonical + hreflang -->
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="pl" href={hrefPl} />
+    <link rel="alternate" hreflang="en" href={hrefEn} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).href} />
 
     <title>{title} | Ateny Roztocza</title>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- ═══════════════════════════════════════════════════════════
-         PRELOAD FONTÓW (Kluczowe dla LCP)
-         Teraz, gdy CSS ładuje się standardowo, przeglądarka szybciej 
-         zmapuje te fonty i nie spowolni renderowania tekstu.
-         ═══════════════════════════════════════════════════════════ -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -75,10 +77,9 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
 
       <Footer />
 
-      <!-- Back to top -->
       <button
         id="back-to-top"
-        aria-label="Wróć na górę"
+        aria-label={t('footer.backToTop')}
       >
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 10L8 5l5 5" stroke-linecap="round" stroke-linejoin="round" />
@@ -87,11 +88,9 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
 
     </div>
 
-    <!-- DODANY BANNER COOKIES -->
     <CookieBanner />
 
     <script>
-      // ── IntersectionObserver dla .reveal ─────────────────────
       function initReveal() {
         const observer = new IntersectionObserver(
           (entries) => {
@@ -107,7 +106,6 @@ const absoluteOgImage = new URL(ogImage, siteUrl).href;
       }
       setTimeout(initReveal, 100);
 
-      // ── Back to top ──────────────────────────────────────────
       const btn = document.getElementById('back-to-top');
 
       window.addEventListener('scroll', () => {

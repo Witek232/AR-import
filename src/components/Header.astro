@@ -1,13 +1,14 @@
 ---
+import { getLangFromUrl, useTranslations, localePath, EN_TRANSLATED_PATHS, stripLangPrefix } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
 const pathname = Astro.url.pathname;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const basePath = stripLangPrefix(pathname);
 
-let currentLang = 'PL';
-let basePath = pathname;
-
-if      (pathname.startsWith('/en')) { currentLang = 'EN'; basePath = pathname.slice(3) || '/'; }
-else if (pathname.startsWith('/de')) { currentLang = 'DE'; basePath = pathname.slice(3) || '/'; }
-else if (pathname.startsWith('/es')) { currentLang = 'ES'; basePath = pathname.slice(3) || '/'; }
-else if (pathname.startsWith('/it')) { currentLang = 'IT'; basePath = pathname.slice(3) || '/'; }
+const langCodeMap: Record<Lang, string> = { pl: 'PL', en: 'EN', de: 'DE', es: 'ES', it: 'IT' };
+const currentLang = langCodeMap[lang];
 
 const langs = [
   { code: 'PL', label: 'PL', prefix: '' },
@@ -18,43 +19,58 @@ const langs = [
 ];
 
 function getLangUrl(prefix: string): string {
-  const path = basePath === '/' ? '' : basePath;
-  return (prefix + path) || '/';
+  // Language switch: homepage stays on homepage of target lang;
+  // other pages fall back to PL path until translated.
+  if (basePath === '/' || basePath === '') {
+    return prefix || '/';
+  }
+  // Prefer same path under prefix only for known translated roots
+  if (prefix === '/en' && EN_TRANSLATED_PATHS.some(p => basePath === p || basePath.startsWith(p + '/'))) {
+    return prefix + (basePath === '/' ? '' : basePath);
+  }
+  if (prefix === '') return basePath;
+  // DE/ES/IT not ready → go to their home (or PL)
+  return prefix || '/';
 }
+
+const lp = (path: string) =>
+  localePath(path, lang, { translatedPaths: EN_TRANSLATED_PATHS, forceLocale: path === '/' || path.startsWith('/#') });
+
+const homeHref = lp('/');
 
 const navItems = [
   {
-    label: 'O projekcie',
-    // BRAK WŁAŚCIWOŚCI href - sprawi, że to będzie tylko nagłówek rozwijający submenu
+    label: t('nav.about'),
     children: [
-      { label: 'Synteza wiary i rozumu', href: '/synteza-wiary-i-rozumu' },
-      { label: 'Trzy filary Aten Roztocza - Jerozolima', href: '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza' },
-      { label: 'Trzy filary Aten Roztocza - Ateny', href: '/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza' },
-      { label: 'Trzy filary Aten Roztocza - Rzym', href: '/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza' },
-      { label: 'Ks. prof. Tadeusz Guz',     href: '/ks-guz'      },
+      { label: t('nav.synthesis'), href: lp('/synteza-wiary-i-rozumu') },
+      { label: t('nav.pillarJerusalem'), href: lp('/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza') },
+      { label: t('nav.pillarAthens'), href: lp('/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza') },
+      { label: t('nav.pillarRome'), href: lp('/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza') },
+      { label: t('nav.ksGuz'), href: lp('/ks-guz') },
     ],
   },
   {
-    label: 'Multimedia',
+    label: t('nav.multimedia'),
     children: [
-      { label: 'Materiały audiowizualne',  href: '/multimedia'                   },
-      { label: 'Cykle artykułów',          href: '/multimedia?tab=cykle'          },
-      { label: 'Artykuły - Nasz Dziennik', href: '/multimedia?tab=nasz-dziennik' },
-      { label: 'Artykuły - Niedziela',     href: '/multimedia?tab=niedziela'     },
-      { label: 'Inne publikacje',          href: '/multimedia?tab=inne'          },
+      { label: t('nav.av'), href: lp('/multimedia') },
+      { label: t('nav.cycles'), href: lp('/multimedia?tab=cykle') },
+      { label: t('nav.naszDziennik'), href: lp('/multimedia?tab=nasz-dziennik') },
+      { label: t('nav.niedziela'), href: lp('/multimedia?tab=niedziela') },
+      { label: t('nav.otherPubs'), href: lp('/multimedia?tab=inne') },
     ],
   },
-  { label: 'Wydarzenia', href: '/wydarzenia' },
-  { label: 'Galeria',    href: '/galeria'    },
-  { label: 'Kontakt',    href: '/kontakt'    },
+  { label: t('nav.events'), href: lp('/wydarzenia') },
+  { label: t('nav.gallery'), href: lp('/galeria') },
+  { label: t('nav.contact'), href: lp('/kontakt') },
 ];
 
-// Dodano "?string" i zabezpieczenie "!href", aby funkcja nie wyrzucała błędu dla elementu bez linku
 function isActive(href?: string): boolean {
   if (!href) return false;
   const clean = href.split('?')[0].split('#')[0];
-  if (clean === '/' || clean === '') return pathname === '/';
-  return pathname.startsWith(clean);
+  if (clean === '/' || clean === '' || clean === '/en') {
+    return pathname === '/' || pathname === '/en' || pathname === '/en/';
+  }
+  return pathname === clean || pathname.startsWith(clean + '/');
 }
 
 const navLinkStyles = navItems.map((item) => {
@@ -84,12 +100,12 @@ const mobileBtnStyles = navItems.map((item) => {
     style="max-width:1280px; margin:0 auto; padding:0.85rem clamp(1rem,3vw,2rem); display:flex; align-items:center; justify-content:space-between; gap:1rem; transition:padding 0.4s ease;"
   >
 
-    <a href="/" style="text-decoration:none; display:flex; flex-direction:column; gap:2px; flex-shrink:0;">
+    <a href={homeHref} style="text-decoration:none; display:flex; flex-direction:column; gap:2px; flex-shrink:0;">
       <span id="logo-title" style="font-family:'Playfair Display',serif; font-size:clamp(1.25rem,3.5vw,1.7rem); font-weight:300; color:#E8C97A; letter-spacing:0.08em; transition:font-size 0.4s ease; line-height:1;">
         Ateny Roztocza
       </span>
       <span id="logo-sub" style="font-family:'Inter',serif; font-size:0.65rem; color:rgba(232,201,122,0.5); letter-spacing:0.2em; text-transform:uppercase;">
-        Jerozolima · Ateny · Rzym
+        {t('brand.subtitle')}
       </span>
     </a>
 
@@ -126,7 +142,7 @@ const mobileBtnStyles = navItems.map((item) => {
       <button
         id="hamburger"
         class="hamburger-btn"
-        aria-label="Otwórz menu"
+        aria-label={t('nav.openMenu')}
         aria-expanded="false"
         style="background:none; border:1px solid rgba(201,168,76,0.28); cursor:pointer; color:#E8C97A; padding:8px 10px; margin-left:0.5rem; width:44px; height:44px; align-items:center; justify-content:center; flex-shrink:0;"
       >
@@ -154,9 +170,9 @@ const mobileBtnStyles = navItems.map((item) => {
   <div style="padding:1.25rem; border-bottom:1px solid rgba(201,168,76,0.12); display:flex; align-items:center; justify-content:space-between;">
     <div>
       <div style="font-family:'Playfair Display',serif; font-size:1.3rem; color:#E8C97A; font-weight:300;">Ateny Roztocza</div>
-      <div style="font-family:'Inter',serif; font-size:0.6rem; color:rgba(232,201,122,0.45); letter-spacing:0.18em; text-transform:uppercase; margin-top:2px;">Jerozolima · Ateny · Rzym</div>
+      <div style="font-family:'Inter',serif; font-size:0.6rem; color:rgba(232,201,122,0.45); letter-spacing:0.18em; text-transform:uppercase; margin-top:2px;">{t('brand.subtitle')}</div>
     </div>
-    <button id="drawer-close" aria-label="Zamknij menu" style="background:none; border:1px solid rgba(201,168,76,0.25); color:#C9A84C; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+    <button id="drawer-close" aria-label={t('nav.closeMenu')} style="background:none; border:1px solid rgba(201,168,76,0.25); color:#C9A84C; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
       <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
         <path d="M4 4l10 10M14 4L4 14" stroke-linecap="round"/>
       </svg>
@@ -200,7 +216,7 @@ const mobileBtnStyles = navItems.map((item) => {
 
   <!-- Selektor języka w mobilnym – rozwijana lista -->
   <div style="padding:1rem 1.25rem 2rem; border-top:1px solid rgba(201,168,76,0.1); display:flex; align-items:center; gap:0.75rem;">
-    <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); white-space:nowrap;">Język</span>
+    <span style="font-family:'Inter',serif; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(201,168,76,0.4); white-space:nowrap;">{t('nav.language')}</span>
     <select id="lang-select" style="flex:1; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.25); color:#E8C97A; font-family:'Inter',serif; font-size:1rem; padding:0.6rem 0.75rem; border-radius:4px; cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22none%22 stroke=%22%23C9A84C%22 stroke-width=%221.8%22><path d=%22M3 6l5 5 5-5%22 stroke-linecap=%22round%22/></svg>'); background-repeat:no-repeat; background-position:right 0.75rem center;">
       {langs.map((lang) => (
         <option value={getLangUrl(lang.prefix)} selected={currentLang === lang.code} style="background:#0A0703; color:#E8C97A;">
@@ -392,7 +408,7 @@ const mobileBtnStyles = navItems.map((item) => {
     var btnClose = document.getElementById('drawer-close');
     var iClosed  = document.getElementById('icon-closed');
     var iOpen    = document.getElementById('icon-open');
-    var isHome   = window.location.pathname === '/';
+    var isHome   = window.location.pathname === '/' || window.location.pathname === '/en' || window.location.pathname === '/en/';
 
     function onScroll() {
       if (window.scrollY > 60 || !isHome) {
