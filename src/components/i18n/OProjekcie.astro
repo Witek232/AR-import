@@ -1,6 +1,10 @@
 ---
 import { useTranslations } from '../../i18n/utils';
-const t = useTranslations('en');
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 ---
 <section
   id="o-projekcie"

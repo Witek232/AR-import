@@ -1,7 +1,10 @@
 ---
 import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
 
-const t = useTranslations('en');
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 
 const accounts = [
   {

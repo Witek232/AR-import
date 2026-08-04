@@ -1,28 +1,47 @@
 ---
 import { getUpcomingWydarzenia, typeLabels, formatEventDate } from '../../data/wydarzeniaHelpers';
 import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
 
-const t = useTranslations('en');
-const upcomingEvents = await getUpcomingWydarzenia(3);
-
-const typeLabelsEn: Record<string, string> = {
-  konferencja: 'Conference',
-  seminarium: 'Seminar',
-  wyklad: 'Lecture',
-  spotkanie: 'Meeting',
-  msza: 'Holy Mass',
-  uroczystość: 'Ceremony',
-  warsztaty: 'Workshop',
-  sympozjum: 'Symposium',
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const dateLocales: Record<string, string> = {
+  en: 'en-GB', de: 'de-DE', es: 'es-ES', it: 'it-IT', pl: 'pl-PL',
 };
+const dateLocale = dateLocales[lang] ?? 'en-GB';
+const typeLabelsLocal: Record<string, Record<string, string>> = {
+  en: {
+    konferencja: 'Conference', seminarium: 'Seminar', wyklad: 'Lecture',
+    spotkanie: 'Meeting', msza: 'Holy Mass', uroczystość: 'Ceremony',
+    warsztaty: 'Workshop', sympozjum: 'Symposium',
+  },
+  de: {
+    konferencja: 'Konferenz', seminarium: 'Seminar', wyklad: 'Vortrag',
+    spotkanie: 'Treffen', msza: 'Heilige Messe', uroczystość: 'Feier',
+    warsztaty: 'Workshop', sympozjum: 'Symposium',
+  },
+  es: {
+    konferencja: 'Conferencia', seminarium: 'Seminario', wyklad: 'Conferencia',
+    spotkanie: 'Encuentro', msza: 'Santa Misa', uroczystość: 'Solemnidad',
+    warsztaty: 'Taller', sympozjum: 'Simposio',
+  },
+  it: {
+    konferencja: 'Convegno', seminarium: 'Seminario', wyklad: 'Lezione',
+    spotkanie: 'Incontro', msza: 'Santa Messa', uroczystość: 'Solennità',
+    warsztaty: 'Laboratorio', sympozjum: 'Simposio',
+  },
+};
+
+const upcomingEvents = await getUpcomingWydarzenia(3);
 
 function formatEventDateEn(date: Date) {
   const d = new Date(date);
   return {
     day: d.getDate(),
-    month: d.toLocaleDateString('en-GB', { month: 'short' }).replace('.', ''),
+    month: d.toLocaleDateString(dateLocale, { month: 'short' }).replace('.', ''),
     year: d.getFullYear(),
-    full: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+    full: d.toLocaleDateString(dateLocale, { day: 'numeric', month: 'long', year: 'numeric' }),
   };
 }
 ---
@@ -62,7 +81,8 @@ function formatEventDateEn(date: Date) {
       <div style="display:flex; flex-direction:column; gap:0;">
         {upcomingEvents.map((event) => {
           const d = formatEventDateEn(event.date);
-          const type = typeLabelsEn[event.type] ?? typeLabels[event.type] ?? event.type;
+          const labels = typeLabelsLocal[lang] ?? typeLabelsLocal.en;
+          const type = labels[event.type] ?? typeLabels[event.type] ?? event.type;
           return (
             <a
               href={`/wydarzenia/${event.slug}`}

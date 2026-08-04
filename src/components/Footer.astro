@@ -1,12 +1,12 @@
 ---
-import { getLangFromUrl, useTranslations, localePath, EN_TRANSLATED_PATHS } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localePath, TRANSLATED_PATHS } from '../i18n/utils';
 
 const year = new Date().getFullYear();
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const lp = (path: string) =>
   localePath(path, lang, {
-    translatedPaths: EN_TRANSLATED_PATHS,
+    translatedPaths: TRANSLATED_PATHS,
     forceLocale: path === '/' || path.startsWith('/#'),
   });
 

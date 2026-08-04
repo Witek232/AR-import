@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations, localePath, EN_TRANSLATED_PATHS, stripLangPrefix } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localePath, TRANSLATED_PATHS, stripLangPrefix } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
 const pathname = Astro.url.pathname;
@@ -19,22 +19,24 @@ const langs = [
 ];
 
 function getLangUrl(prefix: string): string {
-  // Language switch: homepage stays on homepage of target lang;
-  // other pages fall back to PL path until translated.
+  // Homepage (or empty path) → home in target language.
   if (basePath === '/' || basePath === '') {
     return prefix || '/';
   }
-  // Prefer same path under prefix only for known translated roots
-  if (prefix === '/en' && EN_TRANSLATED_PATHS.some(p => basePath === p || basePath.startsWith(p + '/'))) {
-    return prefix + (basePath === '/' ? '' : basePath);
+  // Translated paths keep the same path under the target prefix.
+  const isTranslated = TRANSLATED_PATHS.some(
+    (p) => basePath === p || basePath.startsWith(p + '/'),
+  );
+  if (isTranslated && prefix) {
+    return prefix + basePath;
   }
   if (prefix === '') return basePath;
-  // DE/ES/IT not ready → go to their home (or PL)
+  // Not translated yet → language home (avoids 404 on /de/multimedia etc.)
   return prefix || '/';
 }
 
 const lp = (path: string) =>
-  localePath(path, lang, { translatedPaths: EN_TRANSLATED_PATHS, forceLocale: path === '/' || path.startsWith('/#') });
+  localePath(path, lang, { translatedPaths: TRANSLATED_PATHS, forceLocale: path === '/' || path.startsWith('/#') });
 
 const homeHref = lp('/');
 
@@ -67,8 +69,14 @@ const navItems = [
 function isActive(href?: string): boolean {
   if (!href) return false;
   const clean = href.split('?')[0].split('#')[0];
-  if (clean === '/' || clean === '' || clean === '/en') {
-    return pathname === '/' || pathname === '/en' || pathname === '/en/';
+  if (clean === '/' || clean === '' || clean === '/en' || clean === '/de' || clean === '/es' || clean === '/it') {
+    return (
+      pathname === '/' ||
+      pathname === '/en' || pathname === '/en/' ||
+      pathname === '/de' || pathname === '/de/' ||
+      pathname === '/es' || pathname === '/es/' ||
+      pathname === '/it' || pathname === '/it/'
+    );
   }
   return pathname === clean || pathname.startsWith(clean + '/');
 }
@@ -408,7 +416,7 @@ const mobileBtnStyles = navItems.map((item) => {
     var btnClose = document.getElementById('drawer-close');
     var iClosed  = document.getElementById('icon-closed');
     var iOpen    = document.getElementById('icon-open');
-    var isHome   = window.location.pathname === '/' || window.location.pathname === '/en' || window.location.pathname === '/en/';
+    var path = window.location.pathname; var isHome = path === '/' || path === '/en' || path === '/en/' || path === '/de' || path === '/de/' || path === '/es' || path === '/es/' || path === '/it' || path === '/it/';
 
     function onScroll() {
       if (window.scrollY > 60 || !isHome) {

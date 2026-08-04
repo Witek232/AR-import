@@ -24,8 +24,8 @@ export function stripLangPrefix(pathname: string): string {
 
 /**
  * Buduje URL w danym języku.
- * Domyślnie podstrony bez tłumaczenia prowadzą do PL (avoid 404).
- * `forceLocale: true` zawsze dokłada prefiks (np. homepage EN).
+ * Podstrony bez tłumaczenia → PL (unikamy 404).
+ * forceLocale: zawsze prefiks (homepage i kotwice).
  */
 export function localePath(
   path: string,
@@ -52,7 +52,6 @@ export function localePath(
     );
 
   if (!translated) {
-    // jeszcze brak EN podstrony → PL
     return `${pathOnly}${q}${hash}`;
   }
 
@@ -61,7 +60,7 @@ export function localePath(
   return `${prefix}${pathOnly}${q}${hash}`;
 }
 
-/** Funkcja t(key) dla danego języka z fallbackiem do PL / klucza. */
+/** t(key) z fallbackiem do PL. */
 export function useTranslations(lang: Lang) {
   return function t(key: UiKey): string {
     const table = ui[lang as keyof typeof ui] as Record<string, string> | undefined;
@@ -71,5 +70,15 @@ export function useTranslations(lang: Lang) {
   };
 }
 
-/** Ścieżki już dostępne w EN (rozszerzaj przy kolejnych stronach). */
-export const EN_TRANSLATED_PATHS = ['/'];
+/**
+ * Ścieżki już przetłumaczone (homepage w EN/DE/ES/IT).
+ * Rozszerzaj przy kolejnych podstronach, np. '/contact'.
+ */
+export const TRANSLATED_PATHS = ['/'];
+
+/** @deprecated użyj TRANSLATED_PATHS */
+export const EN_TRANSLATED_PATHS = TRANSLATED_PATHS;
+
+export function homePath(lang: Lang): string {
+  return langPrefix[lang] || '/';
+}

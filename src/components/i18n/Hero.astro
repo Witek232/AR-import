@@ -1,8 +1,11 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, homePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
 
-const t = useTranslations('en');
-const homeBase = '/en';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const homeBase = homePath(lang);
 ---
 
 <section

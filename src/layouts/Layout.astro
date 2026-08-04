@@ -28,10 +28,13 @@ const siteUrl = Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl/';
 const canonicalURL = new URL(pathname, siteUrl);
 const absoluteOgImage = new URL(ogImage, siteUrl).href;
 
-// Alternate language URLs (homepage pair for now)
+// Alternate language URLs (homepage pair + current path)
 const pathNoLang = pathname.replace(/^\/(en|de|es|it)(?=\/|$)/, '') || '/';
 const hrefPl = new URL(pathNoLang === '/' ? '/' : pathNoLang, siteUrl).href;
 const hrefEn = new URL('/en' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
+const hrefDe = new URL('/de' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
+const hrefEs = new URL('/es' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
+const hrefIt = new URL('/it' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
 ---
 <!doctype html>
 <html lang={htmlLang}>
