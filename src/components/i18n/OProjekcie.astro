@@ -1,10 +1,13 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, localePath, TRANSLATED_PATHS } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
+const syntezaHref = localePath('/synteza-wiary-i-rozumu', lang, {
+  translatedPaths: TRANSLATED_PATHS,
+});
 ---
 <section
   id="o-projekcie"
@@ -42,7 +45,7 @@ const t = useTranslations(lang);
       <blockquote class="reveal elegant-quote" style="border-color:#C9A84C; margin-left:0;">
         {t('oprojekcie.quote')}
       </blockquote>
-      <a href="/synteza-wiary-i-rozumu"
+      <a href={syntezaHref}
         class="reveal"
         style="display:inline-block; margin-top:1.5rem; font-family:'Inter',serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:#1A1209; text-decoration:none; border-bottom:1px solid #C9A84C; padding-bottom:2px; transition:color 0.2s;"
       >
