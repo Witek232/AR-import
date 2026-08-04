@@ -6,6 +6,15 @@ interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const teaserImageUrl = "https://res.cloudinary.com/dmb0xngy0/image/upload/c_fill,w_300,h_400,q_auto:best,f_auto,dpr_auto/q_auto/f_auto/v1776448708/TG_vunjd2.png";
+
+const titleRank: Record<string, string> = {
+  pl: 'Ks. prof.',
+  en: 'Fr. Prof.',
+  de: 'Pfr. Prof.',
+  es: 'P. Prof.',
+  it: 'Don Prof.',
+};
+const rankLine = titleRank[lang] ?? titleRank.en;
 ---
 <section
   id="ks-guz-teaser"
@@ -17,12 +26,9 @@ const teaserImageUrl = "https://res.cloudinary.com/dmb0xngy0/image/upload/c_fill
         <p class="reveal section-label" style="margin-bottom:0.85rem;">
           {t('ksguz.label')}
         </p>
-        <h2
-          class="reveal section-title"
-          style="color:#1A1209; margin-bottom:clamp(1.25rem,3vw,1.75rem); font-size:clamp(2rem,6vw,3.25rem);"
-          set:html={t('ksguz.titleHtml')}
-        ></h2>
-        <!-- title with line break handled below -->
+        <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:clamp(1.25rem,3vw,1.75rem); font-size:clamp(2rem,6vw,3.25rem);">
+          {rankLine}<br />Tadeusz Guz
+        </h2>
         <blockquote class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.0625rem,2.8vw,1.3rem); line-height:1.88; color:#4A3A28; border-left:2px solid rgba(201,168,76,0.55); padding-left:clamp(0.875rem,2.5vw,1.25rem); margin:0 0 clamp(1.5rem,3vw,2rem);">
           {t('ksguz.quote')}
         </blockquote>
