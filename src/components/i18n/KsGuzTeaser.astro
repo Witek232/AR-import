@@ -17,9 +17,11 @@ const teaserImageUrl = "https://res.cloudinary.com/dmb0xngy0/image/upload/c_fill
         <p class="reveal section-label" style="margin-bottom:0.85rem;">
           {t('ksguz.label')}
         </p>
-        <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:clamp(1.25rem,3vw,1.75rem); font-size:clamp(2rem,6vw,3.25rem);">
-          {t('ksguz.titleHtml')}
-        </h2>
+        <h2
+          class="reveal section-title"
+          style="color:#1A1209; margin-bottom:clamp(1.25rem,3vw,1.75rem); font-size:clamp(2rem,6vw,3.25rem);"
+          set:html={t('ksguz.titleHtml')}
+        ></h2>
         <!-- title with line break handled below -->
         <blockquote class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.0625rem,2.8vw,1.3rem); line-height:1.88; color:#4A3A28; border-left:2px solid rgba(201,168,76,0.55); padding-left:clamp(0.875rem,2.5vw,1.25rem); margin:0 0 clamp(1.5rem,3vw,2rem);">
           {t('ksguz.quote')}
