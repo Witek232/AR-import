@@ -741,3 +741,11 @@ button, a {
     background: #1A1209 !important;
   }
 }
+
+/* Tytuł Hero — nie ucinaj ogonków liter przy background-clip */
+h1.gold-shimmer {
+  line-height: 1.15;
+  padding-top: 0.06em;
+  padding-bottom: 0.16em;
+  overflow: visible;
+}
