@@ -80,6 +80,7 @@ export const TRANSLATED_PATHS = [
   '/ks-guz',
   '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
   '/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza',
+  '/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza',
 ];
 
 /** @deprecated użyj TRANSLATED_PATHS */
