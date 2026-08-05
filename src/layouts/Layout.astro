@@ -3,8 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import type { Lang } from '../i18n/ui';
+import { getLangFromUrl, useTranslations, TRANSLATED_PATHS } from '../i18n/utils';
+import { langPrefix, defaultLang, type Lang } from '../i18n/ui';
 
 interface Props {
   title?:       string;
@@ -24,49 +24,103 @@ const pathname = Astro.url.pathname;
 const htmlLang: Lang = langProp ?? getLangFromUrl(Astro.url);
 const t = useTranslations(htmlLang);
 
-const siteUrl = Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl/';
-const canonicalURL = new URL(pathname, siteUrl);
-const absoluteOgImage = new URL(ogImage, siteUrl).href;
+// Canonical site origin (no trailing slash for clean joins)
+const siteOrigin = (Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl').replace(/\/$/, '');
+const canonicalURL = new URL(pathname || '/', siteOrigin + '/');
+const absoluteOgImage = new URL(ogImage.startsWith('/') ? ogImage : `/${ogImage}`, siteOrigin + '/').href;
 
-// Alternate language URLs (homepage pair + current path)
-const pathNoLang = pathname.replace(/^\/(en|de|es|it)(?=\/|$)/, '') || '/';
-const hrefPl = new URL(pathNoLang === '/' ? '/' : pathNoLang, siteUrl).href;
-const hrefEn = new URL('/en' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
-const hrefDe = new URL('/de' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
-const hrefEs = new URL('/es' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
-const hrefIt = new URL('/it' + (pathNoLang === '/' ? '' : pathNoLang), siteUrl).href;
+// Path without /en|/de|/es|/it prefix ('' or '/foo')
+const pathNoLangRaw = pathname.replace(/^\/(en|de|es|it)(?=\/|$)/, '') || '/';
+const pathNoLang = pathNoLangRaw === '' ? '/' : pathNoLangRaw;
+
+/** Absolute URL for a given language + path without locale prefix */
+function absLangUrl(lang: Lang, barePath: string): string {
+  const bare = barePath === '/' ? '' : barePath;
+  if (lang === defaultLang || lang === 'pl') {
+    return `${siteOrigin}${bare || '/'}`;
+  }
+  const prefix = langPrefix[lang] || `/${lang}`;
+  return `${siteOrigin}${prefix}${bare}`;
+}
+
+// Only emit hreflang for languages that actually have this page translated
+// (avoids pointing Google at 404s). Homepage '/' is always multi-lang.
+const bareForHreflang = pathNoLang.split('?')[0].split('#')[0] || '/';
+const pageIsTranslated =
+  bareForHreflang === '/' ||
+  TRANSLATED_PATHS.some(
+    (p) => p !== '/' && (bareForHreflang === p || bareForHreflang.startsWith(p + '/')),
+  );
+
+const hreflangLangs: Lang[] = pageIsTranslated
+  ? (['pl', 'en', 'de', 'es', 'it'] as Lang[])
+  : (['pl'] as Lang[]);
+
+const hreflangLinks = hreflangLangs.map((lang) => ({
+  lang,
+  href: absLangUrl(lang, bareForHreflang),
+}));
+
+const xDefaultHref = `${siteOrigin}/`;
+
+// Open Graph locales
+const OG_LOCALE: Record<string, string> = {
+  pl: 'pl_PL',
+  en: 'en_GB',
+  de: 'de_DE',
+  es: 'es_ES',
+  it: 'it_IT',
+};
+const ogLocale = OG_LOCALE[htmlLang] ?? 'pl_PL';
+const ogLocaleAlternates = (['pl', 'en', 'de', 'es', 'it'] as const)
+  .filter((l) => l !== htmlLang)
+  .map((l) => OG_LOCALE[l]);
+
+const fullTitle = title.includes('Ateny Roztocza') ? title : `${title} | Ateny Roztocza`;
 ---
 <!doctype html>
 <html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"        content={description} />
-    <meta name="theme-color"        content="#1A1209" />
-    <meta name="color-scheme"       content="light" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1A1209" />
+    <meta name="color-scheme" content="light" />
 
     <!-- Open Graph -->
-    <meta property="og:title"       content={title} />
+    <meta property="og:site_name" content="Ateny Roztocza" />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image"       content={absoluteOgImage} />
-    <meta property="og:type"        content="website" />
-    <meta property="og:url"         content={canonicalURL} />
-    <meta property="og:locale"      content={htmlLang === 'pl' ? 'pl_PL' : htmlLang === 'en' ? 'en_GB' : htmlLang} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map((loc) => (
+      <meta property="og:locale:alternate" content={loc} />
+    ))}
 
-    <!-- Canonical + hreflang -->
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="pl" href={hrefPl} />
-    <link rel="alternate" hreflang="en" href={hrefEn} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).href} />
+    <!-- Twitter (useful previews; harmless if unused) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
 
-    <title>{title} | Ateny Roztocza</title>
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- hreflang: only languages that have this path translated -->
+    {hreflangLinks.map(({ lang, href }) => (
+      <link rel="alternate" hreflang={lang} href={href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    <title>{fullTitle}</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-
   </head>
 
   <body>
