@@ -79,6 +79,7 @@ export const TRANSLATED_PATHS = [
   '/synteza-wiary-i-rozumu',
   '/ks-guz',
   '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
+  '/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza',
 ];
 
 /** @deprecated użyj TRANSLATED_PATHS */
