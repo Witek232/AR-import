@@ -1,10 +1,11 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, localePath, TRANSLATED_PATHS } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
+const lp = (path: string) => localePath(path, lang, { translatedPaths: TRANSLATED_PATHS });
 
 // Deep links still point to PL articles until EN pages exist
 const pillars = [
@@ -17,7 +18,7 @@ const pillars = [
     accentColor: '#B8405A',
     accentHover: '#352028',
     accentBorder: 'rgba(184,64,90,0.22)',
-    link: '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
+    link: lp('/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza'),
   },
   {
     numeral: 'II',
