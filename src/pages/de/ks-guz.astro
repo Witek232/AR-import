@@ -1,0 +1,365 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Funkcja do optymalizacji obrazów Cloudinary
+function optimizeCloudinaryImage(url, width, height, options = {}) {
+  if (!url?.includes('cloudinary.com')) return url;
+  
+  const {
+    crop = 'fill',
+    quality = 'auto',
+    format = 'auto',
+    dpr = 'auto'
+  } = options;
+  
+  const transformations = [
+    `c_${crop}`,
+    `w_${width}`,
+    `h_${height}`,
+    `q_${quality}`,
+    `f_${format}`,
+    `dpr_${dpr}`
+  ].join(',');
+  
+  const [base, path] = url.split('/upload/');
+  return `${base}/upload/${transformations}/${path}`;
+}
+
+// Zoptymalizowany URL obrazu ks. Guza
+const portraitUrl = optimizeCloudinaryImage(
+  "https://res.cloudinary.com/dmb0xngy0/image/upload/q_auto/f_auto/v1776448708/TG_vunjd2.png",
+  380,  // szerokość kontenera (max-width)
+  507,  // wysokość dla proporcji 3:4 (380 * 4/3 ≈ 507)
+  { quality: 'auto:best' }  // Wyższa jakość dla głównego portretu
+);
+
+const timeline = [
+  { year: "07.02.1959", event: "Geburt in Zwierzyniec" },
+  { year: "1979", event: "Abitur" },
+  { year: "1979–1984", event: "Theologiestudium an der Fakultät für Katholische Theologie der Katholischen Universität Lublin (KUL) — Magister der Theologie" },
+  { year: "16.12.1984", event: "Priesterweihe in Lublin" },
+  { year: "1988–1989", event: "Philosophiestudium an der Fakultät für Christliche Philosophie der KUL" },
+  { year: "1989–1994", event: "Studium der Philosophie und Soziologie an der Gustav-Siewerth-Akademie in der Bundesrepublik Deutschland — Magister der Philosophie und Soziologie" },
+  { year: "1996", event: "Promotion in den Geisteswissenschaften im Bereich Philosophie an der Fakultät für Christliche Philosophie der ATK Warschau" },
+  { year: "1996–2001", event: "Wissenschaftlicher Assistent an der Gustav-Siewerth-Akademie in der Bundesrepublik Deutschland" },
+  { year: "2001", event: "Habilitation in Philosophie an der Fakultät für Christliche Philosophie der UKSW Warschau" },
+  { year: "2001", event: "Ordentliche Professur; Dekan der Fakultät für Philosophie an der Gustav-Siewerth-Akademie in der Bundesrepublik Deutschland" },
+  { year: "seit 2003", event: "Außerordentlicher Professor an der Fakultät für Rechts- und Wirtschaftswissenschaften der KUL, Außenstelle Tomaszów Lubelski" },
+  { year: "seit 2006", event: "Leiter des Lehrstuhls für Rechtsphilosophie an der Fakultät für Rechts- und Wirtschaftswissenschaften der KUL, Außenstelle Tomaszów Lubelski" },
+  { year: "2005/06", event: "Prodekan der Fakultät für Rechts- und Wirtschaftswissenschaften der KUL, Außenstelle Tomaszów Lubelski" },
+  { year: "2006-2012", event: "Dekan der Fakultät für Rechts- und Wirtschaftswissenschaften der KUL, Außenstelle Tomaszów Lubelski" },
+  { year: "2012-2013", event: "Prodekan der Fakultät für Rechts- und Wirtschaftswissenschaften der KUL, Außenstelle Tomaszów Lubelski" },
+  { year: "2017", event: "Titel des Professors der Geisteswissenschaften, verliehen vom Präsidenten der Republik Polen, Andrzej Duda" },
+];
+---
+
+<Layout title="Prof. Pfarrer Tadeusz Guz" description="Philosoph, Theologe, Priester — Hüter des Dialogs zwischen Athen und Jerusalem. Das geistliche Fundament des Projekts Athen von Roztocze." lang="de">
+  <div class="page-transition">
+    <section id="ks-guz" style="background:#F5EDD8; position:relative; overflow:hidden;">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="position:relative;">
+        <svg viewBox="0 0 1440 500" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.07; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
+          {[100,180,260,1180,1260,1340].map((x) => (
+            <g stroke="#C9A84C" stroke-width="1" fill="none">
+              <rect x={x} y={80} width={28} height={340} rx="1" />
+              <rect x={x-7} y={75} width={42} height={14} rx="1" />
+              <rect x={x-7} y={417} width={42} height={12} rx="1" />
+              <rect x={x-11} y={429} width={50} height={10} rx="1" />
+            </g>
+          ))}
+          <ellipse cx="720" cy="80" rx="120" ry="40" stroke="#C9A84C" stroke-width="0.8" fill="none" />
+        </svg>
+        <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
+          <p class="reveal" style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+            Das geistliche Fundament des Projekts
+          </p>
+          <h1 class="reveal section-title gold-shimmer" style="font-size:clamp(2.2rem,6vw,4.5rem); margin-bottom:0.5rem; line-height:1.15; padding:0.06em 0.02em 0.14em; overflow:visible;">
+            Prof. Pfarrer Tadeusz Guz
+          </h1>
+          <div class="ornament reveal" style="max-width:320px; margin:1.5rem auto; color:#C9A84C;">
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="#C9A84C">
+              <path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" />
+            </svg>
+          </div>
+          <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:rgba(232,201,122,0.8); line-height:1.75;">
+            Philosoph, Theologe, Priester — Hüter des Dialogs zwischen Athen und Jerusalem
+          </p>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div style="max-width:1200px; margin:0 auto; padding:5rem 2rem;">
+
+        <!-- Portrait + Bio -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:4rem; align-items:start; margin-bottom:6rem;">
+
+          <!-- Portrait -->
+          <div class="reveal" style="position:relative;">
+            <div style="background:#EDE0C4; border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; position:relative; overflow:hidden; max-width:380px;">
+              <img
+                src={portraitUrl}
+                alt="Prof. Pfarrer Tadeusz Guz"
+                width="380"
+                height="507"
+                style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"
+                loading="eager"
+                fetchpriority="high"
+              />
+              <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.4; pointer-events:none; z-index:1;">
+                <rect x="12" y="12" width="276" height="376" fill="none" stroke="#C9A84C" stroke-width="1" />
+                <rect x="20" y="20" width="260" height="360" fill="none" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="12" y1="12" x2="20" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="12" x2="280" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="12" y1="388" x2="20" y2="380" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="388" x2="280" y2="380" stroke="#C9A84C" stroke-width="0.5" />
+              </svg>
+              <div style="position:absolute; bottom:0; left:0; right:0; z-index:2; background:rgba(26,18,9,0.8); padding:1rem 1.25rem; backdrop-filter:blur(4px);">
+                <p style="font-family:'Playfair Display',serif; font-size:clamp(1rem,2vw,1.15rem); color:#E8C97A; margin:0; text-align:center; letter-spacing:0.06em;">
+                  Prof. Dr. habil. Tadeusz Guz
+                </p>
+                <p style="font-family:'Inter',serif; font-size:0.75rem; color:rgba(232,201,122,0.65); margin:0.35rem 0 0; text-align:center; letter-spacing:0.04em;">
+                  Professor für Philosophie und Theologie
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio intro -->
+          <div>
+            <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:2rem; font-size:clamp(1.8rem,4vw,2.8rem);">
+              Der Mensch und seine Sendung
+            </h2>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Im Heimatdorf Szody bei Zwierzyniec im Roztocze, zwischen den Hügeln, die sich von Kraśnik bis Lemberg erstrecken, wächst heute ein außergewöhnliches Werk — das Zentrum „Athen von Roztocze". Sein Schöpfer, Prof. Pfarrer Tadeusz Guz, ist eine seltene Gestalt im polnischen geistigen und geistlichen Leben: ein Philosoph, der seine Wissenschaft als Dienst an der Wahrheit versteht, und ein Priester, der sein Priestertum als Dienst am Menschen versteht.
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem; border-left:3px solid rgba(201,168,76,0.4); padding-left:1.5rem;">
+              „Dies ist ein Werk Gottes, das diesem sanftmütigen Menschen anvertraut wurde, damit er in seinem Heimatdorf Szody bei Zwierzyniec im Roztocze die Wahrheit verkünden und verteidigen kann." — Aldona Ciborowska
+            </div>
+          </div>
+        </div>
+
+        <!-- Anfänge / Wurzeln -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Anfänge</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Wurzeln</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Das Lubliner Land und die Jugend
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Pfarrer Tadeusz Guz stammt aus dem Roztocze — einer Landschaft von besonderem Charakter, in der sich Natur und Geschichte auf einzigartige Weise verwoben haben. Auf diesem Boden bildete sich seine Sensibilität heraus, hier ist sein Denken über Polen, die Kirche und den Menschen verwurzelt. Schon als junger Mensch wusste er, dass die Philosophie seine Berufung sein würde:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Schon damals wusste ich, dass ich diese philosophische Neigung habe."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Der Weg zum Priestertum führte durch Jahre der Formation, deren Frucht die Priesterweihe in der Lubliner Kathedrale war. Dieser Moment fiel mit einem der wichtigsten Ereignisse in der Geschichte der polnischen Kirche zusammen — dem Martyrium des seligen Pfarrers Jerzy Popiełuszko:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Zwei Monate nach seinem Märtyrertod wurde ich in der Lubliner Kathedrale zum Priester geweiht."
+          </div>
+        </div>
+
+        <!-- Geistlicher Vater -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Geistlicher Vater</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Der selige Pfarrer Jerzy</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Die Verbindung von Prof. Pfarrer Guz zur Gestalt des seligen Pfarrers Jerzy Popiełuszko ist tief und vielschichtig. Als junger Vikar brachte er Jugendliche aus dem Lubliner Land nach Żoliborz, damit sie aus der Weisheit des Märtyrerpriesters schöpfen konnten:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Ich war schon früher mehrmals hier, als ich in den achtziger Jahren, noch als ganz junger Vikar, Jugendliche aus dem Lubliner Land hierherbrachte, um hier die Weisheit des seligen Pfarrers Jerzy zu suchen."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Der Tod von Pfarrer Popiełuszko wurde für den jungen Pfarrer Guz zu einem Wendepunkt — einem Moment, in dem die Frage nach der Fortsetzung seiner Sendung auf dem Weg der Philosophie entstand:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Kurz vor meiner Priesterweihe konnte ich die Fernsehübertragung von seinem Begräbnis verfolgen, und da dachte ich mir: ‚Jerzy, deine Sendung hier auf dieser Welt ist beendet, aber nicht in der Ewigkeit. Und da ich diese philosophische Neigung habe, werde ich überlegen, wie ich dein unübertroffenes Werk fortsetzen kann.'"
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Dieser innere Dialog mit der Gestalt des Märtyrers nahm mit der Zeit eine mystische Dimension an. Pfarrer Guz erzählt von einem Traum, der für ihn bis heute eine lebendige und unauslöschliche Erfahrung bleibt — einem Traum, in dem Pfarrer Jerzy mit dem Fahrrad herabfuhr und dem jungen Priester wortlos Briefe überreichte. Dieses Bild — anvertrauter und angenommener Briefe — wurde für Pfarrer Guz zum Symbol der Sendung, zu deren Übernahme er sich verpflichtet fühlte. Er bekannte offen:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Wenn du nicht wärst, seliger Pfarrer Jerzy, wäre ich nicht hier."
+          </div>
+        </div>
+
+        <!-- Priestertum -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Dienst</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Priestertum</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Dienst, ohne die Wunden zu zählen
+            </p>
+          </div>
+
+          <div class="reveal" style="background:#1A1209; padding:clamp(2.5rem,6vw,4rem); text-align:center; position:relative; margin-bottom:2.5rem;">
+            <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.55); margin-bottom:1.25rem;">
+              Priesterliche Spiritualität
+            </p>
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.05rem,2.4vw,1.25rem); color:rgba(245,237,216,0.88); line-height:1.85; margin:0 auto; max-width:640px;">
+              Ewiges Wort, eingeborener Sohn Gottes, lehre mich, Dir so zu dienen, wie Du es verdienst: zu geben, ohne zu rechnen; zu kämpfen, ohne auf die Wunden zu achten; zu arbeiten, ohne Ruhe zu suchen; mich hinzugeben, ohne einen anderen Lohn zu erwarten als das Bewusstsein, Deinen heiligsten Willen erfüllt zu haben. Amen. — Gebet des hl. Ignatius von Loyola
+            </p>
+          </div>
+
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Das Priestertum von Pfarrer Guz begann in einem besonderen historischen Kontext — im Polen der achtziger Jahre, in einer Atmosphäre geistlichen und nationalen Erwachens. Er diente als Vikar in Rejowiec Fabryczny — einer Stadt, die, wie er selbst sagt, „zur vollständigen Kommunisierung bestimmt war" — wo er am Bau einer Kirche mitwirkte. Anschließend wechselte er als Vikar nach Chełm, wo er an der Basilika auf dem Chełmer Berg diente.
+          </div>
+        </div>
+
+        <!-- Germany -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Der Weg der Wissenschaft</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Jahre in Deutschland</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Philosophie und Wissenschaft
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Im Jahr 1989 ging Prof. Pfarrer Guz in die Bundesrepublik Deutschland, wo er vierzehn Jahre verbrachte — bis 2003. Es war eine Zeit intensiven philosophischen Studiums, das mit einer Promotion abschloss, die zum Fundament seiner späteren wissenschaftlichen Tätigkeit wurde. Gerade dort bildete sich sein philosophisches Handwerk vollständig heraus, ebenso wie sein besonderes Interesse an den Ideologien der Moderne — Kommunismus, Materialismus, Atheismus —, die er zum Gegenstand seiner langjährigen Forschung machte:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Ich befasse mich unter anderem mit theoretischen Abhandlungen über jene Ideologien, die den Leib des seligen Pfarrers Jerzy getötet haben."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Auch während der vierzehn Jahre im Ausland verlor Pfarrer Guz nie die Verbindung zu dem Ort, den er als das geistliche Zentrum seines Lebens betrachtete — zum Grab des seligen Pfarrers Jerzy Popiełuszko in Żoliborz:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Als ich vierzehn Jahre lang, von 1989 bis 2003, in der Bundesrepublik Deutschland war, kam ich immer, wenn ich in die Heimat zurückkehrte, hierher."
+          </div>
+        </div>
+
+        <!-- Return -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Vermächtnis</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Rückkehr nach Polen</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Professor und Lehrer
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Nach seiner Rückkehr in die Heimat nahm Prof. Pfarrer Guz eine akademische Tätigkeit auf und wurde zu einem der bekanntesten katholischen Philosophen Polens. Seine Vorlesungen, Radio- und Fernsehsendungen sowie zahlreiche wissenschaftliche Veröffentlichungen brachten ihm einen breiten Kreis von Zuhörern und Lesern ein. Das Gebiet seiner wissenschaftlichen Arbeit beschreibt er präzise:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Das Wissenschaftsgebiet, mit dem ich mich nun schon im achtundzwanzigsten Jahr befasse, verpflichtet mich als Philosophen, nach den ersten Gründen für das zu suchen, was ist, das heißt für die gesamte Wirklichkeit. Nach Aristoteles spricht der Mensch erst dann eigentlich, das heißt der Wahrheit gemäß, über die untersuchte Wirklichkeit, wenn er auf dem Weg der Erkenntnis zu den Quellen vordringt."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Im Zentrum seiner wissenschaftlichen Interessen steht die Beziehung zwischen Vernunft und Glaube, zwischen klassischer Philosophie und christlicher Offenbarung, zwischen Wahrheit und Ideologie. Einen besonderen Platz nimmt in seiner Forschung die Person Jesu Christi ein — als die am heftigsten angegriffene und zugleich einzige Antwort auf die Fragen, die die menschliche Vernunft sich stellt:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „In den letzten fünf Jahrhunderten ist die am meisten angegriffene Person von allen göttlichen, engelhaften und menschlichen Personen die Person Jesu von Nazareth. In allen Ideologien, wie auch immer sie heißen mögen. Seit fast dreißig Jahren sind sie Gegenstand meiner Forschung, und ich muss mit voller Verantwortung sagen, dass in den letzten fünf Jahrhunderten niemand so geschmäht wurde wie der Herr Jesus."
+          </div>
+        </div>
+
+        <!-- Denken -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Denken</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Philosophie als Verteidigung der Wahrheit</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Prof. Pfarrer Guz betreibt Philosophie auf eine Weise, die heute in akademischen Kreisen unmodern ist — als Suche nach der objektiven Wahrheit, verwurzelt in der klassischen griechischen Tradition und ergänzt durch die christliche Offenbarung. Dabei scheut er nicht davor zurück, Thesen aufzustellen, die dem heutigen Zeitgeist provokativ erscheinen:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „(...) die Universität stellt grundlegende Wahrheiten in Frage (...), wir haben in unserer Rationalität grundlegende intellektuelle Strukturen verloren, wie den Satz der Identität, den Satz vom Widerspruch, den Satz vom zureichenden Grund. (...) Wir haben sehr viel sinnvolle Arbeit vor uns, um uns in einer gesunden — im natürlichen wie im übernatürlichen Sinne — Identität zu festigen."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Philosophie ist in seinem Verständnis kein akademisches Begriffsspiel — sie ist eine Angelegenheit von Leben und Tod, von Heil und Verdammnis, von Freiheit und Versklavung:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Was mit der Welt geschehen wird, hängt davon ab, was die Menschen denken. Und davon, ob sie so zu lieben vermögen, wie es der hl. Paulus empfiehlt, oder nicht."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Ihr tiefstes Ziel ist es, den Menschen zu Gott zu führen — der einzigen Quelle von Wahrheit, Gutem und Schönheit:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „(...) wir vernünftigen Menschen müssen uns beständig von Gott nähren, um immer wieder aufs Neue Seine Wahrheit sowie die Wahrheiten über uns selbst und über die Welt zu ergründen (...)."
+          </div>
+        </div>
+
+        <!-- Sendung nation -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Sendung</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Sendung gegenüber Volk und Kirche</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Prof. Pfarrer Guz ist ein Mensch, der tief in der polnischen geistlichen und nationalen Tradition verwurzelt ist. Der Patron der Wissenschaften der Republik Polen — Pfarrer Piotr Skarga — und der selige Pfarrer Jerzy Popiełuszko sind für ihn Bezugspunkte, „große Kapitel in der polnischen Geschichte". Seine Appelle an die Polen sind stets in dieser Tradition verwurzelt und auf die Zukunft ausgerichtet:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „(...) wir Polen haben eine große Sendung — jeden zu retten. Und da es nicht immer möglich ist, jeden zu retten, dann jenen zu retten, den man retten kann. Doch eines sollte in uns allen sein, und beim polnischen Katholiken ganz besonders: zu versuchen, jeden Menschen zu retten, ohne jede Ausnahme."
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Für Pfarrer Guz bedeutet die Rettung des Menschen vor allem, ihn zur Wahrheit zu führen — zu Gott, der ihre letzte Quelle und ihr Ziel ist:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Es geht darum, dass sie unsere Seelen retten. Denn sie können hervorragend denken und handeln, in den Tugenden wachsen und sich gegenseitig unterstützen. Sie können lieben. Doch auf dem Weg zur Ewigkeit, zum ewig liebenden dreieinigen Gott im Himmel, brauchen sie Lehrer. Sie brauchen Lehrer, damit Vernunft, Wille und Gedächtnis — die Vermögen des Geistes — darauf ausgerichtet werden, die Wahrheit, das Gute und das Schöne zu entdecken, zu bringen und zu verteidigen."
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div style="margin-bottom:6rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Chronologie</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Lebens- und Denkweg</h2>
+          </div>
+          <div style="max-width:780px; margin:0 auto; position:relative;">
+            <div style="position:absolute; left:162px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
+            {timeline.map(item => (
+              <div class="reveal" style="display:grid; grid-template-columns: 150px 24px 1fr; margin-bottom:2rem; position:relative; align-items:start;">
+                <div style="font-family:'Playfair Display',serif; font-size:clamp(1rem,2.2vw,1.2rem); font-weight:700; color:#7A6429; text-align:right; padding-top:0.1rem; padding-right:20px; letter-spacing:0.03em; line-height:1.3; white-space:nowrap;">
+                  {item.year}
+                </div>
+                <div style="display:flex; justify-content:center; padding-top:6px;">
+                  <div style="width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1; flex-shrink:0;"></div>
+                </div>
+                <div style="padding-top:0.1rem; padding-left:24px;">
+                  <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Unfinished conversations -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Eine Stimme im öffentlichen Raum</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Unvollendete Gespräche</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Eine der wichtigsten Früchte des Dienstes von Prof. Pfarrer Guz ist die Sendereihe „Unvollendete Gespräche" (Rozmowy Niedokończone), die im Radio Maryja und im Fernsehsender TV Trwam ausgestrahlt wird — Tausende Stunden von Gesprächen über Philosophie, Theologie, Ideengeschichte, Naturrecht, Familie, Staat und Kultur. Ihr Titel ist programmatisch — diese Gespräche sind unvollendet, weil die Wahrheit, die sie verkünden, sich niemals in einer einzigen Begegnung erschöpft:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            „Sie sind gewissermaßen ein Vorgeschmack auf die unvollendeten Gespräche, Vorlesungen und Begegnungen, an denen wir hoffen teilzunehmen, die wir im Athen von Roztocze genießen möchten, um so, wie es im Titel der Sendung von 2017 heißt: hinauszugehen und Jesus Christus zu verkünden."
+          </div>
+        </div>
+
+        <!-- Portrait of a man -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Persönlichkeit</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Porträt eines Menschen</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Prof. Pfarrer Tadeusz Guz ist ein Mensch, dessen Lebensweg — vom Roztocze über Chełm, Deutschland und polnische Universitäten bis nach Szozdy — ein Weg des beharrlichen Suchens und Verkündens der Wahrheit ist. Aldona Ciborowska, die ihn gut kennt, beschreibt ihn als „sanftmütigen Menschen", dem Gott ein großes Werk anvertraut hat. Das Gebet des hl. Ignatius, das er für sein Priesterjubiläum wählte, ist der beste Schlüssel zum Verständnis dieses Weges: zu geben, ohne zu rechnen; zu kämpfen, ohne auf die Wunden zu achten; zu arbeiten, ohne Ruhe zu suchen. Und den heiligsten Willen Gottes zu erfüllen — trotz aller Schwierigkeiten, trotz des enormen Arbeitsaufwands, trotz des nacheiszeitlichen Sandsteins, der geschnitten und verlegt werden muss.
+          </div>
+          <div class="reveal body-text">
+            Denn die Sendung der Katholiken und der heiligen Kirche — wie Aldona Ciborowska sagt — dauert an. Und mit ihr dauert der Dienst dieses Priester-Philosophen aus dem Roztocze an.
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</Layout>
