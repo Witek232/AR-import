@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import Schema, { type SchemaData } from '../components/Schema.astro';
 import { getLangFromUrl, useTranslations, TRANSLATED_PATHS } from '../i18n/utils';
 import { langPrefix, defaultLang, type Lang } from '../i18n/ui';
 
@@ -11,6 +12,8 @@ interface Props {
   description?: string;
   ogImage?:     string;
   lang?:        Lang;
+  schemaType?:  'website' | 'person' | 'article' | 'video' | 'event' | 'page';
+  schema?:      SchemaData;
 }
 
 const {
@@ -18,6 +21,8 @@ const {
   description = 'Projekt kulturalno-filozoficzno-religijny na Roztoczu. Budujemy mosty między starożytnością chrześcijańską a dniem dzisiejszym.',
   ogImage     = '/og-image.jpg',
   lang: langProp,
+  schemaType  = 'page',
+  schema      = {},
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
@@ -26,7 +31,9 @@ const t = useTranslations(htmlLang);
 
 // Canonical site origin (no trailing slash for clean joins)
 const siteOrigin = (Astro.site ? String(Astro.site) : 'https://atenyroztocza.pl').replace(/\/$/, '');
-const canonicalURL = new URL(pathname || '/', siteOrigin + '/');
+const cleanPath = (pathname || '/').split('?')[0].split('#')[0];
+const normalizedPath = cleanPath.endsWith('/') ? cleanPath : cleanPath + '/';
+const canonicalURL = new URL(normalizedPath, siteOrigin + '/');
 const absoluteOgImage = new URL(ogImage.startsWith('/') ? ogImage : `/${ogImage}`, siteOrigin + '/').href;
 
 // Path without /en|/de|/es|/it prefix ('' or '/foo')
@@ -35,12 +42,11 @@ const pathNoLang = pathNoLangRaw === '' ? '/' : pathNoLangRaw;
 
 /** Absolute URL for a given language + path without locale prefix */
 function absLangUrl(lang: Lang, barePath: string): string {
-  const bare = barePath === '/' ? '' : barePath;
-  if (lang === defaultLang || lang === 'pl') {
-    return `${siteOrigin}${bare || '/'}`;
-  }
-  const prefix = langPrefix[lang] || `/${lang}`;
-  return `${siteOrigin}${prefix}${bare}`;
+  // ZAWSZE z ukośnikiem na końcu — inaczej hreflang trafia w przekierowanie 308.
+  const bare = barePath === '/' ? '' : barePath.replace(/\/$/, '');
+  const prefix = lang === defaultLang || lang === 'pl' ? '' : (langPrefix[lang] || `/${lang}`);
+  const path = `${prefix}${bare}`;
+  return `${siteOrigin}${path === '' ? '/' : path + '/'}`;
 }
 
 // Only emit hreflang for languages that actually have this page translated
@@ -56,8 +62,12 @@ const hreflangLangs: Lang[] = pageIsTranslated
   ? (['pl', 'en', 'de', 'es', 'it'] as Lang[])
   : (['pl'] as Lang[]);
 
+const HREFLANG_CODE: Record<Lang, string> = {
+  pl: 'pl-PL', en: 'en', de: 'de-DE', es: 'es-ES', it: 'it-IT',
+};
+
 const hreflangLinks = hreflangLangs.map((lang) => ({
-  lang,
+  lang: HREFLANG_CODE[lang] ?? lang,
   href: absLangUrl(lang, bareForHreflang),
 }));
 
@@ -118,9 +128,24 @@ const fullTitle = title.includes('Ateny Roztocza') ? title : `${title} | Ateny R
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Wcześniejsze nawiązanie połączenia z serwerami obrazów i filmów. -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Dane strukturalne schema.org -->
+    <Schema
+      type={schemaType}
+      data={{
+        title: fullTitle,
+        description,
+        url: canonicalURL.href,
+        image: absoluteOgImage,
+        ...schema,
+      }}
+    />
   </head>
 
   <body>

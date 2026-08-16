@@ -1,0 +1,12 @@
+# Cloudflare Pages — przekierowania
+# Kolejność ma znaczenie: pierwsza pasująca reguła wygrywa.
+
+# 1) Kanonizacja hosta www → apex. Bez tego Google widzi dwie kopie serwisu.
+https://www.atenyroztocza.pl/*    https://atenyroztocza.pl/:splat    301!
+
+# 2) Sekcja /publikacje nie ma strony zbiorczej — kierujemy na listę publikacji.
+/publikacje                       /multimedia/?tab=nasz-dziennik     301
+/publikacje/                      /multimedia/?tab=nasz-dziennik     301
+
+# 3) Częsty, ręcznie wpisywany adres mapy strony.
+/sitemap.xml                      /sitemap-index.xml                 301

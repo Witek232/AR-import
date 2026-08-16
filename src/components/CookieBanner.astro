@@ -7,8 +7,8 @@ const cookiesHref = localePath('/polityka-cookies', lang);
 const privacyHref = localePath('/polityka-prywatnosci', lang);
 ---
 
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(13,10,5,0.97); border-top:1px solid rgba(201,168,76,0.25); backdrop-filter:blur(12px); padding:clamp(1rem,3vw,1.5rem) clamp(1rem,4vw,2rem);">
-  <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:clamp(1rem,3vw,1.5rem); justify-content:space-between;">
+<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; background:rgba(13,10,5,0.97); border-top:1px solid rgba(201,168,76,0.25); backdrop-filter:blur(12px); padding:clamp(1rem,3vw,1.5rem) clamp(1rem,4vw,2rem); pointer-events:none;">
+  <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:clamp(1rem,3vw,1.5rem); justify-content:space-between; pointer-events:auto;">
     
     <div style="flex:1; min-width:280px;">
       <p style="font-family:'Inter',serif; font-size:clamp(0.85rem,2vw,0.95rem); color:rgba(245,237,216,0.8); line-height:1.65; margin:0;">
@@ -40,13 +40,21 @@ const privacyHref = localePath('/polityka-prywatnosci', lang);
   function setConsent(type: string) {
     localStorage.setItem('cookie-consent', type);
     if (banner) banner.style.display = 'none';
+    document.body.classList.remove('cookie-banner-open');
     if (type === 'accepted') {
       console.log('Cookies accepted: Analytics can be loaded.');
     }
   }
 
   if (!getConsent()) {
-    if (banner) banner.style.display = 'block';
+    if (banner) {
+      banner.style.display = 'block';
+      document.body.classList.add('cookie-banner-open');
+      const setH = () => document.documentElement.style.setProperty(
+        '--cookie-banner-h', banner.offsetHeight + 'px');
+      setH();
+      window.addEventListener('resize', setH, { passive: true });
+    }
   }
 
   acceptBtn?.addEventListener('click', () => setConsent('accepted'));

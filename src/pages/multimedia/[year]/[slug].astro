@@ -66,7 +66,20 @@ const dateDisplay = entry
 
 <Layout
   title={entry?.title ?? 'Materiał audiowizualny'}
-  description={entry ? entry.title + ' · ' + rok + ' · Ateny Roztocza' : ''}
+  description={entry?.description
+    ? entry.description.trim().replace(/\s+/g, ' ').slice(0, 155)
+    : (entry ? entry.title + ' · ' + rok + ' · Ateny Roztocza' : '')}
+  schemaType="video"
+  schema={{
+    videoId: parts[0]?.id,
+    uploadDate: entry?.date instanceof Date ? entry.date.toISOString() : undefined,
+    breadcrumbs: [
+      { name: 'Strona główna', url: 'https://atenyroztocza.pl/' },
+      { name: 'Multimedia', url: 'https://atenyroztocza.pl/multimedia/' },
+      { name: String(rok), url: `https://atenyroztocza.pl/multimedia/${rok}/` },
+      { name: entry?.title ?? '', url: `https://atenyroztocza.pl/multimedia/${rok}/${slug}/` },
+    ],
+  }}
 >
 
 {!hasEntry && (

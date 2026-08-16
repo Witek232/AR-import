@@ -1,0 +1,104 @@
+---
+/** Dane strukturalne schema.org (JSON-LD). */
+export interface SchemaData {
+  title?: string; description?: string; url?: string; image?: string;
+  datePublished?: string; dateModified?: string; publisher?: string;
+  videoId?: string; uploadDate?: string;
+  startDate?: string; location?: string;
+  breadcrumbs?: { name: string; url: string }[];
+}
+interface Props {
+  type?: 'website' | 'person' | 'article' | 'video' | 'event' | 'page';
+  data?: SchemaData;
+}
+const { type = 'page', data = {} } = Astro.props;
+
+const SITE = 'https://atenyroztocza.pl';
+const ORG_ID = `${SITE}/#organization`;
+const SITE_ID = `${SITE}/#website`;
+const PERSON_ID = `${SITE}/ks-guz/#person`;
+
+const organization = {
+  '@type': ['Organization', 'NGO'], '@id': ORG_ID,
+  name: 'Fundacja Ateny Roztocza: Deo, Reginae Poloniae et Patriae',
+  alternateName: 'Ateny Roztocza', url: SITE + '/',
+  logo: { '@type': 'ImageObject', url: 'https://res.cloudinary.com/dmb0xngy0/image/upload/v1779483013/logoAR_imprmp.svg' },
+  image: `${SITE}/og-image.jpg`,
+  description: 'Centrum kultury chrześcijańskiej na Roztoczu — seminaria, wykłady, publikacje i archiwum audiowizualne.',
+  founder: { '@id': PERSON_ID },
+  address: { '@type': 'PostalAddress', addressRegion: 'Roztocze', addressCountry: 'PL' },
+};
+const website = {
+  '@type': 'WebSite', '@id': SITE_ID, url: SITE + '/', name: 'Ateny Roztocza',
+  inLanguage: ['pl-PL','en','de-DE','es-ES','it-IT'], publisher: { '@id': ORG_ID },
+};
+const person = {
+  '@type': 'Person', '@id': PERSON_ID,
+  name: 'ks. prof. dr hab. Tadeusz Guz', givenName: 'Tadeusz', familyName: 'Guz',
+  honorificPrefix: 'ks. prof. dr hab.', jobTitle: 'Filozof, teolog, kapłan',
+  description: 'Filozof, teolog i kapłan — twórca intelektualnej wizji projektu Ateny Roztocza.',
+  url: `${SITE}/ks-guz/`,
+  image: 'https://res.cloudinary.com/dmb0xngy0/image/upload/v1776448708/TG_vunjd2.png',
+  knowsAbout: ['filozofia klasyczna','teologia katolicka','metafizyka','kultura chrześcijańska'],
+  affiliation: { '@id': ORG_ID },
+};
+
+const graph: any[] = [organization, website];
+
+if (type === 'website' || type === 'person') {
+  graph.push(person);
+} else if (type === 'article') {
+  graph.push({
+    '@type': 'Article', '@id': `${data.url}#article`,
+    headline: (data.title ?? '').slice(0, 110), description: data.description,
+    image: data.image ?? `${SITE}/og-image.jpg`,
+    datePublished: data.datePublished, dateModified: data.dateModified ?? data.datePublished,
+    author: { '@id': PERSON_ID }, publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': SITE_ID },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': data.url }, inLanguage: 'pl-PL',
+  });
+} else if (type === 'video') {
+  graph.push({
+    '@type': 'VideoObject', '@id': `${data.url}#video`,
+    name: data.title, description: data.description,
+    thumbnailUrl: data.videoId
+      ? [`https://i.ytimg.com/vi/${data.videoId}/maxresdefault.jpg`]
+      : [data.image ?? `${SITE}/og-image.jpg`],
+    uploadDate: data.uploadDate ?? data.datePublished,
+    ...(data.videoId ? {
+      embedUrl: `https://www.youtube-nocookie.com/embed/${data.videoId}`,
+      contentUrl: `https://www.youtube.com/watch?v=${data.videoId}`,
+    } : {}),
+    publisher: { '@id': ORG_ID }, author: { '@id': PERSON_ID }, inLanguage: 'pl-PL',
+  });
+} else if (type === 'event') {
+  graph.push({
+    '@type': 'Event', '@id': `${data.url}#event`,
+    name: data.title, description: data.description, startDate: data.startDate,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: data.location ?? 'Ateny Roztocza',
+      address: { '@type': 'PostalAddress', addressRegion: 'Roztocze', addressCountry: 'PL' } },
+    image: data.image ?? `${SITE}/og-image.jpg`,
+    organizer: { '@id': ORG_ID }, performer: { '@id': PERSON_ID },
+  });
+} else {
+  graph.push({
+    '@type': 'WebPage', '@id': `${data.url}#webpage`, url: data.url,
+    name: data.title, description: data.description,
+    isPartOf: { '@id': SITE_ID }, about: { '@id': ORG_ID }, inLanguage: 'pl-PL',
+  });
+}
+
+if (data.breadcrumbs?.length) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: data.breadcrumbs.map((it, i) => ({
+      '@type': 'ListItem', position: i + 1, name: it.name, item: it.url,
+    })),
+  });
+}
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
