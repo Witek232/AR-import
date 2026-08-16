@@ -1,10 +1,11 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, localePath, TRANSLATED_PATHS } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
+const ksHref = localePath('/ks-guz', lang, { translatedPaths: TRANSLATED_PATHS });
 const teaserImageUrl = "https://res.cloudinary.com/dmb0xngy0/image/upload/c_fill,w_300,h_400,q_auto:best,f_auto,dpr_auto/q_auto/f_auto/v1776448708/TG_vunjd2.png";
 
 const titleRank: Record<string, string> = {
@@ -35,7 +36,7 @@ const rankLine = titleRank[lang] ?? titleRank.en;
         <p class="reveal body-text" style="color:#6B5B43; margin-bottom:clamp(1.75rem,4vw,2.5rem); font-size:clamp(1.0625rem,2.5vw,1.125rem);">
           {t('ksguz.body')}
         </p>
-        <a href="/ks-guz" class="reveal ks-guz-cta">
+        <a href={ksHref} class="reveal ks-guz-cta">
           {t('ksguz.cta')}
         </a>
       </div>

@@ -74,7 +74,14 @@ export function useTranslations(lang: Lang) {
  * Ścieżki już przetłumaczone (homepage w EN/DE/ES/IT).
  * Rozszerzaj przy kolejnych podstronach, np. '/contact'.
  */
-export const TRANSLATED_PATHS = ['/', '/synteza-wiary-i-rozumu'];
+export const TRANSLATED_PATHS = [
+  '/',
+  '/synteza-wiary-i-rozumu',
+  '/ks-guz',
+  '/emanacja-jerozolimy-w-nauczaniu-ks-prof-tadeusza-guza',
+  '/emanacja-aten-w-nauczaniu-ks-prof-tadeusza-guza',
+  '/emanacja-rzymu-w-nauczaniu-ks-prof-tadeusza-guza',
+];
 
 /** @deprecated użyj TRANSLATED_PATHS */
 export const EN_TRANSLATED_PATHS = TRANSLATED_PATHS;

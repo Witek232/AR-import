@@ -39,6 +39,16 @@ const dateDisplay = formatEventDate(new Date(event.date)).full;
 <Layout
   title={event.title}
   description={event.description ?? event.title}
+  schemaType="event"
+  schema={{
+    startDate: event.date instanceof Date ? event.date.toISOString() : String(event.date),
+    location: event.place,
+    breadcrumbs: [
+      { name: 'Strona główna', url: 'https://atenyroztocza.pl/' },
+      { name: 'Wydarzenia', url: 'https://atenyroztocza.pl/wydarzenia/' },
+      { name: event.title, url: `https://atenyroztocza.pl/wydarzenia/${Astro.params.slug}/` },
+    ],
+  }}
 >
   <div class="page-transition">
 

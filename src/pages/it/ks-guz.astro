@@ -1,0 +1,365 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Funkcja do optymalizacji obrazów Cloudinary
+function optimizeCloudinaryImage(url, width, height, options = {}) {
+  if (!url?.includes('cloudinary.com')) return url;
+  
+  const {
+    crop = 'fill',
+    quality = 'auto',
+    format = 'auto',
+    dpr = 'auto'
+  } = options;
+  
+  const transformations = [
+    `c_${crop}`,
+    `w_${width}`,
+    `h_${height}`,
+    `q_${quality}`,
+    `f_${format}`,
+    `dpr_${dpr}`
+  ].join(',');
+  
+  const [base, path] = url.split('/upload/');
+  return `${base}/upload/${transformations}/${path}`;
+}
+
+// Zoptymalizowany URL obrazu ks. Guza
+const portraitUrl = optimizeCloudinaryImage(
+  "https://res.cloudinary.com/dmb0xngy0/image/upload/q_auto/f_auto/v1776448708/TG_vunjd2.png",
+  380,  // szerokość kontenera (max-width)
+  507,  // wysokość dla proporcji 3:4 (380 * 4/3 ≈ 507)
+  { quality: 'auto:best' }  // Wyższa jakość dla głównego portretu
+);
+
+const timeline = [
+  { year: "07-02-1959", event: "Nascita a Zwierzyniec" },
+  { year: "1979", event: "Diploma di maturità" },
+  { year: "1979–1984", event: "Studi di teologia presso la Facoltà di Teologia Cattolica dell'Università Cattolica di Lublino (KUL) — Laurea magistrale in teologia" },
+  { year: "16-12-1984", event: "Ordinazione sacerdotale a Lublino" },
+  { year: "1988–1989", event: "Studi di filosofia presso la Facoltà di Filosofia Cristiana della KUL" },
+  { year: "1989–1994", event: "Studi di filosofia e sociologia presso la Gustav-Siewerth-Akademie, nella Repubblica Federale di Germania — Laurea magistrale in filosofia e sociologia" },
+  { year: "1996", event: "Dottorato in scienze umanistiche, ambito filosofia, presso la Facoltà di Filosofia Cristiana dell'ATK di Varsavia" },
+  { year: "1996–2001", event: "Assistente scientifico presso la Gustav-Siewerth-Akademie, nella Repubblica Federale di Germania" },
+  { year: "2001", event: "Abilitazione in filosofia presso la Facoltà di Filosofia Cristiana dell'UKSW di Varsavia" },
+  { year: "2001", event: "Cattedra di professore ordinario; preside della Facoltà di Filosofia presso la Gustav-Siewerth-Akademie, nella Repubblica Federale di Germania" },
+  { year: "dal 2003", event: "Professore straordinario presso la Facoltà di Scienze Giuridiche ed Economiche della KUL, sede di Tomaszów Lubelski" },
+  { year: "dal 2006", event: "Direttore della Cattedra di Filosofia del Diritto presso la Facoltà di Scienze Giuridiche ed Economiche della KUL, sede di Tomaszów Lubelski" },
+  { year: "2005/06", event: "Vicepreside della Facoltà di Scienze Giuridiche ed Economiche della KUL, sede di Tomaszów Lubelski" },
+  { year: "2006-2012", event: "Preside della Facoltà di Scienze Giuridiche ed Economiche della KUL, sede di Tomaszów Lubelski" },
+  { year: "2012-2013", event: "Vicepreside della Facoltà di Scienze Giuridiche ed Economiche della KUL, sede di Tomaszów Lubelski" },
+  { year: "2017", event: "Titolo di Professore di Scienze Umanistiche, conferito dal Presidente della Repubblica di Polonia, Andrzej Duda" },
+];
+---
+
+<Layout title="Don Prof. Tadeusz Guz" description="Filosofo, teologo, sacerdote — custode del dialogo tra Atene e Gerusalemme. Il fondamento spirituale del progetto Atene di Roztocze." lang="it">
+  <div class="page-transition">
+    <section id="ks-guz" style="background:#F5EDD8; position:relative; overflow:hidden;">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero" style="position:relative;">
+        <svg viewBox="0 0 1440 500" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.07; pointer-events:none;" preserveAspectRatio="xMidYMid slice">
+          {[100,180,260,1180,1260,1340].map((x) => (
+            <g stroke="#C9A84C" stroke-width="1" fill="none">
+              <rect x={x} y={80} width={28} height={340} rx="1" />
+              <rect x={x-7} y={75} width={42} height={14} rx="1" />
+              <rect x={x-7} y={417} width={42} height={12} rx="1" />
+              <rect x={x-11} y={429} width={50} height={10} rx="1" />
+            </g>
+          ))}
+          <ellipse cx="720" cy="80" rx="120" ry="40" stroke="#C9A84C" stroke-width="0.8" fill="none" />
+        </svg>
+        <div style="position:relative; z-index:2; max-width:760px; margin:0 auto;">
+          <p class="reveal" style="font-family:'Inter',serif; font-size:clamp(0.65rem,1.5vw,0.75rem); letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.65); margin-bottom:1.25rem;">
+            Il fondamento spirituale del progetto
+          </p>
+          <h1 class="reveal section-title gold-shimmer" style="font-size:clamp(2.2rem,6vw,4.5rem); margin-bottom:0.5rem; line-height:1.15; padding:0.06em 0.02em 0.14em; overflow:visible;">
+            Don Prof. Tadeusz Guz
+          </h1>
+          <div class="ornament reveal" style="max-width:320px; margin:1.5rem auto; color:#C9A84C;">
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="#C9A84C">
+              <path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" />
+            </svg>
+          </div>
+          <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:rgba(232,201,122,0.8); line-height:1.75;">
+            Filosofo, teologo, sacerdote — custode del dialogo tra Atene e Gerusalemme
+          </p>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div style="max-width:1200px; margin:0 auto; padding:5rem 2rem;">
+
+        <!-- Portrait + Bio -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:4rem; align-items:start; margin-bottom:6rem;">
+
+          <!-- Portrait -->
+          <div class="reveal" style="position:relative;">
+            <div style="background:#EDE0C4; border:1px solid rgba(201,168,76,0.3); aspect-ratio:3/4; position:relative; overflow:hidden; max-width:380px;">
+              <img
+                src={portraitUrl}
+                alt="Don Prof. Tadeusz Guz"
+                width="380"
+                height="507"
+                style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"
+                loading="eager"
+                fetchpriority="high"
+              />
+              <svg viewBox="0 0 300 400" style="position:absolute; inset:0; width:100%; height:100%; opacity:0.4; pointer-events:none; z-index:1;">
+                <rect x="12" y="12" width="276" height="376" fill="none" stroke="#C9A84C" stroke-width="1" />
+                <rect x="20" y="20" width="260" height="360" fill="none" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="12" y1="12" x2="20" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="12" x2="280" y2="20" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="12" y1="388" x2="20" y2="380" stroke="#C9A84C" stroke-width="0.5" />
+                <line x1="288" y1="388" x2="280" y2="380" stroke="#C9A84C" stroke-width="0.5" />
+              </svg>
+              <div style="position:absolute; bottom:0; left:0; right:0; z-index:2; background:rgba(26,18,9,0.8); padding:1rem 1.25rem; backdrop-filter:blur(4px);">
+                <p style="font-family:'Playfair Display',serif; font-size:clamp(1rem,2vw,1.15rem); color:#E8C97A; margin:0; text-align:center; letter-spacing:0.06em;">
+                  Don Prof. Dr. Hab. Tadeusz Guz
+                </p>
+                <p style="font-family:'Inter',serif; font-size:0.75rem; color:rgba(232,201,122,0.65); margin:0.35rem 0 0; text-align:center; letter-spacing:0.04em;">
+                  Professore di Filosofia e Teologia
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio intro -->
+          <div>
+            <h2 class="reveal section-title" style="color:#1A1209; margin-bottom:2rem; font-size:clamp(1.8rem,4vw,2.8rem);">
+              L'uomo e la sua missione
+            </h2>
+            <div class="reveal body-text" style="margin-bottom:1.5rem;">
+              Nel villaggio natale di Szody, presso Zwierzyniec, nel Roztocze, tra le colline che si estendono da Kraśnik a Leopoli, cresce oggi un'opera straordinaria — il centro «Atene di Roztocze». Il suo ideatore, don prof. Tadeusz Guz, è una figura rara nella vita intellettuale e spirituale polacca: un filosofo che intende la propria scienza come servizio alla verità, e un sacerdote che intende il proprio sacerdozio come servizio all'uomo.
+            </div>
+            <div class="reveal elegant-quote" style="margin-bottom:2rem; border-left:3px solid rgba(201,168,76,0.4); padding-left:1.5rem;">
+              «Questa è un'opera di Dio affidata a quest'uomo mite, affinché nel suo villaggio natale di Szody, presso Zwierzyniec, nel Roztocze, potesse annunciare e difendere la verità.» — Aldona Ciborowska
+            </div>
+          </div>
+        </div>
+
+        <!-- Gli inizi / Le radici -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Gli inizi</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Le radici</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              La terra di Lublino e la giovinezza
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Don Tadeusz Guz proviene dal Roztocze — una terra dal carattere eccezionale, dove natura e storia si sono intrecciate in modo unico. Su questa terra si è formata la sua sensibilità, qui è radicato il suo pensiero su Polonia, Chiesa e uomo. Già da giovane sapeva che la filosofia sarebbe stata la sua vocazione:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Già allora sapevo di avere questa inclinazione filosofica.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Il cammino verso il sacerdozio passò attraverso anni di formazione, il cui frutto fu l'ordinazione sacerdotale nella cattedrale di Lublino. Questo momento coincise con uno degli eventi più importanti nella storia della Chiesa polacca — la morte martiriale del beato don Jerzy Popiełuszko:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Due mesi dopo la sua morte martiriale fui ordinato sacerdote nella cattedrale di Lublino.»
+          </div>
+        </div>
+
+        <!-- Il padre spirituale -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Il padre spirituale</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Il beato don Jerzy</h2>
+            <div class="ornament reveal" style="max-width:280px; margin:1.5rem auto; color:#C9A84C;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#C9A84C"><path d="M6 0l1.5 3.5L11 5 8.5 7.5l.5 3.5L6 9l-3 2 .5-3.5L1 5l3.5-1.5L6 0z" /></svg>
+            </div>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Il legame di don prof. Guz con la figura del beato don Jerzy Popiełuszko è profondo e multidimensionale. Da giovane vicario, portava a Żoliborz i giovani della terra di Lublino perché attingessero alla saggezza del sacerdote martire:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Ero già venuto qui molte volte in precedenza, quando negli anni Ottanta, ancora giovanissimo vicario, portavo qui i giovani della terra di Lublino a cercare la saggezza del beato don Jerzy.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            La morte di don Popiełuszko divenne per il giovane don Guz un momento di svolta — un istante in cui nacque la domanda su come continuare la sua missione sulla via della filosofia:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Poco prima della mia ordinazione sacerdotale potei seguire in televisione la trasmissione del suo funerale, e allora pensai: "Jerzy, la tua missione qui su questa terra è terminata, ma non nell'eternità. E poiché io ho questa inclinazione filosofica, penserò a come continuare la tua opera impareggiabile."»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Questo dialogo interiore con la figura del martire assunse col tempo una dimensione mistica. Don Guz racconta di un sogno che ancora oggi resta per lui un'esperienza viva e indelebile — un sogno in cui don Jerzy scendeva in bicicletta e, senza parole, consegnava lettere al giovane sacerdote. Questa immagine — di lettere affidate e ricevute — divenne per don Guz il simbolo della missione che si sentì in dovere di intraprendere. Confessò apertamente:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Se non fosse per te, beato don Jerzy, io non sarei qui.»
+          </div>
+        </div>
+
+        <!-- Sacerdozio -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Il servizio</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Sacerdozio</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Servizio senza contare le ferite
+            </p>
+          </div>
+
+          <div class="reveal" style="background:#1A1209; padding:clamp(2.5rem,6vw,4rem); text-align:center; position:relative; margin-bottom:2.5rem;">
+            <p style="font-family:'Inter',serif; font-size:0.7rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.55); margin-bottom:1.25rem;">
+              Spiritualità sacerdotale
+            </p>
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.05rem,2.4vw,1.25rem); color:rgba(245,237,216,0.88); line-height:1.85; margin:0 auto; max-width:640px;">
+              Parola Eterna, Figlio Unigenito di Dio, insegnami a servirti come Tu meriti: a dare senza calcolare, a combattere senza badare alle ferite, a lavorare senza cercare riposo, a offrirmi senza cercare ricompensa alcuna se non quella di sapere di fare la Tua Santissima Volontà. Amen. — Preghiera di sant'Ignazio di Loyola
+            </p>
+          </div>
+
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Il sacerdozio di don Guz ebbe inizio in un particolare contesto storico — nella Polonia degli anni Ottanta, in un'atmosfera di risveglio spirituale e nazionale. Servì come vicario a Rejowiec Fabryczny — cittadina, come dice egli stesso, «destinata alla completa comunistizzazione» — dove partecipò alla costruzione di una chiesa. In seguito passò come vicario a Chełm, dove prestò servizio presso la basilica sul Monte di Chełm.
+          </div>
+        </div>
+
+        <!-- Germany -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Il cammino del sapere</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Gli anni in Germania</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Filosofia e scienza
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Nel 1989 don prof. Guz si recò nella Repubblica Federale di Germania, dove trascorse quattordici anni — fino al 2003. Fu un periodo di studi filosofici intensi, culminati in un dottorato che divenne il fondamento della sua successiva attività scientifica. Fu proprio lì che si formò pienamente il suo metodo filosofico e il suo particolare interesse per le ideologie della modernità — comunismo, materialismo, ateismo — che fece oggetto delle sue ricerche pluriennali:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Mi occupo, tra l'altro, di trattati teorici su quelle ideologie che uccisero il corpo del beato don Jerzy.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Anche durante i quattordici anni trascorsi all'estero, don Guz non perse mai il legame con il luogo che considerava il centro spirituale della propria vita — la tomba del beato don Jerzy Popiełuszko a Żoliborz:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Quando fui per quattordici anni nella Repubblica Federale di Germania, dal 1989 al 2003, ogni volta che tornavo in patria, venivo sempre qui.»
+          </div>
+        </div>
+
+        <!-- Return -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">L'eredità</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Il ritorno in Polonia</h2>
+            <p class="reveal" style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.1rem,2.5vw,1.4rem); color:#7A6429; margin-top:0.5rem;">
+              Professore e maestro
+            </p>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Dopo il ritorno in patria, don prof. Guz intraprese l'attività accademica, diventando uno dei filosofi cattolici più riconosciuti in Polonia. Le sue lezioni, i programmi radiofonici e televisivi, nonché numerose pubblicazioni scientifiche, gli guadagnarono una vasta cerchia di ascoltatori e lettori. Descrive con precisione il campo del suo lavoro scientifico:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Il campo del sapere di cui mi occupo ormai da ventotto anni mi impone, come filosofo, di cercare le prime ragioni di ciò che è, cioè dell'intera realtà. Secondo Aristotele, l'uomo parla propriamente, cioè conformemente alla verità, della realtà indagata solo quando, nel cammino della conoscenza, giunge alle fonti.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Al centro dei suoi interessi scientifici sta il rapporto tra ragione e fede, tra filosofia classica e Rivelazione cristiana, tra verità e ideologia. Un posto speciale nelle sue ricerche occupa la Persona di Gesù Cristo — come la più duramente attaccata e al tempo stesso l'unica risposta alle domande che si pone la ragione umana:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Negli ultimi cinque secoli, la persona più attaccata tra tutte le persone divine, angeliche e umane è la Persona di Gesù di Nazaret. In tutte le ideologie, comunque si chiamino. Da quasi trent'anni ormai sono oggetto delle mie ricerche, e devo dire con piena responsabilità che nessuno, negli ultimi cinque secoli, è stato così vilipeso come il Signore Gesù.»
+          </div>
+        </div>
+
+        <!-- Il pensiero -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Il pensiero</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">La filosofia come difesa della verità</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Don prof. Guz coltiva la filosofia in un modo oggi poco di moda negli ambienti accademici — come ricerca della verità oggettiva, radicata nella tradizione classica greca e completata dalla Rivelazione cristiana. Non si sottrae, in ciò, dal formulare tesi che allo spirito del tempo odierno appaiono provocatorie:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «(...) l'università mette in discussione verità fondamentali (...), abbiamo perso, nella nostra razionalità, strutture intellettuali di base, come il principio di identità, di non contraddizione, di ragion sufficiente. (...) Abbiamo moltissimo lavoro sensato da compiere per consolidarci in un'identità sana — tanto nel senso naturale quanto in quello soprannaturale.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            La filosofia, nella sua comprensione, non è un gioco accademico di concetti — è questione di vita e di morte, di salvezza e di dannazione, di libertà e di schiavitù:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Ciò che accadrà al mondo dipende da ciò che gli uomini pensano. E dal fatto che sappiano amare come raccomanda san Paolo, oppure no.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Il suo scopo più profondo è condurre l'uomo a Dio — unica fonte della verità, del bene e della bellezza:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «(...) noi, esseri razionali, dobbiamo nutrirci costantemente di Dio, per approfondire sempre di nuovo la Sua Verità e le verità su noi stessi e sul mondo (...).»
+          </div>
+        </div>
+
+        <!-- La missione nation -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">La missione</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">La missionee verso la nazione e la Chiesa</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Don prof. Guz è un uomo profondamente radicato nella tradizione spirituale e nazionale polacca. Il patrono delle scienze della Repubblica — don Piotr Skarga — e il beato don Jerzy Popiełuszko sono per lui punti di riferimento, «grandi capitoli nella storia polacca». I suoi appelli ai polacchi sono sempre radicati in questa tradizione e rivolti al futuro:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «(...) come polacchi abbiamo una grande missione — salvare tutti. E poiché non sempre è possibile salvare tutti, allora salvare chi si può. Ma una cosa dovrebbe essere presente in tutti noi, e nel cattolico polacco in modo assoluto: cercare di salvare ogni uomo, senza alcuna eccezione.»
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Per don Guz, salvare l'uomo significa innanzitutto condurlo verso la verità — verso Dio, che ne è la fonte e il fine ultimo:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Si tratta del fatto che salvino le nostre anime. Esse infatti possono ragionare e agire egregiamente, crescere nelle virtù e sostenersi a vicenda. Possono amare. Tuttavia, sul cammino verso l'Eternità, verso il Dio Trino eternamente Amante nei Cieli, hanno bisogno di maestri. Hanno bisogno di maestri affinché ragione, volontà e memoria — le facoltà dello spirito — siano orientate a scoprire, portare e difendere la verità, il bene e la bellezza.»
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div style="margin-bottom:6rem;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Cronologia</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Cammino di vita e di pensiero</h2>
+          </div>
+          <div style="max-width:780px; margin:0 auto; position:relative;">
+            <div style="position:absolute; left:162px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4) 10%,rgba(201,168,76,0.4) 90%,transparent);"></div>
+            {timeline.map(item => (
+              <div class="reveal" style="display:grid; grid-template-columns: 150px 24px 1fr; margin-bottom:2rem; position:relative; align-items:start;">
+                <div style="font-family:'Playfair Display',serif; font-size:clamp(1rem,2.2vw,1.2rem); font-weight:700; color:#7A6429; text-align:right; padding-top:0.1rem; padding-right:20px; letter-spacing:0.03em; line-height:1.3; white-space:nowrap;">
+                  {item.year}
+                </div>
+                <div style="display:flex; justify-content:center; padding-top:6px;">
+                  <div style="width:16px; height:16px; border-radius:50%; background:#F5EDD8; border:2px solid #C9A84C; z-index:1; flex-shrink:0;"></div>
+                </div>
+                <div style="padding-top:0.1rem; padding-left:24px;">
+                  <p class="body-text" style="margin:0; font-size:1rem;">{item.event}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Unfinished conversations -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">Una voce nello spazio pubblico</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Conversazioni incompiute</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Uno dei frutti più importanti del ministero di don prof. Guz sono i programmi della serie «Conversazioni Incompiute» (Rozmowy Niedokończone), trasmessi su Radio Maryja e TV Trwam — migliaia di ore di conversazioni su filosofia, teologia, storia delle idee, diritto naturale, famiglia, Stato e cultura. Il loro titolo è programmatico — queste conversazioni sono incompiute perché la verità che annunciano non si esaurisce mai in un unico incontro:
+          </div>
+          <div class="reveal elegant-quote" style="margin-bottom:2rem;">
+            «Sono, in un certo senso, un assaggio delle conversazioni, lezioni e incontri incompiuti a cui speriamo di partecipare, di cui desideriamo godere ad Atene di Roztocze, per così, come dice il titolo del programma del 2017: andare e annunciare Gesù Cristo.»
+          </div>
+        </div>
+
+        <!-- Portrait of a man -->
+        <div style="margin-bottom:6rem; max-width:800px; margin-left:auto; margin-right:auto;">
+          <div style="text-align:center; margin-bottom:3rem;">
+            <p class="reveal section-label" style="margin-bottom:1rem;">La personalità</p>
+            <h2 class="reveal section-title" style="color:#1A1209;">Ritratto di un uomo</h2>
+          </div>
+          <div class="reveal body-text" style="margin-bottom:1.5rem;">
+            Don prof. Tadeusz Guz è un uomo il cui cammino di vita — da Roztocze, attraverso Chełm, la Germania e le università polacche, fino a Szozdy — è un cammino di ricerca e annuncio costante della verità. Aldona Ciborowska, che lo conosce da vicino, lo descrive come un «uomo mite», a cui Dio ha affidato una grande opera. La preghiera di sant'Ignazio, che scelse per il suo giubileo sacerdotale, è la migliore chiave per comprendere questo cammino: dare senza calcolare; combattere senza badare alle ferite; lavorare senza cercare riposo. E compiere — nonostante tutte le difficoltà, nonostante l'enormità del lavoro, nonostante la pietra arenaria postdiluviana da tagliare e posare — la Santissima Volontà di Dio.
+          </div>
+          <div class="reveal body-text">
+            Perché la missione dei cattolici e della Santa Chiesa — come dice Aldona Ciborowska — continua. E con essa continua il servizio di questo sacerdote-filosofo del Roztocze.
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</Layout>

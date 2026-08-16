@@ -23,7 +23,20 @@ const { Content } = await render(article);
 const { prev, next, cycleData } = getCycleNavigation(article, cycles);
 ---
 
-<Layout title={article.data.title} description={article.data.excerpt}>
+<Layout
+  title={article.data.title}
+  description={article.data.excerpt}
+  schemaType="article"
+  schema={{
+    datePublished: article.data.dateSortable,
+    publisher: article.data.source,
+    breadcrumbs: [
+      { name: 'Strona główna', url: 'https://atenyroztocza.pl/' },
+      { name: 'Publikacje', url: 'https://atenyroztocza.pl/multimedia/' },
+      { name: article.data.title, url: `https://atenyroztocza.pl/publikacje/${article.id.replace(/\.md$/, '')}/` },
+    ],
+  }}
+>
   <div class="page-transition">
 
     <!-- ── HERO ────────────────────────────────────────────── -->

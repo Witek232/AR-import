@@ -1,0 +1,14 @@
+# Ateny Roztocza — robots.txt
+# UWAGA: Cloudflare dokleja własny blok blokujący roboty AI (GPTBot, ClaudeBot).
+# Tego NIE da się zmienić z poziomu repozytorium — tylko w panelu Cloudflare.
+
+User-agent: *
+Allow: /
+
+Disallow: /cdn-cgi/
+
+# Parametry generują duplikaty tych samych list.
+Disallow: /*?tab=
+Disallow: /*?page=
+
+Sitemap: https://atenyroztocza.pl/sitemap-index.xml

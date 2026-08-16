@@ -9,6 +9,7 @@
     "sanity:import": "npx tsx scripts/importToSanity.ts"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
     "@sanity/client": "^6.24.1",

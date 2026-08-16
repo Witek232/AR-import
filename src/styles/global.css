@@ -630,11 +630,15 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 500;
+  z-index: 10000; /* ponad banerem cookies (9999) */
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, bottom 0.3s ease;
   backdrop-filter: blur(10px);
+}
+/* Gdy baner cookies jest widoczny, unieś przycisk nad jego obszar. */
+body.cookie-banner-open #back-to-top {
+  bottom: calc(clamp(1.25rem, 3vw, 2rem) + var(--cookie-banner-h, 190px));
 }
 #back-to-top.visible { opacity: 1; pointer-events: auto; }
 #back-to-top:hover {
