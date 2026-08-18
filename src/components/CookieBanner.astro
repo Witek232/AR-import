@@ -41,8 +41,15 @@ const privacyHref = localePath('/polityka-prywatnosci', lang);
     localStorage.setItem('cookie-consent', type);
     if (banner) banner.style.display = 'none';
     document.body.classList.remove('cookie-banner-open');
-    if (type === 'accepted') {
-      console.log('Cookies accepted: Analytics can be loaded.');
+    // Przekazanie decyzji użytkownika do Google Analytics (Consent Mode v2).
+    const granted = type === 'accepted' ? 'granted' : 'denied';
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        ad_storage: granted,
+        ad_user_data: granted,
+        ad_personalization: granted,
+        analytics_storage: granted,
+      });
     }
   }
 
