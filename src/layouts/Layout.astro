@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Schema, { type SchemaData } from '../components/Schema.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import { getLangFromUrl, useTranslations, TRANSLATED_PATHS } from '../i18n/utils';
 import { langPrefix, defaultLang, type Lang } from '../i18n/ui';
 
@@ -135,6 +136,9 @@ const fullTitle = title.includes('Ateny Roztocza') ? title : `${title} | Ateny R
 
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Statystyki Google (ładowane zgodnie ze zgodą użytkownika) -->
+    <GoogleAnalytics />
+
     <!-- Dane strukturalne schema.org -->
     <Schema
       type={schemaType}
