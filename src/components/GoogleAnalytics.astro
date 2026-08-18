@@ -1,0 +1,51 @@
+---
+/**
+ * GoogleAnalytics.astro — Google Analytics 4 z trybem zgody (Consent Mode v2).
+ *
+ * JAK TO DZIAŁA (ważne dla zgodności z RODO):
+ *  1. Skrypt Google ładuje się od razu, ale z ustawieniem "denied" —
+ *     czyli NIE zapisuje żadnych plików cookie ani identyfikatorów.
+ *  2. Dopiero po kliknięciu „Akceptuję wszystkie" w banerze zgoda
+ *     zmienia się na "granted" i pomiar rusza w pełni.
+ *  3. Kto kliknie „Tylko niezbędne", pozostaje przy "denied" — Google
+ *     otrzyma wtedy wyłącznie anonimowy sygnał bez cookies.
+ *
+ * Dzięki temu strona nie łamie RODO, a jednocześnie statystyki
+ * są kompletniejsze niż przy całkowitym blokowaniu skryptu.
+ */
+const GA_ID = 'G-KNFJ6FW8JV';
+---
+
+<!-- Google Analytics 4 (Consent Mode v2) -->
+<script is:inline define:vars={{ GA_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  // 1) DOMYŚLNIE: brak zgody — żadnych cookies przed decyzją użytkownika.
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  });
+
+  // 2) Powracający użytkownik, który wcześniej wyraził zgodę.
+  try {
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
+      });
+    }
+  } catch (e) { /* tryb prywatny może blokować localStorage */ }
+
+  gtag('js', new Date());
+  gtag('config', GA_ID, { anonymize_ip: true });
+</script>
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
