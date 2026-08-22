@@ -1,12 +1,161 @@
 # Cloudflare Pages — przekierowania
-# Kolejność ma znaczenie: pierwsza pasująca reguła wygrywa.
+# Kolejność: pierwsza pasująca reguła wygrywa.
+# Źródło na podstawie GSC 2026-08-22 (697 × 404).
 
-# 1) Kanonizacja hosta www → apex. Bez tego Google widzi dwie kopie serwisu.
+# ===========================================================================
+# 1) Host
+# ===========================================================================
 https://www.atenyroztocza.pl/*    https://atenyroztocza.pl/:splat    301!
 
-# 2) Sekcja /publikacje nie ma strony zbiorczej — kierujemy na listę publikacji.
+# ===========================================================================
+# 2) Wyjątki 1:1 — stary slug jest SKRÓTEM nowego (musi być NAD regułą :slug)
+# ===========================================================================
+/multimedia/materialy-audiowizualne/rok-2018/2018-01-18-prudnik  /multimedia/2018/2018-01-18-prudnik-co-w-sensie-chrzescijanskim-znaczy-rozdzial-wladzy-koscielnej-od-panstwowej/  301
+/multimedia/materialy-audiowizualne/rok-2018/2018-07-01-jasna-gora-sluzba-bogu-i-ojczyznie  /multimedia/2018/2018-07-01-jasna-gora-sluzba-bogu-i-ojczyznie-szczytowa-postawa-racjonalnosci-czlowieka/  301
+
+# Pojedyncze nagrania zindeksowane BEZ prefiksu /multimedia/rok/
+/2022-07-01-gietrzwald-pokuta-2033-stacja-iv-spotkanie-z-matka  /multimedia/2022/2022-07-01-gietrzwald-pokuta-2033-stacja-iv-spotkanie-z-matka/  301
+/2015-06-13-boleslawiec-malzenstwo-i-rodzina-w-swietle-ostatniego-synodu-biskupow-w-rzymie  /multimedia/2015/2015-06-13-boleslawiec-malzenstwo-i-rodzina-w-swietle-ostatniego-synodu-biskupow-w-rzymie/  301
+/2015-10-03-krasnobrod-rozaniec-w-nauczaniu-i-zyciu-sw-jana-pawla-ii  /multimedia/2015/2015-10-03-krasnobrod-rozaniec-w-nauczaniu-i-zyciu-sw-jana-pawla-ii/  301
+/2024-10-16-tylko-tutaj-ratunek-dla-polski-ks-prof-tadeusz-guz  /multimedia/2024/2024-10-16-tylko-tutaj-ratunek-dla-polski-ks-prof-tadeusz-guz/  301
+/component/content/article/2022-06-12-homilia-w-uroczystosc-najswietszej-trojcy-w-radecznicy  /multimedia/  301
+
+# Slugi 2026 ze spacjami (tak są w sitemapie i w GSC)
+/multimedia/2026/2026-04-25\ srem\ -\ gietrzwald-duchowa\ odpowiedz\ na\ kryzys\ cywilizacji  /multimedia/2026/2026-04-25%20srem%20-%20gietrzwald-duchowa%20odpowiedz%20na%20kryzys%20cywilizacji/  301
+/multimedia/2026/2026-06-26\ suliszewo\ -\ czy\ jezus\ chrystus\ jest\ krolem\ polski  /multimedia/2026/2026-06-26%20suliszewo%20-%20czy%20jezus%20chrystus%20jest%20krolem%20polski/  301
+/en/multimedia/2026/2026-06-26\ suliszewo\ -\ czy  /multimedia/2026/2026-06-26%20suliszewo%20-%20czy%20jezus%20chrystus%20jest%20krolem%20polski/  301
+/de/multimedia/2026/2026-06-26\ suliszewo\ -\ czy  /multimedia/2026/2026-06-26%20suliszewo%20-%20czy%20jezus%20chrystus%20jest%20krolem%20polski/  301
+/es/multimedia/2026/2026-06-26\ suliszewo\ -\ czy  /multimedia/2026/2026-06-26%20suliszewo%20-%20czy%20jezus%20chrystus%20jest%20krolem%20polski/  301
+/it/multimedia/2026/2026-06-26\ suliszewo\ -\ czy  /multimedia/2026/2026-06-26%20suliszewo%20-%20czy%20jezus%20chrystus%20jest%20krolem%20polski/  301
+/en/multimedia/2026/2026-04-25\ srem\ -\   /multimedia/2026/2026-04-25%20srem%20-%20gietrzwald-duchowa%20odpowiedz%20na%20kryzys%20cywilizacji/  301
+/de/multimedia/2026/2026-04-25\ srem\ -\   /multimedia/2026/2026-04-25%20srem%20-%20gietrzwald-duchowa%20odpowiedz%20na%20kryzys%20cywilizacji/  301
+/es/multimedia/2026/2026-04-25\ srem\ -\   /multimedia/2026/2026-04-25%20srem%20-%20gietrzwald-duchowa%20odpowiedz%20na%20kryzys%20cywilizacji/  301
+/it/multimedia/2026/2026-04-25\ srem\ -\   /multimedia/2026/2026-04-25%20srem%20-%20gietrzwald-duchowa%20odpowiedz%20na%20kryzys%20cywilizacji/  301
+
+# ===========================================================================
+# 3) Błędne linki względne: …/polityka-prywatnosci i …/polityka-cookies
+#    (~230 URL-i w GSC — stopka linkowała relatywnie zamiast /polityka-…)
+# ===========================================================================
+/multimedia/:year/:slug/polityka-prywatnosci   /polityka-prywatnosci/   301
+/multimedia/:year/:slug/polityka-cookies       /polityka-cookies/       301
+/multimedia/:year/polityka-prywatnosci         /polityka-prywatnosci/   301
+/multimedia/:year/polityka-cookies             /polityka-cookies/       301
+/multimedia/polityka-prywatnosci               /polityka-prywatnosci/   301
+/multimedia/polityka-cookies                   /polityka-cookies/       301
+/cykle/:slug/polityka-prywatnosci              /polityka-prywatnosci/   301
+/cykle/:slug/polityka-cookies                  /polityka-cookies/       301
+/wydarzenia/polityka-prywatnosci               /polityka-prywatnosci/   301
+/wydarzenia/polityka-cookies                   /polityka-cookies/       301
+/:page/polityka-prywatnosci                    /polityka-prywatnosci/   301
+/:page/polityka-cookies                        /polityka-cookies/       301
+/polityka-cookies/polityka-prywatnosci         /polityka-prywatnosci/   301
+/polityka-prywatnosci/polityka-cookies         /polityka-cookies/       301
+/pliki-cookies                                 /polityka-cookies/       301
+
+# Tłumaczeń polityk nie ma — kanon PL
+/en/polityka-prywatnosci    /polityka-prywatnosci/   301
+/en/polityka-cookies        /polityka-cookies/       301
+/de/polityka-prywatnosci    /polityka-prywatnosci/   301
+/de/polityka-cookies        /polityka-cookies/       301
+/es/polityka-prywatnosci    /polityka-prywatnosci/   301
+/es/polityka-cookies        /polityka-cookies/       301
+/it/polityka-prywatnosci    /polityka-prywatnosci/   301
+/it/polityka-cookies        /polityka-cookies/       301
+
+# ===========================================================================
+# 4) Stary Joomla — nagrania
+#    /multimedia/materialy-audiowizualne/rok-2018/SLUG  →  /multimedia/2018/SLUG/
+# ===========================================================================
+/multimedia/materialy-audiowizualne/rok-:year/:slug   /multimedia/:year/:slug/   301
+/multimedia/materialy-audiowizualne/rok-:year         /multimedia/:year/         301
+/multimedia/materialy-audiowizualne/*                 /multimedia/               301
+/multimedia/materialy-audiowizualne                   /multimedia/               301
+
+# ===========================================================================
+# 5) Stary Joomla — publikacje (ostatni segment = nowy slug)
+# ===========================================================================
+/multimedia/publikacje/artykuly-w-naszym-dzienniku/sumienie-w-nauczaniu-sw-jana-pawla-ii/*  /cykle/sumienie-w-nauczaniu-sw-jana-pawla-ii/  301
+/multimedia/publikacje/artykuly-w-naszym-dzienniku/*   /publikacje/:splat   301
+/multimedia/publikacje/artykuly-w-niedzieli/*          /publikacje/:splat   301
+/multimedia/publikacje/wypowiedzi-z-radia-maryja/*     /publikacje/:splat   301
+/multimedia/publikacje/inne/*                          /publikacje/:splat   301
+/multimedia/publikacje/inne-publikacje/*               /publikacje/:splat   301
+/multimedia/publikacje/*                               /publikacje/:splat   301
+/multimedia/publikacje                                 /multimedia/?tab=nasz-dziennik   301
+/multimedia/publikacje/                                /multimedia/?tab=nasz-dziennik   301
+
+# Brak strony zbiorczej /publikacje — lista w multimedia.
+# NIE używać /publikacje/*  — zabiłoby istniejące artykuły.
 /publikacje                       /multimedia/?tab=nasz-dziennik     301
 /publikacje/                      /multimedia/?tab=nasz-dziennik     301
 
-# 3) Częsty, ręcznie wpisywany adres mapy strony.
+# ===========================================================================
+# 6) Języki: pojedyncze nagrania/artykuły NIE mają tłumaczeń → wersja PL
+# ===========================================================================
+/en/multimedia/*     /multimedia/:splat     301
+/de/multimedia/*     /multimedia/:splat     301
+/es/multimedia/*     /multimedia/:splat     301
+/it/multimedia/*     /multimedia/:splat     301
+/en/publikacje/*     /publikacje/:splat     301
+/de/publikacje/*     /publikacje/:splat     301
+/es/publikacje/*     /publikacje/:splat     301
+/it/publikacje/*     /publikacje/:splat     301
+/en/cykle/*          /cykle/:splat          301
+/de/cykle/*          /cykle/:splat          301
+/es/cykle/*          /cykle/:splat          301
+/it/cykle/*          /cykle/:splat          301
+/en/wydarzenia/*     /wydarzenia/:splat     301
+/de/wydarzenia/*     /wydarzenia/:splat     301
+/es/wydarzenia/*     /wydarzenia/:splat     301
+/it/wydarzenia/*     /wydarzenia/:splat     301
+/en/wydarzenia       /wydarzenia/           301
+/de/wydarzenia       /wydarzenia/           301
+/es/wydarzenia       /wydarzenia/           301
+/it/wydarzenia       /wydarzenia/           301
+
+/en/contact          /kontakt/              301
+/es/contacto-es      /kontakt/              301
+/en/athens-of-roztocze     /en/             301
+/es/atenas-de-roztocze     /es/             301
+/it/latene-di-roztocze     /it/             301
+
+# Stary prefiks /pl/ (domyślny język jest bez prefiksu)
+/pl/*                /:splat                301
+/pl                  /                      301
+/pl/                 /                      301
+
+# ===========================================================================
+# 7) Wydarzenia — stary katalog /wydarzenia/wydarzenia-2025/…
+# ===========================================================================
+/wydarzenia/wydarzenia-2025/2025-08-16-bohaterowie-polskiego-panstwa-podziemnego-jan-pospieszalski  /wydarzenia/2025-08-16-pospieszalski-polskie-panstwo-podziemne/  301
+/wydarzenia/2025-08-16-zaproszenie-na-spotkanie-z-janem-pospieszalskim  /wydarzenia/2025-08-16-pospieszalski-polskie-panstwo-podziemne/  301
+/wydarzenia/wydarzenia-2025/2025-05-01-szozdy-matka-najswietsza-jako-krolowa-w-swietle-dokumentu-ad-caeli-reginam  /multimedia/2025/2025-05-01-szozdy-matka-najswietsza-jako-krolowa-w-swietle-dokumentu-ad-caeli-reginam/  301
+/wydarzenia/wydarzenia-2025/2025-04-18-uroczystosc-poswiecenia-polskiego-sztandaru-narodowego  /wydarzenia/2025-04-18-uroczystosc-poswiecenia-polskiego-sztandaru-narodowego/  301
+/wydarzenia/2025-09-04-warszawa-amicus-zaproszenie-na-spotkanie-autorskie-z-ks-prof-tadeuszem-guzem  /multimedia/2025/2025-09-04-warszawa-amicus-ks-prof-t-guz-promocja-vii-tomu-rozmow-niedokonczonych/  301
+/wydarzenia/wydarzenia-2025   /wydarzenia/   301
+/wydarzenia/wydarzenia-2025/  /wydarzenia/   301
+
+# ===========================================================================
+# 8) Stare kategorie Joomla + porzucone strony
+# ===========================================================================
+/allcategories-pl-pl/*          /                      301
+/en/allcategories-en-gb/*       /en/                   301
+/de/allcategories-de-de/*       /de/                   301
+/es/allcategories-es-es/*       /es/                   301
+/it/allcategories-it-it/*       /it/                   301
+/allcategories-pl-pl            /                      301
+
+/home-pl-pl/jak-powstaja-ateny-roztocza   /multimedia/   301
+/home-pl-pl/*                             /:splat        301
+/home-pl-pl                               /              301
+/jak-powstaja-ateny-roztocza              /multimedia/   301
+/o-projekcie                              /#o-projekcie  301
+/filary                                   /#filary       301
+/galeria/ateny-rozbudowuja-sie-i-pieknieja   /galeria/   301
+/galeria/regina-poloniae-w-atenach-roztocza  /galeria/   301
+/index.php                                /              301
+
+# ===========================================================================
+# 9) Sitemap
+# ===========================================================================
 /sitemap.xml                      /sitemap-index.xml                 301
