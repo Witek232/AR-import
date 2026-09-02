@@ -154,8 +154,6 @@ https://www.atenyroztocza.pl/*    https://atenyroztocza.pl/:splat    301!
 /galeria/ateny-rozbudowuja-sie-i-pieknieja   /galeria/   301
 /galeria/regina-poloniae-w-atenach-roztocza  /galeria/   301
 /index.php                                /              301
-/?view=*          /     301
-/?layout=*        /     301
 
 # ===========================================================================
 # 9) Sitemap
